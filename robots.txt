@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow:
+
+Sitemap: https://jason-kingx.github.io/safe-camp/sitemap.xml
