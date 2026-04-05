@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="description" content="Tools for marketing leaders from Safe Camp — practical resources for making smarter, data-informed decisions without needing a data science background.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+<link rel="canonical" href="https://jason-kingx.github.io/safe-camp/tools.html">
+<title>Tools — Safe Camp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon-black.svg" media="(prefers-color-scheme: light)">
+<link rel="icon" href="favicon-white.svg" media="(prefers-color-scheme: dark)">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+
+.tools-outer {
+  width: 100%;
+  padding: 96px 48px;
+}
+
+.tools-inner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.tools-inner h1 {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.tools-intro {
+  font-size: 15px;
+  color: var(--mid);
+  line-height: 1.8;
+  margin-bottom: 0;
+  max-width: 560px;
+}
+
+.tools-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 48px 0;
+  border: none;
+}
+
+/* Tool listing */
+.tool-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.tool-item {
+  display: block;
+  text-decoration: none;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+  transition: opacity 0.15s;
+}
+.tool-item:first-child { border-top: 1px solid var(--line); }
+.tool-item:hover { opacity: 0.7; }
+
+.tool-item-tag {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mid);
+  margin: 0 0 8px;
+}
+
+.tool-item-title {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 8px;
+  line-height: 1.25;
+}
+
+.tool-item-desc {
+  font-size: 14px;
+  color: var(--mid);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.tool-item-arrow {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 13px;
+  color: var(--mid);
+  transition: transform 0.15s;
+}
+.tool-item:hover .tool-item-arrow { transform: translateX(3px); }
+
+@media (max-width: 768px) {
+  .tools-outer { padding: 64px 24px; }
+}
+</style>
+</head>
+<body>
+
+<noscript><p style="position:fixed;bottom:0;left:0;right:0;background:var(--nav-bg);color:var(--ink);text-align:center;padding:12px 24px;font-size:13px;letter-spacing:0.06em;z-index:999;margin:0;">JavaScript is disabled in your browser. Some features on this site require JavaScript to function.</p></noscript>
+
+<nav role="navigation" aria-label="Main navigation">
+  <a href="index.html" class="nav-brand" style="text-decoration:none;">Safe Camp</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="tools.html">Tools</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+    <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode"><span class="toggle-label">Light</span></button></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main>
+  <div class="tools-outer">
+    <div class="tools-inner">
+
+      <p class="section-eyebrow" aria-hidden="true">Tools</p>
+      <h1>Tools for Marketing Leaders</h1>
+      <p class="tools-intro">Practical resources built to help you make smarter, more defensible decisions — without needing a data science background.</p>
+
+      <hr class="tools-divider">
+
+      <div class="tool-list">
+
+        <a href="tools/social-card-previewer.html" class="tool-item">
+          <p class="tool-item-tag">Checker</p>
+          <p class="tool-item-title">Social Media Open Graph Checker <span class="tool-item-arrow">→</span></p>
+          <p class="tool-item-desc">Paste any URL — or your page's HTML — and see exactly how the link preview will appear on X, LinkedIn, Facebook, Slack, Discord, iMessage, Pinterest, and Reddit. Includes a full tag audit that tells you what's wrong and how to fix it, in plain language.</p>
+        </a>
+
+        <a href="tools/statistical-significance-calculator.html" class="tool-item">
+          <p class="tool-item-tag">Calculator</p>
+          <p class="tool-item-title">Statistical Significance Calculator <span class="tool-item-arrow">→</span></p>
+          <p class="tool-item-desc">Enter the results from any two-version test — ads, organic posts, campaigns, press release headlines, sentiment before and after a crisis response — and find out whether the difference is real or just random chance. Includes a sample size estimator so you know how much data you need before you start.</p>
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>&copy; 2026 Safe Camp &mdash; All rights reserved. &mdash; Jason King &mdash; Social Media Strategy &mdash; <a href="privacy.html" class="footer-link" style="color:inherit;text-decoration:none;">Privacy</a></footer>
+
+<script>
+(function(){
+  var html  = document.documentElement;
+  var saved = localStorage.getItem('theme');
+  if (saved === 'dark') {
+    html.setAttribute('data-theme','dark');
+  } else if (saved === 'light') {
+    html.removeAttribute('data-theme');
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    html.setAttribute('data-theme','dark');
+  }
+  window.addEventListener('DOMContentLoaded', function(){
+    var btn   = document.getElementById('themeToggle');
+    var label = btn.querySelector('.toggle-label');
+    function updateLabel(){
+      label.textContent = html.getAttribute('data-theme') === 'dark' ? 'Dark' : 'Light';
+    }
+    updateLabel();
+    btn.addEventListener('click', function(){
+      var isDark = html.getAttribute('data-theme') === 'dark';
+      if (isDark){ html.removeAttribute('data-theme'); localStorage.setItem('theme','light'); }
+      else       { html.setAttribute('data-theme','dark'); localStorage.setItem('theme','dark'); }
+      updateLabel();
+    });
+  });
+})();
+
+(function(){
+  window.addEventListener('DOMContentLoaded', function(){
+    var btn = document.getElementById('hamburger');
+    var nav = document.getElementById('navLinks');
+    btn.addEventListener('click', function(){
+      var open = nav.classList.toggle('nav-open');
+      btn.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    nav.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        nav.classList.remove('nav-open');
+        btn.classList.remove('is-open');
+        btn.setAttribute('aria-expanded','false');
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

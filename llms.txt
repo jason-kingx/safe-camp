@@ -1,0 +1,51 @@
+# Safe Camp
+
+> Social media strategy consultancy founded by Jason King. 15 years of experience partnering with 100+ brands across biotech, pharma, CPG, financial services, and nonprofit sectors.
+
+Safe Camp helps brands and marketing leaders build structured social media systems — called Social Media Playbooks — that tie business objectives to every social action. The work spans strategy, content, advertising, community management, crisis preparation, and AI integration.
+
+## Who Jason King Is
+
+Jason King is an independent social media strategist based in the United States. He works freelance, fractional, or as an independent partner — however an engagement is best structured. His background spans agency, in-house, and startup roles.
+
+Past clients include: Pfizer, Bayer, Boehringer Ingelheim, Daiichi Sankyo, Lundbeck US, Sandoz, Amicus Therapeutics, ARS Pharmaceuticals, Editas Medicine, Evofem Biosciences, Intarcia Therapeutics, Visby Medical, Alcon, P&G, SC Johnson, Glade, Hanna Andersson, Jack's Pizza, BMO Harris Bank, Braintree, Huntington Bank, Jenius Bank, Mission Lane, Venmo, Comic Relief USA, The ALS Association, Education For Employment, Kidsrights, One Earth, Theirworld.
+
+## Services
+
+**Social Media Playbook** — A complete social media system covering:
+- Foundations: role of social, business priorities, objectives and measurement, budget, risk/legal/compliance, audience definition, channel strategy
+- Customer Care: operations, team structure, community management, customer servicing, social listening, crisis preparation and response scenarios
+- Content: owned assets, UGC, influencer and partner strategy, employer brand, executive presence, employee advocacy, social selling
+- Social by Design: accessibility, brand guidelines, editorial style guide, Figma dynamic elements, social post templates, integrated marketing, media optimization
+- Social Advertising: audience targeting, retargeting, budget allocation, pixel strategy, A/B testing, brand and conversion lift, conversion optimization
+- AI, Automation, and Security
+
+Available as individual components or as a complete system. Starts at $8,000.
+
+**Consulting Call** — 30-minute or 1-hour sessions for immediate answers. $75–$150.
+
+**Custom Projects** — Strategy, advertising, or retainer engagements. Pricing determined by scope.
+
+## Free Tools
+
+**Statistical Significance Calculator** — A browser-based tool for testing whether A/B test results, ad experiments, or campaign comparisons are statistically meaningful or just noise. Uses a two-proportion z-test. Includes a sample size estimator.
+
+URL: https://jason-kingx.github.io/safe-camp/tools/statistical-significance-calculator.html
+
+**Social Media Open Graph Checker** — A browser-based tool for previewing how any URL appears as a link card on X, LinkedIn, Facebook, Slack, Discord, iMessage, Pinterest, and Reddit. Includes a full tag-by-tag audit with plain-language fix guidance, fallback chain display, a recommended HTML snippet to hand to a developer, and platform-specific cache-busting instructions.
+
+URL: https://jason-kingx.github.io/safe-camp/tools/social-card-previewer.html
+
+## Contact & Links
+
+- Website: https://jason-kingx.github.io/safe-camp/
+- LinkedIn: https://www.linkedin.com/in/jasonkingx/
+- Book a call: https://cal.com/safecamp
+- Contact form: available on the website homepage
+
+## Site Pages
+
+- Homepage: https://jason-kingx.github.io/safe-camp/
+- Tools: https://jason-kingx.github.io/safe-camp/tools.html
+- Statistical Significance Calculator: https://jason-kingx.github.io/safe-camp/tools/statistical-significance-calculator.html
+- Privacy Policy: https://jason-kingx.github.io/safe-camp/privacy.html
