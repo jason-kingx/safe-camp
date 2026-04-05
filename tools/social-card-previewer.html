@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="description" content="Free social media Open Graph checker for marketing leaders. Preview how any URL appears as a link card on X, LinkedIn, Facebook, Slack, Discord, and more. Get a full audit of every OG tag.">
+<meta property="og:title" content="Social Media Open Graph Checker — Safe Camp">
+<meta property="og:description" content="See exactly how any link will appear on X, LinkedIn, Facebook, Slack, Discord, and more. Full tag audit with plain-language fix guidance.">
+<meta property="og:image" content="https://jason-kingx.github.io/safe-camp/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Safe Camp — Social Media Open Graph Checker tool for marketing leaders">
+<meta property="og:url" content="https://jason-kingx.github.io/safe-camp/tools/social-card-previewer.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Safe Camp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Social Media Open Graph Checker — Safe Camp">
+<meta name="twitter:description" content="See exactly how any link will appear on X, LinkedIn, Facebook, Slack, and more. Includes a full tag audit with plain-language fix guidance.">
+<meta name="twitter:image" content="https://jason-kingx.github.io/safe-camp/images/og-image.png">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src * data:; connect-src https://api.allorigins.win;">
+<link rel="canonical" href="https://jason-kingx.github.io/safe-camp/tools/social-card-previewer.html">
+<title>Social Media Open Graph Checker — Safe Camp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="../favicon-black.svg" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../favicon-white.svg" media="(prefers-color-scheme: dark)">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+.page-outer{width:100%;padding:96px 48px;}
+.page-inner{max-width:680px;margin:0 auto;}
+.page-inner h1{font-family:'EB Garamond',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:400;line-height:1.15;margin-bottom:28px;}
+.page-inner h2{font-family:'EB Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--ink);margin-top:48px;margin-bottom:14px;}
+.page-prose h3{font-size:15px;font-weight:500;color:var(--ink);margin-top:24px;margin-bottom:8px;}
+.page-prose p{font-size:15px;color:var(--mid);line-height:1.8;margin-bottom:14px;}
+.page-prose ul{padding-left:20px;margin-bottom:16px;}
+.page-prose li{font-size:15px;color:var(--mid);line-height:1.75;margin-bottom:8px;}
+.page-prose li strong{color:var(--ink);}
+.page-prose em{color:var(--mid);}
+.page-divider{height:1px;background:var(--line);margin:48px 0;border:none;}
+.tool-card{background:var(--surface,rgba(128,128,128,0.05));border:1px solid var(--line);border-radius:12px;padding:28px;margin:40px 0;}
+.tool-eyebrow{font-size:11px;font-weight:400;text-transform:uppercase;letter-spacing:0.1em;color:var(--mid);margin:0 0 20px;line-height:1;}
+
+/* Input tabs */
+.input-tabs{display:flex;gap:0;margin-bottom:20px;border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+.input-tab{flex:1;padding:9px 14px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;letter-spacing:0.06em;text-transform:uppercase;background:none;border:none;color:var(--mid);cursor:pointer;transition:background 0.15s,color 0.15s;}
+.input-tab:first-child{border-right:1px solid var(--line);}
+.input-tab.active{background:var(--ink);color:var(--bg);}
+.input-panel{display:none;}
+.input-panel.active{display:block;}
+
+/* URL input */
+.url-row{display:flex;gap:10px;align-items:stretch;}
+.url-input{flex:1;font-family:'DM Sans',sans-serif;font-size:15px;background:var(--bg);color:var(--ink);border:1.5px solid var(--line);border-radius:8px;padding:10px 14px;outline:none;transition:border-color 0.15s;}
+.url-input:focus{border-color:var(--ink);}
+.url-input.is-error{border-color:var(--error,#dc2626);}
+.check-btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;background:var(--ink);color:var(--bg);border:none;border-radius:8px;padding:10px 20px;cursor:pointer;white-space:nowrap;transition:opacity 0.15s;}
+.check-btn:hover{opacity:0.82;}
+.check-btn:disabled{opacity:0.4;cursor:not-allowed;}
+.proxy-note{font-size:12px;color:var(--mid);margin-top:8px;line-height:1.5;}
+.proxy-note a{color:var(--accent);text-decoration:none;}
+
+/* HTML textarea */
+.html-instructions{font-size:13px;color:var(--mid);line-height:1.65;margin-bottom:10px;padding:12px 14px;background:var(--accent-light,rgba(74,124,142,0.08));border-radius:6px;}
+.html-instructions strong{color:var(--ink);}
+.html-instructions kbd{font-family:'DM Sans',sans-serif;font-size:12px;background:var(--line);border-radius:3px;padding:1px 5px;}
+.html-textarea{width:100%;height:180px;resize:vertical;overflow-y:auto;font-family:'DM Sans',sans-serif;font-size:13px;background:var(--bg);color:var(--ink);border:1.5px solid var(--line);border-radius:8px;padding:10px 14px;outline:none;transition:border-color 0.15s;line-height:1.5;display:block;}
+.html-textarea:focus{border-color:var(--ink);}
+
+/* Loading */
+.loading-state{display:none;align-items:center;gap:10px;font-size:14px;color:var(--mid);margin-top:20px;}
+.loading-state.show{display:flex;}
+.spinner{width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--ink);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* Error banner */
+.error-banner{display:none;background:color-mix(in srgb,#dc2626 8%,transparent);border:1px solid color-mix(in srgb,#dc2626 25%,transparent);border-radius:8px;padding:12px 16px;font-size:14px;color:var(--ink);line-height:1.6;margin-top:16px;}
+.error-banner.show{display:block;}
+.error-banner strong{color:#b91c1c;}
+[data-theme=dark] .error-banner strong{color:#f87171;}
+
+/* Privacy note */
+.privacy-note{font-size:12px;color:var(--mid);text-align:center;margin:16px 0 0;opacity:0.7;}
+
+/* Results */
+#results{display:none;margin-top:28px;}
+#results.show{display:block;}
+.results-divider{height:1px;background:var(--line);margin:24px 0;border:none;}
+
+/* Platform groups */
+.platform-group{margin-bottom:28px;}
+.platform-group-label{font-size:11px;font-weight:400;text-transform:uppercase;letter-spacing:0.1em;color:var(--mid);margin:0 0 14px;}
+.cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+/* Generic card shell */
+.pc{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg);font-family:'DM Sans',sans-serif;}
+.pc-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.09em;color:var(--mid);padding:8px 12px 0;display:flex;align-items:center;gap:5px;}
+.pc-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+/* Image wrapper */
+.pc-img-wrap{width:100%;overflow:hidden;background:var(--line);position:relative;}
+.pc-img-wrap.ratio-191{padding-top:52.36%;}
+.pc-img-wrap.ratio-21{padding-top:50%;}
+.pc-img-wrap.ratio-sq{padding-top:100%;}
+.pc-img-wrap.ratio-23{padding-top:150%;}
+.pc-img-wrap.ratio-sm{padding-top:45%;}
+.pc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.pc-img-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--mid);opacity:0.6;}
+.no-img-state{background:color-mix(in srgb,var(--line) 60%,transparent);display:flex;align-items:center;justify-content:center;padding:20px;font-size:11px;color:var(--mid);}
+
+/* Text areas inside cards */
+.pc-body{padding:10px 12px 12px;}
+.pc-domain{font-size:11px;color:var(--mid);margin:0 0 3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pc-title{font-size:13px;font-weight:500;color:var(--ink);margin:0 0 3px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.pc-desc{font-size:12px;color:var(--mid);margin:0;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+
+/* X-specific */
+.pc-x .pc-img-wrap{border-radius:0;}
+.pc-x-meta{font-size:11px;color:var(--mid);margin:5px 0 0;}
+/* X summary (small image) */
+.pc-x-summary{display:flex;gap:0;align-items:stretch;}
+.pc-x-summary .pc-img-side{width:72px;flex-shrink:0;overflow:hidden;background:var(--line);position:relative;}
+.pc-x-summary .pc-img-side img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.pc-x-summary .pc-body{flex:1;}
+
+/* LinkedIn */
+.pc-li .pc-domain{font-size:12px;}
+
+/* Facebook */
+.pc-fb .pc-body{background:color-mix(in srgb,var(--line) 40%,transparent);}
+.pc-fb .pc-domain{text-transform:uppercase;font-size:10px;letter-spacing:0.04em;}
+
+/* Slack */
+.pc-slack{border-left:4px solid #4CAF50;}
+.pc-slack .pc-body{padding:10px 12px;}
+.pc-slack .pc-sitename{font-size:11px;font-weight:500;color:#4CAF50;margin:0 0 2px;}
+.pc-slack-img{padding:8px 12px 0;}
+.pc-slack-img .pc-img-wrap{border-radius:4px;}
+
+/* iMessage */
+.pc-im{background:color-mix(in srgb,var(--line) 30%,transparent);}
+.pc-im-row{display:flex;gap:0;align-items:stretch;}
+.pc-im-img{width:60px;flex-shrink:0;overflow:hidden;background:var(--line);position:relative;}
+.pc-im-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.pc-im-body{flex:1;padding:8px 10px;}
+.pc-im-body .pc-title{font-size:12px;}
+.pc-im-body .pc-domain{font-size:10px;}
+
+/* Discord */
+.pc-discord{background:#2b2d31;border-color:#1e1f22;}
+.pc-discord .pc-label{color:#a0a2a7;}
+.pc-discord .pc-body{background:#2b2d31;}
+.pc-discord .pc-title{color:#e0e1e5;}
+.pc-discord .pc-desc{color:#a0a2a7;}
+.pc-discord .pc-domain{color:var(--accent);}
+.pc-discord .pc-img-wrap{margin:4px 12px 10px;}
+.pc-discord-bar{border-left:4px solid var(--accent);margin:0;padding:0;}
+
+/* Pinterest */
+.pc-pin .pc-body{padding:8px 10px 10px;}
+.pc-pin .pc-title{font-size:12px;}
+
+/* Reddit */
+.pc-reddit{display:flex;gap:0;align-items:stretch;}
+.pc-reddit .pc-img-side{width:80px;flex-shrink:0;overflow:hidden;background:var(--line);position:relative;}
+.pc-reddit .pc-img-side img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.pc-reddit .pc-body{flex:1;}
+.pc-reddit-meta{font-size:10px;color:var(--mid);margin-top:3px;}
+
+/* WhatsApp audit row */
+.whatsapp-audit-row{border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;}
+.wa-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.wa-text{flex:1;}
+.wa-label{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:4px;}
+.wa-findings{font-size:12px;color:var(--mid);line-height:1.6;}
+
+/* Audit */
+.audit-section{margin-top:8px;}
+.audit-heading{font-size:13px;font-weight:500;color:var(--ink);margin:0 0 12px;}
+.audit-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);}
+.audit-item:last-child{border-bottom:none;}
+.audit-badge{flex-shrink:0;width:64px;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;padding:3px 7px;border-radius:4px;text-align:center;margin-top:2px;}
+.badge-pass{background:color-mix(in srgb,#16a34a 12%,transparent);color:#15803d;}
+.badge-warn{background:color-mix(in srgb,#d97706 12%,transparent);color:#92400e;}
+.badge-fix{background:color-mix(in srgb,#dc2626 12%,transparent);color:#b91c1c;}
+.badge-info{background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);}
+[data-theme=dark] .badge-pass{color:#4ade80;}
+[data-theme=dark] .badge-warn{color:#fbbf24;}
+[data-theme=dark] .badge-fix{color:#f87171;}
+.audit-content{flex:1;}
+.audit-tag{font-size:12px;font-weight:500;color:var(--ink);font-family:'DM Sans',sans-serif;margin:0 0 2px;}
+.audit-value{font-size:12px;color:var(--mid);margin:0 0 4px;font-family:monospace;word-break:break-all;}
+.audit-explain{font-size:13px;color:var(--mid);line-height:1.55;margin:0 0 4px;}
+.audit-action{font-size:13px;color:var(--ink);line-height:1.55;margin:0;}
+.audit-action strong{font-weight:500;}
+
+/* Fallback chain */
+.fallback-table{width:100%;border-collapse:collapse;font-size:13px;}
+.fallback-table th{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--mid);padding:6px 10px;text-align:left;border-bottom:1px solid var(--line);}
+.fallback-table td{padding:8px 10px;border-bottom:1px solid var(--line);color:var(--mid);vertical-align:top;}
+.fallback-table tr:last-child td{border-bottom:none;}
+.fallback-source{font-weight:500;color:var(--ink);}
+.fallback-value{color:var(--accent);font-family:monospace;font-size:12px;}
+.fallback-missing{color:var(--mid);opacity:0.6;}
+
+/* Raw tags */
+.raw-tags-table{width:100%;border-collapse:collapse;font-size:12px;}
+.raw-tags-table td{padding:6px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+.raw-tags-table tr:last-child td{border-bottom:none;}
+.raw-tag-name{font-family:monospace;color:var(--ink);font-size:12px;white-space:nowrap;width:40%;}
+.raw-tag-val{color:var(--mid);word-break:break-all;}
+.raw-tag-val a{color:var(--accent);text-decoration:none;}
+
+/* Copy HTML */
+.copy-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.06em;text-transform:uppercase;background:none;border:1px solid var(--line);border-radius:6px;color:var(--ink);cursor:pointer;padding:8px 16px;transition:border-color 0.15s,opacity 0.15s;}
+.copy-btn:hover{border-color:var(--ink);}
+.copy-confirm{font-size:12px;color:var(--accent);margin-left:10px;opacity:0;transition:opacity 0.3s;}
+.copy-confirm.show{opacity:1;}
+
+/* Cache collapsible */
+.cache-toggle{width:100%;text-align:left;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);padding:0;display:flex;align-items:center;justify-content:space-between;}
+.cache-toggle .chevron{font-size:10px;transition:transform 0.2s;color:var(--mid);}
+.cache-details[open] .chevron{transform:rotate(90deg);}
+.cache-details summary{list-style:none;}
+.cache-details summary::-webkit-details-marker{display:none;}
+.cache-body{margin-top:12px;}
+.cache-item{margin-bottom:12px;}
+.cache-platform{font-size:13px;font-weight:500;color:var(--ink);margin:0 0 3px;}
+.cache-instruction{font-size:13px;color:var(--mid);line-height:1.6;margin:0;}
+.cache-instruction a{color:var(--accent);}
+
+/* FAQ accordion */
+.faq-group{margin-bottom:32px;}
+.faq-group-title{font-family:'EB Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--ink);margin:0 0 4px;}
+.faq-item{border-bottom:1px solid var(--line);}
+.faq-item:first-of-type{border-top:1px solid var(--line);}
+.faq-item summary{list-style:none;cursor:pointer;padding:14px 0;display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:400;color:var(--ink);line-height:1.4;user-select:none;}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-chevron{font-size:10px;color:var(--mid);flex-shrink:0;margin-left:12px;transition:transform 0.2s;}
+.faq-item[open] .faq-chevron{transform:rotate(90deg);}
+.faq-answer{padding:0 0 16px;font-size:15px;color:var(--mid);line-height:1.8;}
+.faq-answer p{margin-bottom:10px;}
+.faq-answer p:last-child{margin-bottom:0;}
+.faq-answer a{color:var(--accent);}
+.faq-answer code{font-family:monospace;font-size:13px;background:var(--line);padding:1px 5px;border-radius:3px;}.faq-answer kbd{font-family:'DM Sans',sans-serif;font-size:12px;background:var(--line);border:1px solid var(--on-alt-faint,rgba(28,28,26,0.35));border-radius:4px;padding:2px 6px;box-shadow:0 1px 0 var(--on-alt-faint,rgba(28,28,26,0.25));white-space:nowrap;}
+
+/* Collapsible sections within results */
+.result-section-head{font-size:13px;font-weight:500;color:var(--ink);margin:0 0 12px;display:flex;align-items:center;gap:8px;}
+.section-count{font-size:11px;font-weight:400;color:var(--mid);}
+
+@media(max-width:600px){
+  .page-outer{padding:64px 24px;}
+  .cards-grid{grid-template-columns:1fr;}
+  .url-row{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<noscript><p style="position:fixed;bottom:0;left:0;right:0;background:var(--nav-bg);color:var(--ink);text-align:center;padding:12px 24px;font-size:13px;letter-spacing:0.06em;z-index:999;margin:0;">JavaScript is disabled in your browser. Some features on this site require JavaScript to function.</p></noscript>
+
+<nav role="navigation" aria-label="Main navigation">
+  <a href="../index.html" class="nav-brand" style="text-decoration:none;">Safe Camp</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../index.html#services">Services</a></li>
+    <li><a href="../index.html#contact">Contact</a></li>
+    <li><a href="../tools.html">Tools</a></li>
+    <li><a href="../privacy.html">Privacy</a></li>
+    <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode"><span class="toggle-label">Light</span></button></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main>
+<div class="page-outer">
+<div class="page-inner">
+
+<p class="section-eyebrow" aria-hidden="true">Tools</p>
+<h1>Social Media Open Graph Checker</h1>
+
+<div class="page-prose">
+  <p>When a link gets shared in a Slack channel, a LinkedIn post, a text message, or a tweet, a preview card appears — sometimes called a link preview, thumbnail image, or social share card. Whether that card shows a sharp image, a compelling headline, and a clean description — or a blank box with just a URL — is determined entirely by a handful of HTML tags most marketers never see.</p>
+  <p>This tool reads those tags, shows you exactly what each major platform will display, and tells you what's wrong and what to fix — in plain language — before your campaign, press release, or product launch goes out.</p>
+</div>
+
+<hr class="page-divider">
+
+<div class="page-prose">
+  <h2>When to use this tool</h2>
+  <ul>
+    <li>Before publishing any page you plan to share on social media</li>
+    <li>Before a campaign launch, product announcement, or press release goes live</li>
+    <li>When a client or colleague reports that a shared link "looks broken"</li>
+    <li>When a page has been updated and you want to confirm the preview reflects the new content</li>
+    <li>When testing a page that isn't publicly live yet — use the Paste HTML method</li>
+    <li>When you want to verify that your agency or developer implemented OG tags correctly</li>
+  </ul>
+
+  <h2>When not to use this tool</h2>
+  <ul>
+    <li><strong>Pages behind a login or authentication wall</strong> — use the Paste HTML method instead</li>
+    <li><strong>As a final guarantee</strong> — platform rendering changes. This tool models current behavior but test on the actual platform before a high-stakes launch</li>
+    <li><strong>For structured data (JSON-LD)</strong> — that's a separate standard; use Google's Rich Results Test for that</li>
+    <li><strong>Pages that use JavaScript to inject meta tags</strong> — crawlers (including this tool in URL mode) don't execute JavaScript. Use Paste HTML with your page's rendered source</li>
+  </ul>
+</div>
+
+<hr class="page-divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  THE TOOL                                      -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="tool-card" role="region" aria-label="Social Media Open Graph Checker">
+  <p class="tool-eyebrow">Social Media Open Graph Checker</p>
+
+  <div class="input-tabs" role="tablist">
+    <button class="input-tab active" id="tab-url" role="tab" aria-selected="true" aria-controls="panel-url" onclick="switchTab('url')">Check a URL</button>
+    <button class="input-tab" id="tab-html" role="tab" aria-selected="false" aria-controls="panel-html" onclick="switchTab('html')">Paste HTML</button>
+  </div>
+
+  <div class="input-panel active" id="panel-url" role="tabpanel">
+    <div class="url-row">
+      <input type="url" id="urlInput" class="url-input" placeholder="https://yoursite.com/page" autocomplete="off" autocorrect="off" spellcheck="false">
+      <button class="check-btn" id="checkUrlBtn" onclick="checkUrl()">Check</button>
+    </div>
+    <p class="proxy-note">Your URL is sent to a third-party proxy service to fetch the page source. Nothing is stored by this tool. For pages not publicly accessible, use the <button style="background:none;border:none;padding:0;color:var(--accent);cursor:pointer;font-size:12px;" onclick="switchTab('html')">Paste HTML method</button> instead.</p>
+  </div>
+
+  <div class="input-panel" id="panel-html" role="tabpanel">
+    <div class="html-instructions">
+      <strong>How to get your HTML:</strong> Open the page in your browser and press <kbd>Ctrl+U</kbd> (Windows) or <kbd>Cmd+Option+U</kbd> (Mac) to view source. Copy everything between <code>&lt;head&gt;</code> and <code>&lt;/head&gt;</code> and paste it below.<br><br>
+      <strong>Why use this method:</strong> This reads your current live tags directly — not a cached version from a previous crawl. It also works for pages that aren't publicly accessible yet, such as staging environments or draft pages.
+    </div>
+    <textarea class="html-textarea" id="htmlInput" placeholder="Paste your &lt;head&gt; HTML here…" spellcheck="false"></textarea>
+    <div style="margin-top:10px;text-align:right;">
+      <button class="check-btn" onclick="checkHtml()">Check Tags</button>
+    </div>
+  </div>
+
+  <div class="loading-state" id="loadingState">
+    <div class="spinner"></div>
+    <span id="loadingMsg">Fetching page…</span>
+  </div>
+
+  <div class="error-banner" id="errorBanner"></div>
+
+  <div id="results">
+
+    <!-- Platform previews -->
+    <div class="results-divider"></div>
+    <p class="result-section-head">Platform previews</p>
+    <p id="imgNote" style="font-size:13px;color:var(--mid);margin-bottom:16px;display:none;">Images in the preview cards below may not load due to hotlink protection or CORS restrictions on the source server. This does not affect your audit results — the tag analysis above is accurate regardless.</p>
+
+    <!-- Social feeds -->
+    <div class="platform-group">
+      <p class="platform-group-label">Social feeds</p>
+      <div class="cards-grid" id="grid-social"></div>
+    </div>
+
+    <!-- Work tools -->
+    <div class="platform-group">
+      <p class="platform-group-label">Work tools</p>
+      <div class="cards-grid" id="grid-work"></div>
+    </div>
+
+    <!-- Messaging -->
+    <div class="platform-group">
+      <p class="platform-group-label">Messaging</p>
+      <div class="cards-grid" id="grid-msg"></div>
+    </div>
+
+    <!-- Discovery -->
+    <div class="platform-group">
+      <p class="platform-group-label">Discovery</p>
+      <div class="cards-grid" id="grid-disc"></div>
+    </div>
+
+    <!-- Tag audit -->
+    <div class="results-divider"></div>
+    <p class="result-section-head">Tag audit <span class="section-count" id="auditSummary"></span></p>
+    <div class="audit-section" id="auditList"></div>
+
+    <!-- Fallback chain -->
+    <div class="results-divider"></div>
+    <p class="result-section-head">X (Twitter) fallback chain</p>
+    <p style="font-size:13px;color:var(--mid);margin-bottom:12px;">When Twitter Card tags are absent, X falls back to Open Graph tags, then to standard HTML tags. This shows exactly what X will use for this page.</p>
+    <table class="fallback-table" id="fallbackTable"></table>
+
+    <!-- Raw tags -->
+    <div class="results-divider"></div>
+    <p class="result-section-head">All tags found <span class="section-count" id="rawCount"></span></p>
+    <table class="raw-tags-table" id="rawTable"></table>
+
+    <!-- Copy HTML -->
+    <div class="results-divider"></div>
+    <p class="result-section-head">Recommended tag snippet</p>
+    <p style="font-size:13px;color:var(--mid);margin-bottom:12px;">A complete set of recommended Open Graph and Twitter Card tags based on what was found. Commented placeholders indicate tags that are missing or need correction. Copy this and hand it to your developer.</p>
+    <div>
+      <button class="copy-btn" onclick="copyHTML()">Copy as HTML</button>
+      <span class="copy-confirm" id="copyConfirm">Copied to clipboard</span>
+    </div>
+
+    <!-- Cache-busting -->
+    <div class="results-divider"></div>
+    <details class="cache-details">
+      <summary class="cache-toggle">
+        <span style="font-size:13px;font-weight:500;color:var(--ink);">Next steps: forcing platforms to re-fetch your tags</span>
+        <span class="chevron">▶</span>
+      </summary>
+      <div class="cache-body">
+        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">After updating your tags, platforms may still show an old cached preview. Here's how to force each one to re-crawl your page.</p>
+        <div class="cache-item"><p class="cache-platform">Facebook</p><p class="cache-instruction">Use the <a href="https://developers.facebook.com/tools/debug/" target="_blank" rel="noopener noreferrer">Sharing Debugger</a> (login required). Enter your URL and click "Scrape Again." Facebook's cache can persist for days without this.</p></div>
+        <div class="cache-item"><p class="cache-platform">LinkedIn</p><p class="cache-instruction">Use the <a href="https://www.linkedin.com/post-inspector/" target="_blank" rel="noopener noreferrer">Post Inspector</a> (login required). Enter your URL and click "Inspect" to trigger a fresh crawl.</p></div>
+        <div class="cache-item"><p class="cache-platform">X (Twitter)</p><p class="cache-instruction">X removed its Card Validator tool. The only reliable way to force a cache refresh is to share the URL in a new post — X re-fetches on each new share. Appending a query string (e.g. <code>?v=2</code>) to the URL also forces a fresh fetch.</p></div>
+        <div class="cache-item"><p class="cache-platform">Slack</p><p class="cache-instruction">Slack caches aggressively. Append a query string to your URL (e.g. <code>?v=2</code>) to make it appear as a new URL to Slack's crawler. Note this changes the URL, so use with care on links already in circulation.</p></div>
+        <div class="cache-item"><p class="cache-platform">Discord</p><p class="cache-instruction">Discord re-fetches automatically after a short period. Changing the <code>og:image</code> URL (e.g. renaming the image file) forces an immediate update.</p></div>
+        <div class="cache-item"><p class="cache-platform">Pinterest &amp; Reddit</p><p class="cache-instruction">Both re-crawl when a URL is newly pinned or posted. Old previews on existing pins or posts may not update without re-pinning or re-posting.</p></div>
+      </div>
+    </details>
+
+  </div><!-- /results -->
+
+  <p class="privacy-note">URLs and HTML pasted here are not stored, logged, or transmitted by this tool. URL mode uses a third-party proxy to fetch page source; that proxy receives your URL but not any other data from this tool.</p>
+</div><!-- /tool-card -->
+
+<hr class="page-divider">
+
+<div class="page-prose">
+  <h2>How to read your results</h2>
+
+  <h3>The platform previews</h3>
+  <p>Each card mockup shows what that platform will actually display when someone shares your URL. They're grouped by context: Social feeds (X, LinkedIn, Facebook), Work tools (Slack), Messaging (iMessage, Discord), and Discovery (Pinterest, Reddit). If no image renders in a card, that means no <code>og:image</code> tag was found — the card shows the text-only state that platform would display.</p>
+
+  <h3>The audit</h3>
+  <p>The audit checks every important tag and flags each one as Pass, Warning, or Fix Needed. A Warning means something is present but has a potential issue — a title that may truncate, dimensions that weren't declared. Fix Needed means something is missing or wrong in a way that will break the preview on one or more platforms. Every finding includes a plain-English explanation and a specific action to take.</p>
+
+  <h3>The fallback chain</h3>
+  <p>X (Twitter) has its own tag format — Twitter Cards — but falls back to Open Graph tags when those aren't present. The fallback chain table shows exactly what X will use for your title, description, and image, tracing through twitter:title → og:title → &lt;title&gt; for each field. This matters because X and LinkedIn may end up showing different content if your Twitter Card tags differ from your OG tags.</p>
+
+  <h3>Pass vs. Warning vs. Fix Needed</h3>
+  <p>Pass means the tag is present and valid. Warning means the tag works but has an issue worth knowing about before sharing widely. Fix Needed means the tag is absent, malformed, or configured in a way that will cause the preview to fail on at least one platform. Fix Needed items should be addressed before any link goes out in a campaign or press release.</p>
+</div>
+
+<hr class="page-divider">
+
+<!-- FAQ -->
+<h2>Frequently asked questions</h2>
+
+<div class="faq-group">
+  <p class="faq-group-title">Understanding Open Graph</p>
+
+  <details class="faq-item">
+    <summary>What are Open Graph tags? <span class="faq-chevron">▶</span></summary>
+    <div class="faq-answer"><p>Open Graph is a protocol originally developed by Meta (Facebook) that lets you control how your page appears when shared on social media. You add a handful of <code>&lt;meta&gt;</code> tags inside the <code>&lt;head&gt;</code> section of your HTML, and platforms read those tags to generate a link preview card. Almost every platform that shows link previews — Facebook, LinkedIn, WhatsApp, Slack, Discord, iMessage — uses Open Graph. X (formerly Twitter) has its own tag format called Twitter Cards, but falls back to Open Graph if Twitter-specific tags are absent.</p></div>
+  </details>
+
+  <details class="faq-item">
+    <summary>What's the difference between og:title and twitter:title? <span class="faq-chevron">▶</span></summary>
+    <div class="faq-answer"><p><code>og:title</code> is used by most platforms. <code>twitter:title</code> overrides <code>og:title</code> specifically on X. If you set both, X uses <code>twitter:title</code> and everyone else uses <code>og:title</code>. If you only set <code>og:title</code>, X falls back to it. Most implementations set both to the same value unless they want different copy specifically for X — for example, X has a 70-character title limit, while other platforms allow more.</p></div>
+  </details>
+
+  <details class="faq-item">
+    <summary>What is twitter:card and why does it matter? <span class="faq-chevron">▶</span></summary>
+    <div class="faq-answer"><p><code>twitter:card</code> is the tag that tells X which type of preview card to use. The most important value is <code>summary_large_image</code>, which displays a large image across the full width of the card. Without this tag, X defaults to <code>summary</code>, which shows a small square thumbnail to the left of the text — much less visually impactful. Importantly, the tag still uses the <code>twitter:</code> prefix even though the platform is now called X. Using <code>x:card</code> does not work.</p></div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Do Open Graph tags help with SEO? <span class="faq-chevron">▶</span></summary>
+    <div class="faq-answer"><p>Directly, no — search engines don't use OG tags to determine rankings. Indirectly, yes — well-optimized previews lead to higher click-through rates when your links are shared, which drives traffic and potential backlinks, both of which do influence search performance over time. Some search engines also display OG images as thumbnails in rich results, so having a strong OG image can improve how your content appears in search.</p></div>
+  </details>
+</div>
+
+<div class="faq-group">
+  <p class="faq-group-title">Image requirements</p>
+
+  <details class="faq-item">
+    <summary>Why is my image not showing? <span class="faq-chevron">▶</span></summary>
+    <div class="faq-answer">
+      <p>The most common causes:</p>
+      <p><strong>Relative URL</strong> — your image URL starts with <code>/</code> instead of <code>https://</code>. Crawlers require absolute URLs.</p>
+      <p><strong>HTTP instead of HTTPS</strong> — Discord, Slack, and several other platforms refuse to display HTTP images. Always use HTTPS.</p>
+      <p><strong>Unsupported format</strong> — SVG, AVIF, and WebP are not reliably supported by all platform crawlers. Use PNG or JPEG.</p>
+      <p><strong>Image too small</strong> — LinkedIn requires at least 200×200px to show any preview. Facebook shows a small thumbnail instead of a large card if the image is under 600×315px.</p>
+      <p><strong>File too large</strong> — WhatsApp has a hard 300 KB limit. Facebook can theoretically accept up to 8 MB, but large files delay preview rendering.</p>
+      <p>The audit section of this tool will identify which of these applies to your tags.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>What image size should I use for social sharing? <span class="faq-chevron">▶</span></summary>
+    <div class="faq-answer"><p>The universal recommendation is <strong>1200×630 pixels</strong> at a 1.91:1 aspect ratio. This works across Facebook, LinkedIn, Slack, Discord, iMessage, and most other platforms. For X specifically, 1200×600 (2:1) is technically ideal, but 1200×630 renders fine with minimal cropping. Pinterest prefers a taller 2:3 ratio (e.g. 1000×1500), but a standard 1.91:1 image will still work — it just may appear letterboxed. Keep key content (text, logos) centered and away from the edges, as several platforms crop slightly on different devices. Use PNG for graphics with text or logos, JPEG for photographs. Keep file size under 200 KB where possible; WhatsApp enforces a hard 300 KB limit.</p></div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Should I declare og:image:width and og:image:height? <span class="faq-chevron">▶</span></summary>
+    <div class="faq-answer"><p>Yes. When you declare the image dimensions, Facebook doesn't need to fetch the image asynchronously before showing the preview — which means the preview appears correctly on the very first share. Without dimensions, Facebook may show a blank card or a spinning loader on first share, and then show the correct preview only after it has fetched and cached the image. The tags are simple: <code>&lt;meta property="og:image:width" content="1200" /&gt;</code> and <code>&lt;meta property="og:image:height" content="630" /&gt;</code>.</p></div>
+  </details>
+</div>
+
+<div class="faq-group">
+  <p class="faq-group-title">Platform-specific</p>
+
+  <details class="faq-item">
+    <summary>Why does my page look fine on Facebook but broken on LinkedIn? <span class="faq-chevron">▶</span></summary>
+    <div class="faq-answer"><p>LinkedIn is stricter about image dimensions and has specific minimum size requirements (200×200px minimum). It also ignores Twitter Card tags entirely and only reads Open Graph tags. If your implementation relies on Twitter-specific tags and doesn't have the OG equivalents, LinkedIn may fail while X works fine. LinkedIn also sometimes has a delay in picking up updated tags — use the <a href="https://www.linkedin.com/post-inspector/" target="_blank" rel="noopener noreferrer">LinkedIn Post Inspector</a> to force a re-crawl.</p></div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Why does Slack sometimes not show a preview at all? <span class="faq-chevron">▶</span></summary>
+    <div class="faq-answer"><p>Two common reasons. First, Slack caches link previews aggressively — once it has fetched a URL, it may serve that cached version for a long time even after you update your tags. To force Slack to re-fetch, append a query string to the URL (e.g. <code>?v=2</code>). Second, Slack requires HTTPS image URLs. If your <code>og:image</code> points to an HTTP URL, Slack won't display it.</p></div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Does WhatsApp use Open Graph tags? <span class="faq-chevron">▶</span></summary>
+    <div class="faq-answer"><p>Yes, WhatsApp reads OG tags for link previews in chats. The most important constraint is a <strong>300 KB hard file size limit</strong> on OG images — if your image exceeds this, WhatsApp will not display it, even if the tags are correct. WhatsApp also requires absolute HTTPS image URLs. Because WhatsApp's rendering varies significantly by device and app version, this tool audits your tags against WhatsApp's requirements but does not show a simulated WhatsApp preview card.</p></div>
+  </details>
+</div>
+
+<div class="faq-group">
+  <p class="faq-group-title">Using this tool</p>
+
+  <details class="faq-item">
+    <summary>Why does the preview look different on the actual platform vs. here? <span class="faq-chevron">▶</span></summary>
+    <div class="faq-answer"><p>Two common reasons. First, platforms cache the preview for a URL — if you've updated your tags recently, the platform may still be serving the old cached version. Facebook's Sharing Debugger and LinkedIn's Post Inspector both have a function to force a re-crawl. Second, platform rendering evolves — card layouts, truncation lengths, and image crop behavior change with platform updates. This tool reflects behavior as of its last update but real platforms are the final test.</p></div>
+  </details>
+
+  <details class="faq-item">
+    <summary>What is the Paste HTML method and when should I use it? <span class="faq-chevron">▶</span></summary>
+    <div class="faq-answer"><p>Instead of entering a URL, you can copy the HTML source of your page (press <kbd>Ctrl+U</kbd> or <kbd>Cmd+Option+U</kbd> in your browser, then copy the content between <code>&lt;head&gt;</code> and <code>&lt;/head&gt;</code>) and paste it directly into the tool. This method works for any page — including ones that aren't publicly live yet, staging environments, or pages that block automated crawlers. It also guarantees you're checking your actual current tags rather than a version your browser cached. Use it whenever the URL method fails or when you're working with a page that isn't public.</p></div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Does this tool store the URLs or HTML I enter? <span class="faq-chevron">▶</span></summary>
+    <div class="faq-answer"><p>No. When using the Paste HTML method, all processing happens entirely in your browser — nothing is sent anywhere. When using URL mode, your URL is sent to a third-party CORS proxy service to fetch the page source. This tool does not store URLs, pasted HTML, or any images that appear in the preview cards.</p></div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Why isn't my URL working in the tool? <span class="faq-chevron">▶</span></summary>
+    <div class="faq-answer"><p>A few possible reasons: the page may be behind authentication or a login wall (use Paste HTML instead), the page may block automated crawlers, the proxy service may be temporarily unavailable, or the URL may not yet be publicly accessible. The tool will display a specific error message explaining what happened. If URL mode fails, the Paste HTML method will work for any page you can open in your own browser.</p></div>
+  </details>
+</div>
+
+</div><!-- /page-inner -->
+</div><!-- /page-outer -->
+</main>
+
+<footer>&copy; 2026 Safe Camp &mdash; All rights reserved. &mdash; Jason King &mdash; Social Media Strategy &mdash; <a href="../privacy.html" class="footer-link" style="color:inherit;text-decoration:none;">Privacy</a></footer>
+
+<script>
+// ── Theme ─────────────────────────────────────────────────────
+(function(){
+  var html=document.documentElement,saved=localStorage.getItem('theme');
+  if(saved==='dark')html.setAttribute('data-theme','dark');
+  else if(saved==='light')html.removeAttribute('data-theme');
+  else if(window.matchMedia('(prefers-color-scheme: dark)').matches)html.setAttribute('data-theme','dark');
+  window.addEventListener('DOMContentLoaded',function(){
+    var btn=document.getElementById('themeToggle'),label=btn.querySelector('.toggle-label');
+    function upd(){label.textContent=html.getAttribute('data-theme')==='dark'?'Dark':'Light';}
+    upd();
+    btn.addEventListener('click',function(){
+      var d=html.getAttribute('data-theme')==='dark';
+      d?html.removeAttribute('data-theme'):html.setAttribute('data-theme','dark');
+      d?localStorage.setItem('theme','light'):localStorage.setItem('theme','dark');
+      upd();
+    });
+  });
+})();
+
+// ── Hamburger ─────────────────────────────────────────────────
+(function(){
+  window.addEventListener('DOMContentLoaded',function(){
+    var btn=document.getElementById('hamburger'),nav=document.getElementById('navLinks');
+    btn.addEventListener('click',function(){
+      var open=nav.classList.toggle('nav-open');
+      btn.classList.toggle('is-open',open);
+      btn.setAttribute('aria-expanded',String(open));
+    });
+    nav.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){
+        nav.classList.remove('nav-open');btn.classList.remove('is-open');btn.setAttribute('aria-expanded','false');
+      });
+    });
+  });
+})();
+
+// ── Tab switching ─────────────────────────────────────────────
+function switchTab(t){
+  document.querySelectorAll('.input-tab,.input-panel').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  document.getElementById('panel-'+t).classList.add('active');
+  document.getElementById('tab-'+t).setAttribute('aria-selected','true');
+  document.getElementById('tab-'+(t==='url'?'html':'url')).setAttribute('aria-selected','false');
+  clearResults();
+}
+
+function clearResults(){
+  document.getElementById('results').classList.remove('show');
+  document.getElementById('errorBanner').classList.remove('show');
+  document.getElementById('urlInput')?.classList.remove('is-error');
+}
+
+function setLoading(show,msg){
+  var l=document.getElementById('loadingState');
+  l.classList.toggle('show',show);
+  if(msg)document.getElementById('loadingMsg').textContent=msg;
+}
+
+function showError(html){
+  var b=document.getElementById('errorBanner');
+  b.innerHTML=html;b.classList.add('show');
+  document.getElementById('results').classList.remove('show');
+}
+
+// ── URL check ─────────────────────────────────────────────────
+async function checkUrl(){
+  var url=document.getElementById('urlInput').value.trim();
+  if(!url){document.getElementById('urlInput').classList.add('is-error');return;}
+  if(!/^https?:\/\/.+/.test(url)){
+    document.getElementById('urlInput').classList.add('is-error');
+    showError('<strong>Invalid URL.</strong> Please enter a full URL including https://');return;
+  }
+  clearResults();
+  document.getElementById('checkUrlBtn').disabled=true;
+  setLoading(true,'Fetching page…');
+  try{
+    var proxy='https://api.allorigins.win/get?url='+encodeURIComponent(url);
+    var res=await fetch(proxy);
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    var data=await res.json();
+    if(!data.contents){throw new Error('Empty response');}
+    setLoading(false);
+    var httpCode=data.status?.http_code;
+    if(httpCode&&httpCode>=400){
+      showError('<strong>Page returned HTTP '+httpCode+'.</strong> The URL may be behind authentication or not publicly accessible. Try the <button style="background:none;border:none;color:var(--accent);cursor:pointer;padding:0;font-size:14px;" onclick="switchTab(\'html\')">Paste HTML method</button> instead.');
+      return;
+    }
+    processHTML(data.contents, url);
+  }catch(e){
+    setLoading(false);
+    showError('<strong>Could not fetch that URL.</strong> This may be because the page is behind authentication, the proxy is temporarily unavailable, or the page blocks automated access. Try the <button style="background:none;border:none;color:var(--accent);cursor:pointer;padding:0;font-size:14px;" onclick="switchTab(\'html\')">Paste HTML method</button> instead.');
+  }finally{
+    document.getElementById('checkUrlBtn').disabled=false;
+  }
+}
+
+// ── HTML check ────────────────────────────────────────────────
+function checkHtml(){
+  var html=document.getElementById('htmlInput').value.trim();
+  if(!html){return;}
+  clearResults();
+  processHTML(html, '');
+}
+
+// ── Enter key on URL input ────────────────────────────────────
+document.addEventListener('DOMContentLoaded',function(){
+  document.getElementById('urlInput').addEventListener('keydown',function(e){
+    if(e.key==='Enter')checkUrl();
+  });
+});
+
+// ── Core processor ────────────────────────────────────────────
+function processHTML(html, sourceUrl){
+  var parser=new DOMParser();
+  var doc=parser.parseFromString(html,'text/html');
+
+  var tags=extractTags(doc);
+  var dupes=findDuplicates(doc);
+  var resolved=resolvePlatform(tags, sourceUrl);
+  var domain=getDomain(tags.ogUrl||sourceUrl);
+
+  renderPreviews(resolved, domain, tags);
+  document.getElementById('imgNote').style.display = 'block';
+  var findings=runAudit(tags, dupes, sourceUrl);
+  renderAudit(findings);
+  renderFallback(tags);
+  renderRawTags(tags);
+  window._lastTags=tags;window._lastFindings=findings;
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ── Extract tags ──────────────────────────────────────────────
+function extractTags(doc){
+  function og(p){return doc.querySelector('meta[property="'+p+'"]')?.getAttribute('content')||'';}
+  function tw(n){return doc.querySelector('meta[name="'+n+'"]')?.getAttribute('content')||'';}
+  function twOrProp(n){
+    return doc.querySelector('meta[name="'+n+'"]')?.getAttribute('content')||
+           doc.querySelector('meta[property="'+n+'"]')?.getAttribute('content')||'';
+  }
+  return{
+    ogTitle:og('og:title'), ogDesc:og('og:description'), ogImage:og('og:image'),
+    ogImageW:og('og:image:width'), ogImageH:og('og:image:height'),
+    ogImageAlt:og('og:image:alt'), ogImageType:og('og:image:type'),
+    ogUrl:og('og:url'), ogType:og('og:type'), ogSiteName:og('og:site_name'), ogLocale:og('og:locale'),
+    twCard:twOrProp('twitter:card'), twTitle:twOrProp('twitter:title'),
+    twDesc:twOrProp('twitter:description'), twImage:twOrProp('twitter:image'),
+    twImageAlt:twOrProp('twitter:image:alt'), twSite:twOrProp('twitter:site'),
+    twCreator:twOrProp('twitter:creator'),
+    pageTitle:doc.querySelector('title')?.textContent?.trim()||'',
+    metaDesc:tw('description'), canonical:doc.querySelector('link[rel="canonical"]')?.getAttribute('href')||'',
+    // raw check for twitter:card attribute type
+    twCardAttrOk: !!doc.querySelector('meta[name="twitter:card"]'),
+    twCardAttrBad: !doc.querySelector('meta[name="twitter:card"]')&&!!doc.querySelector('meta[property="twitter:card"]'),
+  };
+}
+
+function findDuplicates(doc){
+  var counts={},vals={};
+  doc.querySelectorAll('meta').forEach(function(m){
+    var k=m.getAttribute('property')||m.getAttribute('name');
+    if(!k)return;
+    if(k.startsWith('og:')||k.startsWith('twitter:')){
+      counts[k]=(counts[k]||0)+1;
+      if(!vals[k])vals[k]=[];
+      vals[k].push(m.getAttribute('content')||'');
+    }
+  });
+  var dupes={};
+  Object.keys(counts).forEach(function(k){if(counts[k]>1)dupes[k]=vals[k];});
+  return dupes;
+}
+
+function getDomain(url){
+  try{return new URL(url).hostname;}catch(e){return '';}
+}
+
+// ── Resolve platform values ───────────────────────────────────
+function resolvePlatform(t, sourceUrl){
+  var domain=getDomain(t.ogUrl||sourceUrl);
+  return{
+    domain: domain,
+    x:{
+      title:t.twTitle||t.ogTitle||t.pageTitle,
+      desc:t.twDesc||t.ogDesc||t.metaDesc,
+      image:t.twImage||t.ogImage,
+      card:(t.twCard||'summary').toLowerCase(),
+    },
+    linkedin:{title:t.ogTitle||t.pageTitle, desc:t.ogDesc||t.metaDesc, image:t.ogImage},
+    facebook:{title:t.ogTitle||t.pageTitle, desc:t.ogDesc||t.metaDesc, image:t.ogImage},
+    slack:{title:t.ogTitle||t.pageTitle, desc:t.ogDesc||t.metaDesc, image:t.ogImage, siteName:t.ogSiteName||domain},
+    imessage:{title:t.ogTitle||t.pageTitle, image:t.ogImage},
+    discord:{title:t.ogTitle||t.pageTitle, desc:t.ogDesc||t.metaDesc, image:t.ogImage, siteName:t.ogSiteName||domain},
+    pinterest:{title:t.ogTitle||t.pageTitle, image:t.ogImage},
+    reddit:{title:t.ogTitle||t.pageTitle, image:t.ogImage},
+  };
+}
+
+// ── Image helpers ─────────────────────────────────────────────
+function imgWrap(url, ratio, cls){
+  if(!url) return '<div class="pc-img-wrap '+ratio+' no-img-state" style="padding-top:0;min-height:70px;"><span style="font-size:11px;color:var(--mid);">No image tag found</span></div>';
+  return '<div class="pc-img-wrap '+ratio+(cls?' '+cls:'')+'">'+
+    '<img class="pc-img" src="'+esc(url)+'" alt="" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
+    '<div class="pc-img-ph" style="display:none;">Image preview unavailable</div>'+
+    '</div>';
+}
+function esc(s){return s.replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function trunc(s,n){if(!s)return'';return s.length>n?s.slice(0,n)+'…':s;}
+
+// ── Render platform previews ──────────────────────────────────
+function renderPreviews(r, domain, tags){
+  // Social feeds
+  document.getElementById('grid-social').innerHTML=
+    renderX(r.x, domain) + renderLinkedIn(r.linkedin, domain) + renderFacebook(r.facebook, domain);
+
+  // Work tools
+  document.getElementById('grid-work').innerHTML=renderSlack(r.slack, domain);
+
+  // Messaging
+  document.getElementById('grid-msg').innerHTML=
+    renderIMessage(r.imessage, domain) + renderDiscord(r.discord, domain) + renderWhatsApp(tags);
+
+  // Discovery
+  document.getElementById('grid-disc').innerHTML=
+    renderPinterest(r.pinterest, domain) + renderReddit(r.reddit, domain);
+}
+
+function platformLabel(color, name){
+  return '<p class="pc-label"><span class="pc-dot" style="background:'+color+'"></span>'+name+'</p>';
+}
+
+function renderX(x, domain){
+  var isLarge = x.card==='summary_large_image';
+  var cardNote = x.card==='summary_large_image'?'summary_large_image':'summary (small image)';
+  var out='<div class="pc pc-x">';
+  out+=platformLabel('#000','X · '+cardNote);
+  if(isLarge){
+    out+=imgWrap(x.image,'ratio-191','');
+    out+='<div class="pc-body"><p class="pc-domain">'+esc(domain)+'</p><p class="pc-title">'+esc(trunc(x.title,70))+'</p></div>';
+  }else{
+    out+='<div class="pc-x-summary">';
+    out+='<div class="pc-img-side">';
+    if(x.image){out+='<img src="'+esc(x.image)+'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\'">';}
+    out+='</div>';
+    out+='<div class="pc-body"><p class="pc-domain">'+esc(domain)+'</p><p class="pc-title">'+esc(trunc(x.title,70))+'</p><p class="pc-desc">'+esc(trunc(x.desc,150))+'</p></div>';
+    out+='</div>';
+  }
+  out+='</div>';return out;
+}
+
+function renderLinkedIn(li, domain){
+  return '<div class="pc pc-li">'+
+    platformLabel('#0A66C2','LinkedIn')+
+    imgWrap(li.image,'ratio-191','')+
+    '<div class="pc-body">'+
+    '<p class="pc-title">'+esc(trunc(li.title,80))+'</p>'+
+    '<p class="pc-domain">'+esc(domain)+'</p>'+
+    '</div></div>';
+}
+
+function renderFacebook(fb, domain){
+  return '<div class="pc pc-fb">'+
+    platformLabel('#1877F2','Facebook')+
+    imgWrap(fb.image,'ratio-191','')+
+    '<div class="pc-body">'+
+    '<p class="pc-domain">'+esc(domain.toUpperCase())+'</p>'+
+    '<p class="pc-title">'+esc(trunc(fb.title,80))+'</p>'+
+    '<p class="pc-desc">'+esc(trunc(fb.desc,160))+'</p>'+
+    '</div></div>';
+}
+
+function renderSlack(sl, domain){
+  return '<div class="pc pc-slack">'+
+    platformLabel('#4A154B','Slack')+
+    '<div class="pc-body">'+
+    '<p class="pc-sitename">'+esc(sl.siteName||domain)+'</p>'+
+    '<p class="pc-title">'+esc(trunc(sl.title,80))+'</p>'+
+    '<p class="pc-desc">'+esc(trunc(sl.desc,160))+'</p>'+
+    '</div>'+
+    (sl.image?'<div class="pc-slack-img">'+imgWrap(sl.image,'ratio-sm','')+'</div>':'')+
+    '</div>';
+}
+
+function renderIMessage(im, domain){
+  var out='<div class="pc pc-im">';
+  out+=platformLabel('#34C759','iMessage');
+  out+='<div class="pc-im-row">';
+  out+='<div class="pc-im-img">';
+  if(im.image){out+='<img src="'+esc(im.image)+'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\'">';}
+  out+='</div>';
+  out+='<div class="pc-im-body"><p class="pc-domain">'+esc(domain)+'</p><p class="pc-title">'+esc(trunc(im.title,60))+'</p></div>';
+  out+='</div></div>';
+  return out;
+}
+
+function renderDiscord(dc, domain){
+  return '<div class="pc pc-discord">'+
+    platformLabel('#5865F2','Discord')+
+    '<div class="pc-discord-bar">'+
+    '<div class="pc-body">'+
+    '<p class="pc-domain" style="color:#5865F2;">'+esc(dc.siteName||domain)+'</p>'+
+    '<p class="pc-title" style="color:#e0e1e5;font-weight:500;">'+esc(trunc(dc.title,80))+'</p>'+
+    '<p class="pc-desc" style="color:#a0a2a7;">'+esc(trunc(dc.desc,160))+'</p>'+
+    '</div>'+
+    (dc.image?'<div style="padding:0 12px 12px;">'+imgWrap(dc.image,'ratio-191','')+'</div>':'')+
+    '</div></div>';
+}
+
+function renderWhatsApp(tags){
+  var img=tags.ogImage, w=parseInt(tags.ogImageW)||0, h=parseInt(tags.ogImageH)||0;
+  var issues=[];
+  if(!img)issues.push('No og:image tag — WhatsApp will show a text-only preview');
+  else{
+    if(!/^https/.test(img))issues.push('Image URL must use HTTPS');
+    if(w&&h&&w*h<90000)issues.push('Image may be too small (minimum 300×200px recommended)');
+  }
+  var issueHtml=issues.length?issues.map(i=>'<span style="display:block">⚠ '+esc(i)+'</span>').join(''):'<span style="color:#16a34a">✓ No issues detected — verify file size is under 300 KB</span>';
+  return '<div class="whatsapp-audit-row" style="grid-column:1/-1">'+
+    '<div class="wa-icon">💬</div>'+
+    '<div class="wa-text"><p class="wa-label">WhatsApp — audit only</p>'+
+    '<p class="wa-findings">'+issueHtml+'<span style="display:block;margin-top:4px;font-size:11px;color:var(--mid);">WhatsApp previews vary by device and app version — a simulated card would be unreliable. The audit above reflects WhatsApp\'s documented requirements.</span></p></div></div>';
+}
+
+function renderPinterest(pin, domain){
+  return '<div class="pc pc-pin">'+
+    platformLabel('#E60023','Pinterest')+
+    imgWrap(pin.image,'ratio-23','')+
+    '<div class="pc-body"><p class="pc-title">'+esc(trunc(pin.title,80))+'</p></div></div>';
+}
+
+function renderReddit(rd, domain){
+  var out='<div class="pc" style="overflow:hidden;">';
+  out+=platformLabel('#FF4500','Reddit');
+  out+='<div class="pc-reddit">';
+  out+='<div class="pc-img-side">';
+  if(rd.image){out+='<img src="'+esc(rd.image)+'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\'">';}
+  out+='</div>';
+  out+='<div class="pc-body"><p class="pc-reddit-meta">r/example · '+esc(domain)+'</p><p class="pc-title">'+esc(trunc(rd.title,90))+'</p></div>';
+  out+='</div></div>';
+  return out;
+}
+
+// ── Run audit ─────────────────────────────────────────────────
+function runAudit(t, dupes, sourceUrl){
+  var f=[];
+  function add(tag,val,status,explain,action){f.push({tag,val,status,explain,action});}
+
+  // og:title
+  if(!t.ogTitle)add('og:title','Not found','fix','No og:title tag. Most platforms will fall back to your page\'s <title> tag, but this is not guaranteed.','Add <code>&lt;meta property="og:title" content="Your Page Title" /&gt;</code> to your &lt;head&gt;.');
+  else if(t.ogTitle.length>70)add('og:title',t.ogTitle,'warn','Present. At '+t.ogTitle.length+' characters, this may be truncated on X (70 char limit) and Facebook (60 char limit).','Consider shortening to under 60 characters to avoid truncation on all platforms.');
+  else add('og:title',t.ogTitle,'pass','Present and within recommended character limits ('+t.ogTitle.length+' chars).',null);
+
+  // og:description
+  if(!t.ogDesc)add('og:description','Not found','warn','No og:description. Platforms will use your standard meta description if one exists, or may show no description.','Add <code>&lt;meta property="og:description" content="..." /&gt;</code>. Keep it under 155 characters for best results across platforms.');
+  else if(t.ogDesc.length>200)add('og:description',t.ogDesc,'warn','Present. At '+t.ogDesc.length+' chars, this may be truncated. Facebook and LinkedIn truncate around 155 chars, X around 200.','Shorten to under 155 characters for consistent display across all platforms.');
+  else add('og:description',t.ogDesc,'pass','Present ('+t.ogDesc.length+' chars).',null);
+
+  // og:image
+  if(!t.ogImage){
+    add('og:image','Not found','fix','No og:image tag. All platform previews will be text-only — no image will display anywhere.','Add <code>&lt;meta property="og:image" content="https://yoursite.com/image.png" /&gt;</code>. Use a 1200×630px PNG or JPEG.');
+  }else{
+    // absolute URL check
+    if(!/^https?:\/\//.test(t.ogImage)){
+      add('og:image',t.ogImage,'fix','Image URL is relative (starts with "/"). Crawlers require absolute URLs — this image will not display on any platform.','Change to an absolute URL: <code>https://yoursite.com/path/to/image.png</code>');
+    }else if(/^http:\/\//.test(t.ogImage)){
+      add('og:image',t.ogImage,'fix','Image URL uses HTTP, not HTTPS. Discord, Slack, and most modern platforms refuse to display HTTP images.','Update the URL to use HTTPS.');
+    }else{
+      add('og:image',t.ogImage,'pass','Present with an absolute HTTPS URL.',null);
+    }
+    // Format check
+    var fmt=t.ogImage.match(/\.(svg|gif|avif|webp)(\?|$)/i);
+    if(fmt)add('og:image:format',fmt[1].toUpperCase(),'warn',fmt[1].toUpperCase()+' format is not universally supported by social platform crawlers. Some platforms may fail to display it.','Use PNG for graphics and logos, JPEG for photographs. Both are universally supported.');
+
+    // Dimensions
+    if(!t.ogImageW||!t.ogImageH){
+      add('og:image:width / height','Not declared','warn','Image dimensions not declared. Facebook must fetch the image asynchronously before showing the preview on first share, which can cause a blank card.','Add <code>&lt;meta property="og:image:width" content="1200" /&gt;</code> and <code>&lt;meta property="og:image:height" content="630" /&gt;</code>.');
+    }else{
+      var w=parseInt(t.ogImageW),h=parseInt(t.ogImageH);
+      if(w<200||h<200)add('og:image:width / height',t.ogImageW+'×'+t.ogImageH,'fix','Image dimensions are below 200×200px. LinkedIn will not show any preview for images smaller than this.','Use an image of at least 1200×630px.');
+      else if(w<600||h<315)add('og:image:width / height',t.ogImageW+'×'+t.ogImageH,'warn','Image may display as a small thumbnail on Facebook (minimum 600×315 for large card).','Use 1200×630px for best results across all platforms.');
+      else{
+        var ratio=w/h;
+        if(ratio<1.7||ratio>2.1)add('og:image:width / height',t.ogImageW+'×'+t.ogImageH,'warn','Aspect ratio is '+ratio.toFixed(2)+':1. The recommended range is 1.91:1 (Facebook, LinkedIn) to 2:1 (X). Images outside this range may be cropped.','1200×630px (1.91:1) is the universal standard.');
+        else add('og:image:width / height',t.ogImageW+'×'+t.ogImageH,'pass','Dimensions and aspect ratio look good.',null);
+      }
+    }
+
+    // og:image:alt
+    if(!t.ogImageAlt)add('og:image:alt','Not found','warn','No image alt text. This is an accessibility requirement and is also recommended by some platforms.','Add <code>&lt;meta property="og:image:alt" content="Describe your image" /&gt;</code>.');
+    else add('og:image:alt',t.ogImageAlt,'pass','Present.',null);
+  }
+
+  // og:url
+  if(!t.ogUrl)add('og:url','Not found','warn','No og:url tag. Some platforms may attribute the share to the wrong URL, affecting analytics and cache behavior.','Add <code>&lt;meta property="og:url" content="https://yoursite.com/this-page" /&gt;</code>.');
+  else add('og:url',t.ogUrl,'pass','Present.',null);
+
+  // og:type
+  if(!t.ogType)add('og:type','Not found','warn','No og:type. Defaults to "website" on most platforms, but declaring it explicitly is best practice.','Add <code>&lt;meta property="og:type" content="website" /&gt;</code> (or "article" for blog posts).');
+  else add('og:type',t.ogType,'pass','Present ('+t.ogType+').',null);
+
+  // twitter:card
+  if(!t.twCard){
+    add('twitter:card','Not found','warn','No twitter:card tag. X will fall back to a "summary" card (small square image). You will not get the large image format without this tag.','Add <code>&lt;meta name="twitter:card" content="summary_large_image" /&gt;</code> for the full-width large image card on X.');
+  }else if(!['summary','summary_large_image','app','player'].includes(t.twCard.toLowerCase())){
+    add('twitter:card',t.twCard,'fix','Invalid value "'+t.twCard+'". X will ignore this tag. Valid values: summary, summary_large_image, app, player.','Use <code>summary_large_image</code> for most pages with a featured image.');
+  }else if(t.twCard.toLowerCase()==='summary'&&(t.twImage||t.ogImage)){
+    add('twitter:card',t.twCard,'warn','Set to "summary" — X will display a small square thumbnail even though an image is available. You likely want the large image format.','Change to <code>summary_large_image</code> to display the full-width image card on X.');
+  }else{
+    add('twitter:card',t.twCard,'pass','Present and valid.',null);
+  }
+
+  // twitter:card attribute type check
+  if(t.twCardAttrBad)add('twitter:card (attribute error)',t.twCard,'fix','This tag uses property="twitter:card" instead of name="twitter:card". X requires the name attribute for Twitter Card tags.','Change <code>property="twitter:card"</code> to <code>name="twitter:card"</code>.');
+
+  // og:url vs canonical mismatch
+  if(t.ogUrl&&t.canonical&&t.ogUrl!==t.canonical)
+    add('og:url vs canonical','og:url: '+t.ogUrl+' / canonical: '+t.canonical,'warn','Your og:url and canonical link differ. This can cause sharing analytics to be split between two URLs and may cause caching issues.','Make sure og:url and the canonical tag point to the same URL.');
+
+  // <title> fallback
+  if(!t.pageTitle)add('<title> tag','Not found','warn','No <title> tag found. This is the final fallback for several platforms when OG tags are absent.','Add a <code>&lt;title&gt;</code> tag to your page.');
+  else add('<title> tag',t.pageTitle,'pass','Present — used as fallback by X, LinkedIn, and others when og:title is absent.',null);
+
+  // Duplicates
+  Object.keys(dupes).forEach(function(k){
+    add(k+' (duplicate)',dupes[k].map(v=>'Value: "'+v+'"').join(' / '),'warn','This tag appears '+dupes[k].length+' times. Platforms may use the first value, the last value, or a cached version — behavior is inconsistent.','Remove duplicate tags and keep only one occurrence.');
+  });
+
+  var passes=f.filter(x=>x.status==='pass').length;
+  var warns=f.filter(x=>x.status==='warn').length;
+  var fixes=f.filter(x=>x.status==='fix').length;
+  document.getElementById('auditSummary').textContent='— '+passes+' pass · '+warns+' warning'+(warns!==1?'s':'')+(fixes?' · '+fixes+' fix needed':'');
+  return f;
+}
+
+function renderAudit(findings){
+  var html='';
+  findings.forEach(function(f){
+    var badge='badge-'+f.status;
+    var label=f.status==='pass'?'Pass':f.status==='warn'?'Warning':'Fix needed';
+    html+='<div class="audit-item">';
+    html+='<div class="audit-badge '+badge+'">'+label+'</div>';
+    html+='<div class="audit-content">';
+    html+='<p class="audit-tag">'+esc(f.tag)+'</p>';
+    if(f.val&&f.status!=='pass')html+='<p class="audit-value">'+esc(trunc(f.val,120))+'</p>';
+    html+='<p class="audit-explain">'+f.explain+'</p>';
+    if(f.action)html+='<p class="audit-action"><strong>What to do:</strong> '+f.action+'</p>';
+    html+='</div></div>';
+  });
+  document.getElementById('auditList').innerHTML=html;
+}
+
+// ── Fallback chain ────────────────────────────────────────────
+function renderFallback(t){
+  var chain=[
+    ['Title', t.twTitle, 'twitter:title', t.ogTitle, 'og:title', t.pageTitle, '<title>'],
+    ['Description', t.twDesc, 'twitter:description', t.ogDesc, 'og:description', t.metaDesc, 'meta description'],
+    ['Image', t.twImage, 'twitter:image', t.ogImage, 'og:image', '', '—'],
+  ];
+  var html='<tr><th>Field</th><th>X will use</th><th>Source</th></tr>';
+  chain.forEach(function(row){
+    var field=row[0];
+    var val=row[1]||row[3]||row[5];
+    var src=row[1]?row[2]:row[3]?row[4]:row[5]?row[6]:'None found';
+    html+='<tr><td class="fallback-source">'+esc(field)+'</td>';
+    if(val){html+='<td class="fallback-value">'+esc(trunc(val,60))+'</td><td style="font-size:12px;color:var(--mid);">'+esc(src)+'</td>';}
+    else{html+='<td class="fallback-missing" colspan="2">Not found — will show blank</td>';}
+    html+='</tr>';
+  });
+  document.getElementById('fallbackTable').innerHTML=html;
+}
+
+// ── Raw tags ──────────────────────────────────────────────────
+function renderRawTags(t){
+  var items=[
+    ['og:title',t.ogTitle],['og:description',t.ogDesc],['og:image',t.ogImage,'url'],
+    ['og:image:width',t.ogImageW],['og:image:height',t.ogImageH],['og:image:alt',t.ogImageAlt],
+    ['og:image:type',t.ogImageType],['og:url',t.ogUrl,'url'],['og:type',t.ogType],
+    ['og:site_name',t.ogSiteName],['og:locale',t.ogLocale],
+    ['twitter:card',t.twCard],['twitter:title',t.twTitle],['twitter:description',t.twDesc],
+    ['twitter:image',t.twImage,'url'],['twitter:image:alt',t.twImageAlt],
+    ['twitter:site',t.twSite],['twitter:creator',t.twCreator],
+    ['<title>',t.pageTitle],['meta description',t.metaDesc],['canonical',t.canonical,'url'],
+  ].filter(x=>x[1]);
+  document.getElementById('rawCount').textContent='— '+items.length+' tag'+(items.length!==1?'s':'')+' found';
+  var html='';
+  items.forEach(function(item){
+    var val=item[1];
+    var valHtml=(item[2]==='url')?'<a href="'+esc(val)+'" target="_blank" rel="noopener noreferrer">'+esc(trunc(val,80))+'</a>':esc(trunc(val,120));
+    html+='<tr><td class="raw-tag-name">'+esc(item[0])+'</td><td class="raw-tag-val">'+valHtml+'</td></tr>';
+  });
+  document.getElementById('rawTable').innerHTML=html||'<tr><td colspan="2" style="color:var(--mid);font-size:13px;">No tags found.</td></tr>';
+}
+
+// ── Copy HTML ─────────────────────────────────────────────────
+function copyHTML(){
+  if(!window._lastTags)return;
+  var t=window._lastTags;
+  var lines=[
+    '<!-- Open Graph tags -->',
+    '<meta property="og:title" content="'+(t.ogTitle||'<!-- Add your page title -->')+'" />',
+    '<meta property="og:description" content="'+(t.ogDesc||'<!-- Add a 120-155 character description -->')+'" />',
+    '<meta property="og:image" content="'+(t.ogImage||'<!-- Add absolute HTTPS image URL (1200x630px PNG or JPEG) -->')+'" />',
+    (t.ogImageW&&t.ogImageH)?'<meta property="og:image:width" content="'+t.ogImageW+'" />':'<!-- <meta property="og:image:width" content="1200" /> -->',
+    (t.ogImageW&&t.ogImageH)?'<meta property="og:image:height" content="'+t.ogImageH+'" />':'<!-- <meta property="og:image:height" content="630" /> -->',
+    (t.ogImageAlt)?'<meta property="og:image:alt" content="'+t.ogImageAlt+'" />':'<!-- <meta property="og:image:alt" content="Describe your image for accessibility" /> -->',
+    '<meta property="og:url" content="'+(t.ogUrl||'<!-- Add the canonical URL of this page -->')+'" />',
+    '<meta property="og:type" content="'+(t.ogType||'website')+'" />',
+    (t.ogSiteName)?'<meta property="og:site_name" content="'+t.ogSiteName+'" />':'',
+    '',
+    '<!-- Twitter / X Card tags -->',
+    '<meta name="twitter:card" content="'+(t.twCard||'summary_large_image')+'" />',
+    '<meta name="twitter:title" content="'+(t.twTitle||t.ogTitle||'<!-- Same as og:title, or customize for X -->')+'" />',
+    '<meta name="twitter:description" content="'+(t.twDesc||t.ogDesc||'<!-- Same as og:description, or customize for X -->')+'" />',
+    '<meta name="twitter:image" content="'+(t.twImage||t.ogImage||'<!-- Same as og:image, or customize for X -->')+'" />',
+    (t.twSite)?'<meta name="twitter:site" content="'+t.twSite+'" />':'<!-- <meta name="twitter:site" content="@yourhandle" /> -->',
+  ].filter(l=>l!==null).join('\n');
+
+  navigator.clipboard.writeText(lines).then(function(){
+    var c=document.getElementById('copyConfirm');
+    c.classList.add('show');
+    setTimeout(function(){c.classList.remove('show');},2500);
+  });
+}
+</script>
+</body></html>

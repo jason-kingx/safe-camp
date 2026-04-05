@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="description" content="Free statistical significance calculator for social media managers. Test whether your A/B test, ad experiment, or campaign results are real — or just random chance.">
+<meta property="og:title" content="Statistical Significance Calculator — Safe Camp">
+<meta property="og:description" content="Free calculator for social media managers. Test whether your A/B test, ad experiment, or campaign results are real — or just random chance. Includes a sample size estimator.">
+<meta property="og:image" content="https://jason-kingx.github.io/safe-camp/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Safe Camp — Statistical Significance Calculator for social media managers">
+<meta property="og:url" content="https://jason-kingx.github.io/safe-camp/tools/statistical-significance-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Safe Camp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Statistical Significance Calculator — Safe Camp">
+<meta name="twitter:description" content="Test whether your A/B test or campaign results are real or just random chance. Free tool with sample size estimator.">
+<meta name="twitter:image" content="https://jason-kingx.github.io/safe-camp/images/og-image.png">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+<link rel="canonical" href="https://jason-kingx.github.io/safe-camp/tools/statistical-significance-calculator.html">
+<title>Statistical Significance Calculator — Safe Camp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="../favicon-black.svg" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../favicon-white.svg" media="(prefers-color-scheme: dark)">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+
+/* ── Page layout ─────────────────────────────────────────────── */
+.page-outer {
+  width: 100%;
+  padding: 96px 48px;
+}
+
+.page-inner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.page-inner h1 {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 28px;
+}
+
+.page-inner h2 {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-top: 48px;
+  margin-bottom: 14px;
+}
+
+/* ── Prose: scoped to .page-prose only ──────────────────────── */
+/* This prevents the prose rules from bleeding into .tool-card  */
+.page-prose h3 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.page-prose p {
+  font-size: 15px;
+  color: var(--mid);
+  line-height: 1.8;
+  margin-bottom: 14px;
+}
+
+.page-prose ul,
+.page-prose ol {
+  padding-left: 20px;
+  margin-bottom: 16px;
+}
+
+.page-prose li {
+  font-size: 15px;
+  color: var(--mid);
+  line-height: 1.75;
+  margin-bottom: 8px;
+}
+
+.page-prose li strong { color: var(--ink); }
+.page-prose em       { color: var(--mid); }
+
+.page-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 48px 0;
+  border: none;
+}
+
+/* ── Tool card ───────────────────────────────────────────────── */
+.tool-card {
+  background: var(--surface, rgba(128,128,128,0.05));
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 28px;
+  margin: 40px 0;
+}
+
+.tool-eyebrow {
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mid);
+  margin: 0 0 24px;
+  line-height: 1;
+}
+
+/* ── Version grid ────────────────────────────────────────────── */
+.version-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.version-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px 18px;
+  background: var(--bg, #fff);
+}
+
+[data-theme="dark"] .version-card {
+  background: rgba(255,255,255,0.03);
+}
+
+.version-tag {
+  font-size: 10px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mid);
+  margin: 0 0 16px;
+}
+
+/* ── Fields ──────────────────────────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+.field:last-child { margin-bottom: 0; }
+
+.field label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 5px;
+  line-height: 1.4;
+}
+
+.field input[type="number"] {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  background: var(--bg, #fff);
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  outline: none;
+  transition: border-color 0.15s;
+  -moz-appearance: textfield;
+  width: 100%;
+}
+[data-theme="dark"] .field input[type="number"] {
+  background: rgba(255,255,255,0.04);
+}
+.field input[type="number"]::-webkit-inner-spin-button,
+.field input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+.field input[type="number"]:focus  { border-color: var(--ink); }
+.field input[type="number"].is-error { border-color: var(--error, #dc2626); }
+
+.field-helper {
+  font-size: 12px;
+  color: var(--mid);
+  margin-top: 5px;
+  line-height: 1.5;
+}
+
+.field-error {
+  font-size: 12px;
+  color: var(--error, #dc2626);
+  margin-top: 4px;
+  line-height: 1.4;
+  display: none;
+}
+.field-error.show { display: block; }
+
+/* ── Confidence ──────────────────────────────────────────────── */
+.confidence-block { margin-bottom: 24px; }
+
+.conf-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 5px;
+}
+
+.conf-helper {
+  font-size: 12px;
+  color: var(--mid);
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
+
+.radio-row {
+  display: flex;
+  gap: 20px;
+}
+
+.radio-opt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.radio-opt input[type="radio"] {
+  accent-color: var(--ink);
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+.radio-opt span {
+  font-size: 14px;
+  color: var(--ink);
+}
+
+/* ── Result zone ─────────────────────────────────────────────── */
+.result-zone { min-height: 4px; }
+
+.result-card {
+  border-radius: 8px;
+  border: 1.5px solid;
+  padding: 16px 20px;
+  margin-bottom: 4px;
+}
+
+.result-card.sig {
+  background: color-mix(in srgb, #16a34a 8%, transparent);
+  border-color: color-mix(in srgb, #16a34a 30%, transparent);
+}
+.result-card.sig .result-headline { color: #15803d; }
+[data-theme="dark"] .result-card.sig .result-headline { color: #4ade80; }
+
+.result-card.nosig {
+  background: color-mix(in srgb, #dc2626 8%, transparent);
+  border-color: color-mix(in srgb, #dc2626 25%, transparent);
+}
+.result-card.nosig .result-headline { color: #b91c1c; }
+[data-theme="dark"] .result-card.nosig .result-headline { color: #f87171; }
+
+.result-card.close {
+  background: color-mix(in srgb, #d97706 8%, transparent);
+  border-color: color-mix(in srgb, #d97706 30%, transparent);
+}
+.result-card.close .result-headline { color: #92400e; }
+[data-theme="dark"] .result-card.close .result-headline { color: #fbbf24; }
+
+.result-headline {
+  font-size: 15px;
+  font-weight: 600;
+  color: inherit;
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+
+.result-desc {
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.65;
+  margin: 0 0 10px;
+}
+
+.result-action {
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.stat { display: flex; flex-direction: column; }
+
+.stat-lbl {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--mid);
+  margin-bottom: 2px;
+}
+
+.stat-val {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.stat-val.small {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+details.zscore-detail { margin-top: 12px; }
+
+details.zscore-detail summary {
+  font-size: 12px;
+  color: var(--mid);
+  cursor: pointer;
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  user-select: none;
+}
+details.zscore-detail summary::-webkit-details-marker { display: none; }
+details.zscore-detail summary::before {
+  content: "▸";
+  font-size: 9px;
+  display: inline-block;
+  transition: transform 0.15s;
+}
+details.zscore-detail[open] summary::before { transform: rotate(90deg); }
+
+.zscore-body {
+  font-size: 13px;
+  color: var(--mid);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* Low data warning */
+.low-data {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  background: color-mix(in srgb, #ea580c 8%, transparent);
+  border: 1px solid color-mix(in srgb, #ea580c 25%, transparent);
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.5;
+}
+.low-data-icon { flex-shrink: 0; }
+
+/* Privacy note */
+.privacy-note {
+  font-size: 12px;
+  color: var(--mid);
+  text-align: center;
+  margin: 16px 0 0;
+  opacity: 0.7;
+}
+
+/* ── Sample size section ─────────────────────────────────────── */
+.ss-section {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.ss-eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mid);
+  margin: 0 0 8px;
+}
+
+.ss-intro {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.65;
+  margin: 0 0 16px;
+}
+
+.ss-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.ss-result {
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.65;
+  min-height: 22px;
+}
+
+@media (max-width: 540px) {
+  .page-outer { padding: 64px 24px; }
+  .version-grid { grid-template-columns: 1fr; }
+  .ss-grid { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<noscript><p style="position:fixed;bottom:0;left:0;right:0;background:var(--nav-bg);color:var(--ink);text-align:center;padding:12px 24px;font-size:13px;letter-spacing:0.06em;z-index:999;margin:0;">JavaScript is disabled in your browser. Some features on this site require JavaScript to function.</p></noscript>
+
+<nav role="navigation" aria-label="Main navigation">
+  <a href="../index.html" class="nav-brand" style="text-decoration:none;">Safe Camp</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../index.html#services">Services</a></li>
+    <li><a href="../index.html#contact">Contact</a></li>
+    <li><a href="../tools.html">Tools</a></li>
+    <li><a href="../privacy.html">Privacy</a></li>
+    <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode"><span class="toggle-label">Light</span></button></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main>
+  <div class="page-outer">
+    <div class="page-inner">
+
+      <p class="section-eyebrow" aria-hidden="true">Tools</p>
+      <h1>Is Your Social Media Test Actually Working?</h1>
+
+      <!-- Prose wrapper: scoped styles only apply inside here -->
+      <div class="page-prose">
+
+        <p>Running a test on social media is easy. Knowing whether the result is real — or just random noise — is harder. This calculator tells you.</p>
+
+        <p>Statistical significance is a measure of confidence. It answers: <em>if I ran this test again with a fresh sample, how likely is it that I'd see the same result?</em> When a result is statistically significant, the difference you're observing is unlikely to be due to chance alone.</p>
+
+        <p>This tool uses a two-proportion z-test — the standard method for comparing two rates or percentages. Enter your numbers and it will tell you whether the difference between Version A and Version B is meaningful, or whether you need more data before drawing conclusions.</p>
+
+      </div>
+
+      <hr class="page-divider">
+
+      <div class="page-prose">
+        <h2>When to use this calculator</h2>
+        <ul>
+          <li><strong>Social ad A/B testing</strong> — Did creative A outperform creative B, or is the difference noise?</li>
+          <li><strong>Organic content testing</strong> — Did one post format get meaningfully more engagement than another?</li>
+          <li><strong>Campaign period comparison</strong> — Is this month's performance genuinely better than last month's, or just normal variance?</li>
+          <li><strong>Comment or sentiment sampling</strong> — Does the volume of comments on a Reddit thread or social post represent a statistically meaningful signal about a broader population?</li>
+          <li><strong>Influencer or partnership validation</strong> — Was the lift from a campaign real, or within normal variance?</li>
+          <li><strong>PR and communications measurement</strong> — When a crisis response drops negative mentions from 15% to 12%, is that real progress or daily noise? When Headline B beats Headline A on journalist click-throughs, is that a pattern worth scaling or a lucky break? PR directors and comms managers are rarely expected to prove their work in numbers — this calculator changes that, giving you the evidence to walk into a CEO briefing with data, not just narrative.</li>
+        </ul>
+
+        <h2>When <em>not</em> to use this calculator</h2>
+        <ul>
+          <li><strong>Testing more than two variants at once</strong> — This is an A vs. B tool only. Testing three or more variants simultaneously without statistical correction inflates the chance of a false positive.</li>
+          <li><strong>Very small sample sizes (under ~100 per group)</strong> — Results become unreliable with too little data. The calculator will flag this if it happens.</li>
+          <li><strong>Qualitative or sentiment comparisons</strong> — You can't run a stat sig test on tone, mood, or subjective feedback. This tool requires counts: how many people were exposed, and how many took a measurable action.</li>
+          <li><strong>Data collected under different conditions</strong> — If Version A and Version B ran at different times, on different platforms, or to different audiences, the test is confounded. The math may return a result, but the result won't be meaningful.</li>
+          <li><strong>The same audience saw both versions</strong> — This test assumes the two groups are independent. On social media this is often violated: if the same followers could have seen both posts, the groups aren't truly independent and the result will be unreliable.</li>
+          <li><strong>Using impressions as actions</strong> — Impressions are exposures, not responses. The actions field should represent something a person chose to do — a click, a sign-up, an engagement — not how many times content was served.</li>
+        </ul>
+      </div>
+
+      <hr class="page-divider">
+
+      <!-- ════════════════════════════════════════════════════ -->
+      <!--  CALCULATOR                                         -->
+      <!-- ════════════════════════════════════════════════════ -->
+      <div class="tool-card" role="region" aria-label="Statistical Significance Calculator">
+
+        <p class="tool-eyebrow">Statistical Significance Calculator</p>
+
+        <div class="version-grid">
+
+          <div class="version-card">
+            <p class="version-tag">Version A</p>
+
+            <div class="field">
+              <label for="reach-a">How many people saw Version A?</label>
+              <input type="number" id="reach-a" min="1" step="1" placeholder="e.g. 5000" autocomplete="off">
+              <span class="field-helper">Use unique reach when available — it's more accurate than total impressions, since one person can generate multiple impressions</span>
+              <span class="field-error" id="err-reach-a"></span>
+            </div>
+
+            <div class="field">
+              <label for="actions-a">How many took action on Version A?</label>
+              <input type="number" id="actions-a" min="0" step="1" placeholder="e.g. 210" autocomplete="off">
+              <span class="field-helper">e.g. clicks, link taps, sign-ups, or engagements — something people chose to do</span>
+              <span class="field-error" id="err-actions-a"></span>
+            </div>
+          </div>
+
+          <div class="version-card">
+            <p class="version-tag">Version B</p>
+
+            <div class="field">
+              <label for="reach-b">How many people saw Version B?</label>
+              <input type="number" id="reach-b" min="1" step="1" placeholder="e.g. 4900" autocomplete="off">
+              <span class="field-helper">Same as above, for your comparison version</span>
+              <span class="field-error" id="err-reach-b"></span>
+            </div>
+
+            <div class="field">
+              <label for="actions-b">How many took action on Version B?</label>
+              <input type="number" id="actions-b" min="0" step="1" placeholder="e.g. 275" autocomplete="off">
+              <span class="field-helper">Same as above</span>
+              <span class="field-error" id="err-actions-b"></span>
+            </div>
+          </div>
+
+        </div><!-- /version-grid -->
+
+        <div class="confidence-block">
+          <p class="conf-label">How sure do you want to be?</p>
+          <p class="conf-helper">90% = good for low-stakes tests &nbsp;·&nbsp; 95% = the standard (recommended) &nbsp;·&nbsp; 99% = high-stakes decisions</p>
+          <div class="radio-row" role="radiogroup" aria-label="Confidence level">
+            <label class="radio-opt"><input type="radio" name="conf" value="0.90"> <span>90%</span></label>
+            <label class="radio-opt"><input type="radio" name="conf" value="0.95" checked> <span>95% (recommended)</span></label>
+            <label class="radio-opt"><input type="radio" name="conf" value="0.99"> <span>99%</span></label>
+          </div>
+        </div>
+
+        <div class="result-zone" id="result-zone" aria-live="polite"></div>
+
+        <p class="privacy-note">No data entered here is stored, logged, or transmitted.</p>
+
+        <div class="ss-section">
+          <p class="ss-eyebrow">Not sure if you have enough data yet?</p>
+          <p class="ss-intro">Enter your expected action rate and the smallest improvement worth detecting. We'll estimate the minimum sample size you need per group before starting your test.</p>
+
+          <div class="ss-grid">
+            <div class="field">
+              <label for="ss-rate">Expected action rate (%)</label>
+              <input type="number" id="ss-rate" min="0.1" max="99.9" step="0.1" placeholder="e.g. 4.2" autocomplete="off">
+              <span class="field-helper">Your best estimate of your typical action rate</span>
+            </div>
+            <div class="field">
+              <label for="ss-lift">Minimum detectable lift (%)</label>
+              <input type="number" id="ss-lift" min="1" max="500" step="1" placeholder="e.g. 20" autocomplete="off">
+              <span class="field-helper">The smallest relative improvement worth acting on — e.g. 20 means a 20% relative lift over your baseline</span>
+            </div>
+          </div>
+
+          <div class="ss-result" id="ss-result" aria-live="polite"></div>
+        </div>
+
+      </div><!-- /tool-card -->
+
+      <hr class="page-divider">
+
+      <div class="page-prose">
+
+        <h2>How to read your results</h2>
+
+        <h3>p-value</h3>
+        <p>The p-value is the probability of seeing a difference this large — or larger — if there were actually no real difference between the two versions. A p-value of 0.04 means that if nothing were truly different, you'd only see a result this extreme 4% of the time by chance. Lower is better. When the p-value falls below your significance threshold (0.05 at 95% confidence), the result is statistically significant.</p>
+
+        <h3>Confidence level</h3>
+        <p>The confidence level is your tolerance for being wrong. At 95% confidence, you're accepting a 5% chance of a false positive — concluding there's a real difference when there isn't one. 95% is the standard for most business decisions. Use 99% for high-stakes calls; 90% when you're comfortable with a bit more uncertainty and want to detect effects with less data.</p>
+
+        <h3>Two-sided test</h3>
+        <p>This calculator uses a two-sided test, which accounts for the possibility that Version B could be <em>worse</em> than Version A — not just better. This is the more conservative and generally correct approach for social media testing, where you often can't predict the direction of an effect in advance.</p>
+
+        <h3>Relative lift</h3>
+        <p>Relative lift shows how much better or worse Version B performed compared to Version A, as a percentage. A relative lift of +18% means Version B's action rate was 18% higher than Version A's — not that it improved by 18 percentage points.</p>
+
+        <hr class="page-divider">
+
+        <h2>Common mistakes</h2>
+        <ul>
+          <li><strong>Stopping the test too early</strong> — Checking results daily and stopping when something looks good inflates your false positive rate significantly. Decide your sample size before you start, and commit to it.</li>
+          <li><strong>Testing too many variants</strong> — Each additional variant increases the probability that one will appear significant by chance alone. Stick to one change at a time.</li>
+          <li><strong>Comparing different audiences</strong> — If Version A and Version B reached different types of people, performance differences may reflect audience composition rather than your creative or message.</li>
+          <li><strong>Ignoring sample size</strong> — A result from 80 people is not as reliable as one from 8,000, even if both show the same percentage difference. Use the sample size tool above to plan before you run.</li>
+          <li><strong>Confusing statistical significance with practical significance</strong> — A result can be statistically significant and still be too small to matter. A 0.1% improvement in CTR that reaches significance may not be worth acting on. Always ask: is this difference meaningful for the business?</li>
+        </ul>
+
+      </div><!-- /page-prose -->
+
+    </div><!-- /page-inner -->
+  </div><!-- /page-outer -->
+</main>
+
+<footer>&copy; 2026 Safe Camp &mdash; All rights reserved. &mdash; Jason King &mdash; Social Media Strategy &mdash; <a href="../privacy.html" class="footer-link" style="color:inherit;text-decoration:none;">Privacy</a></footer>
+
+<script>
+// ── Theme ────────────────────────────────────────────────────
+(function(){
+  var html  = document.documentElement;
+  var saved = localStorage.getItem('theme');
+  if (saved === 'dark') {
+    html.setAttribute('data-theme','dark');
+  } else if (saved === 'light') {
+    html.removeAttribute('data-theme');
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    html.setAttribute('data-theme','dark');
+  }
+  window.addEventListener('DOMContentLoaded', function(){
+    var btn   = document.getElementById('themeToggle');
+    var label = btn.querySelector('.toggle-label');
+    function updateLabel(){
+      label.textContent = html.getAttribute('data-theme') === 'dark' ? 'Dark' : 'Light';
+    }
+    updateLabel();
+    btn.addEventListener('click', function(){
+      var isDark = html.getAttribute('data-theme') === 'dark';
+      if (isDark){ html.removeAttribute('data-theme'); localStorage.setItem('theme','light'); }
+      else       { html.setAttribute('data-theme','dark'); localStorage.setItem('theme','dark'); }
+      updateLabel();
+    });
+  });
+})();
+
+// ── Hamburger ────────────────────────────────────────────────
+(function(){
+  window.addEventListener('DOMContentLoaded', function(){
+    var btn = document.getElementById('hamburger');
+    var nav = document.getElementById('navLinks');
+    btn.addEventListener('click', function(){
+      var open = nav.classList.toggle('nav-open');
+      btn.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    nav.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        nav.classList.remove('nav-open');
+        btn.classList.remove('is-open');
+        btn.setAttribute('aria-expanded','false');
+      });
+    });
+  });
+})();
+
+// ── Math ─────────────────────────────────────────────────────
+function erf(x) {
+  var sign = x >= 0 ? 1 : -1;
+  x = Math.abs(x);
+  var t = 1.0 / (1.0 + 0.3275911 * x);
+  var y = 1.0 - (((((1.061405429*t - 1.453152027)*t) + 1.421413741)*t - 0.284496736)*t + 0.254829592)*t * Math.exp(-x*x);
+  return sign * y;
+}
+function normalCDF(z) { return 0.5 * (1 + erf(z / Math.SQRT2)); }
+function zCrit(c) { return c === 0.90 ? 1.6449 : c === 0.99 ? 2.5758 : 1.9600; }
+function pct(r)     { return (r * 100).toFixed(2) + '%'; }
+function liftStr(l) { return (l >= 0 ? '+' : '') + l.toFixed(1) + '%'; }
+
+// ── Helpers ──────────────────────────────────────────────────
+function el(id)  { return document.getElementById(id); }
+function val(id) { return el(id).value.trim(); }
+
+function setErr(fid, msg) {
+  var inp = el(fid), err = el('err-' + fid);
+  if (msg) { inp.classList.add('is-error'); err.textContent = msg; err.classList.add('show'); }
+  else     { inp.classList.remove('is-error'); err.textContent = ''; err.classList.remove('show'); }
+}
+function clearErrs() {
+  ['reach-a','actions-a','reach-b','actions-b'].forEach(function(id){ setErr(id, null); });
+}
+function parseWhole(s) {
+  if (s === '') return null;
+  var n = Number(s);
+  return isFinite(n) ? Math.round(n) : NaN;
+}
+function getConf() {
+  var r = document.querySelector('input[name="conf"]:checked');
+  return r ? parseFloat(r.value) : 0.95;
+}
+
+// ── Main calculator ──────────────────────────────────────────
+function calc() {
+  clearErrs();
+  var rA = parseWhole(val('reach-a')),   xA = parseWhole(val('actions-a'));
+  var rB = parseWhole(val('reach-b')),   xB = parseWhole(val('actions-b'));
+  var bad = false;
+
+  if (val('reach-a')   !== '' && (isNaN(rA) || rA <= 0)) { setErr('reach-a',   'Enter a positive whole number — e.g. 5000'); bad = true; }
+  if (val('actions-a') !== '' && (isNaN(xA) || xA <  0)) { setErr('actions-a', 'Enter 0 or a positive whole number');        bad = true; }
+  if (val('reach-b')   !== '' && (isNaN(rB) || rB <= 0)) { setErr('reach-b',   'Enter a positive whole number — e.g. 4900'); bad = true; }
+  if (val('actions-b') !== '' && (isNaN(xB) || xB <  0)) { setErr('actions-b', 'Enter 0 or a positive whole number');        bad = true; }
+  if (!isNaN(rA) && rA > 0 && !isNaN(xA) && xA > rA) { setErr('actions-a', "Actions can't exceed reach — check your numbers"); bad = true; }
+  if (!isNaN(rB) && rB > 0 && !isNaN(xB) && xB > rB) { setErr('actions-b', "Actions can't exceed reach — check your numbers"); bad = true; }
+
+  var zone     = el('result-zone');
+  var allFilled = val('reach-a') !== '' && val('actions-a') !== '' &&
+                  val('reach-b') !== '' && val('actions-b') !== '';
+
+  if (!allFilled || bad ||
+      rA === null || xA === null || rB === null || xB === null ||
+      isNaN(rA) || isNaN(xA) || isNaN(rB) || isNaN(xB)) {
+    zone.innerHTML = '';
+    return;
+  }
+
+  // Two-proportion z-test, two-sided
+  var pA    = xA / rA, pB = xB / rB;
+  var pPool = (xA + xB) / (rA + rB);
+  var se    = Math.sqrt(pPool * (1 - pPool) * (1/rA + 1/rB));
+
+  if (se === 0) {
+    zone.innerHTML = '<p class="result-same">Both versions have the same action rate — there\'s no difference to test.</p>';
+    return;
+  }
+
+  var conf  = getConf();
+  var z     = (pB - pA) / se;
+  var pVal  = 2 * (1 - normalCDF(Math.abs(z)));
+  var alpha = 1 - conf;
+  var lift  = pA > 0 ? ((pB - pA) / pA) * 100 : null;
+
+  var isSig    = pVal < alpha;
+  var isBorder = !isSig && pVal < alpha * 2;
+
+  var lowData = (rA < 100 || rB < 100)
+    ? '<div class="low-data"><span class="low-data-icon">⚠</span><span>Small sample size — fewer than 100 in at least one group. Results are less reliable; treat this finding with extra caution and consider collecting more data.</span></div>'
+    : '';
+
+  var cls, icon, head, desc, action;
+
+  if (isSig) {
+    cls  = 'sig';  icon = '✓';
+    head = 'Statistically significant at ' + Math.round(conf*100) + '% confidence';
+    if (lift !== null) {
+      var dir   = lift > 0 ? 'higher' : (lift < 0 ? 'lower' : 'the same as');
+      var which = lift > 0 ? 'B' : (lift < 0 ? 'A' : null);
+      desc   = 'Version B\'s action rate (' + pct(pB) + ') was '
+             + (lift !== 0 ? Math.abs(lift).toFixed(1) + '% ' + dir + ' than ' : dir + ' ')
+             + 'Version A\'s (' + pct(pA) + '). At ' + Math.round(conf*100) + '% confidence, this difference is real — not random chance.';
+      action = which
+        ? 'You have enough evidence to act. Version ' + which + ' is the stronger performer.'
+        : 'You have enough evidence to act on this result.';
+    } else {
+      desc   = 'The difference between these two rates is statistically significant at ' + Math.round(conf*100) + '% confidence.';
+      action = 'You have enough evidence to act on this result.';
+    }
+  } else if (isBorder) {
+    cls    = 'close'; icon = '~';
+    head   = 'Close — but not conclusive yet';
+    desc   = 'You\'re approaching significance at ' + Math.round(conf*100) + '% confidence, but the difference could still be due to chance.';
+    action = 'Extend the test or increase your sample size before acting on this result. Use the sample size tool below to see how much more data you need.';
+  } else {
+    cls    = 'nosig'; icon = '✗';
+    head   = 'Not significant yet — more data needed';
+    // FIX: lift > 0 = better, lift < 0 = worse, lift === 0 = same
+    var trend = lift === null ? 'differs'
+              : lift > 0     ? 'looks better'
+              : lift < 0     ? 'looks worse'
+              : 'shows the same rate';
+    desc   = 'Version B ' + trend + ', but with your current sample sizes this difference could still be random chance.';
+    action = 'Keep running. Use the sample size tool below to estimate how much more data you need before drawing a conclusion.';
+  }
+
+  var pDisp = pVal < 0.001 ? '< 0.001' : pVal.toFixed(3);
+  // Tightened p-value plain-language: statistically accurate but still readable
+  var pNote = pVal < 0.001
+    ? 'If there were no real difference, a result this large would occur less than 0.1% of the time'
+    : 'If there were no real difference, a result this large would occur ' + (pVal * 100).toFixed(1) + '% of the time';
+  var lDisp = lift !== null ? liftStr(lift) : '—';
+
+  zone.innerHTML = lowData +
+    '<div class="result-card ' + cls + '" role="status">' +
+      '<p class="result-headline">' + icon + ' ' + head + '</p>' +
+      '<p class="result-desc">' + desc + '</p>' +
+      '<p class="result-action"><strong>What to do:</strong> ' + action + '</p>' +
+      '<div class="stats-row">' +
+        '<div class="stat"><span class="stat-lbl">Version A rate</span><span class="stat-val">' + pct(pA) + '</span></div>' +
+        '<div class="stat"><span class="stat-lbl">Version B rate</span><span class="stat-val">' + pct(pB) + '</span></div>' +
+        '<div class="stat"><span class="stat-lbl">Relative lift</span><span class="stat-val">' + lDisp + '</span></div>' +
+        '<div class="stat"><span class="stat-lbl">p-value</span><span class="stat-val">' + pDisp + '</span></div>' +
+        '<div class="stat" style="grid-column:span 2"><span class="stat-lbl">What that means</span><span class="stat-val small">' + pNote + '</span></div>' +
+      '</div>' +
+      '<details class="zscore-detail"><summary>z-score (advanced)</summary>' +
+        '<p class="zscore-body">z = ' + z.toFixed(3) + ' — measures how many standard errors the observed difference is from zero. The further from zero, the less likely the result is due to chance.</p>' +
+      '</details>' +
+    '</div>';
+}
+
+['reach-a','actions-a','reach-b','actions-b'].forEach(function(id){
+  el(id).addEventListener('input', calc);
+  el(id).addEventListener('blur',  calc);
+});
+document.querySelectorAll('input[name="conf"]').forEach(function(r){ r.addEventListener('change', calc); });
+
+// ── Sample size calculator ────────────────────────────────────
+function calcSS() {
+  var rv = parseFloat(el('ss-rate').value);
+  var lv = parseFloat(el('ss-lift').value);
+  var c  = getConf();
+  var out = el('ss-result');
+
+  if (!isFinite(rv) || !isFinite(lv) || rv <= 0 || rv >= 100 || lv <= 0) { out.innerHTML = ''; return; }
+
+  var p1 = rv / 100, p2 = p1 * (1 + lv / 100);
+  if (p2 >= 1) { out.innerHTML = '<span style="color:var(--mid);font-size:13px;">The expected lift would produce an action rate over 100% — adjust your inputs.</span>'; return; }
+
+  var zA = zCrit(c), zB = 0.8416; // 80% power
+  var pBar = (p1 + p2) / 2, diff = p2 - p1;
+  var n = Math.ceil(Math.pow(zA * Math.sqrt(2*pBar*(1-pBar)) + zB * Math.sqrt(p1*(1-p1)+p2*(1-p2)), 2) / (diff*diff));
+
+  out.innerHTML = 'You need at least <strong>' + n.toLocaleString() + ' people per group</strong> ('
+    + (n*2).toLocaleString() + ' total) to detect a ' + lv.toFixed(0) + '% relative lift from a '
+    + rv.toFixed(1) + '% baseline at ' + Math.round(c*100) + '% confidence with 80% statistical power.';
+}
+
+el('ss-rate').addEventListener('input', calcSS);
+el('ss-lift').addEventListener('input', calcSS);
+document.querySelectorAll('input[name="conf"]').forEach(function(r){ r.addEventListener('change', calcSS); });
+</script>
+</body>
+</html>
