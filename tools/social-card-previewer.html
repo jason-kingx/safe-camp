@@ -17,7 +17,7 @@
 <meta name="twitter:title" content="Social Media Open Graph Checker — Safe Camp">
 <meta name="twitter:description" content="See exactly how any link will appear on X, LinkedIn, Facebook, Slack, and more. Includes a full tag audit with plain-language fix guidance.">
 <meta name="twitter:image" content="https://jason-kingx.github.io/safe-camp/images/og-image.png">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src * data:; connect-src https://api.allorigins.win;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src * data:; connect-src https://api.allorigins.win https://corsproxy.io https://api.codetabs.com;">
 <link rel="canonical" href="https://jason-kingx.github.io/safe-camp/tools/social-card-previewer.html">
 <title>Social Media Open Graph Checker — Safe Camp</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -326,7 +326,7 @@
       <input type="url" id="urlInput" class="url-input" placeholder="https://yoursite.com/page" autocomplete="off" autocorrect="off" spellcheck="false">
       <button class="check-btn" id="checkUrlBtn" onclick="checkUrl()">Check</button>
     </div>
-    <p class="proxy-note">Your URL is sent to a third-party proxy service to fetch the page source. Nothing is stored by this tool. For pages not publicly accessible, use the <button style="background:none;border:none;padding:0;color:var(--accent);cursor:pointer;font-size:12px;" onclick="switchTab('html')">Paste HTML method</button> instead.</p>
+    <p class="proxy-note">Your URL is sent to a third-party proxy service to fetch the page source. Nothing is stored by this tool. If one proxy is unavailable, the tool automatically tries two backups. For pages not publicly accessible, use the <button style="background:none;border:none;padding:0;color:var(--accent);cursor:pointer;font-size:12px;" onclick="switchTab('html')">Paste HTML method</button> instead.</p>
   </div>
 
   <div class="input-panel" id="panel-html" role="tabpanel">
@@ -423,7 +423,7 @@
 
   </div><!-- /results -->
 
-  <p class="privacy-note">URLs and HTML pasted here are not stored, logged, or transmitted by this tool. URL mode uses a third-party proxy to fetch page source; that proxy receives your URL but not any other data from this tool.</p>
+  <p class="privacy-note">URLs and HTML pasted here are not stored, logged, or transmitted by this tool. URL mode uses third-party proxy services (allorigins.win, corsproxy.io, codetabs.com) to fetch page source; they receive your URL but no other data from this tool.</p>
 </div><!-- /tool-card -->
 
 <hr class="page-divider">
@@ -624,26 +624,74 @@ async function checkUrl(){
   }
   clearResults();
   document.getElementById('checkUrlBtn').disabled=true;
-  setLoading(true,'Fetching page…');
-  try{
-    var proxy='https://api.allorigins.win/get?url='+encodeURIComponent(url);
-    var res=await fetch(proxy);
-    if(!res.ok)throw new Error('HTTP '+res.status);
-    var data=await res.json();
-    if(!data.contents){throw new Error('Empty response');}
-    setLoading(false);
-    var httpCode=data.status?.http_code;
-    if(httpCode&&httpCode>=400){
-      showError('<strong>Page returned HTTP '+httpCode+'.</strong> The URL may be behind authentication or not publicly accessible. Try the <button style="background:none;border:none;color:var(--accent);cursor:pointer;padding:0;font-size:14px;" onclick="switchTab(\'html\')">Paste HTML method</button> instead.');
+
+  // Proxy fallback chain — tried in order until one succeeds
+  var proxies=[
+    {
+      name:'allorigins',
+      build:function(u){return 'https://api.allorigins.win/get?url='+encodeURIComponent(u);},
+      extract:function(data){
+        if(!data.contents)throw new Error('Empty response');
+        var code=data.status?.http_code;
+        if(code&&code>=400)throw new Error('HTTP_'+code);
+        return data.contents;
+      }
+    },
+    {
+      name:'corsproxy.io',
+      build:function(u){return 'https://corsproxy.io/?url='+encodeURIComponent(u);},
+      extract:function(data){
+        // corsproxy.io returns raw text, not JSON
+        if(typeof data==='string'){
+          if(data.length<100)throw new Error('Empty response');
+          return data;
+        }
+        throw new Error('Unexpected response');
+      },
+      raw:true
+    },
+    {
+      name:'htmldriven',
+      build:function(u){return 'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(u);},
+      extract:function(data){
+        if(typeof data==='string'&&data.length>100)return data;
+        throw new Error('Empty response');
+      },
+      raw:true
+    },
+  ];
+
+  var lastErr='';
+  for(var i=0;i<proxies.length;i++){
+    var p=proxies[i];
+    setLoading(true,'Fetching page'+(i>0?' (trying backup…)':'…'));
+    try{
+      var res=await fetch(p.build(url));
+      if(!res.ok)throw new Error('HTTP '+res.status);
+      var data=p.raw?await res.text():await res.json();
+      var html=p.extract(data);
+      setLoading(false);
+      processHTML(html,url);
+      document.getElementById('checkUrlBtn').disabled=false;
       return;
+    }catch(e){
+      lastErr=e.message||'Unknown error';
+      if(lastErr.startsWith('HTTP_')){
+        // Definitive HTTP error from the target page — no point trying other proxies
+        var code=lastErr.replace('HTTP_','');
+        setLoading(false);
+        showError('<strong>Page returned HTTP '+code+'.</strong> The URL may be behind authentication or not publicly accessible. Try the <button style="background:none;border:none;color:var(--accent);cursor:pointer;padding:0;font-size:14px;" onclick="switchTab('html')">Paste HTML method</button> instead.');
+        document.getElementById('checkUrlBtn').disabled=false;
+        return;
+      }
+      // Otherwise try next proxy
     }
-    processHTML(data.contents, url);
-  }catch(e){
-    setLoading(false);
-    showError('<strong>Could not fetch that URL.</strong> This may be because the page is behind authentication, the proxy is temporarily unavailable, or the page blocks automated access. Try the <button style="background:none;border:none;color:var(--accent);cursor:pointer;padding:0;font-size:14px;" onclick="switchTab(\'html\')">Paste HTML method</button> instead.');
-  }finally{
-    document.getElementById('checkUrlBtn').disabled=false;
   }
+
+  // All proxies failed
+  setLoading(false);
+  showError('<strong>Could not fetch that URL.</strong> All three proxy services failed. This is usually because the page blocks automated access. Try the <button style="background:none;border:none;color:var(--accent);cursor:pointer;padding:0;font-size:14px;" onclick="switchTab('html')">Paste HTML method</button> — paste your page's source directly for accurate results.');
+  document.getElementById('checkUrlBtn').disabled=false;
 }
 
 // ── HTML check ────────────────────────────────────────────────
