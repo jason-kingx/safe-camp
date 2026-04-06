@@ -690,7 +690,7 @@ async function checkUrl(){
 
   // All proxies failed
   setLoading(false);
-  showError('<strong>Could not fetch that URL.</strong> All three proxy services failed. This is usually because the page blocks automated access. Try the <button style="background:none;border:none;color:var(--accent);cursor:pointer;padding:0;font-size:14px;" onclick="switchTab('html')">Paste HTML method</button> — paste your page's source directly for accurate results.');
+  showError(\'<strong>Could not fetch that URL.</strong> Many major news sites, media publishers, and large platforms use bot protection that blocks automated fetching — this is a known limitation of any URL-based OG checker, not an issue with your page\'s tags. If you can open the page in your browser, the <button style=\"background:none;border:none;color:var(--accent);cursor:pointer;padding:0;font-size:14px;\" onclick=\"switchTab(\'html\')\" >Paste HTML method</button> works in most cases — press <kbd>Ctrl+U</kbd> or <kbd>Cmd+Opt+U</kbd>, copy the &lt;head&gt; section, and paste it here.\');
   document.getElementById('checkUrlBtn').disabled=false;
 }
 
