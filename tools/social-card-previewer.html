@@ -680,7 +680,7 @@ async function checkUrl(){
         // Definitive HTTP error from the target page — no point trying other proxies
         var code=lastErr.replace('HTTP_','');
         setLoading(false);
-        showError('<strong>Page returned HTTP '+code+'.</strong> The URL may be behind authentication or not publicly accessible. Try the <button style="background:none;border:none;color:var(--accent);cursor:pointer;padding:0;font-size:14px;" onclick="switchTab('html')">Paste HTML method</button> instead.');
+        showError(`<strong>Page returned HTTP ${code}.</strong> The URL may be behind authentication or not publicly accessible. Try the <button style="background:none;border:none;color:var(--accent);cursor:pointer;padding:0;font-size:14px;" onclick="switchTab('html')">Paste HTML method</button> instead.`);
         document.getElementById('checkUrlBtn').disabled=false;
         return;
       }
@@ -690,7 +690,7 @@ async function checkUrl(){
 
   // All proxies failed
   setLoading(false);
-  showError(\'<strong>Could not fetch that URL.</strong> Many major news sites, media publishers, and large platforms use bot protection that blocks automated fetching — this is a known limitation of any URL-based OG checker, not an issue with your page\'s tags. If you can open the page in your browser, the <button style=\"background:none;border:none;color:var(--accent);cursor:pointer;padding:0;font-size:14px;\" onclick=\"switchTab(\'html\')\" >Paste HTML method</button> works in most cases — press <kbd>Ctrl+U</kbd> or <kbd>Cmd+Opt+U</kbd>, copy the &lt;head&gt; section, and paste it here.\');
+  showError(`<strong>Could not fetch that URL.</strong> Many major news sites, media publishers, and large platforms use bot protection that blocks automated fetching — this is a known limitation of any URL-based OG checker, not an issue with your page's tags. If you can open the page in your browser, the <button style="background:none;border:none;color:var(--accent);cursor:pointer;padding:0;font-size:14px;" onclick="switchTab('html')">Paste HTML method</button> works in most cases — press <kbd>Ctrl+U</kbd> or <kbd>Cmd+Opt+U</kbd>, copy the &lt;head&gt; section, and paste it here.`);
   document.getElementById('checkUrlBtn').disabled=false;
 }
 
