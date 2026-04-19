@@ -116,7 +116,6 @@
 
 /* X-specific */
 .pc-x .pc-img-wrap{border-radius:0;}
-.pc-x-meta{font-size:11px;color:var(--mid);margin:5px 0 0;}
 /* X summary (small image) */
 .pc-x-summary{display:flex;gap:0;align-items:stretch;}
 .pc-x-summary .pc-img-side{width:72px;flex-shrink:0;overflow:hidden;background:var(--line);position:relative;}
@@ -183,7 +182,6 @@
 .badge-pass{background:color-mix(in srgb,#16a34a 12%,transparent);color:#15803d;}
 .badge-warn{background:color-mix(in srgb,#d97706 12%,transparent);color:#92400e;}
 .badge-fix{background:color-mix(in srgb,#dc2626 12%,transparent);color:#b91c1c;}
-.badge-info{background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);}
 [data-theme=dark] .badge-pass{color:#4ade80;}
 [data-theme=dark] .badge-warn{color:#fbbf24;}
 [data-theme=dark] .badge-fix{color:#f87171;}
@@ -332,7 +330,8 @@
   <div class="input-panel" id="panel-html" role="tabpanel">
     <div class="html-instructions">
       <strong>How to get your HTML:</strong> Open the page in your browser and press <kbd>Ctrl+U</kbd> (Windows) or <kbd>Cmd+Option+U</kbd> (Mac) to view source. Copy everything between <code>&lt;head&gt;</code> and <code>&lt;/head&gt;</code> and paste it below.<br><br>
-      <strong>Why use this method:</strong> This reads your current live tags directly — not a cached version from a previous crawl. It also works for pages that aren't publicly accessible yet, such as staging environments or draft pages.
+      <strong>Why use this method:</strong> This reads your current live tags directly — not a cached version from a previous crawl. It also works for pages that aren't publicly accessible yet, such as staging environments or draft pages.<br><br>
+      <strong>Tip:</strong> Press <kbd>Ctrl+Enter</kbd> (Windows) or <kbd>Cmd+Return</kbd> (Mac) to run the check without leaving the keyboard.
     </div>
     <textarea class="html-textarea" id="htmlInput" placeholder="Paste your &lt;head&gt; HTML here…" spellcheck="false"></textarea>
     <div style="margin-top:10px;text-align:right;">
@@ -600,6 +599,8 @@ function clearResults(){
   document.getElementById('results').classList.remove('show');
   document.getElementById('errorBanner').classList.remove('show');
   document.getElementById('urlInput')?.classList.remove('is-error');
+  var ta=document.getElementById('htmlInput');
+  if(ta)ta.style.borderColor='';
 }
 
 function setLoading(show,msg){
@@ -671,7 +672,7 @@ async function checkUrl(){
       var data=p.raw?await res.text():await res.json();
       var html=p.extract(data);
       setLoading(false);
-      processHTML(html,url);
+      processHTML(html,url,true);
       document.getElementById('checkUrlBtn').disabled=false;
       return;
     }catch(e){
@@ -696,10 +697,16 @@ async function checkUrl(){
 
 // ── HTML check ────────────────────────────────────────────────
 function checkHtml(){
-  var html=document.getElementById('htmlInput').value.trim();
-  if(!html){return;}
+  var htmlInput=document.getElementById('htmlInput');
+  var html=htmlInput.value.trim();
+  if(!html){
+    htmlInput.style.borderColor='var(--error,#dc2626)';
+    showError('<strong>Nothing to check.</strong> Paste your page\'s &lt;head&gt; HTML into the text area above, then click Check Tags.');
+    return;
+  }
+  htmlInput.style.borderColor='';
   clearResults();
-  processHTML(html, '');
+  processHTML(html, '', false);
 }
 
 // ── Enter key on URL input ────────────────────────────────────
@@ -707,10 +714,13 @@ document.addEventListener('DOMContentLoaded',function(){
   document.getElementById('urlInput').addEventListener('keydown',function(e){
     if(e.key==='Enter')checkUrl();
   });
+  document.getElementById('htmlInput').addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&(e.ctrlKey||e.metaKey))checkHtml();
+  });
 });
 
 // ── Core processor ────────────────────────────────────────────
-function processHTML(html, sourceUrl){
+function processHTML(html, sourceUrl, isUrlMode){
   var parser=new DOMParser();
   var doc=parser.parseFromString(html,'text/html');
 
@@ -720,8 +730,8 @@ function processHTML(html, sourceUrl){
   var domain=getDomain(tags.ogUrl||sourceUrl);
 
   renderPreviews(resolved, domain, tags);
-  document.getElementById('imgNote').style.display = 'block';
-  var findings=runAudit(tags, dupes, sourceUrl);
+  document.getElementById('imgNote').style.display = isUrlMode ? 'block' : 'none';
+  var findings=runAudit(tags, dupes);
   renderAudit(findings);
   renderFallback(tags);
   renderRawTags(tags);
@@ -780,7 +790,6 @@ function getDomain(url){
 function resolvePlatform(t, sourceUrl){
   var domain=getDomain(t.ogUrl||sourceUrl);
   return{
-    domain: domain,
     x:{
       title:t.twTitle||t.ogTitle||t.pageTitle,
       desc:t.twDesc||t.ogDesc||t.metaDesc,
@@ -805,7 +814,7 @@ function imgWrap(url, ratio, cls){
     '<div class="pc-img-ph" style="display:none;">Image preview unavailable</div>'+
     '</div>';
 }
-function esc(s){return s.replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function trunc(s,n){if(!s)return'';return s.length>n?s.slice(0,n)+'…':s;}
 
 // ── Render platform previews ──────────────────────────────────
@@ -823,7 +832,7 @@ function renderPreviews(r, domain, tags){
 
   // Discovery
   document.getElementById('grid-disc').innerHTML=
-    renderPinterest(r.pinterest, domain) + renderReddit(r.reddit, domain);
+    renderPinterest(r.pinterest) + renderReddit(r.reddit, domain);
 }
 
 function platformLabel(color, name){
@@ -831,17 +840,23 @@ function platformLabel(color, name){
 }
 
 function renderX(x, domain){
+  var unsupportedCard = x.card==='app'||x.card==='player';
   var isLarge = x.card==='summary_large_image';
-  var cardNote = x.card==='summary_large_image'?'summary_large_image':'summary (small image)';
+  var cardNote = x.card==='summary_large_image'?'Large image card':'Summary card (small image)';
   var out='<div class="pc pc-x">';
-  out+=platformLabel('#000','X · '+cardNote);
-  if(isLarge){
+  if(unsupportedCard){
+    out+=platformLabel('var(--ink)','X · '+x.card+' card');
+    out+='<div class="pc-body" style="padding:14px 12px;"><p class="pc-desc" style="font-style:italic;">Simulation not available for <code style="font-style:normal;">'+esc(x.card)+'</code> card type — this is a specialised format (app install or media player) that requires additional platform-specific markup and cannot be represented as a simple link preview.</p></div>';
+  }else if(isLarge){
+    out+=platformLabel('var(--ink)','X · '+cardNote);
     out+=imgWrap(x.image,'ratio-191','');
-    out+='<div class="pc-body"><p class="pc-domain">'+esc(domain)+'</p><p class="pc-title">'+esc(trunc(x.title,70))+'</p></div>';
+    out+='<div class="pc-body"><p class="pc-domain">'+esc(domain)+'</p><p class="pc-title">'+esc(trunc(x.title,70))+'</p><p class="pc-desc">'+esc(trunc(x.desc,160))+'</p></div>';
   }else{
+    out+=platformLabel('var(--ink)','X · '+cardNote);
     out+='<div class="pc-x-summary">';
     out+='<div class="pc-img-side">';
     if(x.image){out+='<img src="'+esc(x.image)+'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\'">';}
+    else{out+='<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--mid);text-align:center;padding:4px;">No image</div>';}
     out+='</div>';
     out+='<div class="pc-body"><p class="pc-domain">'+esc(domain)+'</p><p class="pc-title">'+esc(trunc(x.title,70))+'</p><p class="pc-desc">'+esc(trunc(x.desc,150))+'</p></div>';
     out+='</div>';
@@ -856,29 +871,30 @@ function renderLinkedIn(li, domain){
     '<div class="pc-body">'+
     '<p class="pc-title">'+esc(trunc(li.title,80))+'</p>'+
     '<p class="pc-domain">'+esc(domain)+'</p>'+
+    (li.desc?'<p class="pc-desc">'+esc(trunc(li.desc,125))+'</p>':'')+
     '</div></div>';
 }
 
 function renderFacebook(fb, domain){
-  return '<div class="pc pc-fb">'+
+  return '<div class="pc pc-fb" style="grid-column:1/-1">'+
     platformLabel('#1877F2','Facebook')+
     imgWrap(fb.image,'ratio-191','')+
     '<div class="pc-body">'+
-    '<p class="pc-domain">'+esc(domain.toUpperCase())+'</p>'+
+    '<p class="pc-domain">'+esc(domain)+'</p>'+
     '<p class="pc-title">'+esc(trunc(fb.title,80))+'</p>'+
     '<p class="pc-desc">'+esc(trunc(fb.desc,160))+'</p>'+
     '</div></div>';
 }
 
 function renderSlack(sl, domain){
-  return '<div class="pc pc-slack">'+
+  return '<div class="pc pc-slack" style="grid-column:1/-1">'+
     platformLabel('#4A154B','Slack')+
+    (sl.image?'<div class="pc-slack-img">'+imgWrap(sl.image,'ratio-sm','')+'</div>':'')+
     '<div class="pc-body">'+
     '<p class="pc-sitename">'+esc(sl.siteName||domain)+'</p>'+
     '<p class="pc-title">'+esc(trunc(sl.title,80))+'</p>'+
     '<p class="pc-desc">'+esc(trunc(sl.desc,160))+'</p>'+
     '</div>'+
-    (sl.image?'<div class="pc-slack-img">'+imgWrap(sl.image,'ratio-sm','')+'</div>':'')+
     '</div>';
 }
 
@@ -888,6 +904,7 @@ function renderIMessage(im, domain){
   out+='<div class="pc-im-row">';
   out+='<div class="pc-im-img">';
   if(im.image){out+='<img src="'+esc(im.image)+'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\'">';}
+  else{out+='<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--mid);text-align:center;padding:4px;">No image</div>';}
   out+='</div>';
   out+='<div class="pc-im-body"><p class="pc-domain">'+esc(domain)+'</p><p class="pc-title">'+esc(trunc(im.title,60))+'</p></div>';
   out+='</div></div>';
@@ -896,7 +913,7 @@ function renderIMessage(im, domain){
 
 function renderDiscord(dc, domain){
   return '<div class="pc pc-discord">'+
-    platformLabel('#5865F2','Discord')+
+    platformLabel('#5865F2','Discord · dark theme')+
     '<div class="pc-discord-bar">'+
     '<div class="pc-body">'+
     '<p class="pc-domain" style="color:#5865F2;">'+esc(dc.siteName||domain)+'</p>'+
@@ -912,8 +929,8 @@ function renderWhatsApp(tags){
   var issues=[];
   if(!img)issues.push('No og:image tag — WhatsApp will show a text-only preview');
   else{
-    if(!/^https/.test(img))issues.push('Image URL must use HTTPS');
-    if(w&&h&&w*h<90000)issues.push('Image may be too small (minimum 300×200px recommended)');
+    if(!/^https:\/\//.test(img))issues.push('Image URL must use HTTPS');
+    if(w&&h&&(w<300||h<200))issues.push('Image may be too small (minimum 300×200px recommended)');
   }
   var issueHtml=issues.length?issues.map(i=>'<span style="display:block">⚠ '+esc(i)+'</span>').join(''):'<span style="color:#16a34a">✓ No issues detected — verify file size is under 300 KB</span>';
   return '<div class="whatsapp-audit-row" style="grid-column:1/-1">'+
@@ -922,7 +939,7 @@ function renderWhatsApp(tags){
     '<p class="wa-findings">'+issueHtml+'<span style="display:block;margin-top:4px;font-size:11px;color:var(--mid);">WhatsApp previews vary by device and app version — a simulated card would be unreliable. The audit above reflects WhatsApp\'s documented requirements.</span></p></div></div>';
 }
 
-function renderPinterest(pin, domain){
+function renderPinterest(pin){
   return '<div class="pc pc-pin">'+
     platformLabel('#E60023','Pinterest')+
     imgWrap(pin.image,'ratio-23','')+
@@ -935,20 +952,22 @@ function renderReddit(rd, domain){
   out+='<div class="pc-reddit">';
   out+='<div class="pc-img-side">';
   if(rd.image){out+='<img src="'+esc(rd.image)+'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\'">';}
+  else{out+='<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--mid);text-align:center;padding:4px;">No image</div>';}
   out+='</div>';
-  out+='<div class="pc-body"><p class="pc-reddit-meta">r/example · '+esc(domain)+'</p><p class="pc-title">'+esc(trunc(rd.title,90))+'</p></div>';
+  out+='<div class="pc-body"><p class="pc-reddit-meta">r/example <span style="opacity:0.55;font-style:italic;">(placeholder)</span> · '+esc(domain)+'</p><p class="pc-title">'+esc(trunc(rd.title,90))+'</p></div>';
   out+='</div></div>';
   return out;
 }
 
 // ── Run audit ─────────────────────────────────────────────────
-function runAudit(t, dupes, sourceUrl){
+function runAudit(t, dupes){
   var f=[];
   function add(tag,val,status,explain,action){f.push({tag,val,status,explain,action});}
 
   // og:title
-  if(!t.ogTitle)add('og:title','Not found','fix','No og:title tag. Most platforms will fall back to your page\'s <title> tag, but this is not guaranteed.','Add <code>&lt;meta property="og:title" content="Your Page Title" /&gt;</code> to your &lt;head&gt;.');
-  else if(t.ogTitle.length>70)add('og:title',t.ogTitle,'warn','Present. At '+t.ogTitle.length+' characters, this may be truncated on X (70 char limit) and Facebook (60 char limit).','Consider shortening to under 60 characters to avoid truncation on all platforms.');
+  if(!t.ogTitle)add('og:title','Not found','fix','No og:title tag. Most platforms will fall back to your page\'s &lt;title&gt; tag, but this is not guaranteed.','Add <code>&lt;meta property="og:title" content="Your Page Title" /&gt;</code> to your &lt;head&gt;.');
+  else if(t.ogTitle.length>70)add('og:title',t.ogTitle,'warn','Present. At '+t.ogTitle.length+' characters, this will be truncated on Facebook (60 char limit) and X (70 char limit).','Shorten to under 60 characters to avoid truncation on all platforms.');
+  else if(t.ogTitle.length>60)add('og:title',t.ogTitle,'warn','Present. At '+t.ogTitle.length+' characters, this may be truncated on Facebook (60 char limit), though it fits within X\'s 70 char limit.','Consider shortening to under 60 characters for consistent display across all platforms.');
   else add('og:title',t.ogTitle,'pass','Present and within recommended character limits ('+t.ogTitle.length+' chars).',null);
 
   // og:description
@@ -997,28 +1016,28 @@ function runAudit(t, dupes, sourceUrl){
 
   // og:type
   if(!t.ogType)add('og:type','Not found','warn','No og:type. Defaults to "website" on most platforms, but declaring it explicitly is best practice.','Add <code>&lt;meta property="og:type" content="website" /&gt;</code> (or "article" for blog posts).');
-  else add('og:type',t.ogType,'pass','Present ('+t.ogType+').',null);
+  else add('og:type',t.ogType,'pass','Present ('+esc(t.ogType)+').',null);
 
-  // twitter:card
-  if(!t.twCard){
+  // twitter:card — attribute error takes priority to avoid contradictory pass+fix output
+  if(t.twCardAttrBad){
+    add('twitter:card',t.twCard,'fix','This tag uses <code>property="twitter:card"</code> instead of <code>name="twitter:card"</code>. X requires the <code>name</code> attribute for Twitter Card tags. The value &ldquo;'+esc(t.twCard)+'&rdquo; would otherwise be valid, but will be ignored because of this attribute error.','Change <code>property="twitter:card"</code> to <code>name="twitter:card"</code>.');
+  }else if(!t.twCard){
     add('twitter:card','Not found','warn','No twitter:card tag. X will fall back to a "summary" card (small square image). You will not get the large image format without this tag.','Add <code>&lt;meta name="twitter:card" content="summary_large_image" /&gt;</code> for the full-width large image card on X.');
   }else if(!['summary','summary_large_image','app','player'].includes(t.twCard.toLowerCase())){
-    add('twitter:card',t.twCard,'fix','Invalid value "'+t.twCard+'". X will ignore this tag. Valid values: summary, summary_large_image, app, player.','Use <code>summary_large_image</code> for most pages with a featured image.');
+    add('twitter:card',t.twCard,'fix','Invalid value &ldquo;'+esc(t.twCard)+'&rdquo;. X will ignore this tag. Valid values: summary, summary_large_image, app, player.','Use <code>summary_large_image</code> for most pages with a featured image.');
   }else if(t.twCard.toLowerCase()==='summary'&&(t.twImage||t.ogImage)){
     add('twitter:card',t.twCard,'warn','Set to "summary" — X will display a small square thumbnail even though an image is available. You likely want the large image format.','Change to <code>summary_large_image</code> to display the full-width image card on X.');
   }else{
     add('twitter:card',t.twCard,'pass','Present and valid.',null);
   }
 
-  // twitter:card attribute type check
-  if(t.twCardAttrBad)add('twitter:card (attribute error)',t.twCard,'fix','This tag uses property="twitter:card" instead of name="twitter:card". X requires the name attribute for Twitter Card tags.','Change <code>property="twitter:card"</code> to <code>name="twitter:card"</code>.');
-
-  // og:url vs canonical mismatch
-  if(t.ogUrl&&t.canonical&&t.ogUrl!==t.canonical)
+  // og:url vs canonical mismatch — normalize before comparing to avoid trailing-slash false positives
+  function normalizeUrl(u){try{var p=new URL(u);return p.origin+p.pathname.replace(/\/$/,'')+p.search;}catch(e){return u.replace(/\/$/,'');}}
+  if(t.ogUrl&&t.canonical&&normalizeUrl(t.ogUrl)!==normalizeUrl(t.canonical))
     add('og:url vs canonical','og:url: '+t.ogUrl+' / canonical: '+t.canonical,'warn','Your og:url and canonical link differ. This can cause sharing analytics to be split between two URLs and may cause caching issues.','Make sure og:url and the canonical tag point to the same URL.');
 
   // <title> fallback
-  if(!t.pageTitle)add('<title> tag','Not found','warn','No <title> tag found. This is the final fallback for several platforms when OG tags are absent.','Add a <code>&lt;title&gt;</code> tag to your page.');
+  if(!t.pageTitle)add('<title> tag','Not found','warn','No &lt;title&gt; tag found. This is the final fallback for several platforms when OG tags are absent.','Add a <code>&lt;title&gt;</code> tag to your page.');
   else add('<title> tag',t.pageTitle,'pass','Present — used as fallback by X, LinkedIn, and others when og:title is absent.',null);
 
   // Duplicates
@@ -1057,7 +1076,7 @@ function renderFallback(t){
     ['Description', t.twDesc, 'twitter:description', t.ogDesc, 'og:description', t.metaDesc, 'meta description'],
     ['Image', t.twImage, 'twitter:image', t.ogImage, 'og:image', '', '—'],
   ];
-  var html='<tr><th>Field</th><th>X will use</th><th>Source</th></tr>';
+  var html='<thead><tr><th>Field</th><th>X will use</th><th>Source</th></tr></thead><tbody>';
   chain.forEach(function(row){
     var field=row[0];
     var val=row[1]||row[3]||row[5];
@@ -1067,7 +1086,7 @@ function renderFallback(t){
     else{html+='<td class="fallback-missing" colspan="2">Not found — will show blank</td>';}
     html+='</tr>';
   });
-  document.getElementById('fallbackTable').innerHTML=html;
+  document.getElementById('fallbackTable').innerHTML=html+'</tbody>';
 }
 
 // ── Raw tags ──────────────────────────────────────────────────
@@ -1083,43 +1102,57 @@ function renderRawTags(t){
     ['<title>',t.pageTitle],['meta description',t.metaDesc],['canonical',t.canonical,'url'],
   ].filter(x=>x[1]);
   document.getElementById('rawCount').textContent='— '+items.length+' tag'+(items.length!==1?'s':'')+' found';
-  var html='';
-  items.forEach(function(item){
-    var val=item[1];
-    var valHtml=(item[2]==='url')?'<a href="'+esc(val)+'" target="_blank" rel="noopener noreferrer">'+esc(trunc(val,80))+'</a>':esc(trunc(val,120));
-    html+='<tr><td class="raw-tag-name">'+esc(item[0])+'</td><td class="raw-tag-val">'+valHtml+'</td></tr>';
-  });
-  document.getElementById('rawTable').innerHTML=html||'<tr><td colspan="2" style="color:var(--mid);font-size:13px;">No tags found.</td></tr>';
+  var html='<tbody>';
+  if(items.length===0){
+    html+='<tr><td colspan="2" style="color:var(--mid);font-size:13px;">No tags found.</td></tr>';
+  }else{
+    items.forEach(function(item){
+      var val=item[1];
+      var isSafeUrl=item[2]==='url'&&/^https?:\/\//i.test(val);
+      var valHtml=isSafeUrl
+        ? '<a href="'+esc(val)+'" target="_blank" rel="noopener noreferrer">'+esc(trunc(val,80))+'</a>'
+        : esc(trunc(val,120));
+      html+='<tr><td class="raw-tag-name">'+esc(item[0])+'</td><td class="raw-tag-val">'+valHtml+'</td></tr>';
+    });
+  }
+  document.getElementById('rawTable').innerHTML=html+'</tbody>';
 }
 
 // ── Copy HTML ─────────────────────────────────────────────────
 function copyHTML(){
   if(!window._lastTags)return;
   var t=window._lastTags;
+  function attr(v){return v.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   var lines=[
     '<!-- Open Graph tags -->',
-    '<meta property="og:title" content="'+(t.ogTitle||'<!-- Add your page title -->')+'" />',
-    '<meta property="og:description" content="'+(t.ogDesc||'<!-- Add a 120-155 character description -->')+'" />',
-    '<meta property="og:image" content="'+(t.ogImage||'<!-- Add absolute HTTPS image URL (1200x630px PNG or JPEG) -->')+'" />',
-    (t.ogImageW&&t.ogImageH)?'<meta property="og:image:width" content="'+t.ogImageW+'" />':'<!-- <meta property="og:image:width" content="1200" /> -->',
-    (t.ogImageW&&t.ogImageH)?'<meta property="og:image:height" content="'+t.ogImageH+'" />':'<!-- <meta property="og:image:height" content="630" /> -->',
-    (t.ogImageAlt)?'<meta property="og:image:alt" content="'+t.ogImageAlt+'" />':'<!-- <meta property="og:image:alt" content="Describe your image for accessibility" /> -->',
-    '<meta property="og:url" content="'+(t.ogUrl||'<!-- Add the canonical URL of this page -->')+'" />',
-    '<meta property="og:type" content="'+(t.ogType||'website')+'" />',
-    (t.ogSiteName)?'<meta property="og:site_name" content="'+t.ogSiteName+'" />':'',
+    '<meta property="og:title" content="'+(t.ogTitle?attr(t.ogTitle):'<!-- Add your page title -->')+'" />',
+    '<meta property="og:description" content="'+(t.ogDesc?attr(t.ogDesc):'<!-- Add a 120-155 character description -->')+'" />',
+    '<meta property="og:image" content="'+(t.ogImage?attr(t.ogImage):'<!-- Add absolute HTTPS image URL (1200x630px PNG or JPEG) -->')+'" />',
+    (t.ogImageW&&t.ogImageH)?'<meta property="og:image:width" content="'+attr(t.ogImageW)+'" />':'<!-- <meta property="og:image:width" content="1200" /> -->',
+    (t.ogImageW&&t.ogImageH)?'<meta property="og:image:height" content="'+attr(t.ogImageH)+'" />':'<!-- <meta property="og:image:height" content="630" /> -->',
+    (t.ogImageAlt)?'<meta property="og:image:alt" content="'+attr(t.ogImageAlt)+'" />':'<!-- <meta property="og:image:alt" content="Describe your image for accessibility" /> -->',
+    '<meta property="og:url" content="'+(t.ogUrl?attr(t.ogUrl):'<!-- Add the canonical URL of this page -->')+'" />',
+    '<meta property="og:type" content="'+(t.ogType?attr(t.ogType):'website')+'" />',
+    (t.ogSiteName)?'<meta property="og:site_name" content="'+attr(t.ogSiteName)+'" />':null,
     '',
     '<!-- Twitter / X Card tags -->',
-    '<meta name="twitter:card" content="'+(t.twCard||'summary_large_image')+'" />',
-    '<meta name="twitter:title" content="'+(t.twTitle||t.ogTitle||'<!-- Same as og:title, or customize for X -->')+'" />',
-    '<meta name="twitter:description" content="'+(t.twDesc||t.ogDesc||'<!-- Same as og:description, or customize for X -->')+'" />',
-    '<meta name="twitter:image" content="'+(t.twImage||t.ogImage||'<!-- Same as og:image, or customize for X -->')+'" />',
-    (t.twSite)?'<meta name="twitter:site" content="'+t.twSite+'" />':'<!-- <meta name="twitter:site" content="@yourhandle" /> -->',
-  ].filter(l=>l!==null).join('\n');
+    '<meta name="twitter:card" content="'+(t.twCard?attr(t.twCard):'summary_large_image')+'" />',
+    '<meta name="twitter:title" content="'+(t.twTitle||t.ogTitle?attr(t.twTitle||t.ogTitle):'<!-- Same as og:title, or customize for X -->')+'" />',
+    '<meta name="twitter:description" content="'+(t.twDesc||t.ogDesc?attr(t.twDesc||t.ogDesc):'<!-- Same as og:description, or customize for X -->')+'" />',
+    '<meta name="twitter:image" content="'+(t.twImage||t.ogImage?attr(t.twImage||t.ogImage):'<!-- Same as og:image, or customize for X -->')+'" />',
+    (t.twSite)?'<meta name="twitter:site" content="'+attr(t.twSite)+'" />':'<!-- <meta name="twitter:site" content="@yourhandle" /> -->',
+  ].filter(Boolean).join('\n');
 
   navigator.clipboard.writeText(lines).then(function(){
     var c=document.getElementById('copyConfirm');
     c.classList.add('show');
     setTimeout(function(){c.classList.remove('show');},2500);
+  }).catch(function(){
+    var c=document.getElementById('copyConfirm');
+    c.textContent='Copy failed — try Ctrl+C';
+    c.style.color='var(--error,#dc2626)';
+    c.classList.add('show');
+    setTimeout(function(){c.classList.remove('show');c.textContent='Copied!';c.style.color='';},3000);
   });
 }
 </script>

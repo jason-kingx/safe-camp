@@ -238,8 +238,6 @@
 }
 
 /* ── Result zone ─────────────────────────────────────────────── */
-.result-zone { min-height: 4px; }
-
 .result-card {
   border-radius: 8px;
   border: 1.5px solid;
@@ -248,21 +246,27 @@
 }
 
 .result-card.sig {
+  background: rgba(22, 163, 74, 0.08);
   background: color-mix(in srgb, #16a34a 8%, transparent);
+  border-color: rgba(22, 163, 74, 0.30);
   border-color: color-mix(in srgb, #16a34a 30%, transparent);
 }
 .result-card.sig .result-headline { color: #15803d; }
 [data-theme="dark"] .result-card.sig .result-headline { color: #4ade80; }
 
 .result-card.nosig {
+  background: rgba(220, 38, 38, 0.08);
   background: color-mix(in srgb, #dc2626 8%, transparent);
+  border-color: rgba(220, 38, 38, 0.25);
   border-color: color-mix(in srgb, #dc2626 25%, transparent);
 }
 .result-card.nosig .result-headline { color: #b91c1c; }
 [data-theme="dark"] .result-card.nosig .result-headline { color: #f87171; }
 
 .result-card.close {
+  background: rgba(217, 119, 6, 0.08);
   background: color-mix(in srgb, #d97706 8%, transparent);
+  border-color: rgba(217, 119, 6, 0.30);
   border-color: color-mix(in srgb, #d97706 30%, transparent);
 }
 .result-card.close .result-headline { color: #92400e; }
@@ -348,12 +352,26 @@ details.zscore-detail[open] summary::before { transform: rotate(90deg); }
   line-height: 1.5;
 }
 
+/* Same-rate message */
+.result-same {
+  border-radius: 8px;
+  border: 1.5px solid var(--line);
+  background: var(--surface, rgba(128,128,128,0.05));
+  padding: 16px 20px;
+  font-size: 14px;
+  color: var(--mid);
+  line-height: 1.65;
+  margin: 0;
+}
+
 /* Low data warning */
 .low-data {
   display: flex;
   gap: 8px;
   align-items: flex-start;
+  background: rgba(234, 88, 12, 0.08);
   background: color-mix(in srgb, #ea580c 8%, transparent);
+  border: 1px solid rgba(234, 88, 12, 0.25);
   border: 1px solid color-mix(in srgb, #ea580c 25%, transparent);
   border-radius: 6px;
   padding: 10px 14px;
@@ -406,7 +424,6 @@ details.zscore-detail[open] summary::before { transform: rotate(90deg); }
   font-size: 14px;
   color: var(--ink);
   line-height: 1.65;
-  min-height: 22px;
 }
 
 @media (max-width: 540px) {
@@ -659,7 +676,15 @@ function erf(x) {
 function normalCDF(z) { return 0.5 * (1 + erf(z / Math.SQRT2)); }
 function zCrit(c) { return c === 0.90 ? 1.6449 : c === 0.99 ? 2.5758 : 1.9600; }
 function pct(r)     { return (r * 100).toFixed(2) + '%'; }
-function liftStr(l) { return (l >= 0 ? '+' : '') + l.toFixed(1) + '%'; }
+
+function liftStr(l) {
+  if (l === 0) return '0.0%';
+  var rounded = Math.abs(l).toFixed(1);
+  // Fix 1: if the magnitude rounds to '0.0', don't add a sign — +0.0% / -0.0%
+  // is confusing and meaningless. Display as plain '0.0%' instead.
+  if (rounded === '0.0') return '0.0%';
+  return (l > 0 ? '+' : '-') + rounded + '%';
+}
 
 // ── Helpers ──────────────────────────────────────────────────
 function el(id)  { return document.getElementById(id); }
@@ -676,7 +701,9 @@ function clearErrs() {
 function parseWhole(s) {
   if (s === '') return null;
   var n = Number(s);
-  return isFinite(n) ? Math.round(n) : NaN;
+  if (!isFinite(n)) return NaN;
+  if (n !== Math.floor(n)) return NaN; // reject decimals — don't silently round
+  return n;
 }
 function getConf() {
   var r = document.querySelector('input[name="conf"]:checked');
@@ -690,10 +717,10 @@ function calc() {
   var rB = parseWhole(val('reach-b')),   xB = parseWhole(val('actions-b'));
   var bad = false;
 
-  if (val('reach-a')   !== '' && (isNaN(rA) || rA <= 0)) { setErr('reach-a',   'Enter a positive whole number — e.g. 5000'); bad = true; }
-  if (val('actions-a') !== '' && (isNaN(xA) || xA <  0)) { setErr('actions-a', 'Enter 0 or a positive whole number');        bad = true; }
-  if (val('reach-b')   !== '' && (isNaN(rB) || rB <= 0)) { setErr('reach-b',   'Enter a positive whole number — e.g. 4900'); bad = true; }
-  if (val('actions-b') !== '' && (isNaN(xB) || xB <  0)) { setErr('actions-b', 'Enter 0 or a positive whole number');        bad = true; }
+  if (val('reach-a')   !== '' && (isNaN(rA) || rA <= 0)) { setErr('reach-a',   'Enter a positive whole number — no decimals, e.g. 5000'); bad = true; }
+  if (val('actions-a') !== '' && (isNaN(xA) || xA <  0)) { setErr('actions-a', 'Enter 0 or a positive whole number — no decimals'); bad = true; }
+  if (val('reach-b')   !== '' && (isNaN(rB) || rB <= 0)) { setErr('reach-b',   'Enter a positive whole number — no decimals, e.g. 4900'); bad = true; }
+  if (val('actions-b') !== '' && (isNaN(xB) || xB <  0)) { setErr('actions-b', 'Enter 0 or a positive whole number — no decimals'); bad = true; }
   if (!isNaN(rA) && rA > 0 && !isNaN(xA) && xA > rA) { setErr('actions-a', "Actions can't exceed reach — check your numbers"); bad = true; }
   if (!isNaN(rB) && rB > 0 && !isNaN(xB) && xB > rB) { setErr('actions-b', "Actions can't exceed reach — check your numbers"); bad = true; }
 
@@ -713,13 +740,37 @@ function calc() {
   var pPool = (xA + xB) / (rA + rB);
   var se    = Math.sqrt(pPool * (1 - pPool) * (1/rA + 1/rB));
 
+  // FIX 5: Use expected cell counts (n * pPool) rather than observed counts to
+  // determine whether the normal approximation is reliable. This prevents the
+  // warning from misfiring on valid 0-action results with large samples: e.g.
+  // rA=10,000, xA=0, rB=10,000, xB=100 gives expA=50 — no warning needed.
+  // The se !== 0 guard still suppresses the check when both rates are 0%/100%.
+  var expA   = pPool * rA, expB = pPool * rB;
+  var npSmall = se !== 0 && (expA < 5 || (rA - expA) < 5 || expB < 5 || (rB - expB) < 5);
+  var lowData = (rA < 100 || rB < 100 || npSmall)
+    ? '<div class="low-data"><span class="low-data-icon">⚠</span><span>Small sample size — results are less reliable. '
+      + (npSmall ? 'At least one group has fewer than 5 expected actions or 5 expected non-actions, which means the normal approximation this test relies on may not hold. ' : 'Fewer than 100 people in at least one group. ')
+      + 'Treat this finding with extra caution and consider collecting more data.</span></div>'
+    : '';
+
   if (se === 0) {
-    zone.innerHTML = '<p class="result-same">Both versions have the same action rate — there\'s no difference to test.</p>';
+    zone.innerHTML = lowData + '<p class="result-same">Both versions have the same action rate — there\'s no difference to test.</p>';
     return;
   }
 
   var conf  = getConf();
   var z     = (pB - pA) / se;
+
+  // FIX 1: Catch identical rates that weren't caught by the se === 0 guard.
+  // se === 0 only fires for 0%/100% edge cases. When pA exactly equals pB at
+  // any other rate (e.g. both 5%), z is 0 and pVal is 1 — the tool previously
+  // fell into the nosig branch and said the difference "could still be random
+  // chance", which is actively misleading when there is literally no difference.
+  if (z === 0) {
+    zone.innerHTML = lowData + '<p class="result-same">Both versions have the same action rate — there\'s no difference to test.</p>';
+    return;
+  }
+
   var pVal  = 2 * (1 - normalCDF(Math.abs(z)));
   var alpha = 1 - conf;
   var lift  = pA > 0 ? ((pB - pA) / pA) * 100 : null;
@@ -727,50 +778,74 @@ function calc() {
   var isSig    = pVal < alpha;
   var isBorder = !isSig && pVal < alpha * 2;
 
-  var lowData = (rA < 100 || rB < 100)
-    ? '<div class="low-data"><span class="low-data-icon">⚠</span><span>Small sample size — fewer than 100 in at least one group. Results are less reliable; treat this finding with extra caution and consider collecting more data.</span></div>'
-    : '';
-
   var cls, icon, head, desc, action;
 
   if (isSig) {
     cls  = 'sig';  icon = '✓';
     head = 'Statistically significant at ' + Math.round(conf*100) + '% confidence';
     if (lift !== null) {
-      var dir   = lift > 0 ? 'higher' : (lift < 0 ? 'lower' : 'the same as');
-      var which = lift > 0 ? 'B' : (lift < 0 ? 'A' : null);
-      desc   = 'Version B\'s action rate (' + pct(pB) + ') was '
-             + (lift !== 0 ? Math.abs(lift).toFixed(1) + '% ' + dir + ' than ' : dir + ' ')
-             + 'Version A\'s (' + pct(pA) + '). At ' + Math.round(conf*100) + '% confidence, this difference is real — not random chance.';
-      action = which
-        ? 'You have enough evidence to act. Version ' + which + ' is the stronger performer.'
-        : 'You have enough evidence to act on this result.';
+      // Fix 3: removed dead lift===0 branch (equal rates exit at z===0 above).
+      // Fix 2: guard against lift that is non-zero but rounds to '0.0' to avoid
+      // the self-contradictory "was 0.0% higher ... this difference is real".
+      var dir      = lift > 0 ? 'higher' : 'lower';
+      var which    = lift > 0 ? 'B' : 'A';
+      var liftAbs  = Math.abs(lift).toFixed(1);
+      var liftPhrase = liftAbs !== '0.0'
+        ? liftAbs + '% ' + dir + ' than Version A\'s (' + pct(pA) + ')'
+        : 'nearly identical to Version A\'s (' + pct(pA) + ')';
+      desc   = 'Version B\'s action rate (' + pct(pB) + ') was ' + liftPhrase
+             + '. At ' + Math.round(conf*100) + '% confidence, this difference is real — not random chance.';
+      action = 'You have enough evidence to act. Version ' + which + ' is the stronger performer.';
     } else {
-      desc   = 'The difference between these two rates is statistically significant at ' + Math.round(conf*100) + '% confidence.';
-      action = 'You have enough evidence to act on this result.';
+      // pA = 0: can't compute relative lift, but can still describe the result
+      desc   = 'Version A had a 0% action rate, while Version B\'s was ' + pct(pB) + '. At ' + Math.round(conf*100) + '% confidence, this difference is real — not random chance.';
+      action = 'You have enough evidence to act. Version B is the stronger performer.';
     }
   } else if (isBorder) {
-    cls    = 'close'; icon = '~';
-    head   = 'Close — but not conclusive yet';
-    desc   = 'You\'re approaching significance at ' + Math.round(conf*100) + '% confidence, but the difference could still be due to chance.';
-    action = 'Extend the test or increase your sample size before acting on this result. Use the sample size tool below to see how much more data you need.';
+    cls  = 'close'; icon = '~';
+    head = 'Close — but not conclusive yet';
+    if (lift !== null) {
+      // Fix 4: removed dead lift===0 branch.
+      // Fix 7: changed present tense "is" to past tense "was" to match isSig.
+      var bDir     = lift > 0 ? 'higher' : 'lower';
+      var bLiftAbs = Math.abs(lift).toFixed(1);
+      var bTrend   = bLiftAbs !== '0.0'
+        ? 'Version B\'s rate (' + pct(pB) + ') was ' + bLiftAbs + '% ' + bDir + ' than Version A\'s (' + pct(pA) + ')'
+        : 'Version B\'s rate (' + pct(pB) + ') was nearly identical to Version A\'s (' + pct(pA) + ')';
+      desc = bTrend + ', but you\'re not quite at ' + Math.round(conf*100) + '% confidence — the difference could still be due to chance.';
+    } else {
+      desc = 'Version A had a 0% action rate and Version B\'s was ' + pct(pB) + ', but you\'re not quite at ' + Math.round(conf*100) + '% confidence — the difference could still be due to chance.';
+    }
+    // Fix 9: "see" → "estimate" to match nosig and be more accurate.
+    action = 'Extend the test or increase your sample size before acting on this result. Use the sample size tool below to estimate how much more data you need.';
   } else {
-    cls    = 'nosig'; icon = '✗';
-    head   = 'Not significant yet — more data needed';
-    // FIX: lift > 0 = better, lift < 0 = worse, lift === 0 = same
-    var trend = lift === null ? 'differs'
-              : lift > 0     ? 'looks better'
-              : lift < 0     ? 'looks worse'
-              : 'shows the same rate';
-    desc   = 'Version B ' + trend + ', but with your current sample sizes this difference could still be random chance.';
+    // Fix 8: removed "yet" — it implies more data always produces significance,
+    // which is false. Changed headline to be neutral and accurate.
+    cls  = 'nosig'; icon = '✗';
+    head = 'Not significant — result is inconclusive';
+    // Fix 5: removed dead lift===0 branch.
+    // Fix 6: nosig now shows actual rates in the description, like close does.
+    if (lift !== null) {
+      var nDir     = lift > 0 ? 'higher' : 'lower';
+      var nLiftAbs = Math.abs(lift).toFixed(1);
+      var nTrend   = nLiftAbs !== '0.0'
+        ? 'Version B\'s rate (' + pct(pB) + ') is ' + nLiftAbs + '% ' + nDir + ' than Version A\'s (' + pct(pA) + ')'
+        : 'Version B\'s rate (' + pct(pB) + ') is nearly identical to Version A\'s (' + pct(pA) + ')';
+      desc = nTrend + ', but with your current sample sizes this difference could still be random chance.';
+    } else {
+      desc = 'Version A had a 0% action rate, while Version B\'s was ' + pct(pB) + ', but with your current sample sizes this difference could still be random chance.';
+    }
     action = 'Keep running. Use the sample size tool below to estimate how much more data you need before drawing a conclusion.';
   }
 
   var pDisp = pVal < 0.001 ? '< 0.001' : pVal.toFixed(3);
-  // Tightened p-value plain-language: statistically accurate but still readable
+  // FIX 3: p-value plain-language note previously said "a result this large
+  // would occur X% of the time". A p-value represents the probability of a
+  // result this extreme *or more extreme*, so "or larger" is required for
+  // statistical accuracy.
   var pNote = pVal < 0.001
-    ? 'If there were no real difference, a result this large would occur less than 0.1% of the time'
-    : 'If there were no real difference, a result this large would occur ' + (pVal * 100).toFixed(1) + '% of the time';
+    ? 'If there were no real difference, a result this large or larger would occur less than 0.1% of the time'
+    : 'If there were no real difference, a result this large or larger would occur ' + (pVal * 100).toFixed(1) + '% of the time';
   var lDisp = lift !== null ? liftStr(lift) : '—';
 
   zone.innerHTML = lowData +
@@ -804,7 +879,16 @@ function calcSS() {
   var c  = getConf();
   var out = el('ss-result');
 
-  if (!isFinite(rv) || !isFinite(lv) || rv <= 0 || rv >= 100 || lv <= 0) { out.innerHTML = ''; return; }
+  // Fix 11: tightened JS guard from rv <= 0 to rv < 0.1 to match the HTML
+  // min="0.1" attribute. Previously parseFloat accepted e.g. 0.05 even though
+  // the UI implies the minimum valid rate is 0.1%.
+  if (!isFinite(rv) || !isFinite(lv) || rv < 0.1 || rv >= 100 || lv < 1) {
+    // Fix 10: instead of silently clearing the output, show a prompt so users
+    // know what to enter (mirrors the main calculator's UX pattern).
+    var ssEmpty = el('ss-rate').value.trim() === '' && el('ss-lift').value.trim() === '';
+    out.innerHTML = ssEmpty ? '' : '<span style="color:var(--mid);font-size:13px;">Enter a baseline rate between 0.1% and 99.9% and a minimum detectable lift of at least 1%.</span>';
+    return;
+  }
 
   var p1 = rv / 100, p2 = p1 * (1 + lv / 100);
   if (p2 >= 1) { out.innerHTML = '<span style="color:var(--mid);font-size:13px;">The expected lift would produce an action rate over 100% — adjust your inputs.</span>'; return; }
@@ -814,12 +898,14 @@ function calcSS() {
   var n = Math.ceil(Math.pow(zA * Math.sqrt(2*pBar*(1-pBar)) + zB * Math.sqrt(p1*(1-p1)+p2*(1-p2)), 2) / (diff*diff));
 
   out.innerHTML = 'You need at least <strong>' + n.toLocaleString() + ' people per group</strong> ('
-    + (n*2).toLocaleString() + ' total) to detect a ' + lv.toFixed(0) + '% relative lift from a '
+    + (n*2).toLocaleString() + ' total) to detect a ' + lv + '% relative lift from a '
     + rv.toFixed(1) + '% baseline at ' + Math.round(c*100) + '% confidence with 80% statistical power.';
 }
 
 el('ss-rate').addEventListener('input', calcSS);
+el('ss-rate').addEventListener('blur',  calcSS);
 el('ss-lift').addEventListener('input', calcSS);
+el('ss-lift').addEventListener('blur',  calcSS);
 document.querySelectorAll('input[name="conf"]').forEach(function(r){ r.addEventListener('change', calcSS); });
 </script>
 </body>
