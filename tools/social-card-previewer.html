@@ -449,34 +449,34 @@
 <h2>Frequently asked questions</h2>
 
 <div class="faq-group">
-  <p class="faq-group-title">Understanding Open Graph</p>
+  <h3 class="faq-group-title">Understanding Open Graph</h3>
 
   <details class="faq-item">
-    <summary>What are Open Graph tags? <span class="faq-chevron">▶</span></summary>
+    <summary>What are Open Graph tags? <span class="faq-chevron" aria-hidden="true">▶</span></summary>
     <div class="faq-answer"><p>Open Graph is a protocol originally developed by Meta (Facebook) that lets you control how your page appears when shared on social media. You add a handful of <code>&lt;meta&gt;</code> tags inside the <code>&lt;head&gt;</code> section of your HTML, and platforms read those tags to generate a link preview card. Almost every platform that shows link previews — Facebook, LinkedIn, WhatsApp, Slack, Discord, iMessage — uses Open Graph. X (formerly Twitter) has its own tag format called Twitter Cards, but falls back to Open Graph if Twitter-specific tags are absent.</p></div>
   </details>
 
   <details class="faq-item">
-    <summary>What's the difference between og:title and twitter:title? <span class="faq-chevron">▶</span></summary>
+    <summary>What's the difference between og:title and twitter:title? <span class="faq-chevron" aria-hidden="true">▶</span></summary>
     <div class="faq-answer"><p><code>og:title</code> is used by most platforms. <code>twitter:title</code> overrides <code>og:title</code> specifically on X. If you set both, X uses <code>twitter:title</code> and everyone else uses <code>og:title</code>. If you only set <code>og:title</code>, X falls back to it. Most implementations set both to the same value unless they want different copy specifically for X — for example, X has a 70-character title limit, while other platforms allow more.</p></div>
   </details>
 
   <details class="faq-item">
-    <summary>What is twitter:card and why does it matter? <span class="faq-chevron">▶</span></summary>
+    <summary>What is twitter:card and why does it matter? <span class="faq-chevron" aria-hidden="true">▶</span></summary>
     <div class="faq-answer"><p><code>twitter:card</code> is the tag that tells X which type of preview card to use. The most important value is <code>summary_large_image</code>, which displays a large image across the full width of the card. Without this tag, X defaults to <code>summary</code>, which shows a small square thumbnail to the left of the text — much less visually impactful. Importantly, the tag still uses the <code>twitter:</code> prefix even though the platform is now called X. Using <code>x:card</code> does not work.</p></div>
   </details>
 
   <details class="faq-item">
-    <summary>Do Open Graph tags help with SEO? <span class="faq-chevron">▶</span></summary>
+    <summary>Do Open Graph tags help with SEO? <span class="faq-chevron" aria-hidden="true">▶</span></summary>
     <div class="faq-answer"><p>Directly, no — search engines don't use OG tags to determine rankings. Indirectly, yes — well-optimized previews lead to higher click-through rates when your links are shared, which drives traffic and potential backlinks, both of which do influence search performance over time. Some search engines also display OG images as thumbnails in rich results, so having a strong OG image can improve how your content appears in search.</p></div>
   </details>
 </div>
 
 <div class="faq-group">
-  <p class="faq-group-title">Image requirements</p>
+  <h3 class="faq-group-title">Image requirements</h3>
 
   <details class="faq-item">
-    <summary>Why is my image not showing? <span class="faq-chevron">▶</span></summary>
+    <summary>Why is my image not showing? <span class="faq-chevron" aria-hidden="true">▶</span></summary>
     <div class="faq-answer">
       <p>The most common causes:</p>
       <p><strong>Relative URL</strong> — your image URL starts with <code>/</code> instead of <code>https://</code>. Crawlers require absolute URLs.</p>
@@ -489,55 +489,55 @@
   </details>
 
   <details class="faq-item">
-    <summary>What image size should I use for social sharing? <span class="faq-chevron">▶</span></summary>
+    <summary>What image size should I use for social sharing? <span class="faq-chevron" aria-hidden="true">▶</span></summary>
     <div class="faq-answer"><p>The universal recommendation is <strong>1200×630 pixels</strong> at a 1.91:1 aspect ratio. This works across Facebook, LinkedIn, Slack, Discord, iMessage, and most other platforms. For X specifically, 1200×600 (2:1) is technically ideal, but 1200×630 renders fine with minimal cropping. Pinterest prefers a taller 2:3 ratio (e.g. 1000×1500), but a standard 1.91:1 image will still work — it just may appear letterboxed. Keep key content (text, logos) centered and away from the edges, as several platforms crop slightly on different devices. Use PNG for graphics with text or logos, JPEG for photographs. Keep file size under 200 KB where possible; WhatsApp enforces a hard 300 KB limit.</p></div>
   </details>
 
   <details class="faq-item">
-    <summary>Should I declare og:image:width and og:image:height? <span class="faq-chevron">▶</span></summary>
+    <summary>Should I declare og:image:width and og:image:height? <span class="faq-chevron" aria-hidden="true">▶</span></summary>
     <div class="faq-answer"><p>Yes. When you declare the image dimensions, Facebook doesn't need to fetch the image asynchronously before showing the preview — which means the preview appears correctly on the very first share. Without dimensions, Facebook may show a blank card or a spinning loader on first share, and then show the correct preview only after it has fetched and cached the image. The tags are simple: <code>&lt;meta property="og:image:width" content="1200" /&gt;</code> and <code>&lt;meta property="og:image:height" content="630" /&gt;</code>.</p></div>
   </details>
 </div>
 
 <div class="faq-group">
-  <p class="faq-group-title">Platform-specific</p>
+  <h3 class="faq-group-title">Platform-specific</h3>
 
   <details class="faq-item">
-    <summary>Why does my page look fine on Facebook but broken on LinkedIn? <span class="faq-chevron">▶</span></summary>
+    <summary>Why does my page look fine on Facebook but broken on LinkedIn? <span class="faq-chevron" aria-hidden="true">▶</span></summary>
     <div class="faq-answer"><p>LinkedIn is stricter about image dimensions and has specific minimum size requirements (200×200px minimum). It also ignores Twitter Card tags entirely and only reads Open Graph tags. If your implementation relies on Twitter-specific tags and doesn't have the OG equivalents, LinkedIn may fail while X works fine. LinkedIn also sometimes has a delay in picking up updated tags — use the <a href="https://www.linkedin.com/post-inspector/" target="_blank" rel="noopener noreferrer">LinkedIn Post Inspector</a> to force a re-crawl.</p></div>
   </details>
 
   <details class="faq-item">
-    <summary>Why does Slack sometimes not show a preview at all? <span class="faq-chevron">▶</span></summary>
+    <summary>Why does Slack sometimes not show a preview at all? <span class="faq-chevron" aria-hidden="true">▶</span></summary>
     <div class="faq-answer"><p>Two common reasons. First, Slack caches link previews aggressively — once it has fetched a URL, it may serve that cached version for a long time even after you update your tags. To force Slack to re-fetch, append a query string to the URL (e.g. <code>?v=2</code>). Second, Slack requires HTTPS image URLs. If your <code>og:image</code> points to an HTTP URL, Slack won't display it.</p></div>
   </details>
 
   <details class="faq-item">
-    <summary>Does WhatsApp use Open Graph tags? <span class="faq-chevron">▶</span></summary>
+    <summary>Does WhatsApp use Open Graph tags? <span class="faq-chevron" aria-hidden="true">▶</span></summary>
     <div class="faq-answer"><p>Yes, WhatsApp reads OG tags for link previews in chats. The most important constraint is a <strong>300 KB hard file size limit</strong> on OG images — if your image exceeds this, WhatsApp will not display it, even if the tags are correct. WhatsApp also requires absolute HTTPS image URLs. Because WhatsApp's rendering varies significantly by device and app version, this tool audits your tags against WhatsApp's requirements but does not show a simulated WhatsApp preview card.</p></div>
   </details>
 </div>
 
 <div class="faq-group">
-  <p class="faq-group-title">Using this tool</p>
+  <h3 class="faq-group-title">Using this tool</h3>
 
   <details class="faq-item">
-    <summary>Why does the preview look different on the actual platform vs. here? <span class="faq-chevron">▶</span></summary>
+    <summary>Why does the preview look different on the actual platform vs. here? <span class="faq-chevron" aria-hidden="true">▶</span></summary>
     <div class="faq-answer"><p>Two common reasons. First, platforms cache the preview for a URL — if you've updated your tags recently, the platform may still be serving the old cached version. Facebook's Sharing Debugger and LinkedIn's Post Inspector both have a function to force a re-crawl. Second, platform rendering evolves — card layouts, truncation lengths, and image crop behavior change with platform updates. This tool reflects behavior as of its last update but real platforms are the final test.</p></div>
   </details>
 
   <details class="faq-item">
-    <summary>What is the Paste HTML method and when should I use it? <span class="faq-chevron">▶</span></summary>
+    <summary>What is the Paste HTML method and when should I use it? <span class="faq-chevron" aria-hidden="true">▶</span></summary>
     <div class="faq-answer"><p>Instead of entering a URL, you can copy the HTML source of your page (press <kbd>Ctrl+U</kbd> or <kbd>Cmd+Option+U</kbd> in your browser, then copy the content between <code>&lt;head&gt;</code> and <code>&lt;/head&gt;</code>) and paste it directly into the tool. This method works for any page — including ones that aren't publicly live yet, staging environments, or pages that block automated crawlers. It also guarantees you're checking your actual current tags rather than a version your browser cached. Use it whenever the URL method fails or when you're working with a page that isn't public.</p></div>
   </details>
 
   <details class="faq-item">
-    <summary>Does this tool store the URLs or HTML I enter? <span class="faq-chevron">▶</span></summary>
+    <summary>Does this tool store the URLs or HTML I enter? <span class="faq-chevron" aria-hidden="true">▶</span></summary>
     <div class="faq-answer"><p>No. When using the Paste HTML method, all processing happens entirely in your browser — nothing is sent anywhere. When using URL mode, your URL is sent to a third-party CORS proxy service to fetch the page source. This tool does not store URLs, pasted HTML, or any images that appear in the preview cards.</p></div>
   </details>
 
   <details class="faq-item">
-    <summary>Why isn't my URL working in the tool? <span class="faq-chevron">▶</span></summary>
+    <summary>Why isn't my URL working in the tool? <span class="faq-chevron" aria-hidden="true">▶</span></summary>
     <div class="faq-answer"><p>A few possible reasons: the page may be behind authentication or a login wall (use Paste HTML instead), the page may block automated crawlers, the proxy service may be temporarily unavailable, or the URL may not yet be publicly accessible. The tool will display a specific error message explaining what happened. If URL mode fails, the Paste HTML method will work for any page you can open in your own browser.</p></div>
   </details>
 </div>

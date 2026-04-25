@@ -89,9 +89,13 @@
 }
 .field { display:flex; flex-direction:column; margin-bottom:0; }
 .field label { font-size:13px; font-weight:500; color:var(--ink); margin-bottom:5px; line-height:1.4; }
+.field-label { font-size:13px; font-weight:500; color:var(--ink); margin-bottom:5px; line-height:1.4; display:block; }
 .field-helper { font-size:12px; color:var(--mid); margin-top:4px; line-height:1.5; }
+.label-note { font-size:11px; font-weight:400; color:var(--mid); }
 .field-error { font-size:12px; color:var(--error,#dc2626); margin-top:4px; line-height:1.4; display:none; }
 .field-error.show { display:block; }
+.field-nudge { font-size:12px; color:var(--mid); margin-top:4px; line-height:1.5; display:none; font-style:italic; }
+.field-nudge.show { display:block; }
 
 input[type="number"], input[type="text"], select {
   font-family:'DM Sans',sans-serif; font-size:15px;
@@ -325,7 +329,7 @@ input.is-error { border-color:var(--error,#dc2626); }
 /* Bar chart */
 .proj-bars { display:flex; flex-direction:column; gap:10px; }
 .proj-bar-row { display:flex; align-items:center; gap:10px; }
-.proj-bar-label { font-size:12px; color:var(--mid); width:48px; flex-shrink:0; }
+.proj-bar-label { font-size:12px; color:var(--mid); width:120px; flex-shrink:0; }
 .proj-bar-track { flex:1; background:var(--line); border-radius:4px; height:24px; overflow:hidden; }
 .proj-bar-fill {
   height:100%; background:var(--accent); border-radius:4px;
@@ -357,6 +361,10 @@ input.is-error { border-color:var(--error,#dc2626); }
 
 /* Paid-only projection placeholder */
 .proj-paid-only { font-size:13px; color:var(--mid); font-style:italic; padding:12px 0; }
+
+/* Year 1 disclosure note (bars + table views) */
+.proj-period-note { font-size:12px; color:var(--mid); font-style:italic; margin:10px 0 0; line-height:1.5; }
+.proj-this-period { font-size:11px; color:var(--mid); font-style:italic; font-weight:400; }
 
 /* ── Flags ───────────────────────────────────────────────────── */
 .flags-section { margin:18px 0; }
@@ -408,7 +416,7 @@ input.is-error { border-color:var(--error,#dc2626); }
   .category-row { grid-template-columns:1fr; }
   .module-grid { grid-template-columns:1fr; }
   .result-sub-numbers { grid-template-columns:1fr; }
-  .proj-bar-label { width:36px; font-size:11px; }
+  .proj-bar-label { width:90px; font-size:11px; }
 }
 
 </style>
@@ -464,6 +472,7 @@ input.is-error { border-color:var(--error,#dc2626); }
       <div class="method-entry">
         <strong>Combined (Total System Yield)</strong>
         <p>When multiple categories are active, the model calculates cross-category interaction effects automatically — including the Multi-Channel Halo, which lifts paid ROAS by 22% when organic is also running.</p>
+        <p>You can also run each category on its own and compare the results. This lets you estimate what each channel contributes independently, which is useful for understanding relative efficiency across your investment mix.</p>
       </div>
     </div>
   </details>
@@ -514,7 +523,7 @@ input.is-error { border-color:var(--error,#dc2626); }
 
     <div style="margin-bottom:14px;">
       <div class="field" style="margin-bottom:6px;">
-        <label>Business type</label>
+        <span class="field-label">Business type</span>
       </div>
       <div class="biz-row" role="radiogroup" aria-label="Business type">
         <div class="biz-opt selected" id="bizB2C" onclick="setBizType('b2c')" role="radio" aria-checked="true" tabindex="0">B2C</div>
@@ -532,7 +541,7 @@ input.is-error { border-color:var(--error,#dc2626); }
         <label for="clvInput">Customer lifetime value ($)</label>
         <input type="number" id="clvInput" min="1" step="1" placeholder="e.g. 340" autocomplete="off">
         <span class="field-helper">Leave blank to use 3× order value as an estimate</span>
-        <span class="field-error" id="clvError">CLV should be greater than zero and at least as large as your order value — a customer's lifetime value can't be less than a single purchase.</span>
+        <span class="field-error" id="clvError">Customer lifetime value must be at least $1.</span>
       </div>
       <div class="field" style="grid-column:1/-1;">
         <label for="timePeriod">Time period these inputs cover</label>
@@ -547,8 +556,13 @@ input.is-error { border-color:var(--error,#dc2626); }
           <option value="lastyear">Last 12 months</option>
           <option value="custom">Custom period</option>
         </select>
+        <div id="customPeriodField" style="display:none; margin-top:10px;">
+          <label for="customPeriodMonths" style="font-size:13px;font-weight:500;color:var(--ink);display:block;margin-bottom:5px;">Custom period length (months)</label>
+          <input type="number" id="customPeriodMonths" min="1" max="120" step="1" placeholder="e.g. 4" autocomplete="off">
+          <span class="field-helper">Enter the number of months your inputs cover — used to scale period-length calculations correctly</span>
+        </div>
         <span class="field-helper">All investment and performance figures should reflect this same period</span>
-        <span class="field-error" id="timePeriodNudge">Set a time period so the result label is accurate — and so period-length scaling works correctly.</span>
+        <span class="field-nudge" id="timePeriodNudge">Set a time period so the result label is accurate — and so period-length scaling works correctly.</span>
       </div>
     </div>
 
@@ -609,19 +623,20 @@ input.is-error { border-color:var(--error,#dc2626); }
           <span class="field-helper">Used for confidence scoring and low-frequency warnings — does not directly alter the ROI calculation</span>
         </div>
         <div class="field">
-          <label for="orgReach">Approximate monthly reach</label>
+          <label for="orgReach">Monthly reach</label>
           <input type="number" id="orgReach" min="1" step="1" placeholder="e.g. 12000" autocomplete="off">
-          <span class="field-helper">Unique reach if available; leave blank to estimate from followers</span>
+          <span class="field-helper">Unique monthly reach if available; leave blank to estimate from followers. <strong>Enter a monthly figure</strong> — this is used to compute the engagement rate against monthly engagements.</span>
         </div>
         <div class="field">
           <label for="orgFollowers">Total followers (if reach unknown)</label>
           <input type="number" id="orgFollowers" min="1" step="1" placeholder="e.g. 8000" autocomplete="off">
           <span class="field-helper">Used to estimate reach at ~5% (Reachpocalypse default)</span>
+          <span class="field-nudge" id="orgFollowersIgnored">Monthly reach is entered above — followers field is not used.</span>
         </div>
         <div class="field module-full">
-          <label for="orgEngagements">Total engagements this period</label>
+          <label for="orgEngagements">Total engagements this period <span class="label-note">(not monthly)</span></label>
           <input type="number" id="orgEngagements" min="0" step="1" placeholder="e.g. 4800" autocomplete="off">
-          <span class="field-helper">Total likes, comments, shares, and saves across all posts this period. The model normalises this to a monthly rate to match the monthly reach field above. Leave blank (or enter 0) to use the 1.5% default.</span>
+          <span class="field-helper">Sum of likes, comments, shares, and saves across <strong>all posts for the full period</strong> — not a monthly figure. The model divides this by the number of months to get a monthly rate, then compares it to monthly reach. Entering a monthly engagement figure here will understate your engagement rate. Leave blank (or enter 0) to use the 1.5% default.</span>
         </div>
       </div>
 
@@ -630,26 +645,26 @@ input.is-error { border-color:var(--error,#dc2626); }
         <div class="module-grid" style="margin-top:0;">
           <div class="field module-full">
             <label for="orgConvRate">Social-to-purchase conversion rate (%)</label>
-            <input type="number" id="orgConvRate" min="0" max="100" step="0.01" placeholder="e.g. 0.71" autocomplete="off">
+            <input type="number" id="orgConvRate" min="0" step="0.01" placeholder="e.g. 0.71" autocomplete="off">
             <span class="field-helper">The percentage of engaged users estimated to convert to customers. Leave blank or enter 0 to use the 0.71% research benchmark (Hootsuite / Sprout Social). Higher-intent audiences (e.g. B2B with short sales cycles, or strong CTAs) may warrant a higher rate.</span>
             <span class="field-error" id="orgConvRateError">Conversion rate capped at 100% — value entered above 100 has been reduced to 100%.</span>
           </div>
           <div class="field">
-            <label>Community management active?</label>
+            <span class="field-label">Community management active?</span>
             <div class="yn-row" aria-label="Community management active">
               <div class="yn-opt" id="orgCommYes" onclick="setYN('orgComm','yes')">Yes</div>
               <div class="yn-opt" id="orgCommNo" onclick="setYN('orgComm','no')">No</div>
             </div>
           </div>
           <div class="field">
-            <label>Employee advocacy active?</label>
+            <span class="field-label">Employee advocacy active?</span>
             <div class="yn-row" aria-label="Employee advocacy active">
               <div class="yn-opt" id="orgAdvYes" onclick="setYN('orgAdv','yes')">Yes</div>
               <div class="yn-opt" id="orgAdvNo" onclick="setYN('orgAdv','no')">No</div>
             </div>
           </div>
           <div class="field">
-            <label>Posting gap &gt;30 days in the past 12 months?</label>
+            <span class="field-label">Posting gap &gt;30 days in the past 12 months?</span>
             <div class="yn-row" aria-label="Posting gap more than 30 days in the past 12 months">
               <div class="yn-opt" id="orgGapYes" onclick="setYN('orgGap','yes')">Yes</div>
               <div class="yn-opt" id="orgGapNo" onclick="setYN('orgGap','no')">No</div>
@@ -666,7 +681,7 @@ input.is-error { border-color:var(--error,#dc2626); }
             </select>
           </div>
           <div class="field module-full">
-            <label>Brand authority (1–5)</label>
+            <span class="field-label">Brand authority (1–5)</span>
             <div class="rating-row" id="brandAuthRating" aria-label="Brand authority rating 1 to 5">
               <div class="rating-opt" data-val="1" onclick="setRating('brandAuth',1)">1 — Low / new brand</div>
               <div class="rating-opt" data-val="2" onclick="setRating('brandAuth',2)">2 — Limited</div>
@@ -677,7 +692,7 @@ input.is-error { border-color:var(--error,#dc2626); }
             <span class="field-helper">3 = recognized and credible, buyers consider you alongside peers</span>
           </div>
           <div class="field module-full">
-            <label>Creative quality (1–5)</label>
+            <span class="field-label">Creative quality (1–5)</span>
             <div class="rating-row" id="orgCreativeRating" aria-label="Organic creative quality rating 1 to 5">
               <div class="rating-opt" data-val="1" onclick="setRating('orgCreative',1)">1 — Inconsistent</div>
               <div class="rating-opt" data-val="2" onclick="setRating('orgCreative',2)">2 — Below avg</div>
@@ -702,6 +717,7 @@ input.is-error { border-color:var(--error,#dc2626); }
         <div class="field">
           <label for="paidSpend">Ad spend for this period ($)</label>
           <input type="number" id="paidSpend" min="1" step="1" placeholder="e.g. 8000" autocomplete="off">
+          <span class="field-helper">Media spend only — exclude agency or creative production fees already counted elsewhere</span>
         </div>
         <div class="field">
           <label for="paidConversions">Platform-reported conversions</label>
@@ -740,7 +756,7 @@ input.is-error { border-color:var(--error,#dc2626); }
           <div class="field">
             <label for="campaignFrequency">Average campaign frequency</label>
             <input type="number" id="campaignFrequency" min="0" step="0.5" placeholder="e.g. 3.5" autocomplete="off">
-            <span class="field-helper">Average number of times someone sees your ad</span>
+            <span class="field-helper">Average number of times someone sees your ad — used for creative fatigue warnings and confidence scoring only; does not directly alter the ROI calculation</span>
           </div>
           <div class="field">
             <label for="creativeFormat">Primary creative format</label>
@@ -762,7 +778,7 @@ input.is-error { border-color:var(--error,#dc2626); }
             </select>
           </div>
           <div class="field">
-            <label>Email or search running alongside?</label>
+            <span class="field-label">Email or search running alongside?</span>
             <div class="yn-row" aria-label="Email or search running alongside">
               <div class="yn-opt" id="emailSearchYes" onclick="setYN('emailSearch','yes')">Yes</div>
               <div class="yn-opt" id="emailSearchNo" onclick="setYN('emailSearch','no')">No</div>
@@ -778,7 +794,7 @@ input.is-error { border-color:var(--error,#dc2626); }
             </select>
           </div>
           <div class="field module-full">
-            <label>Creative quality (1–5)</label>
+            <span class="field-label">Creative quality (1–5)</span>
             <div class="rating-row" id="paidCreativeRating" aria-label="Paid creative quality rating 1 to 5">
               <div class="rating-opt" data-val="1" onclick="setRating('paidCreative',1)">1 — Inconsistent</div>
               <div class="rating-opt" data-val="2" onclick="setRating('paidCreative',2)">2 — Below avg</div>
@@ -818,7 +834,7 @@ input.is-error { border-color:var(--error,#dc2626); }
         <div class="field module-full">
           <label for="infConversions">Conversions or leads from this activity</label>
           <input type="number" id="infConversions" min="0" step="1" placeholder="e.g. 28 — or leave blank for awareness-only" autocomplete="off">
-          <span class="field-helper">Leave blank if this was an awareness-only campaign with no tracked conversions</span>
+          <span class="field-helper">Leave blank or enter 0 if this was an awareness-only campaign with no tracked conversions — both route to the awareness valuation path</span>
         </div>
       </div>
 
@@ -839,7 +855,7 @@ input.is-error { border-color:var(--error,#dc2626); }
             <span class="field-helper">Launch posts underperform existing-product posts by 30.5% on average</span>
           </div>
           <div class="field">
-            <label>Posts link to brand page or website?</label>
+            <span class="field-label">Posts link to brand page or website?</span>
             <div class="yn-row" aria-label="Posts link to brand page or website">
               <div class="yn-opt" id="infLinkYes" onclick="setYN('infLink','yes')">Yes</div>
               <div class="yn-opt" id="infLinkNo" onclick="setYN('infLink','no')">No</div>
@@ -847,14 +863,15 @@ input.is-error { border-color:var(--error,#dc2626); }
             <span class="field-helper">Linked posts achieve +11.4% ROI (Leung et al.)</span>
           </div>
           <div class="field">
-            <label>Clear brand assets visible in content?</label>
+            <span class="field-label">Clear brand assets visible in content?</span>
             <div class="yn-row" aria-label="Clear brand assets visible in content">
               <div class="yn-opt" id="infAssetYes" onclick="setYN('infAsset','yes')">Yes</div>
               <div class="yn-opt" id="infAssetNo" onclick="setYN('infAsset','no')">No</div>
             </div>
+            <span class="field-helper">If the influencer's content clearly shows your logo, brand colours, or distinctive brand characters, a +5% recall and purchase-intent uplift is applied (ASSET_TARIFF). Leave as No if branding is incidental or absent.</span>
           </div>
           <div class="field module-full">
-            <label>Creative quality (1–5)</label>
+            <span class="field-label">Creative quality (1–5)</span>
             <div class="rating-row" id="infCreativeRating" aria-label="Influencer creative quality rating 1 to 5">
               <div class="rating-opt" data-val="1" onclick="setRating('infCreative',1)">1 — Inconsistent</div>
               <div class="rating-opt" data-val="2" onclick="setRating('infCreative',2)">2 — Below avg</div>
@@ -1018,6 +1035,10 @@ input.is-error { border-color:var(--error,#dc2626); }
         <p>Influencer posts announcing new product launches underperform equivalent non-launch posts by 30.5% on average. Consider positioning new product campaigns as brand or existing-product stories. Source: Leung et al. (same dataset).</p>
       </div>
       <div class="method-entry">
+        <strong>Distinctive Asset Tariff</strong>
+        <p>When influencer content clearly shows the brand's logo, colours, or distinctive visual assets, branded recall and purchase intent increase by approximately 5%. This reflects the memory-encoding advantage of consistent distinctive assets identified in Binet &amp; Field's IPA Databank research and the Ehrenberg-Bass Institute's work on brand distinctiveness. The model applies a 1.05× multiplier (ASSET_TARIFF) to conversion revenue when brand assets are confirmed visible in content.</p>
+      </div>
+      <div class="method-entry">
         <strong>Trust → Purchase Premium</strong>
         <p>Influencer trust transfers to brand, reducing purchase friction and supporting a price premium. Applied through the LTV uplift variable for influencer-acquired customers. Source: Multiple trust and persuasion studies.</p>
       </div>
@@ -1163,7 +1184,12 @@ var CONV_RATE_DEFAULT = 0.0071; // Organic social-to-purchase conversion rate de
 // Only a fraction close. B2C close rate is higher (shorter cycle); B2B is lower (committee buying).
 var LEAD_CLOSE_RATE_B2C = 0.20; // 20% of leads become customers — B2C default
 var LEAD_CLOSE_RATE_B2B = 0.10; // 10% of leads become customers — B2B default
+var INF_AWARENESS_EFFICIENCY = 0.80; // Awareness-path efficiency discount (T-influencer): influencer posts in pure awareness campaigns
+                                     // convert reach into brand trust less efficiently than conversion-optimised posts.
+                                     // 0.80 is a conservative haircut relative to the tier coefficient's full conversion-path value.
 
+var ASSET_TARIFF = 1.05;  // Distinctive brand asset visibility uplift (T-46): clear logos/colours/characters in influencer content
+                           // produce ~5% higher branded recall and purchase intent. Source: Binet & Field / Ehrenberg-Bass distinctiveness research.
 var TIER_COEFF = { nano:1.0, micro:0.75, mid:0.45, macro:0.20 };
 var CPM_DEFAULTS = { meta:10, linkedin:50, tiktok:8, x:6, youtube:12 };
 var RESPONSE_COEFF = { under1hr:1.50, '1to4hr':1.20, '4to24hr':1.00, over24hr:0.85 };
@@ -1183,7 +1209,12 @@ function setBizType(t){
 }
 
 function toggleCat(cat){
-  if(S.roughActive){ toggleRoughPath(true); }
+  if(S.roughActive){
+    // Exiting rough mode restores saved category states — don't also flip the clicked cat.
+    toggleRoughPath(true);
+    calc();
+    return;
+  }
   var key = cat+'Active';
   S[key]=!S[key];
   document.getElementById('cat'+cap(cat)).classList.toggle('active',S[key]);
@@ -1264,17 +1295,29 @@ function sv(id){ var el=document.getElementById(id); return el?el.value||null:nu
 function fmt$(v){
   if(v===null||isNaN(v)) return '—';
   var neg=v<0, abs=Math.abs(v), rounded=Math.round(abs), str;
-  if(rounded>=1000000) str='$'+(rounded/1000000).toFixed(1)+'M';
+  if(rounded>=1000000000) str='$'+(rounded/1000000000).toFixed(2)+'B';
+  else if(rounded>=1000000) str='$'+(rounded/1000000).toFixed(1)+'M';
   else if(rounded>=1000) str='$'+commify(rounded);
   else str='$'+rounded;
   return neg?'-'+str:str;
 }
 function commify(num){ return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g,','); }
-function fmtROILabel(v){ if(v===null||isNaN(v)) return '—'; var r=Math.round(v); if(r===0&&v<0) return '<0%'; if(r===0&&v>0) return '>0%'; if(r===0) return '+0%'; return (r>0?'+':r<0?'-':'')+commify(Math.abs(r))+'%'; }
+function fmtROILabel(v){ if(v===null||isNaN(v)) return '—'; var r=Math.round(v); if(r===0&&v<0) return '&lt;0%'; if(r===0&&v>0) return '>0%'; if(r===0) return '0%'; return (r>0?'+':r<0?'-':'')+commify(Math.abs(r))+'%'; }
 
 // ── Debounce helper ──────────────────────────────────────────
 var _calcTimer;
 function debouncedCalc(){ clearTimeout(_calcTimer); _calcTimer = setTimeout(calc, 150); }
+// flushCalc: used on blur — cancels any pending debounce timer and fires calc immediately,
+// so typing-then-tabbing produces exactly one calc() call instead of two.
+function flushCalc(){ clearTimeout(_calcTimer); calc(); }
+
+// ── Custom period field show/hide ────────────────────────────
+function updateCustomPeriodField(){
+  var sel = document.getElementById('timePeriod');
+  var field = document.getElementById('customPeriodField');
+  if(!sel || !field) return;
+  field.style.display = sel.value === 'custom' ? 'block' : 'none';
+}
 
 // ── Main calculator ──────────────────────────────────────────
 function calc(){
@@ -1286,18 +1329,27 @@ function calc(){
   var clvErr = document.getElementById('clvError');
   var clvEl  = document.getElementById('clvInput');
   if(clvErr){
-    // Treat CLV=0 same as CLV < orderValue — a customer can't be worth $0
-    var clvInvalid = rawClv !== null && S.orderValue && rawClv < S.orderValue;
+    // Two independent invalidity conditions:
+    // 1. rawClv < 1 — implausibly low regardless of whether an order value is set.
+    //    Fires even when S.orderValue is null (the existing check short-circuited in that case).
+    // 2. rawClv < S.orderValue — CLV below a single order, when order value is available.
+    var clvBelowMin    = rawClv !== null && rawClv < 1;
+    var clvBelowOrder  = rawClv !== null && S.orderValue && rawClv < S.orderValue;
+    var clvInvalid     = clvBelowMin || clvBelowOrder;
     if(clvInvalid){
+      clvErr.textContent = clvBelowOrder
+        ? 'CLV should be at least as large as your order value \u2014 a customer\u2019s lifetime value can\u2019t be less than a single purchase.'
+        : 'Customer lifetime value must be at least $1.';
       clvErr.classList.add('show');
       if(clvEl) clvEl.classList.add('is-error');
-      rawClv = S.orderValue; // clamp
+      rawClv = S.orderValue || 1; // clamp to order value when available, else floor at $1
     } else {
       clvErr.classList.remove('show');
       if(clvEl) clvEl.classList.remove('is-error');
     }
   }
-  // rawClv of 0 is treated as blank — falls through to 3x default
+  // If rawClv was invalid, it has been clamped above.
+  // Only falls through to 3x default when rawClv is null (field blank).
   S.clv = (rawClv || (S.orderValue ? S.orderValue*3 : null));
   S.orgInvestment= nPos('orgInvestment');
   S.orgFrequency = nPos('orgFrequency');
@@ -1312,6 +1364,11 @@ function calc(){
   // Treat explicit 0 the same as blank — mirrors the orgEngagements treatment and prevents
   // a user who clears the field or types 0 from silently zeroing out all LTV return.
   // Cap at 100% — values above 100 are clamped and a warning is shown.
+  var orgFollowersIgnored = document.getElementById('orgFollowersIgnored');
+  if(orgFollowersIgnored){
+    if(S.orgReach && S.orgFollowers) orgFollowersIgnored.classList.add('show');
+    else orgFollowersIgnored.classList.remove('show');
+  }
   var orgConvRateErr = document.getElementById('orgConvRateError');
   var orgConvRateEl  = document.getElementById('orgConvRate');
   if(orgConvRaw !== null && orgConvRaw > 100){
@@ -1327,6 +1384,13 @@ function calc(){
   S.paidSpend    = nPos('paidSpend');
   S.paidConversions = nPos('paidConversions');
   S.campaignObjective = sv('campaignObjective');
+  // Mark paidConversions as an error when objective is awareness — the data will be discarded.
+  // Mirrors the flag that fires in buildFlags(), but gives immediate field-level feedback.
+  var paidConvEl = document.getElementById('paidConversions');
+  if(paidConvEl){
+    var convDiscarded = S.campaignObjective === 'awareness' && S.paidConversions !== null;
+    paidConvEl.classList.toggle('is-error', convDiscarded);
+  }
   S.primaryPlatform = sv('primaryPlatform');
   S.campaignFrequency = nPos('campaignFrequency');
   S.creativeFormat = sv('creativeFormat');
@@ -1361,8 +1425,8 @@ function calc(){
   // Need at least orderValue to produce a result, EXCEPT for the rough path
   // which only requires roughTotal (orderValue is used only for interpretation text)
   var anyActive = S.organicActive||S.paidActive||S.influencerActive||S.roughActive;
-  if(!anyActive){ zone.innerHTML=''; document.getElementById('postMethodPanel').style.display='none'; return; }
-  if(!S.roughActive && !S.orderValue){ zone.innerHTML=''; document.getElementById('postMethodPanel').style.display='none'; return; }
+  if(!anyActive){ zone.innerHTML=''; document.getElementById('postMethodPanel').style.display='none'; var _tpn1=document.getElementById('timePeriodNudge'); if(_tpn1) _tpn1.classList.remove('show'); return; }
+  if(!S.roughActive && !S.orderValue){ zone.innerHTML=''; document.getElementById('postMethodPanel').style.display='none'; var _tpn2=document.getElementById('timePeriodNudge'); if(_tpn2) _tpn2.classList.remove('show'); return; }
 
   // ── Compute categories ──────────────────────────────────────
   var organicResult=null, paidResult=null, influencerResult=null, roughResult=null;
@@ -1459,6 +1523,20 @@ function calc(){
     html += '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">';
     activeCats.forEach(function(c){ html += '<span style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;border:1px solid var(--line);border-radius:20px;padding:2px 10px;color:var(--mid);">'+c+'</span>'; });
     html += '</div>';
+  }
+
+  // Suppression nudges — shown when a category is toggled on but has no investment entered
+  var suppressedNudges = [];
+  if(S.paidActive && paidResult && paidResult.suppressed){
+    suppressedNudges.push('Paid Social is active but has no spend entered \u2014 add a spend amount to include it in your results.');
+  }
+  if(S.influencerActive && influencerResult && influencerResult.suppressed){
+    suppressedNudges.push('Influencer is active but has no investment entered \u2014 add an investment amount to include it in your results.');
+  }
+  if(suppressedNudges.length){
+    suppressedNudges.forEach(function(msg){
+      html += '<div class="calc-nudge" role="status">'+msg+'</div>';
+    });
   }
 
   // Confidence badge
@@ -1564,7 +1642,6 @@ function calc(){
   panel.style.display = activatedTruthsList.length > 0 ? 'block' : 'none';
   } catch(e) {
     console.error('Calculator error:', e);
-    zone = document.getElementById('resultZone');
     if(zone) zone.innerHTML = '<div class="flag-card warning"><strong>Calculation error</strong>An unexpected error occurred. Please check your inputs and try again.</div>';
   }
 }
@@ -1585,9 +1662,10 @@ function calcOrganic(truths){
   // Period normalisation: orgEngagements covers the full selected period,
   // but orgReach is a monthly snapshot — divide by period length before
   // computing the engagement rate so both values are on the same monthly basis.
+  var customPeriodMonths = Math.max(1, Math.round(nPos('customPeriodMonths') || 1));
   var _periodMonthsMap = {
     last30:1, lastmonth:1, last60:2, last90:3,
-    lastquarter:3, last6mo:6, lastyear:12, custom:1
+    lastquarter:3, last6mo:6, lastyear:12, custom: customPeriodMonths
   };
   var periodMonths = _periodMonthsMap[sv('timePeriod')] || 1;
 
@@ -1600,13 +1678,21 @@ function calcOrganic(truths){
     truths.push({name:'Default Engagement Rate Applied (1.5%)',desc:'No engagement data provided. A 1.5% default engagement rate has been applied to estimated reach. Enter total engagements above for a more precise result.'});
   }
 
-  // Engaged users (capped at 35% of reach)
+  // Engaged users — base engagement, capped at 35% of reach.
+  // Note: this cap applies to the base rate only; the employee advocacy multiplier (below)
+  // can push engagedUsersForLTV higher, so the post-multiplier cap is applied there instead.
   var engagedUsers = reach * engRate;
 
-  // Apply employee advocacy multiplier
+  // Apply employee advocacy multiplier to reach/LTV path only.
+  // The 2x coefficient is supported by LinkedIn research on reach effectiveness and click-through;
+  // it does not extend to retention (churn reduction), which is a separate phenomenon.
+  // engagedUsersForLTV carries the multiplier; engagedUsers remains unmodified for retentionReturn.
+  // The 35% cap is re-applied after the multiplier so effective engagement cannot exceed 35% of
+  // reach — without this, advocacy could push the effective rate to 70% (reach × 0.35 × 2).
+  var engagedUsersForLTV = engagedUsers;
   if(S.orgAdv==='yes'){
-    engagedUsers *= EMPLOYEE_ADV;
-    truths.push({name:'Employee Advocacy Multiplier (2×)',desc:'Employee advocacy confirmed active. Organic reach effectiveness multiplied by 2×. Source: LinkedIn research.'});
+    engagedUsersForLTV = Math.min(engagedUsers * EMPLOYEE_ADV, reach * 0.35);
+    truths.push({name:'Employee Advocacy Multiplier (2x)',desc:'Employee advocacy confirmed active. Organic reach effectiveness multiplied by 2x for LTV conversion path. Source: LinkedIn research. Note: multiplier is not applied to the retention dividend, which models churn reduction \u2014 a separate effect not covered by the cited research. A 35% engagement rate ceiling is applied after the multiplier to prevent effective engagement from exceeding plausible bounds.'});
   }
 
   // Creative coefficient
@@ -1623,12 +1709,17 @@ function calcOrganic(truths){
     if(S.orgConvRate === null){
       truths.push({name:'Organic Conversion Rate Default Applied (0.71%)',desc:'No social-to-purchase conversion rate entered. A 0.71% default has been applied — meaning ~0.71% of engaged users are estimated to convert to customers. Source: Hootsuite / Sprout Social benchmark. Enter your own rate in the "Improve your estimate" section for a more precise result.'});
     }
-    var convertedUsers = engagedUsers * convRate;
+    var convertedUsers = engagedUsersForLTV * convRate;
     // engagedUsers is a monthly snapshot (reach × monthly engagement rate).
     // Multiply by periodMonths so the full period's worth of conversions is reflected,
     // consistent with brandEquityReturn which already uses total-period investment.
+    // Organic uses clv * LTV_LIFT (30% of CLV), not clv * (1 + LTV_LIFT).
+    // Intentional asymmetry with paid: organic engagement is modeled as a loyalty/retention
+    // driver for customers who may have converted through other channels anyway, so only the
+    // incremental uplift (30%) is credited here. Paid uses full CLV + uplift because it models
+    // direct acquisition — the channel is responsible for the whole customer relationship.
     ltvReturn = convertedUsers * periodMonths * (clv * LTV_LIFT) * cc;
-    if(ltvReturn > 0) truths.push({name:'LTV Social Engagement Lift (+30%)',desc:'Socially-engaged customers spend 20–40% more over their lifetime (Bain & Company). Model applies the conservative midpoint: +30% to CLV for estimated converted organic users (engaged users × '+(convRate*100).toFixed(2)+'% conversion rate × '+periodMonths+' month period).'});
+    if(ltvReturn > 0) truths.push({name:'LTV Social Engagement Lift (30% of CLV)',desc:'Socially-engaged customers spend 20–40% more over their lifetime (Bain & Company). Model values each converted organic user at 30% of CLV (the incremental engagement uplift), not full CLV. Organic engagement is modeled as a loyalty and retention driver rather than pure acquisition — full CLV acquisition credit is reserved for the paid path. Conservative midpoint of the 20–40% range applied (engaged users \u00d7 '+(convRate*100).toFixed(2)+'% conversion rate \u00d7 '+periodMonths+' month period).'});
 
     // Retention dividend — scaled by response speed
     if(S.orgComm==='yes'){
@@ -1641,10 +1732,17 @@ function calcOrganic(truths){
     }
   }
 
-  // Brand equity return — scaled to total-period investment; zero if no investment
+  // Brand equity return — scaled to total-period investment; zero if no investment.
+  // NOTE: at neutral settings (brandAuth=3, orgCreative=3), brandEquityReturn = inv × 1.30 × 1.00,
+  // meaning brand equity alone returns 130% of investment before LTV, retention, or price premium
+  // are added. Even at the beMulti floor (brandAuth=1, orgCreative=3) the return equals investment
+  // exactly. A deeply negative organic ROI is therefore only possible at below-neutral creative
+  // quality with minimum brand authority — this is intentional (organic brand-building is modeled
+  // as inherently value-generative over time) but means the model will rarely penalise poor inputs
+  // as severely as a user might expect.
   var beMulti = brandEqMulti(S.brandAuth);
   var brandEquityReturn = inv * beMulti * cc;
-  if(inv > 0) truths.push({name:'3-Year Brand Equity Projection',desc:'Brand equity built this period retains ~50% in Year 2 and ~25% in Year 3. Binet & Field, IPA Databank (2013, 2018).'});
+  if(inv > 0) truths.push({name:'Brand Equity Return — Floor/Ceiling Disclosure',desc:'Brand equity return is calculated as investment \u00d7 brand authority multiplier (1.0\u20131.60) \u00d7 creative coefficient (0.80\u20131.20). At neutral settings (authority 3/5, creative 3/5), brand equity alone returns 130% of investment before LTV, retention, or price premium are added. At minimum authority with neutral creative, it returns 100%; at minimum authority and minimum creative quality, 80%. The model treats organic brand-building as inherently value-generative over time, based on Binet \u0026 Field\u2019s IPA Databank research. This means organic will rarely show a strongly negative return \u2014 that is an intentional reflection of the underlying research, not a modelling shortcut. What this component does not show is how organic return compares to the return available from paid or influencer investment of the same budget. To assess that, run each category separately and compare. 3-year projection: ~50% of brand equity value is retained in Year 2, ~25% in Year 3.'});
 
   // Price premium (brand authority)
   // PRICE_CONV_RATE: estimated 0.2% of organic reach converts as premium purchasers per month;
@@ -1652,7 +1750,7 @@ function calcOrganic(truths){
   var PRICE_CONV_RATE = 0.002;
   var premium = brandPremium(S.brandAuth);
   var priceReturn = (inv > 0 && reach > 0) ? reach * periodMonths * PRICE_CONV_RATE * S.orderValue * premium : 0;
-  if(priceReturn > 0) truths.push({name:'Price-Quality Heuristic',desc:'Brand authority rated '+S.brandAuth+'/5. An estimated '+Math.round(premium*100)+'% price premium applied to ~0.2% of organic reach per month. Higher authority ratings command larger premiums.'});
+  if(priceReturn > 0) truths.push({name:'Price-Quality Heuristic',desc:'Brand authority rated '+S.brandAuth+'/5. This component estimates the incremental revenue from brand-commanded price premiums only — it does not represent full purchase value, which is already captured in the LTV and retention components above. Specifically: an estimated 0.2% of organic reach per month are modelled as premium purchasers, and a '+Math.round(premium*100)+'% price premium (scaling with brand authority) is applied to their order value. Only that premium fraction — not the full order value — is counted here. The 0.2% rate is an internal model assumption with no published benchmark source; treat it as a conservative order-of-magnitude estimate.'});
 
   var totalReturn = ltvReturn + retentionReturn + brandEquityReturn + priceReturn;
 
@@ -1721,15 +1819,17 @@ function calcPaid(truths){
   // Campaign objective multipliers
   if(S.campaignObjective==='leadgen'){
     // For lead gen campaigns, paidConversions are LEADS, not customers.
-    // Apply a lead-to-customer close rate before CLV valuation so we don't
-    // over-credit full lifetime value to every raw lead.
+    // Apply a lead-to-customer close rate after efficiency multipliers (halo, creative, AI bidding)
+    // but before the LEAD_GEN form-completion boost — so we don't over-credit full lifetime value
+    // to every raw lead. Order doesn't affect the result (all factors are multiplicative) but is
+    // documented here for clarity.
     var leadCloseRate = S.bizType==='b2b' ? LEAD_CLOSE_RATE_B2B : LEAD_CLOSE_RATE_B2C;
     var closedLabel   = S.bizType==='b2b' ? '10%' : '20%';
     subtotal *= leadCloseRate;
     // Then apply the native form efficiency boost on top: in-app forms complete at ~2× the
     // rate of external landing pages, so confirmed leads are of higher quality / lower friction.
     subtotal *= LEAD_GEN;
-    truths.push({name:'Native Lead Gen — Lead-to-Customer Rate Applied',desc:'Campaign objective is Lead Generation. Platform-reported conversions are leads, not customers. A '+closedLabel+' lead-to-customer close rate ('+S.bizType.toUpperCase()+' default) has been applied before CLV valuation, then a 1.5× in-app form completion efficiency boost applied on top (native forms complete at ~2× the rate of external landing pages — Meta research). Adjust your CLV and order value in Step 1 to reflect the value of a closed lead for a more precise result.'});
+    truths.push({name:'Native Lead Gen — Lead-to-Customer Rate Applied',desc:'Campaign objective is Lead Generation. Platform-reported conversions are leads, not customers. A '+closedLabel+' lead-to-customer close rate ('+S.bizType.toUpperCase()+' default) has been applied to the attributed lead count — after efficiency multipliers (halo, creative, AI bidding) and before the native form completion boost. Because all factors are multiplicative, the final result is identical regardless of application order. A 1.5\u00d7 in-app form completion efficiency boost is then applied on top (native forms complete at ~2\u00d7 the rate of external landing pages \u2014 Meta research). Adjust your CLV and order value in Step 1 to reflect the value of a closed lead for a more precise result.'});
   }
   if(S.campaignObjective==='commerce'){
     subtotal*=COMMERCE_EFF;
@@ -1740,6 +1840,24 @@ function calcPaid(truths){
   if(S.creativeFormat==='video'){
     subtotal*=VIDEO_EFF;
     truths.push({name:'Video Format Efficiency (+15%)',desc:'Vertical video format efficiency boost (conservative midpoint of 30–60% range). Source: Meta; TikTok.'});
+  }
+
+  // Compound multiplier disclosure — fires when 3+ upward efficiency multipliers are active.
+  // Each multiplier is individually sourced but no research validates their combined interaction.
+  var _sm = [];
+  if(S.organicActive || S.emailSearch==='yes') _sm.push('multi-channel halo (\u00d7'+MULTI_HALO+')');
+  if(S.paidCreative > 3) _sm.push('creative quality (\u00d7'+cc.toFixed(2)+')');
+  if(S.biddingMethod==='automated'||S.biddingMethod==='advantage') _sm.push('AI bidding efficiency (\u00d7'+AI_BIDDING+')');
+  if(S.creativeFormat==='video') _sm.push('video format efficiency (\u00d7'+VIDEO_EFF+')');
+  if(S.campaignObjective==='commerce') _sm.push('social commerce (\u00d7'+COMMERCE_EFF+')');
+  if(_sm.length >= 3){
+    var _cm = 1.0;
+    if(S.organicActive || S.emailSearch==='yes') _cm *= MULTI_HALO;
+    if(S.paidCreative > 3) _cm *= cc;
+    if(S.biddingMethod==='automated'||S.biddingMethod==='advantage') _cm *= AI_BIDDING;
+    if(S.creativeFormat==='video') _cm *= VIDEO_EFF;
+    if(S.campaignObjective==='commerce') _cm *= COMMERCE_EFF;
+    truths.push({name:'Compound Multiplier Assumption (\u00d7'+_cm.toFixed(2)+')',desc:_sm.length+' efficiency multipliers are active and compounding multiplicatively: '+_sm.join(', ')+'. Combined effect on base return: \u00d7'+_cm.toFixed(2)+'. Each multiplier is individually sourced from independent research — but no study has validated that all these effects compound multiplicatively together. The combined interaction is assumed, not measured. Treat results with multiple active multipliers as indicative upper-range estimates rather than point forecasts.'});
   }
 
   // Mature category tax (reframe, no formula change — handled as flag)
@@ -1765,13 +1883,14 @@ function calcInfluencer(truths){
   // No investment entered — suppress entirely regardless of other inputs
   if(inv===0) return {investment:0, returnVal:0, awarenessOnly:true, suppressed:true};
 
-  var tierCoeff = TIER_COEFF[S.infTier]||0.50;
+  var tierCoeff = TIER_COEFF[S.infTier]||0.45;
   if(S.infTier) truths.push({name:'Influencer Tier Efficiency',desc:'Tier: '+S.infTier+'. Coefficient applied: '+tierCoeff+'. Based on Beichert et al., Journal of Marketing (2024). Note: micro/mid coefficients are interpolated between the verified nano and macro anchor points.'});
-  else truths.push({name:'Influencer Tier Efficiency — default applied',desc:'No influencer tier selected. A conservative mid-tier coefficient of 0.50 has been applied. Select a specific tier (nano, micro, mid, or macro) for a research-grounded result.'});
+  else truths.push({name:'Influencer Tier Efficiency — default applied',desc:'No influencer tier selected. A conservative mid-tier coefficient of 0.45 has been applied. Select a specific tier for a research-grounded result.'});
 
   // Awareness-only path
   if(S.infConversions===null){
-    var trustValue = inv * tierCoeff * 0.80;
+    var trustValue = inv * tierCoeff * INF_AWARENESS_EFFICIENCY; // awareness-path efficiency discount — see INF_AWARENESS_EFFICIENCY constant
+    truths.push({name:'Influencer Awareness Efficiency Discount (×0.80)',desc:'No conversions entered: awareness-only path used. Influencer spend is valued at tier efficiency × 0.80 (INF_AWARENESS_EFFICIENCY). The 0.80 discount reflects that pure awareness campaigns convert reach into measurable brand trust less efficiently than conversion-optimised posts. This is a conservative estimate; actual brand-lift value will vary by category and campaign quality.'});
     return {investment:inv, returnVal:trustValue, awarenessOnly:true, trustValue:trustValue, suppressed:false};
   }
 
@@ -1804,8 +1923,8 @@ function calcInfluencer(truths){
 
   // Brand asset visibility
   if(S.infAsset==='yes'){
-    convRevenue*=1.05;
-    truths.push({name:'Distinctive Asset Tariff',desc:'Clear brand assets confirmed visible in content. 1.05× adjustment applied.'});
+    convRevenue*=ASSET_TARIFF;
+    truths.push({name:'Distinctive Asset Tariff (+5%)',desc:'Clear brand assets confirmed visible in content (logo, colours, or distinctive brand characters). A '+((ASSET_TARIFF-1)*100).toFixed(0)+'% recall and purchase-intent uplift applied (ASSET_TARIFF = '+ASSET_TARIFF+'). Source: Binet & Field; Ehrenberg-Bass Institute research on brand distinctiveness and memory structure.'});
   }
 
   return {investment:inv, returnVal:convRevenue, awarenessOnly:false, suppressed:false, convRevenue:convRevenue};
@@ -1815,7 +1934,7 @@ function calcInfluencer(truths){
 function calcRough(truths){
   var inv = S.roughTotal||0;
   var roughReturn = inv * ATTR * (1+LTV_LIFT) * ROUGH_INDUSTRY_MULT;
-  truths.push({name:'Rough Estimate — All defaults applied',desc:'No category breakdown provided. Return estimated from total spend using attribution correction (−30%), LTV multiplier (+30%), and a conservative 2× industry-average return ratio (ROUGH_INDUSTRY_MULT). This is directional only. Add category detail above for a more accurate result.'});
+  truths.push({name:'Rough Estimate — All defaults applied',desc:'No category breakdown provided. Return estimated from total spend using three chained factors: an attribution correction (×0.70, accounting for unmeasured journeys), a lifetime value uplift (×1.30, reflecting repeat-purchase behaviour), and a 2× gross industry-average return multiplier. Combined, these produce a net return of approximately ×1.82 on spend — equivalent to roughly +82% ROI. This is directional only. Add category detail above for a more accurate result.'});
   return {investment:inv, returnVal:roughReturn};
 }
 
@@ -1825,7 +1944,7 @@ function build3YearProjection(org, inf){
   if(org) base += org.brandEquityReturn||0;
   // Influencer brand equity contribution: ~20% of investment is treated as long-term
   // brand equity (trust, recall, association) that decays like organic brand equity
-  if(inf && !inf.suppressed && !inf.awarenessOnly && inf.investment) base += inf.investment*(TIER_COEFF[S.infTier]||0.5)*0.20;
+  if(inf && !inf.suppressed && inf.investment) base += inf.investment*(TIER_COEFF[S.infTier]||0.45)*0.20;
   return { base:base, y1:base, y2:base*DECAY_Y2, y3:base*DECAY_Y3, cumulative:base+base*DECAY_Y2+base*DECAY_Y3 };
 }
 
@@ -1838,25 +1957,28 @@ function buildProjectionHTML(proj, paidOnly){
   html+='<div class="projection-header">';
   html+='<div class="projection-title">3-Year brand equity projection</div>';
   html+='<div class="proj-toggle-row">';
-  html+='<button class="proj-toggle-btn active" id="projBarsBtn" onclick="setProj(\'bars\')">Bars</button>';
-  html+='<button class="proj-toggle-btn" id="projTableBtn" onclick="setProj(\'table\')">Table</button>';
-  html+='<button class="proj-toggle-btn" id="projProseBtn" onclick="setProj(\'prose\')">Prose</button>';
+  html+='<button class="proj-toggle-btn active" id="projBarsBtn"  aria-pressed="true"  onclick="setProj(\'bars\')">Bars</button>';
+  html+='<button class="proj-toggle-btn"        id="projTableBtn" aria-pressed="false" onclick="setProj(\'table\')">Table</button>';
+  html+='<button class="proj-toggle-btn"        id="projProseBtn" aria-pressed="false" onclick="setProj(\'prose\')">Prose</button>';
   html+='</div></div>';
 
   var max = proj.y1;
+  var periodNote = '<p class="proj-period-note">Year 1 reflects this period\'s brand equity already included in the ROI above. Years 2 and 3 show its estimated retained value in future periods.</p>';
   // Bars
   html+='<div class="proj-bars" id="projBars">';
-  html+=projBar('Year 1',proj.y1,max);
+  html+=projBar('Year 1 (this period)',proj.y1,max);
   html+=projBar('Year 2',proj.y2,max);
   html+=projBar('Year 3',proj.y3,max);
+  html+=periodNote;
   html+='</div>';
 
   // Table
-  html+='<div id="projTableWrap" style="overflow-x:auto;-webkit-overflow-scrolling:touch;"><table class="proj-table" id="projTable"><thead><tr><th>Year</th><th>Brand equity retained</th><th>Running 3-year total</th></tr></thead><tbody>';
-  html+='<tr><td>Year 1</td><td>'+fmt$(proj.y1)+' (100%)</td><td>'+fmt$(proj.y1)+'</td></tr>';
+  html+='<div id="projTableWrap" style="overflow-x:auto;-webkit-overflow-scrolling:touch;"><table class="proj-table" id="projTable" aria-label="3-year brand equity projection"><thead><tr><th>Year</th><th>Brand equity retained</th><th>Running 3-year total</th></tr></thead><tbody>';
+  html+='<tr><td>Year 1 <span class="proj-this-period">(this period)</span></td><td>'+fmt$(proj.y1)+' (100%)</td><td>'+fmt$(proj.y1)+'</td></tr>';
   html+='<tr><td>Year 2</td><td>'+fmt$(proj.y2)+' (~50%)</td><td>'+fmt$(proj.y1+proj.y2)+'</td></tr>';
   html+='<tr><td>Year 3</td><td>'+fmt$(proj.y3)+' (~25%)</td><td>'+fmt$(proj.cumulative)+'</td></tr>';
   html+='</tbody></table></div>';
+  html+=periodNote;
 
   // Prose
   html+='<div class="proj-prose" id="projProse">Brand equity built from social investment isn\'t a one-period expense — it builds assets that retain value over time. This period\'s brand equity of '+fmt$(proj.y1)+' is estimated to retain '+fmt$(proj.y2)+' of that value in Year 2 and '+fmt$(proj.y3)+' in Year 3, for a cumulative 3-year value of '+fmt$(proj.cumulative)+'. Based on Binet &amp; Field\'s research on long-term brand effects, IPA Databank (2013, 2018). Paid campaign effects are not projected beyond the current period.</div>';
@@ -1879,9 +2001,9 @@ function _restoreProjMode(){
   var barsBtn=document.getElementById('projBarsBtn');
   var tableBtn=document.getElementById('projTableBtn');
   var proseBtn=document.getElementById('projProseBtn');
-  if(barsBtn)  barsBtn.classList.toggle('active',mode==='bars');
-  if(tableBtn) tableBtn.classList.toggle('active',mode==='table');
-  if(proseBtn) proseBtn.classList.toggle('active',mode==='prose');
+  if(barsBtn)  { barsBtn.classList.toggle('active',mode==='bars');   barsBtn.setAttribute('aria-pressed',String(mode==='bars')); }
+  if(tableBtn) { tableBtn.classList.toggle('active',mode==='table'); tableBtn.setAttribute('aria-pressed',String(mode==='table')); }
+  if(proseBtn) { proseBtn.classList.toggle('active',mode==='prose'); proseBtn.setAttribute('aria-pressed',String(mode==='prose')); }
 }
 
 function projBar(label,val,max){
@@ -1952,7 +2074,12 @@ function buildFlags(org, paid, inf){
   }
 
   // Empty store (paid active with conversions, organic inactive)
-  if(paid && paid.investment>0 && !paid.awarenessOnly && !S.organicActive){
+  // Suppressed when "No conversions entered" is also firing — that warning is more specific
+  // and Empty Store is contextually misleading when no conversions have been provided yet.
+  var noConversionsWarningFiring = S.paidActive && paid && !paid.suppressed && paid.investment>0 && !paid.awarenessOnly
+    && S.campaignObjective && S.campaignObjective!=='awareness'
+    && (!S.paidConversions || S.paidConversions<=0);
+  if(paid && paid.investment>0 && !paid.awarenessOnly && !S.organicActive && !noConversionsWarningFiring){
     flags.push({type:'warning',title:'Empty Store warning',body:'Paid campaigns are active without organic support. Research on signaling theory suggests dormant brand pages reduce paid conversion efficiency — ad traffic arrives at a page that doesn\'t look alive.'});
   }
 
@@ -2011,7 +2138,7 @@ function buildFlags(org, paid, inf){
   }
 
   // Influencer concentration
-  if(S.numInfluencers && S.numInfluencers<3 && S.influencerActive && inf && !inf.suppressed){
+  if(S.numInfluencers !== null && S.numInfluencers < 3 && S.influencerActive && inf && !inf.suppressed){
     flags.push({type:'info',title:'Influencer concentration risk',body:'Fewer than 3 influencers active. If one relationship ends or underperforms, the category result is significantly affected. Consider diversifying across 3+ influencers, particularly at the nano/micro tier.'});
   }
 
@@ -2108,10 +2235,11 @@ function updateReachEstimate(){
 window.addEventListener('DOMContentLoaded',function(){
   var ids=['orderValue','clvInput','orgInvestment','orgFrequency',
            'orgReach','orgFollowers','orgEngagements','orgConvRate','paidSpend','paidConversions',
-           'infInvestment','infConversions','numInfluencers','roughTotal','campaignFrequency'];
+           'infInvestment','infConversions','numInfluencers','roughTotal','campaignFrequency',
+           'customPeriodMonths'];
   ids.forEach(function(id){
     var el=document.getElementById(id);
-    if(el){ el.addEventListener('input',debouncedCalc); el.addEventListener('blur',calc); }
+    if(el){ el.addEventListener('input',debouncedCalc); el.addEventListener('blur',flushCalc); }
   });
   var sels=['campaignObjective','primaryPlatform','creativeFormat','biddingMethod',
             'categoryMaturity','orgResponseTime','infTier','infCampaignType','timePeriod'];
@@ -2119,6 +2247,10 @@ window.addEventListener('DOMContentLoaded',function(){
     var el=document.getElementById(id);
     if(el) el.addEventListener('change',calc);
   });
+  // Show/hide custom period duration field when timePeriod changes
+  var timePeriodSel = document.getElementById('timePeriod');
+  if(timePeriodSel) timePeriodSel.addEventListener('change', updateCustomPeriodField);
+  updateCustomPeriodField(); // set correct initial state
   // Keyboard support for cat toggles
   document.querySelectorAll('.cat-toggle').forEach(function(el){
     el.addEventListener('keydown',function(e){
