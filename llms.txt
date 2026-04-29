@@ -28,13 +28,21 @@ Available as individual components or as a complete system. Starts at $8,000.
 
 ## Free Tools
 
-**Statistical Significance Calculator** — A browser-based tool for testing whether A/B test results, ad experiments, or campaign comparisons are statistically meaningful or just noise. Uses a two-proportion z-test. Includes a sample size estimator.
+**Content Story Framer** — A browser-based tool for building story skeletons for social media content. Choose a proven structure (such as PAS, Before-After-Bridge, or Three-Act), select components for each slot, and fill in the scaffold with your own voice. Works for social media captions, video scripts, newsletters, blog posts, podcast intros, and more.
 
-URL: https://jason-kingx.github.io/safe-camp/tools/statistical-significance-calculator.html
+URL: https://jason-kingx.github.io/safe-camp/tools/content-story-framer.html
 
 **Social Media Open Graph Checker** — A browser-based tool for previewing how any URL appears as a link card on X, LinkedIn, Facebook, Slack, Discord, iMessage, Pinterest, and Reddit. Includes a full tag-by-tag audit with plain-language fix guidance, fallback chain display, a recommended HTML snippet to hand to a developer, and platform-specific cache-busting instructions.
 
 URL: https://jason-kingx.github.io/safe-camp/tools/social-card-previewer.html
+
+**Social Media ROI Calculator** — A browser-based calculator for estimating the business value of organic content, paid social advertising, and influencer marketing. Powered by 43 research-backed principles. Outputs a total ROI figure with a confidence rating and plain-English interpretation.
+
+URL: https://jason-kingx.github.io/safe-camp/tools/social-media-roi-calculator.html
+
+**Statistical Significance Calculator** — A browser-based tool for testing whether A/B test results, ad experiments, or campaign comparisons are statistically meaningful or just noise. Uses a two-proportion z-test. Includes a sample size estimator.
+
+URL: https://jason-kingx.github.io/safe-camp/tools/statistical-significance-calculator.html
 
 ## Contact & Links
 
@@ -47,5 +55,8 @@ URL: https://jason-kingx.github.io/safe-camp/tools/social-card-previewer.html
 
 - Homepage: https://jason-kingx.github.io/safe-camp/
 - Tools: https://jason-kingx.github.io/safe-camp/tools.html
+- Content Story Framer: https://jason-kingx.github.io/safe-camp/tools/content-story-framer.html
+- Social Media Open Graph Checker: https://jason-kingx.github.io/safe-camp/tools/social-card-previewer.html
+- Social Media ROI Calculator: https://jason-kingx.github.io/safe-camp/tools/social-media-roi-calculator.html
 - Statistical Significance Calculator: https://jason-kingx.github.io/safe-camp/tools/statistical-significance-calculator.html
 - Privacy Policy: https://jason-kingx.github.io/safe-camp/privacy.html
