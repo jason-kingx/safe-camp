@@ -1,0 +1,1996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="description" content="Content Story Framer — a free tool to build story skeletons for your content. Choose a proven structure, select your components, and create a scaffold you can write within for social media, video, newsletters, and more.">
+<meta property="og:title" content="Content Story Framer — Safe Camp">
+<meta property="og:description" content="Build story skeletons for your content. Choose a proven structure, select your components, and fill in the scaffold with your own voice.">
+<meta property="og:url" content="https://jason-kingx.github.io/safe-camp/tools/content-story-framer.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Safe Camp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Content Story Framer — Safe Camp">
+<meta name="twitter:description" content="Build story skeletons for your content. Choose a proven structure, select your components, and fill in the scaffold with your own voice.">
+<link rel="canonical" href="https://jason-kingx.github.io/safe-camp/tools/content-story-framer.html">
+<title>Content Story Framer — Safe Camp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="../favicon-black.svg" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../favicon-white.svg" media="(prefers-color-scheme: dark)">
+<link rel="stylesheet" href="../css/styles.css">
+<script>(function(){var html=document.documentElement;var saved=localStorage.getItem('theme');if(saved==='dark'){html.setAttribute('data-theme','dark');}else if(saved==='light'){html.removeAttribute('data-theme');}else if(window.matchMedia('(prefers-color-scheme: dark)').matches){html.setAttribute('data-theme','dark');}})();</script>
+<script defer src="../include.js"></script>
+<style>
+
+/* ── Page layout ─────────────────────────────────────────────── */
+.page-outer {
+  width: 100%;
+  padding: 96px 48px;
+}
+
+.page-inner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.page-inner h1 {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 28px;
+}
+
+.page-inner h2 {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-top: 48px;
+  margin-bottom: 14px;
+}
+
+.page-prose p {
+  font-size: 15px;
+  color: var(--mid);
+  line-height: 1.8;
+  margin-bottom: 14px;
+}
+
+.page-prose ul {
+  padding-left: 20px;
+  margin-bottom: 16px;
+}
+
+.page-prose li {
+  font-size: 15px;
+  color: var(--mid);
+  line-height: 1.75;
+  margin-bottom: 8px;
+}
+
+.page-prose li strong { color: var(--ink); }
+.page-prose em { color: var(--mid); font-style: italic; }
+
+.page-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 56px 0;
+  border: none;
+}
+
+/* ── Tool card ───────────────────────────────────────────────── */
+.tool-card {
+  background: var(--surface, rgba(128,128,128,0.05));
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 32px;
+  margin: 48px 0;
+}
+
+.tool-eyebrow {
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mid);
+  margin: 0 0 28px;
+  line-height: 1;
+}
+
+/* ── Component color tokens ──────────────────────────────────── */
+:root {
+  --hook-bg:       rgba(34, 197, 94, 0.09);
+  --hook-label:    #15803d;
+  --hook-border:   rgba(34, 197, 94, 0.28);
+  --hook-btn:      rgba(34, 197, 94, 0.15);
+  --body-bg:       rgba(124, 58, 237, 0.08);
+  --body-label:    #6d28d9;
+  --body-border:   rgba(124, 58, 237, 0.22);
+  --body-btn:      rgba(124, 58, 237, 0.12);
+  --cta-bg:        rgba(74, 124, 142, 0.10);
+  --cta-label:     #4A7C8E;
+  --cta-border:    rgba(74, 124, 142, 0.28);
+  --cta-btn:       rgba(74, 124, 142, 0.15);
+}
+
+html[data-theme="dark"] {
+  --hook-bg:       rgba(34, 197, 94, 0.11);
+  --hook-label:    #4ade80;
+  --hook-border:   rgba(34, 197, 94, 0.25);
+  --hook-btn:      rgba(34, 197, 94, 0.18);
+  --body-bg:       rgba(167, 139, 250, 0.10);
+  --body-label:    #c4b5fd;
+  --body-border:   rgba(167, 139, 250, 0.25);
+  --body-btn:      rgba(167, 139, 250, 0.18);
+  --cta-bg:        rgba(74, 124, 142, 0.18);
+  --cta-label:     #7BBDCF;
+  --cta-border:    rgba(74, 124, 142, 0.35);
+  --cta-btn:       rgba(74, 124, 142, 0.22);
+}
+
+/* ── Step sections ───────────────────────────────────────────── */
+.csf-step { margin-bottom: 28px; }
+.csf-step:last-child { margin-bottom: 0; }
+
+.step-label {
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--mid);
+  margin-bottom: 14px;
+}
+
+/* ── Foundational fields ─────────────────────────────────────── */
+.field-group { margin-bottom: 16px; }
+.field-group:last-child { margin-bottom: 0; }
+
+.field-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.toggle-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.toggle-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--mid);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  line-height: 1.4;
+}
+
+.toggle-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.toggle-btn.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+
+/* ── Structure divider ───────────────────────────────────────── */
+.step-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 28px 0;
+  border: none;
+}
+
+/* ── Structure grid ──────────────────────────────────────────── */
+.structure-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.structure-card {
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+
+.structure-card:hover {
+  border-color: var(--mid);
+}
+
+.structure-card.selected {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 1px var(--ink);
+}
+
+.structure-name {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.structure-card:has(.rec-tag) .structure-name {
+  padding-right: 72px;
+}
+
+.structure-explainer {
+  font-size: 12px;
+  color: var(--mid);
+  line-height: 1.55;
+}
+
+.rec-tag {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-light);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+
+/* ── Component buttons ───────────────────────────────────────── */
+.component-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.component-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 6px;
+  padding: 7px 12px;
+  cursor: pointer;
+  border: 1.5px solid var(--line);
+  background: var(--bg);
+  color: var(--mid);
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.component-btn::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+/* Filled state */
+.component-btn.filled::before {
+  background: currentColor;
+}
+
+/* Color variants */
+.component-btn.green  { color: var(--hook-label);  border-color: var(--hook-border);  }
+.component-btn.purple { color: var(--body-label);  border-color: var(--body-border);  }
+.component-btn.blue   { color: var(--cta-label);   border-color: var(--cta-border);   }
+
+.component-btn.green.filled  { background: var(--hook-btn);  }
+.component-btn.purple.filled { background: var(--body-btn);  }
+.component-btn.blue.filled   { background: var(--cta-btn);   }
+
+.component-btn:hover, .component-btn.panel-open {
+  opacity: 0.75;
+}
+
+/* ── Component panel ─────────────────────────────────────────── */
+.component-panel {
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.panel-title {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+}
+
+.panel-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--mid);
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: color 0.15s;
+  line-height: 1;
+  font-family: 'DM Sans', sans-serif;
+}
+.panel-close:hover { color: var(--ink); }
+
+/* ── Panel category tabs ─────────────────────────────────────── */
+.panel-tabs {
+  display: none;
+  gap: 0;
+  border-bottom: 1px solid var(--line);
+  padding: 0 18px;
+}
+
+.panel-tab {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--mid);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+  margin-bottom: -1px;
+  line-height: 1.4;
+}
+
+.panel-tab:hover { color: var(--ink); }
+
+.panel-tab.active {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+.panel-note {
+  font-size: 11px;
+  color: var(--mid);
+  padding: 10px 18px 0;
+  font-style: italic;
+  opacity: 0.75;
+}
+
+.panel-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 14px 18px 18px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.option-card {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.5;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px 13px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.option-card:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+/* ── Canvas ──────────────────────────────────────────────────── */
+.canvas-area {
+  background: var(--card-bg);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  min-height: 160px;
+  padding: 20px;
+  margin-bottom: 12px;
+}
+
+.canvas-empty {
+  font-size: 14px;
+  color: var(--mid);
+  font-style: italic;
+  opacity: 0.7;
+  line-height: 1.7;
+}
+
+.canvas-blocks { display: flex; flex-direction: column; gap: 2px; }
+
+.canvas-block {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.block-label-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.block-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.canvas-block.green .block-label-row  { background: var(--hook-bg);  color: var(--hook-label); }
+.canvas-block.green .block-dot        { background: var(--hook-label); }
+.canvas-block.purple .block-label-row { background: var(--body-bg);  color: var(--body-label); }
+.canvas-block.purple .block-dot       { background: var(--body-label); }
+.canvas-block.blue .block-label-row   { background: var(--cta-bg);   color: var(--cta-label); }
+.canvas-block.blue .block-dot         { background: var(--cta-label); }
+
+.block-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.75;
+  padding: 10px 12px 12px;
+  min-height: 40px;
+  outline: none;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.canvas-block.green  .block-text { background: var(--hook-bg);  }
+.canvas-block.purple .block-text { background: var(--body-bg);  }
+.canvas-block.blue   .block-text { background: var(--cta-bg);   }
+
+.block-text:focus { box-shadow: inset 0 0 0 1.5px var(--line); }
+
+/* ── Canvas footer ───────────────────────────────────────────── */
+.canvas-footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.canvas-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.count-item {
+  font-size: 12px;
+  color: var(--mid);
+  letter-spacing: 0.03em;
+}
+
+.stat-sep {
+  font-size: 12px;
+  color: var(--line);
+}
+
+.format-indicators {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-left: 4px;
+}
+
+.fmt-indicator {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mid);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 3px 8px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.fmt-indicator.over-limit {
+  color: #dc2626;
+  border-color: rgba(220, 38, 38, 0.4);
+}
+
+[data-theme="dark"] .fmt-indicator.over-limit {
+  color: #f87171;
+  border-color: rgba(248, 113, 113, 0.35);
+}
+
+.canvas-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.canvas-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 6px;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: opacity 0.15s, background 0.15s;
+  line-height: 1.4;
+}
+
+.canvas-btn--copy {
+  background: var(--ink);
+  color: var(--bg);
+  border: 1.5px solid var(--ink);
+}
+.canvas-btn--copy:hover { opacity: 0.82; }
+
+.canvas-btn--reset {
+  background: none;
+  color: var(--mid);
+  border: 1.5px solid var(--line);
+}
+.canvas-btn--reset:hover { border-color: var(--mid); color: var(--ink); }
+
+.canvas-btn--sm {
+  font-size: 11px;
+  padding: 5px 12px;
+}
+
+.canvas-btn--ghost {
+  background: none;
+  color: var(--mid);
+  border: 1.5px solid var(--line);
+}
+
+/* ── Reset confirm ───────────────────────────────────────────── */
+.reset-confirm {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  padding: 12px 16px;
+  background: rgba(220, 38, 38, 0.06);
+  border: 1px solid rgba(220, 38, 38, 0.18);
+  border-radius: 8px;
+}
+
+.reset-confirm-text {
+  font-size: 13px;
+  color: var(--mid);
+  flex: 1;
+}
+
+/* ── Copy toast ──────────────────────────────────────────────── */
+.copy-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: var(--ink);
+  color: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+  z-index: 200;
+}
+.copy-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Privacy note ────────────────────────────────────────────── */
+.privacy-note {
+  font-size: 12px;
+  color: var(--mid);
+  text-align: center;
+  margin: 20px 0 0;
+  opacity: 0.7;
+}
+
+/* ── How-to steps ────────────────────────────────────────────── */
+.how-to-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 24px 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.how-to-step {
+  display: flex;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+}
+.how-to-step:last-child { border-bottom: none; }
+
+.step-num {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.2rem;
+  color: var(--accent);
+  width: 24px;
+  flex-shrink: 0;
+  padding-top: 1px;
+}
+
+.step-body {
+  flex: 1;
+}
+
+.step-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.step-desc {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.6;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .page-outer { padding: 64px 24px; }
+  .tool-card { padding: 20px; }
+  .structure-grid { grid-template-columns: 1fr; }
+  .panel-options { grid-template-columns: 1fr; max-height: 200px; }
+  .canvas-footer { flex-direction: column; align-items: flex-start; }
+  .canvas-actions { width: 100%; justify-content: flex-end; }
+}
+
+</style>
+</head>
+<body>
+
+<noscript><p style="position:fixed;bottom:0;left:0;right:0;background:var(--nav-bg);color:var(--ink);text-align:center;padding:12px 24px;font-size:13px;letter-spacing:0.06em;z-index:999;margin:0;">JavaScript is disabled in your browser. This tool requires JavaScript to function.</p></noscript>
+
+<div id="header-placeholder"></div>
+
+<main>
+<div class="page-outer">
+  <div class="page-inner">
+
+    <p class="section-eyebrow" aria-hidden="true">Free Tool</p>
+    <h1>Content Story Framer</h1>
+
+    <div class="page-prose">
+      <p>Most content doesn't fail because the idea is bad. It fails because it has no shape. Reach gets you in front of people. Structure is what makes them care.</p>
+      <p>The best communicators don't demand attention — they earn it by building toward something. Resonance happens when what you say aligns so precisely with what someone already feels that they feel <em>amplified</em>, not sold to. That's what story structure makes possible.</p>
+      <p>This tool gives you a proven skeleton to build from. When brands think and create more like storytellers — especially when real people and genuine perspectives are involved — content tends to feel more human and more compelling, even without polished production. The scaffold does the structural work. You bring the voice, the message, and the specifics that only you can bring.</p>
+      <p>Works for social media captions, video scripts, newsletters, blog posts, podcast intros, public speaking, and guest appearances. The same skeleton, across formats.</p>
+      <p>The structure is scaffolding. It's a useful forcing function, especially at the start — a way to get out of your own head and into a shape that's been proven to work. Over time, as you get more comfortable with how stories move, the scaffold falls away. You'll start to feel the structure intuitively, and shape content in ways that are more naturally yours.</p>
+      <p>The goal was never to follow a formula. It was to internalize one well enough that you don't need to.</p>
+    </div>
+
+    <hr class="page-divider">
+
+    <h2>How to use this tool</h2>
+
+    <div class="how-to-steps">
+      <div class="how-to-step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Set your context (optional)</div>
+          <div class="step-desc">Select your content goal and format to surface "Recommended" tags on structures that tend to work best for your use case. You can skip this and explore freely — no context is required.</div>
+        </div>
+      </div>
+      <div class="how-to-step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Choose a story structure</div>
+          <div class="step-desc">Each structure is a proven framework with its own shape and rhythm. Pick one that fits the kind of content you're making. The component slots will load based on your selection.</div>
+        </div>
+      </div>
+      <div class="how-to-step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Select your components</div>
+          <div class="step-desc">Click each component button to browse starter options for that slot. Select one and it snaps into the canvas. Click it again at any time to swap it out. The canvas uses three colors to make the structure visible at a glance — <strong style="color: var(--hook-label);">green</strong> for the Hook or Intro, <strong style="color: var(--cta-label);">blue</strong> for the CTA, and <strong style="color: var(--body-label);">purple</strong> for every component in between.</div>
+        </div>
+      </div>
+      <div class="how-to-step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Write within the scaffold</div>
+          <div class="step-desc">The canvas is editable. The component options are starting points — placeholders that give your content its shape. Replace the text with your own message, voice, and specifics. That's where the real writing happens.</div>
+        </div>
+      </div>
+      <div class="how-to-step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">Copy and take it with you</div>
+          <div class="step-desc">When you're ready, click Copy to grab the full canvas in one click. Take it to your writing app, caption tool, teleprompter, or document. The canvas doesn't save — every session starts fresh.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="page-divider">
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!--  TOOL                                                      -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="tool-card" role="region" aria-label="Content Story Framer">
+
+      <p class="tool-eyebrow">Content Story Framer</p>
+
+      <!-- Step 1: Foundational fields (optional) -->
+      <div class="csf-step" id="step-fields">
+        <p class="step-label">Optional — set your context to surface recommendations</p>
+
+        <div class="field-group">
+          <div class="field-label">Content Goal</div>
+          <div class="toggle-group" id="goal-toggles">
+            <button class="toggle-btn" data-field="goal" data-value="awareness" aria-pressed="false">Awareness</button>
+            <button class="toggle-btn" data-field="goal" data-value="consideration" aria-pressed="false">Consideration</button>
+            <button class="toggle-btn" data-field="goal" data-value="conversion" aria-pressed="false">Conversion</button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-label">Content Format</div>
+          <div class="toggle-group" id="format-toggles">
+            <button class="toggle-btn" data-field="format" data-value="caption" aria-pressed="false">Social Post Caption</button>
+            <button class="toggle-btn" data-field="format" data-value="video" aria-pressed="false">Video Script</button>
+            <button class="toggle-btn" data-field="format" data-value="blog" aria-pressed="false">Blog Post</button>
+            <button class="toggle-btn" data-field="format" data-value="newsletter" aria-pressed="false">Newsletter</button>
+            <button class="toggle-btn" data-field="format" data-value="podcast" aria-pressed="false">Podcast Intro</button>
+            <button class="toggle-btn" data-field="format" data-value="other" aria-pressed="false">Other</button>
+          </div>
+        </div>
+      </div>
+
+      <hr class="step-divider">
+
+      <!-- Step 2: Story structure selection -->
+      <div class="csf-step" id="step-structure">
+        <p class="step-label">Choose a story structure</p>
+        <div class="structure-grid" id="structure-grid">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <hr class="step-divider" id="compose-divider" style="display:none;">
+
+      <!-- Step 3: Compose -->
+      <div class="csf-step" id="step-compose" style="display:none;">
+        <p class="step-label" id="compose-step-label">Choose your components</p>
+
+        <!-- Component slot buttons -->
+        <div class="component-row" id="component-row">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Component selection panel -->
+        <div class="component-panel" id="component-panel" style="display:none;">
+          <div class="panel-header">
+            <span class="panel-title" id="panel-title"></span>
+            <button class="panel-close" id="panel-close" aria-label="Close panel">✕</button>
+          </div>
+          <div class="panel-tabs" id="panel-tabs"></div>
+          <p class="panel-note" id="panel-note"></p>
+          <div class="panel-options" id="panel-options">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Canvas -->
+        <div class="canvas-area" id="canvas-area">
+          <div class="canvas-empty" id="canvas-empty">Select your components above to see them appear here.</div>
+          <div class="canvas-blocks" id="canvas-blocks" style="display:none;"></div>
+        </div>
+
+        <!-- Canvas footer -->
+        <div class="canvas-footer">
+          <div class="canvas-stats">
+            <span class="count-item" id="word-count">0 words</span>
+            <span class="stat-sep">·</span>
+            <span class="count-item" id="char-count">0 characters</span>
+            <div class="format-indicators" id="format-indicators"></div>
+          </div>
+          <div class="canvas-actions">
+            <button class="canvas-btn canvas-btn--reset" id="reset-btn">Reset</button>
+            <button class="canvas-btn canvas-btn--copy" id="copy-btn">Copy</button>
+          </div>
+        </div>
+
+        <!-- Reset confirmation -->
+        <div class="reset-confirm" id="reset-confirm" style="display:none;">
+          <span class="reset-confirm-text">Are you sure? This will clear all your selections.</span>
+          <button class="canvas-btn canvas-btn--sm" id="reset-yes" style="background:var(--ink);color:var(--bg);border:1.5px solid var(--ink);">Confirm</button>
+          <button class="canvas-btn canvas-btn--sm canvas-btn--ghost" id="reset-no">Cancel</button>
+        </div>
+
+      </div><!-- /step-compose -->
+
+      <p class="privacy-note">Nothing you write here is stored, logged, or transmitted. Your canvas clears on refresh.</p>
+
+    </div><!-- /tool-card -->
+
+    </div><!-- /page-inner -->
+</div><!-- /page-outer -->
+</main>
+
+<div id="footer-placeholder"></div>
+
+<div class="copy-toast" id="copy-toast">Copied to clipboard</div>
+
+<script>
+'use strict';
+
+/* ── Data ─────────────────────────────────────────────────────── */
+
+var STRUCTURES = [
+  {
+    id: 'pas',
+    name: 'PAS — Problem, Agitate, Solve',
+    explainer: 'Identifies a problem your audience faces, heightens the urgency of solving it, then delivers the solution.',
+    components: ['hook', 'problem', 'agitation', 'solution', 'cta'],
+    recommended: ['conversion']
+  },
+  {
+    id: 'bab',
+    name: 'Before-After-Bridge (BaB)',
+    explainer: 'Paints a picture of the current state, shows the improved future state, then bridges the gap with your story or solution.',
+    components: ['hook', 'setup', 'solution', 'bridge', 'cta'],
+    recommended: ['consideration', 'conversion']
+  },
+  {
+    id: 'three-act',
+    name: 'Three-Act Structure',
+    explainer: 'Introduces the situation (Setup), presents a conflict or challenge (Confrontation), and delivers a resolution.',
+    components: ['hook', 'setup', 'problem', 'solution', 'cta'],
+    recommended: ['awareness']
+  },
+  {
+    id: 'star-chain-hook',
+    name: 'Star-Chain-Hook',
+    explainer: 'Opens with a strong attention-grabbing statement (Star), builds interest through benefits and facts (Chain), and closes with a call to action (Hook).',
+    components: ['hook', 'value', 'proof', 'cta'],
+    recommended: ['conversion']
+  },
+  {
+    id: 'heros-journey',
+    name: "Hero's Journey — Customer as Hero",
+    explainer: "Positions the customer as the hero facing a challenge, with your brand or insight acting as the guide that helps them succeed.",
+    components: ['hook', 'setup', 'problem', 'solution', 'reflection', 'cta'],
+    recommended: ['awareness']
+  },
+  {
+    id: 'freytag',
+    name: "Freytag's Pyramid",
+    explainer: 'A five-part structure through Exposition, Rising Action, Climax, Falling Action, and Resolution — suited for deeper, narrative-driven content.',
+    components: ['hook', 'setup', 'problem', 'agitation', 'solution', 'cta'],
+    recommended: ['awareness']
+  },
+  {
+    id: 'so-what',
+    name: 'The "So What?" Framework',
+    explainer: 'A data-driven structure that presents an observation, explains why it matters to the audience, and offers a clear recommendation or takeaway.',
+    components: ['hook', 'setup', 'value', 'cta'],
+    recommended: ['consideration']
+  },
+  {
+    id: 'comparative',
+    name: 'Comparative Structure',
+    explainer: 'Reviews, ranks, or contrasts subjects to help the audience make an informed decision or see a clear point of view.',
+    components: ['hook', 'setup', 'value', 'proof', 'cta'],
+    recommended: ['consideration']
+  },
+  {
+    id: 'aida',
+    name: 'AIDA — Attention, Interest, Desire, Action',
+    explainer: 'A foundational marketing framework that moves the audience through four progressive states from awareness to action.',
+    components: ['hook', 'setup', 'value', 'cta'],
+    recommended: ['consideration', 'conversion']
+  },
+  {
+    id: 'tutorial',
+    name: 'Tutorial / How-To Arc',
+    explainer: 'Frames the content as instruction: establish the goal or skill, walk through the steps, and land on the outcome or result.',
+    components: ['hook', 'setup', 'value', 'solution', 'cta'],
+    recommended: ['consideration']
+  },
+  {
+    id: 'listicle',
+    name: 'Listicle Arc',
+    explainer: 'Organizes content around a numbered or themed list, with a hook to frame the list and a closing thought or CTA to unify it.',
+    components: ['hook', 'value', 'cta'],
+    recommended: ['awareness']
+  },
+  {
+    id: 'confession',
+    name: 'Confession / Contrast Arc',
+    explainer: 'Opens with a former belief or behavior, pivots to what changed or what was learned, and lands on the new perspective.',
+    components: ['hook', 'setup', 'reflection', 'value', 'cta'],
+    recommended: ['awareness']
+  },
+  {
+    id: 'testimonial',
+    name: 'Testimonial / Social Proof Arc',
+    explainer: 'Leads with a result or outcome, tells the story behind it, and explains what made it possible.',
+    components: ['hook', 'proof', 'setup', 'solution', 'cta'],
+    recommended: ['consideration', 'conversion']
+  },
+  {
+    id: 'reflection',
+    name: "Reflection Arc — \"That's the thing about…\"",
+    explainer: "A three-part personal reflection: something that happened, what it made you realize, and the broader truth it reveals.",
+    components: ['hook', 'reflection', 'value', 'cta'],
+    recommended: ['awareness']
+  },
+  {
+    id: 'save-the-cat',
+    name: 'Save the Cat',
+    explainer: 'A screenwriting-native beat sheet suited for video scripts and longer content, moving through setup, conflict, escalation, and resolution.',
+    components: ['hook', 'setup', 'problem', 'agitation', 'solution', 'value', 'cta'],
+    recommended: ['consideration']
+  },
+  {
+    id: 'pixar',
+    name: 'Once Upon a Time — Pixar Framework',
+    explainer: 'A fill-in-the-blank story skeleton: Once upon a time… Every day… Then one day… Because of that… Until finally… Accessible and universal.',
+    components: ['hook', 'setup', 'problem', 'solution', 'reflection', 'cta'],
+    recommended: ['awareness']
+  }
+];
+
+var COMPONENT_META = {
+  hook:       { label: 'Hook / Intro',            color: 'green'  },
+  setup:      { label: 'Setup / Context',          color: 'purple' },
+  problem:    { label: 'Problem / Conflict',       color: 'purple' },
+  agitation:  { label: 'Agitation / Stakes',       color: 'purple' },
+  solution:   { label: 'Solution / Resolution',    color: 'purple' },
+  value:      { label: 'Value / Insight',          color: 'purple' },
+  proof:      { label: 'Proof / Credibility',      color: 'purple' },
+  bridge:     { label: 'Bridge / Transition',      color: 'purple' },
+  reflection: { label: 'Reflection / Realization', color: 'purple' },
+  cta:        { label: 'CTA',                      color: 'blue'   }
+};
+
+// ── LIBRARY ─────────────────────────────────────────────────────
+// Components with multiple categories use { categories: [{label, options}] }.
+// Components with a single group use { options: [...] }.
+var LIBRARY = {
+  hook: {
+    categories: [
+      {
+        label: 'Story Openers',
+        options: [
+          "We need to talk",
+          "Tell me if I'm wrong",
+          "I just made $___ doing this",
+          "I didn't expect this",
+          "My top 5 tips for ____",
+          "This is the truth about",
+          "If you're still struggling with",
+          "Watch till the end",
+          "This is all over [social media platform]",
+          "Stop wasting time on",
+          "How I fixed this in 3 days",
+          "Stop scrolling if you want to",
+          "This broke the internet",
+          "Be honest:",
+          "This feels illegal to know",
+          "You've been lied to about",
+          "I was wrong",
+          "How to instantly improve",
+          "This is why you're not growing",
+          "Don't skip this",
+          "Replace this with this",
+          "If you've ever felt this, listen",
+          "Everyone is doing this",
+          "Can I tell you a secret?",
+          "The secret nobody talks about",
+          "This doubled my results",
+          "Are you guilty of this?",
+          "This changed everything for me",
+          "You're doing it wrong",
+          "Here's how I did it",
+          "I finally gave in",
+          "This gets crazy",
+          "No more \"here's how\"",
+          "What if I told you",
+          "Everyone is wrong about",
+          "I've never shared this before",
+          "It still hurts when I think about this",
+          "Here's what broke me before it built me",
+          "Some days, it still feels heavy",
+          "This was the moment I almost gave up",
+          "What if you've been doing it all wrong?",
+          "I wish someone told me this sooner",
+          "No one's talking about this, but they should be",
+          "This one mistake cost me months of progress",
+          "You think it's about X, but it's really about Y",
+          "Tell me if this sounds like you",
+          "You've probably felt this too",
+          "Ever feel like you're doing everything right but still feeling stuck?",
+          "If you're tired of pretending everything's fine",
+          "You're not lazy, you're just exhausted from",
+          "Internet, connect me with like-minded people who",
+          "Here's something I wish I could tell my past self",
+          "If I could do it all over again, I would",
+          "I thought I had to have it all figured out",
+          "I used to think people like me couldn't",
+          "I used to chase ___ thinking it would make me happy",
+          "Here's what I believed before everything changed",
+          "This one moment changed everything for me"
+        ]
+      },
+      {
+        label: 'Short Hooks',
+        options: [
+          "Unpopular opinion",
+          "Steal this",
+          "Stop doing this",
+          "They lied",
+          "Nobody tells you",
+          "Secretly",
+          "Warning",
+          "How I",
+          "Hot take",
+          "Instantly",
+          "The truth about",
+          "Controversial",
+          "Before it's gone",
+          "What happens when",
+          "Cheat code",
+          "Most people",
+          "I tested",
+          "Not for everyone",
+          "Admit it",
+          "Never",
+          "The real reason",
+          "If you struggle with",
+          "This is for",
+          "I was wrong",
+          "Copy this",
+          "What no one tells you",
+          "You know you're",
+          "Overrated",
+          "Do this instead",
+          "Behind the scenes",
+          "A lot of people still think",
+          "You might not know this, but"
+        ]
+      }
+    ]
+  },
+  setup: {
+    options: [
+      "Let me set the scene",
+      "Here's the situation",
+      "Here's a little background",
+      "For context, here's where I was",
+      "Let me take you back to",
+      "Picture this:",
+      "This all started when",
+      "At the time, I was",
+      "Before I get into it, here's the context",
+      "Here's what my [situation] looked like",
+      "Here's who I was before this",
+      "I was at a crossroads",
+      "For years, I had been",
+      "At this point in the story",
+      "[Timeframe] ago, everything looked different",
+      "Before any of this happened",
+      "Most people in this situation are dealing with",
+      "At the time, I had no idea that",
+      "It was [timeframe] into [situation] when",
+      "For those just tuning in",
+      "I was [X] deep into [situation] when",
+      "The world I was operating in looked like this",
+      "There was a version of me that believed",
+      "Here's what I knew — and what I didn't"
+    ]
+  },
+  problem: {
+    options: [
+      "But something wasn't working",
+      "Here's where it gets complicated",
+      "The problem nobody talks about is",
+      "What nobody tells you is",
+      "The thing that kept getting in the way",
+      "Every time I tried, I hit the same wall",
+      "Here's what was actually going wrong",
+      "The real problem wasn't what I thought it was",
+      "I kept running into the same obstacle",
+      "Something had to change",
+      "The harder I tried, the worse it got",
+      "For a long time, I couldn't figure out why",
+      "I was stuck in a loop of",
+      "Here's the tension I couldn't escape",
+      "I didn't realize it then, but the real issue was",
+      "The question I kept avoiding was",
+      "The gap between where I was and where I wanted to be",
+      "There was something fundamentally broken about",
+      "Most people hit this same wall",
+      "Here's what I was fighting against",
+      "I kept blaming [X] — but that wasn't it",
+      "It felt impossible to",
+      "And that's when things got hard",
+      "What I couldn't see at the time was"
+    ]
+  },
+  agitation: {
+    options: [
+      "And the longer it went on, the worse it got",
+      "Left unchecked, this was going to cost me",
+      "The real cost wasn't obvious at first",
+      "Every day I waited, I was losing",
+      "This wasn't just inconvenient — it was unsustainable",
+      "The stakes were higher than I let myself admit",
+      "Here's what happens if you don't deal with this",
+      "The longer you ignore this, the more it compounds",
+      "This was starting to affect everything else",
+      "I couldn't keep pretending this wasn't a problem",
+      "The thing about this kind of problem — it doesn't stay small",
+      "I was burning [time / money / energy] on",
+      "The ripple effect was real",
+      "Here's what was quietly at stake",
+      "Every month I let this slide cost me",
+      "This was the kind of problem that gets worse, not better",
+      "The version of me that didn't fix this was headed toward",
+      "I had been tolerating something that was slowly draining",
+      "It wasn't just [surface issue] — it was [deeper cost]",
+      "The truth I didn't want to face",
+      "And it wasn't just affecting me",
+      "If nothing changed, here's where I was headed",
+      "The price of staying stuck was",
+      "I finally had to admit what it was actually costing me"
+    ]
+  },
+  solution: {
+    options: [
+      "Here's what actually worked",
+      "The turning point was this",
+      "That's when I discovered",
+      "The answer was simpler than I expected",
+      "What changed everything was",
+      "Here's the shift that made the difference",
+      "Once I stopped doing [X] and started doing [Y]",
+      "The fix wasn't what I thought it would be",
+      "Here's the thing that finally moved the needle",
+      "I stopped [old approach] and tried this instead",
+      "Here's what I wish I'd done from the start",
+      "Three things changed when I did this",
+      "The solution came from an unexpected place",
+      "It turns out the answer was already there",
+      "Here's how I broke the pattern",
+      "I made one small change that shifted everything",
+      "The thing that finally worked was surprisingly simple",
+      "I found a better way to",
+      "Here's the exact moment things turned around",
+      "That's when I gave myself permission to",
+      "The decision that changed everything",
+      "I went all in on",
+      "Here's what I built instead",
+      "I rebuilt it from scratch — and here's what worked"
+    ]
+  },
+  value: {
+    options: [
+      "Here's what I learned from this",
+      "If I had to distill this to one thing",
+      "The insight that changes everything is",
+      "The thing most people get wrong about this is",
+      "What this actually taught me was",
+      "Here's the truth nobody tells you",
+      "The real lesson here isn't what you'd expect",
+      "What I know now that I didn't know then",
+      "Here's what separates the people who succeed from those who don't",
+      "The principle that underpins all of this",
+      "Everything I know about this comes down to",
+      "The most underrated thing you can do is",
+      "The takeaway I keep coming back to",
+      "Here's the framework I use now",
+      "The rule I live by after going through this",
+      "Here's the uncomfortable truth",
+      "Stop optimizing for [X] and start optimizing for [Y]",
+      "What nobody warns you about is",
+      "If there's one thing I'd tell you to remember",
+      "The shift that made everything else easier was",
+      "Once you understand this, you can't unsee it",
+      "This one idea changed how I think about everything",
+      "The simplest version of this lesson is",
+      "Here's what all the noise is actually about"
+    ]
+  },
+  proof: {
+    options: [
+      "The results speak for themselves",
+      "Here's what the numbers showed",
+      "After [timeframe], here's what changed",
+      "Don't take my word for it",
+      "Here's what happened when others tried this",
+      "I've tested this across [number] of [people / campaigns / clients]",
+      "The data made it clear",
+      "Here's the before and after",
+      "When we ran the test, here's what we found",
+      "[Number] people have now used this and",
+      "This approach has been validated by",
+      "The case study that changed my mind on this",
+      "Here's the receipts",
+      "I tracked everything for [timeframe] — here's what I found",
+      "The research backs this up",
+      "Independent of my experience, the evidence shows",
+      "Here's a real example of this in action",
+      "In my own work, this translated to",
+      "My clients saw [specific result] within [timeframe]",
+      "The numbers I wasn't expecting to see",
+      "Here's what [credible source] found when they looked at this",
+      "Third-party research confirms",
+      "This isn't just my experience — here's what others report",
+      "The pattern showed up consistently across"
+    ]
+  },
+  bridge: {
+    options: [
+      "But here's the part that matters",
+      "Here's where it gets real",
+      "And that's when I realized",
+      "Fast forward to today",
+      "The turning point? It was this",
+      "That was then. Here's now.",
+      "Then everything changed",
+      "And then it clicked",
+      "That's when it hit me",
+      "That's when it all made sense",
+      "The moment that changed everything",
+      "Which is when I finally understood",
+      "And suddenly it was obvious",
+      "But then something unexpected happened",
+      "Here's what I didn't see coming",
+      "What I didn't expect was this",
+      "And here's where it gets interesting",
+      "But here's the twist",
+      "Which led me to",
+      "And the result?",
+      "So what happened next?",
+      "Because of that, everything shifted",
+      "That's what brought me here",
+      "Which brings me to",
+      "And that's exactly why",
+      "So where does that leave us?",
+      "Here's where it all connects",
+      "That's the context. Here's what matters.",
+      "And that's not even the most important part",
+      "So there I was",
+      "Until one day",
+      "Enter [the thing that changed it all]",
+      "That's the setup. Here's what I did."
+    ]
+  },
+  reflection: {
+    options: [
+      "Which made me realize",
+      "Looking back, what I understand now is",
+      "That's the thing about",
+      "What I didn't see at the time was",
+      "The honest truth I had to come to terms with",
+      "I had been so focused on [X] that I missed",
+      "In hindsight, it was obvious",
+      "That experience changed how I see everything",
+      "What I carried with me from that moment",
+      "The version of me that went through that learned",
+      "I couldn't have articulated it then, but",
+      "Somewhere in that experience, I understood",
+      "The thing that stayed with me was",
+      "And I kept thinking about it long after",
+      "It took me a long time to admit",
+      "That was the moment I stopped pretending",
+      "I had been telling myself a story that wasn't true",
+      "Once I saw it, I couldn't unsee it",
+      "That's when I gave myself permission to",
+      "It wasn't what happened — it was what it meant",
+      "The question it left me with was",
+      "I realized I'd been optimizing for the wrong thing",
+      "Looking back, I think I already knew",
+      "What it really came down to was this"
+    ]
+  },
+  cta: {
+    categories: [
+      {
+        label: 'Universal',
+        options: [
+          "Learn more",
+          "Learn more about",
+          "Read more",
+          "Get started",
+          "Get started today",
+          "Start today",
+          "Start now",
+          "Sign up",
+          "Sign up now",
+          "Subscribe",
+          "Download",
+          "Download now",
+          "Watch now",
+          "Register",
+          "Join now",
+          "Discover",
+          "Explore",
+          "See how it works",
+          "Find out more",
+          "Get the details",
+          "Show me more",
+          "See more",
+          "Continue reading",
+          "Get yours",
+          "Grab yours today",
+          "Get it now",
+          "Claim",
+          "Unlock now",
+          "Access",
+          "Get access",
+          "Get full access",
+          "Get lifetime access",
+          "Get instant access",
+          "Get it here",
+          "Get offer",
+          "Get free",
+          "Get [Product Name]",
+          "Try it for free",
+          "Try it today",
+          "Try 14 days free",
+          "Start free trial",
+          "Begin free trial",
+          "See it in action",
+          "Test it out",
+          "Go pro",
+          "Try premium",
+          "Request access",
+          "Save",
+          "Reserve",
+          "Act now",
+          "Limited time offer",
+          "Don't miss",
+          "Don't wait",
+          "Hurry",
+          "Check it out",
+          "See what happens next",
+          "Discover more",
+          "Discover the possibilities",
+          "Dive in",
+          "Dive deeper",
+          "Explore further",
+          "View features",
+          "Upgrade",
+          "Elevate",
+          "Grow",
+          "Launch",
+          "Activate",
+          "Transform",
+          "Optimize",
+          "Instant download",
+          "Start learning",
+          "Be the first to know",
+          "Swipe up",
+          "Get more info here",
+          "Get your"
+        ]
+      },
+      {
+        label: 'Social & Community',
+        options: [
+          "Follow us on Instagram",
+          "Subscribe to our channel",
+          "Connect on LinkedIn",
+          "Find us on social",
+          "Join the conversation",
+          "Tag us in your photos",
+          "Share your story",
+          "Join the community",
+          "See what's trending",
+          "Join the club",
+          "Stay in the loop",
+          "Join the fun",
+          "Hop on board",
+          "Start your journey",
+          "Become a member",
+          "Count me in!",
+          "Let's chat",
+          "Drop us a line",
+          "We're here to help",
+          "Chat with us",
+          "Speak with an expert",
+          "Contact sales",
+          "Vote now",
+          "Share your feedback",
+          "Tell us what you think",
+          "Tell us more",
+          "What did you think?",
+          "Leave a review",
+          "Rate your experience",
+          "Take the survey",
+          "Help us improve",
+          "Claim your reward",
+          "Spread the word",
+          "Access VIP perks 🤩"
+        ]
+      },
+      {
+        label: 'Shop & Book',
+        options: [
+          "Shop now",
+          "Buy now",
+          "Add to cart",
+          "Add to wishlist",
+          "Checkout",
+          "Complete order",
+          "Purchase",
+          "Buy with 1-click",
+          "Shop the collection",
+          "Shop today",
+          "Shop online",
+          "Keep shopping",
+          "View details",
+          "Order now",
+          "Order today",
+          "Buy and save",
+          "Bundle & save",
+          "Buy it together",
+          "Complete the set",
+          "Get 40% off",
+          "Save 30%",
+          "Lock in early bird price",
+          "Claim your discount",
+          "Complete your look",
+          "Claim my free gift",
+          "Unlock your savings",
+          "Free delivery",
+          "Get my free shipping",
+          "Free shipping on all orders over [$50]",
+          "Browse the sale",
+          "Find my size",
+          "See similar [items]",
+          "Buy now, pay later",
+          "Secure checkout",
+          "See the deals",
+          "Upgrade your gear",
+          "Treat yourself",
+          "Explore the collection",
+          "Discover deals",
+          "See our products",
+          "See pricing",
+          "Compare prices",
+          "Save big",
+          "Save up to",
+          "Secure your deal",
+          "Get it first",
+          "Give a gift",
+          "Browse listings",
+          "Find your next adventure",
+          "Book now",
+          "Book online",
+          "Book a demo",
+          "Book a consultation",
+          "Book your free consultation",
+          "Book reservation",
+          "Watch demo",
+          "Watch video",
+          "Work with me",
+          "Let's get to work",
+          "Request a demo",
+          "Schedule a personal demo",
+          "Sign up for a demo",
+          "Get my custom quote",
+          "Get a quote",
+          "Get a free quote 24/7",
+          "Get an offer",
+          "Get your free proposal",
+          "Get your result",
+          "Get your personalized offer",
+          "Unlock your quote",
+          "Get in touch",
+          "Contact us",
+          "Contact us today",
+          "Schedule",
+          "Schedule an appointment",
+          "See if you qualify",
+          "Let's get started",
+          "Start my free trial",
+          "Read reviews",
+          "View our gallery",
+          "Take a tour"
+        ]
+      },
+      {
+        label: 'Sign-ups & Events',
+        options: [
+          "Sign up free",
+          "Sign me up!",
+          "Sign up & save",
+          "Subscribe to our newsletter",
+          "Subscribe today!",
+          "Join our newsletter",
+          "Get weekly inspiration",
+          "Get my offer",
+          "Join for free",
+          "Join free for a month",
+          "Join the waitlist",
+          "Enroll now",
+          "Open an account",
+          "Open a free account now",
+          "Create free account",
+          "Start your 14-day trial",
+          "Try 30 days free",
+          "Apply today",
+          "Apply",
+          "Apply for this position",
+          "See openings",
+          "Refer",
+          "Invite a friend",
+          "Refer a friend, earn [reward]",
+          "Invite and get [discount]",
+          "Share & earn",
+          "Refer & win",
+          "Get my free ebook",
+          "Download the report",
+          "Download exclusive content",
+          "Get the guide",
+          "Get the free template",
+          "Snag your copy",
+          "Get it on Google Play",
+          "Download on the App Store",
+          "Access course",
+          "Read the case study",
+          "Read the full story",
+          "Uncover the full story",
+          "Explore our blog",
+          "Install app",
+          "Take quiz",
+          "Take the [5-min] survey now",
+          "Submit your answer",
+          "Expand your skills",
+          "Unlock your potential",
+          "Learn the secret",
+          "Become a [topic] master",
+          "Grow my audience",
+          "See your personalized plan",
+          "Start your fitness journey",
+          "Register for the webinar",
+          "Reserve your spot",
+          "Reserve my seat",
+          "Save my free spot",
+          "Save your seat",
+          "See the agenda",
+          "Join the event",
+          "RSVP now",
+          "Secure your pass",
+          "Get event details",
+          "Watch the recording",
+          "Set a reminder",
+          "View the schedule",
+          "Back this project",
+          "Donate today",
+          "Give",
+          "Give by [PayPal]",
+          "Support",
+          "Volunteer",
+          "Donate"
+        ]
+      }
+    ]
+  }
+};
+
+var FORMAT_THRESHOLDS = {
+  caption:    { label: 'Caption',    words: 150,  chars: 900   },
+  video:      { label: 'Video',      words: 300,  chars: 1800  },
+  newsletter: { label: 'Newsletter', words: 400,  chars: 2400  },
+  podcast:    { label: 'Podcast Intro', words: 200,  chars: 1200  },
+  blog:       { label: 'Blog Post',  words: 800,  chars: 5000  },
+  other:      { label: null,         words: null, chars: null  }
+};
+
+/* ── State ────────────────────────────────────────────────────── */
+var state = {
+  goal:        null,   // 'awareness' | 'consideration' | 'conversion'
+  format:      null,   // 'caption' | 'video' | 'blog' | 'newsletter' | 'podcast' | 'other'
+  structure:   null,   // structure id
+  selections:  {},     // { componentId: text }
+  openPanel:   null,   // componentId or null
+  panelTab:    0       // active category tab index
+};
+
+/* ── Helpers ──────────────────────────────────────────────────── */
+function el(id) { return document.getElementById(id); }
+
+function getStructure(id) {
+  return STRUCTURES.find(function(s) { return s.id === id; });
+}
+
+function canvasText() {
+  var blocks = document.querySelectorAll('.block-text');
+  var parts = [];
+  blocks.forEach(function(b) { var t = b.innerText.trim(); if (t) parts.push(t); });
+  return parts.join('\n\n');
+}
+
+function countWords(text) {
+  var t = text.trim();
+  if (!t) return 0;
+  return t.split(/\s+/).length;
+}
+
+/* ── Render: structure grid ───────────────────────────────────── */
+function renderStructureGrid() {
+  var grid = el('structure-grid');
+  grid.innerHTML = '';
+  STRUCTURES.forEach(function(s) {
+    var isRec = state.goal && s.recommended.indexOf(state.goal) !== -1;
+    var isSelected = state.structure === s.id;
+    var card = document.createElement('div');
+    card.className = 'structure-card' + (isSelected ? ' selected' : '');
+    card.dataset.id = s.id;
+    card.innerHTML =
+      (isRec ? '<span class="rec-tag">Recommended</span>' : '') +
+      '<div class="structure-name">' + s.name + '</div>' +
+      '<div class="structure-explainer">' + s.explainer + '</div>';
+    card.addEventListener('click', function() { selectStructure(s.id); });
+    grid.appendChild(card);
+  });
+}
+
+/* ── Select structure ─────────────────────────────────────────── */
+function selectStructure(id) {
+  state.structure = id;
+  state.openPanel = null;
+
+  // Preserve selections that exist in both old and new structure
+  // (selections for components not in new structure just stay in state but won't render)
+
+  renderStructureGrid();
+  showComposeSection();
+  renderComponentRow();
+  renderCanvas();
+  updateCounts();
+  el('component-panel').style.display = 'none';
+}
+
+/* ── Show/hide compose section ────────────────────────────────── */
+function showComposeSection() {
+  el('step-compose').style.display = 'block';
+  el('compose-divider').style.display = 'block';
+}
+
+/* ── Render: component row ────────────────────────────────────── */
+function renderComponentRow() {
+  var row = el('component-row');
+  row.innerHTML = '';
+  if (!state.structure) return;
+  var s = getStructure(state.structure);
+  s.components.forEach(function(cid) {
+    var meta = COMPONENT_META[cid];
+    var isFilled = !!(state.selections[cid] && state.selections[cid].trim());
+    var isOpen = state.openPanel === cid;
+    var btn = document.createElement('button');
+    btn.className = 'component-btn ' + meta.color +
+      (isFilled ? ' filled' : '') +
+      (isOpen ? ' panel-open' : '');
+    btn.dataset.cid = cid;
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    btn.textContent = meta.label;
+    btn.addEventListener('click', function() { togglePanel(cid); });
+    row.appendChild(btn);
+  });
+}
+
+/* ── Toggle component panel ───────────────────────────────────── */
+function togglePanel(cid) {
+  if (state.openPanel === cid) {
+    state.openPanel = null;
+    state.panelTab = 0;
+    el('component-panel').style.display = 'none';
+  } else {
+    state.openPanel = cid;
+    state.panelTab = 0;
+    renderPanel(cid);
+    el('component-panel').style.display = 'block';
+  }
+  renderComponentRow();
+}
+
+/* ── Render: component panel ──────────────────────────────────── */
+function renderPanel(cid) {
+  var meta = COMPONENT_META[cid];
+  el('panel-title').textContent = meta.label;
+
+  var lib = LIBRARY[cid];
+  var hasCategories = lib && !Array.isArray(lib) && lib.categories;
+  var isReal = hasCategories || (lib && !Array.isArray(lib) && lib.options);
+
+  // Tabs — only when multiple categories exist
+  var tabsEl = el('panel-tabs');
+  if (hasCategories) {
+    tabsEl.style.display = 'flex';
+    tabsEl.innerHTML = '';
+    lib.categories.forEach(function(cat, i) {
+      var btn = document.createElement('button');
+      btn.className = 'panel-tab' + (i === state.panelTab ? ' active' : '');
+      btn.textContent = cat.label;
+      btn.addEventListener('click', function() {
+        state.panelTab = i;
+        renderPanel(cid);
+      });
+      tabsEl.appendChild(btn);
+    });
+  } else {
+    tabsEl.style.display = 'none';
+    tabsEl.innerHTML = '';
+  }
+
+  // Panel note: show only for placeholder (flat array) components
+  el('panel-note').style.display = isReal ? 'none' : 'block';
+
+  // Options
+  var options;
+  if (hasCategories) {
+    options = lib.categories[state.panelTab].options;
+  } else if (isReal) {
+    options = lib.options;
+  } else {
+    options = lib || [];
+  }
+
+  var container = el('panel-options');
+  container.innerHTML = '';
+  options.forEach(function(text) {
+    var card = document.createElement('button');
+    card.className = 'option-card';
+    card.textContent = text;
+    card.addEventListener('click', function() { selectOption(cid, text); });
+    container.appendChild(card);
+  });
+}
+
+/* ── Select option ────────────────────────────────────────────── */
+function selectOption(cid, text) {
+  state.selections[cid] = text;
+  state.openPanel = null;
+  el('component-panel').style.display = 'none';
+  renderComponentRow();
+  renderCanvas();
+  updateCounts();
+}
+
+/* ── Render: canvas ───────────────────────────────────────────── */
+function renderCanvas() {
+  if (!state.structure) return;
+  var s = getStructure(state.structure);
+  var hasAny = s.components.some(function(cid) { return state.selections[cid]; });
+
+  el('canvas-empty').style.display = hasAny ? 'none' : 'block';
+  var blocksEl = el('canvas-blocks');
+  blocksEl.style.display = hasAny ? 'flex' : 'none';
+
+  // Only re-render blocks that have changed to preserve cursor position
+  // Strategy: clear and rebuild (acceptable since selections only change on explicit user action)
+  blocksEl.innerHTML = '';
+
+  s.components.forEach(function(cid) {
+    var text = state.selections[cid];
+    if (!text) return;
+    var meta = COMPONENT_META[cid];
+
+    var block = document.createElement('div');
+    block.className = 'canvas-block ' + meta.color;
+    block.dataset.cid = cid;
+
+    var labelRow = document.createElement('div');
+    labelRow.className = 'block-label-row';
+    var dot = document.createElement('span');
+    dot.className = 'block-dot';
+    var labelText = document.createElement('span');
+    labelText.textContent = meta.label;
+    labelRow.appendChild(dot);
+    labelRow.appendChild(labelText);
+
+    var textEl = document.createElement('div');
+    textEl.className = 'block-text';
+    textEl.contentEditable = 'true';
+    textEl.setAttribute('spellcheck', 'true');
+    textEl.textContent = text;
+    textEl.addEventListener('input', function() {
+      state.selections[cid] = textEl.innerText;
+      updateCounts();
+      // Update filled state of component button without full re-render
+      var btn = document.querySelector('.component-btn[data-cid="' + cid + '"]');
+      if (btn) {
+        var isFilled = !!(textEl.innerText.trim());
+        if (isFilled) btn.classList.add('filled'); else btn.classList.remove('filled');
+      }
+    });
+
+    block.appendChild(labelRow);
+    block.appendChild(textEl);
+    blocksEl.appendChild(block);
+  });
+}
+
+/* ── Update counts ────────────────────────────────────────────── */
+function updateCounts() {
+  var text = canvasText();
+  var words = countWords(text);
+  var chars = text.length;
+
+  el('word-count').textContent = words + (words === 1 ? ' word' : ' words');
+  el('char-count').textContent = chars + (chars === 1 ? ' character' : ' characters');
+
+  // Format threshold indicators
+  var indEl = el('format-indicators');
+  indEl.innerHTML = '';
+  if (state.format && FORMAT_THRESHOLDS[state.format] && FORMAT_THRESHOLDS[state.format].label) {
+    var thresh = FORMAT_THRESHOLDS[state.format];
+    var overWords = thresh.words && words > thresh.words;
+    var overChars = thresh.chars && chars > thresh.chars;
+    var over = overWords || overChars;
+    var pill = document.createElement('span');
+    pill.className = 'fmt-indicator' + (over ? ' over-limit' : '');
+    pill.title = thresh.label + ' recommended limit: ' + thresh.words + ' words / ' + thresh.chars + ' characters';
+    var overMsg = (overWords && overChars) ? 'words & chars over limit' : overWords ? 'words over limit' : 'chars over limit';
+    pill.textContent = over
+      ? thresh.label + ' — ' + overMsg
+      : thresh.label + ' (' + thresh.words + 'w / ' + thresh.chars + 'c)';
+    indEl.appendChild(pill);
+  }
+}
+
+/* ── Copy ─────────────────────────────────────────────────────── */
+el('copy-btn').addEventListener('click', function() {
+  var text = canvasText();
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(function() {
+    var toast = el('copy-toast');
+    toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 2200);
+  }).catch(function() {
+    // Fallback for older browsers
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    var toast = el('copy-toast');
+    toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 2200);
+  });
+});
+
+/* ── Reset ────────────────────────────────────────────────────── */
+el('reset-btn').addEventListener('click', function() {
+  el('reset-confirm').style.display = 'flex';
+});
+
+el('reset-no').addEventListener('click', function() {
+  el('reset-confirm').style.display = 'none';
+});
+
+el('reset-yes').addEventListener('click', function() {
+  state.selections = {};
+  state.structure = null;
+  state.openPanel = null;
+  state.goal = null;
+  state.format = null;
+  document.querySelectorAll('.toggle-btn').forEach(function(b) {
+    b.classList.remove('active');
+    b.setAttribute('aria-pressed', 'false');
+  });
+  el('reset-confirm').style.display = 'none';
+  el('step-compose').style.display = 'none';
+  el('compose-divider').style.display = 'none';
+  el('component-panel').style.display = 'none';
+  el('component-row').innerHTML = '';
+  el('canvas-blocks').innerHTML = '';
+  el('canvas-blocks').style.display = 'none';
+  el('canvas-empty').style.display = 'block';
+  el('canvas-empty').textContent = 'Select your components above to see them appear here.';
+  el('word-count').textContent = '0 words';
+  el('char-count').textContent = '0 characters';
+  el('format-indicators').innerHTML = '';
+  renderStructureGrid();
+});
+
+/* ── Panel close ──────────────────────────────────────────────── */
+el('panel-close').addEventListener('click', function() {
+  state.openPanel = null;
+  el('component-panel').style.display = 'none';
+  renderComponentRow();
+});
+
+/* ── Foundational field toggles ───────────────────────────────── */
+document.querySelectorAll('.toggle-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var field = btn.dataset.field;
+    var val = btn.dataset.value;
+    var wasActive = btn.classList.contains('active');
+
+    // Deactivate all in this group
+    document.querySelectorAll('.toggle-btn[data-field="' + field + '"]').forEach(function(b) {
+      b.classList.remove('active');
+      b.setAttribute('aria-pressed', 'false');
+    });
+
+    if (!wasActive) {
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+      state[field] = val;
+    } else {
+      state[field] = null;
+    }
+
+    if (field === 'goal') {
+      renderStructureGrid(); // re-render to show/hide recommended tags
+    }
+    if (field === 'format') {
+      updateCounts(); // re-render format threshold indicators
+    }
+  });
+});
+
+/* ── Init ─────────────────────────────────────────────────────── */
+renderStructureGrid();
+
+</script>
+</body>
+</html>
