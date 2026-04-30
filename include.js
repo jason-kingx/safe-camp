@@ -1,5 +1,32 @@
 var _base = document.querySelector('script[src*="include.js"]').src.replace(/include\.js$/, '');
 
+// Patch all relative hrefs in an injected component so they resolve
+// from the site root (_base) rather than the current page's directory.
+function patchLinks(selector) {
+  var isIndex = window.location.pathname === '/' ||
+                window.location.pathname.endsWith('/') ||
+                window.location.pathname.endsWith('index.html');
+
+  document.querySelectorAll(selector + ' a[href]').forEach(function(a) {
+    var href = a.getAttribute('href');
+    if (href.startsWith('#')) {
+      // Anchor-only links: on non-index pages, prefix with index.html
+      if (!isIndex) {
+        a.setAttribute('href', _base + 'index.html' + href);
+      }
+    } else if (
+      !href.startsWith('http') &&
+      !href.startsWith('//') &&
+      !href.startsWith('/') &&
+      !href.startsWith('mailto:') &&
+      !href.startsWith('tel:')
+    ) {
+      // Relative path (e.g. tools.html, privacy.html): prefix with _base
+      a.setAttribute('href', _base + href);
+    }
+  });
+}
+
 async function loadComponent(selector, file, callback) {
   const res = await fetch(_base + file);
   const html = await res.text();
@@ -10,15 +37,7 @@ async function loadComponent(selector, file, callback) {
 function initHeader() {
   var html = document.documentElement;
 
-  // On pages other than index.html, patch anchor-only nav links to include the page prefix
-  var isIndex = window.location.pathname === '/' ||
-                window.location.pathname.endsWith('/') ||
-                window.location.pathname.endsWith('index.html');
-  if (!isIndex) {
-    document.querySelectorAll('#header-placeholder a[href^="#"]').forEach(function(a) {
-      a.setAttribute('href', 'index.html' + a.getAttribute('href'));
-    });
-  }
+  patchLinks('#header-placeholder');
 
   // Theme toggle button
   var btn = document.getElementById('themeToggle');
@@ -56,5 +75,9 @@ function initHeader() {
   });
 }
 
+function initFooter() {
+  patchLinks('#footer-placeholder');
+}
+
 loadComponent('#header-placeholder', 'components/header.html', initHeader);
-loadComponent('#footer-placeholder', 'components/footer.html');
+loadComponent('#footer-placeholder', 'components/footer.html', initFooter);
