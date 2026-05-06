@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="description" content="A curated directory of tools Jason King uses and recommends — from AI assistants to design utilities, writing tools, and more.">
+  <meta property="og:title" content="Curated Tools Library — Safe Camp">
+  <meta property="og:description" content="A curated directory of tools Jason King uses and recommends — from AI assistants to design utilities, writing tools, and more.">
+  <meta property="og:url" content="https://jason-kingx.github.io/safe-camp/tools/safe-camp-tools-library.html">
+  <meta property="og:type" content="website">
+  <title>Curated Tools Library — Safe Camp</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="../favicon-black.svg" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="../favicon-white.svg" media="(prefers-color-scheme: dark)">
+
+  <style>
+    /* ── Page layout ── */
+    .library-outer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 72px 48px 96px;
+    }
+
+    /* ── Hero ── */
+    .library-hero {
+      margin-bottom: 48px;
+    }
+    .library-hero .section-title {
+      margin-bottom: 12px;
+    }
+    .library-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: var(--mid);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    /* ── Controls ── */
+    .library-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+    .library-search {
+      flex: 1 1 220px;
+      min-width: 160px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .library-search::placeholder {
+      color: var(--mid);
+    }
+    .library-search:focus {
+      border-color: var(--accent);
+    }
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .library-select {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      padding: 9px 32px 9px 14px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23999'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      transition: border-color 0.2s;
+    }
+    .library-select:focus {
+      border-color: var(--accent);
+    }
+    .library-select option {
+      background: var(--nav-bg, #fff);
+      color: var(--ink);
+    }
+    .controls-reset {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--mid);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px 0;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s;
+    }
+    .controls-reset:hover {
+      color: var(--ink);
+    }
+
+    /* ── Table ── */
+    .library-table-wrap {
+      overflow-x: auto;
+    }
+    .library-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+    }
+    .library-table thead th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--mid);
+      padding: 0 16px 12px 0;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    .library-table thead th:last-child {
+      padding-right: 0;
+    }
+    .library-table tbody tr {
+      border-bottom: 1px solid var(--line);
+      transition: background 0.15s;
+    }
+    .library-table tbody tr:last-child {
+      border-bottom: none;
+    }
+    .library-table tbody tr:hover {
+      background: color-mix(in srgb, var(--accent) 4%, transparent);
+    }
+    .library-table td {
+      padding: 16px 16px 16px 0;
+      vertical-align: top;
+      color: var(--ink);
+      line-height: 1.55;
+    }
+    .library-table td:last-child {
+      padding-right: 0;
+    }
+
+    /* ── Name cell ── */
+    .tool-name-cell {
+      white-space: nowrap;
+    }
+    .tool-link {
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 1px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .tool-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+    .safe-camp-badge {
+      display: inline-block;
+      margin-left: 8px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 1px 6px;
+      vertical-align: middle;
+      white-space: nowrap;
+      opacity: 0.85;
+    }
+
+    /* ── Category & pricing cells ── */
+    .tool-category,
+    .tool-sub,
+    .tool-pricing {
+      color: var(--mid);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    /* ── Description cell ── */
+    .tool-desc {
+      color: var(--mid);
+      font-size: 13px;
+      min-width: 200px;
+      max-width: 380px;
+      line-height: 1.65;
+    }
+
+    /* ── Result count & no-results ── */
+    .library-meta {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      color: var(--mid);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .no-results {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--mid);
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    /* ── Divider ── */
+    .library-divider {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 0 0 40px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .library-outer {
+        padding: 48px 24px 72px;
+      }
+      .library-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .library-search {
+        width: 100%;
+      }
+      .filter-group {
+        flex-direction: column;
+      }
+      .library-select {
+        width: 100%;
+      }
+      .tool-name-cell {
+        white-space: normal;
+      }
+    }
+  </style>
+
+  <!-- Theme toggle — must run before paint -->
+  <script>
+    (function () {
+      var html = document.documentElement;
+      var saved = localStorage.getItem('theme');
+      if (saved === 'dark') {
+        html.setAttribute('data-theme', 'dark');
+      } else if (saved === 'light') {
+        html.removeAttribute('data-theme');
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        html.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <script defer src="../include.js"></script>
+</head>
+
+<body>
+  <noscript>
+    <p style="position:fixed;bottom:0;left:0;right:0;background:var(--nav-bg);color:var(--ink);text-align:center;padding:12px 24px;font-size:13px;letter-spacing:0.06em;z-index:999;margin:0;">
+      JavaScript is disabled in your browser. Some features on this site require JavaScript to function.
+    </p>
+  </noscript>
+
+  <div id="header-placeholder"></div>
+
+  <main>
+    <div class="library-outer">
+
+      <!-- Hero -->
+      <div class="library-hero">
+        <p class="section-eyebrow" aria-hidden="true">Tools</p>
+        <h1 class="section-title">Curated Tools Library</h1>
+        <p class="library-sub">A growing directory of tools I use and recommend — from AI assistants to design utilities, writing aids, and more.</p>
+      </div>
+
+      <hr class="library-divider">
+
+      <!-- Controls -->
+      <div class="library-controls" role="search" aria-label="Filter tools">
+        <input
+          type="search"
+          id="search-input"
+          class="library-search"
+          placeholder="Search tools..."
+          aria-label="Search tools by name or description"
+        >
+        <div class="filter-group">
+          <select id="filter-category" class="library-select" aria-label="Filter by category">
+            <option value="">All Categories</option>
+          </select>
+          <select id="filter-sub" class="library-select" aria-label="Filter by subcategory">
+            <option value="">All Subcategories</option>
+          </select>
+          <select id="filter-pricing" class="library-select" aria-label="Filter by pricing">
+            <option value="">All Pricing</option>
+            <option value="Free">Free</option>
+            <option value="Freemium">Freemium</option>
+            <option value="Free (Beta)">Free (Beta)</option>
+          </select>
+        </div>
+        <button class="controls-reset" id="reset-btn" aria-label="Reset all filters">Reset</button>
+      </div>
+
+      <!-- Result count -->
+      <p class="library-meta" id="result-count" aria-live="polite"></p>
+
+      <!-- Table -->
+      <div class="library-table-wrap">
+        <table class="library-table" id="tools-table" aria-label="Curated tools directory">
+          <thead>
+            <tr>
+              <th scope="col">Tool</th>
+              <th scope="col">Category</th>
+              <th scope="col">Subcategory</th>
+              <th scope="col">Pricing</th>
+              <th scope="col">Description</th>
+            </tr>
+          </thead>
+          <tbody id="tools-tbody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+        <p class="no-results" id="no-results" hidden>No tools match your search. Try adjusting the filters.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script>
+    (function () {
+      var allTools = [];
+      var filteredTools = [];
+
+      var searchInput = document.getElementById('search-input');
+      var filterCategory = document.getElementById('filter-category');
+      var filterSub = document.getElementById('filter-sub');
+      var filterPricing = document.getElementById('filter-pricing');
+      var resetBtn = document.getElementById('reset-btn');
+      var tbody = document.getElementById('tools-tbody');
+      var noResults = document.getElementById('no-results');
+      var resultCount = document.getElementById('result-count');
+      var table = document.getElementById('tools-table');
+
+      // Load JSON
+      fetch('./tools.json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          allTools = data.slice().sort(function (a, b) {
+            return a.name.localeCompare(b.name);
+          });
+          buildCategoryFilter();
+          applyFilters();
+        })
+        .catch(function (err) {
+          console.error('Failed to load tools.json', err);
+          tbody.innerHTML = '<tr><td colspan="5" style="padding:32px 0;color:var(--mid);text-align:center;">Unable to load tools. Please try again later.</td></tr>';
+        });
+
+      // Build main category dropdown from data
+      function buildCategoryFilter() {
+        var cats = [];
+        allTools.forEach(function (t) {
+          if (cats.indexOf(t.main_category) === -1) cats.push(t.main_category);
+        });
+        cats.sort().forEach(function (c) {
+          var opt = document.createElement('option');
+          opt.value = c;
+          opt.textContent = c;
+          filterCategory.appendChild(opt);
+        });
+      }
+
+      // Update sub-category dropdown based on selected main category
+      function updateSubFilter(selectedCategory) {
+        var currentSub = filterSub.value;
+        filterSub.innerHTML = '<option value="">All Subcategories</option>';
+        var subs = [];
+        allTools.forEach(function (t) {
+          if (!selectedCategory || t.main_category === selectedCategory) {
+            if (subs.indexOf(t.sub_category) === -1) subs.push(t.sub_category);
+          }
+        });
+        subs.sort().forEach(function (s) {
+          var opt = document.createElement('option');
+          opt.value = s;
+          opt.textContent = s;
+          filterSub.appendChild(opt);
+        });
+        // Restore sub selection if still valid
+        if (subs.indexOf(currentSub) !== -1) {
+          filterSub.value = currentSub;
+        }
+      }
+
+      // Apply all active filters and render
+      function applyFilters() {
+        var query = searchInput.value.trim().toLowerCase();
+        var cat = filterCategory.value;
+        var sub = filterSub.value;
+        var pricing = filterPricing.value;
+
+        filteredTools = allTools.filter(function (t) {
+          if (cat && t.main_category !== cat) return false;
+          if (sub && t.sub_category !== sub) return false;
+          if (pricing && t.pricing !== pricing) return false;
+          if (query) {
+            var haystack = (t.name + ' ' + t.description).toLowerCase();
+            // Tolerant: all query words must appear somewhere
+            var words = query.split(/\s+/).filter(Boolean);
+            return words.every(function (w) { return haystack.indexOf(w) !== -1; });
+          }
+          return true;
+        });
+
+        render();
+      }
+
+      // Render rows
+      function render() {
+        tbody.innerHTML = '';
+
+        if (filteredTools.length === 0) {
+          noResults.hidden = false;
+          table.hidden = true;
+          resultCount.textContent = '0 tools';
+          return;
+        }
+
+        noResults.hidden = true;
+        table.hidden = false;
+        resultCount.textContent = filteredTools.length + (filteredTools.length === 1 ? ' tool' : ' tools');
+
+        filteredTools.forEach(function (t) {
+          var tr = document.createElement('tr');
+
+          // Name cell
+          var tdName = document.createElement('td');
+          tdName.className = 'tool-name-cell';
+          var a = document.createElement('a');
+          a.href = t.url;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.className = 'tool-link';
+          a.textContent = t.name;
+          tdName.appendChild(a);
+          if (t.made_by_safe_camp) {
+            var badge = document.createElement('span');
+            badge.className = 'safe-camp-badge';
+            badge.textContent = 'Safe Camp';
+            badge.setAttribute('aria-label', 'Made by Safe Camp');
+            tdName.appendChild(badge);
+          }
+
+          // Category
+          var tdCat = document.createElement('td');
+          tdCat.className = 'tool-category';
+          tdCat.textContent = t.main_category;
+
+          // Sub-category
+          var tdSub = document.createElement('td');
+          tdSub.className = 'tool-sub';
+          tdSub.textContent = t.sub_category;
+
+          // Pricing
+          var tdPricing = document.createElement('td');
+          tdPricing.className = 'tool-pricing';
+          tdPricing.textContent = t.pricing;
+
+          // Description
+          var tdDesc = document.createElement('td');
+          tdDesc.className = 'tool-desc';
+          tdDesc.textContent = t.description;
+
+          tr.appendChild(tdName);
+          tr.appendChild(tdCat);
+          tr.appendChild(tdSub);
+          tr.appendChild(tdPricing);
+          tr.appendChild(tdDesc);
+          tbody.appendChild(tr);
+        });
+      }
+
+      // Event listeners
+      searchInput.addEventListener('input', applyFilters);
+
+      filterCategory.addEventListener('change', function () {
+        updateSubFilter(filterCategory.value);
+        applyFilters();
+      });
+
+      filterSub.addEventListener('change', applyFilters);
+      filterPricing.addEventListener('change', applyFilters);
+
+      resetBtn.addEventListener('click', function () {
+        searchInput.value = '';
+        filterCategory.value = '';
+        updateSubFilter('');
+        filterSub.value = '';
+        filterPricing.value = '';
+        applyFilters();
+      });
+
+    })();
+  </script>
+</body>
+</html>
