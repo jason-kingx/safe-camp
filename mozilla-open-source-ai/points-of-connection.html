@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Points of Connection — Mozilla</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff; --bg-alt: #f2f0ec; --bg-shd: #faf9f7; --bg-grp: #ede8f5;
+    --bg-greet: #f7f7f6; --bg-feat: #f0fef4; --bg-feat-hov: #e4f8ec;
+    --t1: #1a1917; --t2: #1a1917; --t3: #2e2c2a; --t4: #1a1917;
+    --b1: #ebe9e5; --b2: #dedad6; --b3: #1e1e1c;
+    --accent: #00d230; --accent-text: #0d4a25; --accent-border: #5ab87a;
+  }
+  [data-theme="dark"] {
+    --bg: #111110; --bg-alt: #1c1b19; --bg-shd: #161513; --bg-grp: #1e1a2e;
+    --bg-greet: #181715; --bg-feat: #0d2b1a; --bg-feat-hov: #112b1c;
+    --t1: #e8e4df; --t2: #b8b5b0; --t3: #7a7774; --t4: #8a8783;
+    --b1: #2a2826; --b2: #333130; --b3: #484644;
+    --accent: #00d230; --accent-text: #6dd49a; --accent-border: #2a6645;
+  }
+
+  body {
+    font-family: 'IBM Plex Mono', 'Fira Mono', 'Courier New', monospace;
+    background: var(--bg);
+    color: var(--t1);
+    padding: 52px 52px 44px;
+    min-width: 960px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  /* ── DOC HEADER ─────────────────────────────────────────── */
+  .doc-header { margin-bottom: 36px; }
+
+  .eyebrow {
+    font-size: 12px;
+    color: #5a5754;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: #0a0a09;
+    line-height: 1.15;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  h1 span { color: #00d230; }
+
+  .subtitle {
+    font-size: 12px;
+    color: #5a5754;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── GREETING ───────────────────────────────────────────── */
+  .greeting {
+    font-size: 15px;
+    line-height: 1.7;
+    padding: 14px 16px;
+    background: #f7f7f6;
+    border-radius: 6px;
+    border-left: 2px solid #d4d2ce;
+    margin-bottom: 20px;
+    color: #1a1917;
+    font-style: italic;
+  }
+
+  .greeting .to {
+    font-size: 10px;
+    color: #5a5754;
+    font-style: normal;
+    margin-bottom: 6px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  /* ── OVERVIEW ───────────────────────────────────────────── */
+  .overview {
+    border: 1px solid #dedad6;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .overview-header {
+    background: #f2f0ec;
+    padding: 10px 16px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #3a3835;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #dedad6;
+  }
+
+  .overview-body {
+    padding: 18px 16px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #1a1917;
+  }
+
+  .overview-body p + p { margin-top: 10px; }
+
+  .overview-col-rule {
+    grid-column: 1 / -1;
+    height: 0;
+  }
+
+  /* ── CAREER ACCORDION ───────────────────────────────────── */
+  .career-wrap {
+    border: 1px solid #dedad6;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .section-header {
+    background: #ede8f5;
+    padding: 7px 16px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #3a3835;
+    border-bottom: 1px solid #dedad6;
+  }
+
+  /* ── ENTRY ROW ──────────────────────────────────────────── */
+  .entry { border-bottom: 1px solid #ebe9e5; }
+  .entry:last-child { border-bottom: none; }
+
+  .entry-trigger {
+    display: flex;
+    align-items: stretch;
+    cursor: pointer;
+    min-height: 52px;
+    user-select: none;
+  }
+
+  .entry-trigger:hover .entry-right { background: #faf9f7; }
+
+  .entry-date {
+    width: 218px;
+    min-width: 218px;
+    padding: 0 16px;
+    border-right: 1px solid #dedad6;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: #1a1917;
+    background: #ffffff;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+
+  .entry-right {
+    flex: 1;
+    padding: 13px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    transition: background 0.15s ease;
+  }
+
+  .entry-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1917;
+    line-height: 1.3;
+  }
+
+  .entry-meta {
+    font-size: 13px;
+    color: #1a1917;
+    margin-top: 3px;
+    line-height: 1.4;
+  }
+
+  .chevron {
+    font-size: 9px;
+    color: #b0ada8;
+    flex-shrink: 0;
+    margin-left: 16px;
+    transition: transform 0.2s ease;
+  }
+
+  .entry.open .chevron { transform: rotate(180deg); }
+
+  /* ── FEATURED ENTRY (Braintree) ─────────────────────────── */
+  .entry.featured .entry-date {
+    background: #f0fef4;
+    border-right-color: #5ab87a;
+    color: #0d4a25;
+  }
+
+  .entry.featured .entry-right { background: #f0fef4; }
+  .entry.featured:hover .entry-right { background: #e4f8ec; }
+  .entry.featured .entry-title { color: #0a3a1c; }
+  .entry.featured .entry-meta { color: #2a7a48; }
+  .entry.featured .chevron { color: #5ab87a; }
+
+  .entry.featured .entry-body {
+    background: #f7fdf9;
+    border-top-color: #c2e8cf;
+  }
+
+  /* ── EXPANDED BODY ──────────────────────────────────────── */
+  .entry-body {
+    display: none;
+    padding: 16px 20px 20px 234px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #1a1917;
+    background: #faf9f7;
+    border-top: 1px solid #ebe9e5;
+  }
+
+  .entry.open .entry-body { display: block; }
+
+  .entry-body p + p { margin-top: 10px; }
+
+  .entry-body ul {
+    margin: 10px 0 4px 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .entry-body ul li {
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .entry-body ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: #b0ada8;
+  }
+
+  .awards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+  }
+
+  .award {
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    background: #f0fef4;
+    color: #0d4a25;
+    border: 0.5px solid #5ab87a;
+    letter-spacing: 0.04em;
+  }
+
+  .closing-line {
+    margin-top: 14px;
+    font-style: italic;
+    color: #1a1917;
+    border-top: 1px solid #ebe9e5;
+    padding-top: 12px;
+  }
+
+  /* ── NOTE ROW ───────────────────────────────────────────── */
+  .note-row {
+    display: flex;
+    gap: 32px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid #ebe9e5;
+  }
+
+  .note {
+    font-size: 13px;
+    color: var(--t1);
+    line-height: 1.65;
+    flex: 1;
+  }
+
+  .note strong { color: var(--t1); font-weight: 700; }
+
+  /* ── DARK MODE OVERRIDES ────────────────────────────────── */
+  [data-theme="dark"] h1 { color: var(--t1); }
+  [data-theme="dark"] .eyebrow, [data-theme="dark"] .subtitle { color: var(--t3); }
+  [data-theme="dark"] .greeting {
+    background: var(--bg-greet);
+    border-color: var(--b2);
+    color: var(--t1);
+  }
+  [data-theme="dark"] .greeting .to { color: var(--t3); }
+  [data-theme="dark"] .overview { border-color: var(--b2); }
+  [data-theme="dark"] .overview-header { background: var(--bg-alt); color: var(--t2); border-color: var(--b2); }
+  [data-theme="dark"] .overview-body { color: var(--t1); }
+  [data-theme="dark"] .overview-body p[style] { border-color: var(--b1); }
+  [data-theme="dark"] .career-wrap { border-color: var(--b2); }
+  [data-theme="dark"] .section-header { background: var(--bg-grp); color: var(--t2); border-color: var(--b2); }
+  [data-theme="dark"] .entry { border-color: var(--b1); }
+  [data-theme="dark"] .entry-date { background: var(--bg); color: var(--t2); border-color: var(--b2); }
+  [data-theme="dark"] .entry-right { background: var(--bg); }
+  [data-theme="dark"] .entry-trigger:hover .entry-right { background: var(--bg-shd); }
+  [data-theme="dark"] .entry-title { color: var(--t1); }
+  [data-theme="dark"] .entry-meta { color: var(--t2); }
+  [data-theme="dark"] .chevron { color: var(--b2); }
+  [data-theme="dark"] .entry-body { background: var(--bg-shd); border-color: var(--b1); color: var(--t1); }
+  [data-theme="dark"] .entry-body ul li::before { color: var(--b2); }
+  [data-theme="dark"] .closing-line { color: var(--t2); border-color: var(--b1); }
+  [data-theme="dark"] .entry.featured .entry-date { background: var(--bg-feat); border-color: var(--accent-border); color: var(--accent-text); }
+  [data-theme="dark"] .entry.featured .entry-right { background: var(--bg-feat); }
+  [data-theme="dark"] .entry.featured:hover .entry-right { background: var(--bg-feat-hov); }
+  [data-theme="dark"] .entry.featured .entry-title { color: var(--accent-text); }
+  [data-theme="dark"] .entry.featured .entry-meta { color: var(--accent-text); }
+  [data-theme="dark"] .entry.featured .chevron { color: var(--accent-border); }
+  [data-theme="dark"] .entry.featured .entry-body { background: var(--bg-feat); border-color: var(--accent-border); }
+  [data-theme="dark"] .award { background: var(--bg-feat); color: var(--accent-text); border-color: var(--accent-border); }
+  [data-theme="dark"] .note-row { border-color: var(--b1); }
+
+  /* ── SITE NAV ───────────────────────────────────────────── */
+  .site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--b2);
+  }
+  .nav-pages { display: flex; gap: 4px; }
+  .nav-pill {
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 3px;
+    border: 1px solid var(--b2);
+    background: transparent;
+    color: var(--t3);
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+  .nav-pill:hover { background: var(--bg-alt); color: var(--t1); }
+  .nav-pill.active { background: var(--t1); color: var(--bg); border-color: var(--t1); }
+  .theme-btn {
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 3px;
+    border: 1px solid var(--b2);
+    background: transparent;
+    color: var(--t3);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .theme-btn:hover { background: var(--bg-alt); color: var(--t1); }
+</style>
+</head>
+<body>
+
+<div class="site-nav">
+  <div class="nav-pages">
+    <a href="points-of-connection.html" class="nav-pill active">Connections</a>
+    <a href="mozilla_open_ai_stack.html" class="nav-pill">Stack</a>
+    <a href="mozilla_project_timeline.html" class="nav-pill">Timeline</a>
+    <a href="mozilla_vertical_video.html" class="nav-pill">Video</a>
+  </div>
+  <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">☾ Dark</button>
+</div>
+
+<div class="doc-header">
+  <div class="eyebrow">Mozilla · open-source AI · 2026</div>
+  <h1>Points of <span>Connection</span></h1>
+  <div class="subtitle">Points of connection · social media &amp; community strategy</div>
+</div>
+
+<div class="greeting">
+  <div class="to">Hello Mike, Ben, Raffi, and the Mozilla team —</div>
+  These materials were created to share a glimpse of how I think, and how I'm thinking about this project opportunity.
+</div>
+
+<div class="overview">
+  <div class="overview-header">Overview</div>
+  <div class="overview-body">
+    <p>Mozilla is not your average tech company. I am not your average social media marketer.<br>I have specialized in social media and community for 15 years, working with more than 100 brands through internal, agency, and startup roles — independent consulting too.</p>
+    <p>As a result of so many different experiences, I bring a critical lens and my own points of view.<br>I view social media as a finite system, like a sports play or a car engine.<br>Every component can be decided, documented, and optimized.<br>This is the difference between making content from vibes and chasing vanity metrics, versus using social media to drive real business results.</p>
+    <p>Community can be defined, <a href="https://orbit-model.joshed.io/" target="_blank">visualized</a>, and actioned in the same way.<br>It is a practice and an ideal — a crucial part of the "social" in social media.<br>With this lens, my past work has engaged Mozilla's key audiences: developers, users, policymakers, and communities.</p>
+    <p>The structure of social media and community strategy parallels the open-source AI stack.</p>
+    <p style="border-top: 1px solid #ebe9e5; padding-top: 14px; margin-top: 14px;">Open-source contributors have two jobs — to write code, and be easy to work with.<br>My job has always been: to do good work, and be easy to work with.<br>I would like to work with the Mozilla team, to shape the future of intelligence.</p>
+  </div>
+</div>
+
+<div class="career-wrap">
+
+  <div class="section-header">Notable Highlights · click any row to expand</div>
+
+  <!-- 2026: Safe Camp -->
+  <div class="entry featured" onclick="toggle(this)">
+    <div class="entry-trigger">
+      <div class="entry-date">2026 &nbsp;⭐</div>
+      <div class="entry-right">
+        <div>
+          <div class="entry-title">Safe Camp · Independent Consulting</div>
+          <div class="entry-meta">Social media strategy &amp; operations · #1 Community Champion among ~600 members</div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+    </div>
+    <div class="entry-body">
+      <p>My independent social media consulting practice is called <a href="https://jason-kingx.github.io/safe-camp/" style="color:#1a1917;">Safe Camp</a>. I've developed strategy and operations for brands since 2018, with the same components as this project opportunity. My site holds tools I've created to serve clients and fellow marketers.</p>
+      <p>As a member of the <a href="https://www.commsconsultants.com/" style="color:#1a1917;">CommsConsultants</a> community, I am the resident social media expert and mentor a consultant who is earlier in her journey. I am also the #1 Community Champion among nearly 600 members.</p>
+    </div>
+  </div>
+
+  <!-- 2022–2023: Mission Lane -->
+  <div class="entry" onclick="toggle(this)">
+    <div class="entry-trigger">
+      <div class="entry-date">2022 – 2023</div>
+      <div class="entry-right">
+        <div>
+          <div class="entry-title">Mission Lane</div>
+          <div class="entry-meta">Social Media Lead · CMX Summit 2022 · Internal Leadership Award</div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+    </div>
+    <div class="entry-body">
+      <p>As Social Media Lead at Mission Lane, I attended CMX Summit 2022. The event focused on the evolution of the community industry, featuring workshops, networking, and speakers for community professionals.</p>
+      <p>After applying these principles in building our branded community, I earned the internal Leadership Award.</p>
+    </div>
+  </div>
+
+  <!-- 2021: Tackle.io -->
+  <div class="entry" onclick="toggle(this)">
+    <div class="entry-trigger">
+      <div class="entry-date">2021</div>
+      <div class="entry-right">
+        <div>
+          <div class="entry-title">Tackle.io</div>
+          <div class="entry-meta">Social Media &amp; Community Manager · First-ever social media and community playbooks</div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+    </div>
+    <div class="entry-body">
+      <p>As Social Media and Community Manager with Tackle.io, I created and executed the company's first-ever social media and community playbooks. The company didn't just go-to-market — we went to social and community.</p>
+      <p>This included Office Hours virtual meetings, and the creation of a Circle community.</p>
+    </div>
+  </div>
+
+  <!-- 2019–2021: Porter Novelli -->
+  <div class="entry" onclick="toggle(this)">
+    <div class="entry-trigger">
+      <div class="entry-date">2019 – 2021</div>
+      <div class="entry-right">
+        <div>
+          <div class="entry-title">Porter Novelli</div>
+          <div class="entry-meta">Account Supervisor, Digital · 50 clients in two years · Policymaker outreach</div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+    </div>
+    <div class="entry-body">
+      <p>As an Account Supervisor on the Digital team, my project allocation was in high demand — placing with 50 clients within two years. Projects often included LinkedIn profile audits, purpose playbooks, and thought leadership strategies for corporations and their executives.</p>
+      <p>Due to the nature of our clients' regulated spaces (e.g., biotech, pharmacy), many projects also targeted policymakers as part of broader PR activities.</p>
+    </div>
+  </div>
+
+  <!-- 2015–2017: Braintree ⭐ FEATURED -->
+  <div class="entry featured" onclick="toggle(this)">
+    <div class="entry-trigger">
+      <div class="entry-date">2015 – 2017 &nbsp;⭐</div>
+      <div class="entry-right">
+        <div>
+          <div class="entry-title">Braintree · a PayPal company</div>
+          <div class="entry-meta">Social Media Manager · Developer audience · Codeology · 300+ developer communities</div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+    </div>
+    <div class="entry-body">
+      <div class="awards">
+        <span class="award">2016 Cannes Gold Lion</span>
+        <span class="award">Reddit front page</span>
+        <span class="award">Drove sandbox demos &amp; new customer deals</span>
+      </div>
+      <p style="margin-top: 14px;">As social media manager with Braintree, a PayPal company, one of our key audiences was developers — they implement the code behind Braintree's payment portals. They're also marketing and sales-averse. Our marketing created <a href="https://docs.google.com/presentation/d/1rmteczhAoh49fX1rMPA7VLwh88Ucvog9XZkBuQJEqU4/present?slide=id.g27b646d6bc3_0_170" style="color:#0d4a25;">experiences that engaged them</a>, with the insight that <strong>"code is currency."</strong></p>
+      <p>The most notable was an open-source project called Codeology — a website that visualized the code of GitHub projects as 3D objects. Since every developer's codebase is different, each visualized project was unique as well. <a href="https://codeology.kunstu.com/featured" style="color:#0d4a25;">Explore Codeology</a> · <a href="https://vimeo.com/161538271" style="color:#0d4a25;">Video Case Study</a></p>
+      <p>The project was a significant creative investment that involved coordination across internal teams, and with our agency and GitHub partners. I proactively completed a weekend SQL bootcamp course with General Assembly, so I could better speak the language of our Data and Developer teams. It paid off when the project's website and GitHub hosting had errors, among other issues.</p>
+      <p style="margin-top: 14px;">To support the campaign and beyond:</p>
+      <ul>
+        <li>Created the brand's first-ever social media playbook</li>
+        <li>Partnered with and supported the recruiting and developer relations teams</li>
+        <li>Expanded brand presence by identifying and engaging more than 300 developer communities</li>
+        <li>Attended Hyper Island's 2016 master class on digital acceleration, and General Assembly courses on data analytics</li>
+      </ul>
+      <p class="closing-line">After this role, I never stopped thinking about the developer community and how to engage them.</p>
+    </div>
+  </div>
+
+  <!-- 2013–2014: Ogilvy -->
+  <div class="entry" onclick="toggle(this)">
+    <div class="entry-trigger">
+      <div class="entry-date">2013 – 2014</div>
+      <div class="entry-right">
+        <div>
+          <div class="entry-title">Ogilvy</div>
+          <div class="entry-meta">Social media · BP crisis management · CDW / Spiceworks community · #TechWeLove</div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+    </div>
+    <div class="entry-body">
+      <p>As part of Ogilvy's social media team, I managed the social media frontline for BP following the Deepwater Horizon oil spill. Despite overwhelming negative sentiment from the public and policymakers, our combination of content, social listening, and response shifted the environment to an upswell in employee and public advocacy.</p>
+      <p>I managed client CDW's brand presence in the Spiceworks community, a platform where IT professionals connect, discuss technology, and solve work-related challenges. Our #TechWeLove digital campaign amplified reach and sales by engaging influencers and the broader community. <a href="https://www.pinterest.com/cdwcorp/tamar-weinbergs-techwelove/" style="color:#3a3835;">Example 1</a> · <a href="https://www.pinterest.com/cdwcorp/michael-sheehans-techwelove/" style="color:#3a3835;">Example 2</a> · <a href="https://www.pinterest.com/cdwcorp/philip-sellers-techwelove/" style="color:#3a3835;">Example 3</a> · The campaign was so successful that it continued for the next several years, and extended to similar creative routes (e.g., #Techsgiving).</p>
+    </div>
+  </div>
+
+  <!-- 2008–2012: Ithaca College -->
+  <div class="entry" onclick="toggle(this)">
+    <div class="entry-trigger">
+      <div class="entry-date">2008 – 2012</div>
+      <div class="entry-right">
+        <div>
+          <div class="entry-title">Ithaca College</div>
+          <div class="entry-meta">Resident Assistant · Student Leadership Consultant · Diversity Peer Educator · IC Peers</div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+    </div>
+    <div class="entry-body">
+      <p>My earliest days of social media projects and internships. I served the campus community through roles including Resident Assistant, Student Leadership Consultant, and Diversity Peer Educator.</p>
+      <p>I was also a top student and alumni member of IC Peers, the college's social networking site for prospective attendees. The platform demonstrated community effects I would see with later brand projects: there was a positive correlation between students' interactions, the likelihood to enroll, and their success at the college.</p>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+  (function() {
+    const saved = localStorage.getItem('moz-theme');
+    if (saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.getElementById('theme-btn').textContent = '☀ Light';
+    }
+  })();
+  function toggleTheme() {
+    const html = document.documentElement;
+    const btn = document.getElementById('theme-btn');
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    btn.textContent = isDark ? '☾ Dark' : '☀ Light';
+    localStorage.setItem('moz-theme', isDark ? 'light' : 'dark');
+  }
+  function toggle(entry) {
+    entry.classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mozilla Open-Source AI — Project Timeline</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff; --bg-alt: #f2f0ec; --bg-shd: #faf9f7; --bg-grp: #ede8f5;
+    --t1: #1a1917; --t2: #1a1917; --t3: #2e2c2a; --t4: #1a1917;
+    --b1: #ebe9e5; --b2: #dedad6; --b3: #1e1e1c; --accent: #00d230;
+  }
+  [data-theme="dark"] {
+    --bg: #111110; --bg-alt: #1c1b19; --bg-shd: #161513; --bg-grp: #1e1a2e;
+    --t1: #e8e4df; --t2: #b8b5b0; --t3: #7a7774; --t4: #8a8783;
+    --b1: #2a2826; --b2: #333130; --b3: #484644; --accent: #00d230;
+  }
+
+  body {
+    font-family: 'IBM Plex Mono', 'Fira Mono', 'Courier New', monospace;
+    background: var(--bg);
+    color: var(--t1);
+    padding: 52px 52px 44px;
+    min-width: 960px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  /* ── DOC HEADER ─────────────────────────────────────────── */
+  .doc-header { margin-bottom: 36px; }
+
+  .eyebrow {
+    font-size: 12px;
+    color: var(--t3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--t1);
+    line-height: 1.15;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  h1 span { color: #00d230; }
+
+  .subtitle {
+    font-size: 12px;
+    color: var(--t3);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── TIMELINE SHELL ─────────────────────────────────────── */
+  .tl-wrap {
+    border: 1px solid var(--b2);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* ── SHARED ROW STRUCTURE ───────────────────────────────── */
+  .tl-row {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid var(--b1);
+  }
+
+  .tl-row:last-child { border-bottom: none; }
+
+  /* Left label column */
+  .lbl {
+    width: 218px;
+    min-width: 218px;
+    padding: 0 16px;
+    border-right: 1px solid var(--b2);
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: var(--t1);
+    background: var(--bg);
+    line-height: 1.35;
+  }
+
+  .lbl.muted { color: var(--t2); }
+  .lbl.bold { font-weight: 700; }
+  .lbl.group-lbl {
+    background: var(--bg-grp);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--t2);
+    padding: 7px 16px;
+  }
+
+  /* Right bar area */
+  .bar-area {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+    padding: 8px 0;
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  .bar-area.shaded { background: var(--bg-shd); }
+  .bar-area.group-bg { background: var(--bg-grp); min-height: 0; padding: 7px 0; }
+
+  /* Month grid lines overlaid on bar area */
+  .bar-area::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to right,
+      transparent,
+      transparent calc(12.5% - 0.5px),
+      #ebe9e5 calc(12.5% - 0.5px),
+      #ebe9e5 12.5%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Phase 2 shading overlay */
+  .bar-area::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%; right: 0;
+    background: rgba(242, 240, 236, 0.55);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── MONTH HEADER ROW ───────────────────────────────────── */
+  .month-header {
+    flex: 1;
+    display: flex;
+    background: var(--bg-alt);
+  }
+
+  .mth {
+    flex: 1;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--t2);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    border-right: 1px solid var(--b2);
+  }
+
+  .mth:last-child { border-right: none; }
+
+  /* ── PHASE BANNER ───────────────────────────────────────── */
+  .phase-wrap {
+    flex: 1;
+    display: flex;
+    height: 34px;
+  }
+
+  .ph1 {
+    width: 50%;
+    background: #0a0a09;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 9px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-right: 2px solid #dedad6;
+  }
+
+  .ph2 {
+    flex: 1;
+    background: var(--bg-alt);
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--t2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .phase-lbl {
+    width: 218px;
+    min-width: 218px;
+    background: #0a0a09;
+    border-right: 1px solid #1e1e1c;
+  }
+
+  /* ── BARS ───────────────────────────────────────────────── */
+  /* Positions use 8-month scale: each month = 12.5%
+     May=0, Jun=12.5, Jul=25, Aug=37.5, Sep=50, Oct=62.5, Nov=75, Dec=87.5 */
+  .bar {
+    position: absolute;
+    height: 28px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  /* Dark / strategy */
+  .b-strat { background: #1a1917; color: #f0ede8; }
+
+  /* Green / tent-pole */
+  .b-report { background: #00d230; color: var(--t1); }
+
+  /* Light grey / ongoing */
+  .b-ongoing { background: #c8c4be; color: var(--t1); }
+
+
+  /* Dotted / potential moment */
+  .b-dotted {
+    background: transparent;
+    color: var(--t2);
+    border: 1.5px dashed #6a6760;
+    font-style: italic;
+  }
+
+  /* Lighter, italic / supporting */
+  .b-support { background: #d8d5d0; color: var(--t1); font-style: italic; }
+
+  /* ── MILESTONE DIAMOND ──────────────────────────────────── */
+  .milestone {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--bg);
+    border: 2px solid #00d230;
+    transform: rotate(45deg);
+    z-index: 3;
+    top: 50%;
+    margin-top: -5px;
+  }
+
+  /* ── LEGEND ─────────────────────────────────────────────── */
+  .legend {
+    display: flex;
+    gap: 28px;
+    margin-top: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .leg-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    color: var(--t1);
+  }
+
+  .leg-swatch {
+    width: 22px;
+    height: 9px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .leg-diamond {
+    width: 9px;
+    height: 9px;
+    border: 2px solid #00d230;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  /* ── NOTE ROW ───────────────────────────────────────────── */
+  .note-row {
+    display: flex;
+    gap: 32px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid #ebe9e5;
+  }
+
+  .note {
+    font-size: 13px;
+    color: var(--t1);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .note strong { color: var(--t1); font-weight: 700; }
+
+  /* ── DARK MODE OVERRIDES ────────────────────────────────── */
+  [data-theme="dark"] .eyebrow,
+  [data-theme="dark"] .subtitle { color: var(--t3); }
+  [data-theme="dark"] h1 { color: var(--t1); }
+  [data-theme="dark"] .tl-wrap { border-color: var(--b2); }
+  [data-theme="dark"] .tl-row { border-color: var(--b1); }
+  [data-theme="dark"] .lbl { background: var(--bg); color: var(--t1); border-color: var(--b2); }
+  [data-theme="dark"] .lbl.group-lbl { background: var(--bg-grp); color: var(--t2); }
+  [data-theme="dark"] .lbl.muted { color: var(--t2); }
+  [data-theme="dark"] .bar-area { background: var(--bg); }
+  [data-theme="dark"] .bar-area.shaded { background: var(--bg-shd); }
+  [data-theme="dark"] .bar-area.group-bg { background: var(--bg-grp); }
+  [data-theme="dark"] .bar-area::before {
+    background: repeating-linear-gradient(to right, transparent, transparent calc(12.5% - 0.5px), var(--b1) calc(12.5% - 0.5px), var(--b1) 12.5%);
+  }
+  [data-theme="dark"] .bar-area::after { background: rgba(10,9,8,0.35); }
+  [data-theme="dark"] .month-header { background: var(--bg-alt); }
+  [data-theme="dark"] .mth { color: var(--t2); border-color: var(--b2); }
+  [data-theme="dark"] .ph1 { background: var(--t1); color: var(--bg); border-color: var(--b2); }
+  [data-theme="dark"] .ph2 { background: var(--bg-alt); color: var(--t3); }
+  [data-theme="dark"] .phase-lbl { background: var(--t1); border-color: var(--b2); }
+  [data-theme="dark"] .b-strat { background: var(--t2); color: var(--bg); }
+  [data-theme="dark"] .b-support { background: var(--b2); color: var(--t1); }
+  [data-theme="dark"] .b-ongoing { background: var(--b2); color: var(--t1); }
+  [data-theme="dark"] .b-dotted { border-color: var(--t3); color: var(--t2); }
+  [data-theme="dark"] .milestone { background: var(--bg); border-color: var(--accent); }
+  [data-theme="dark"] .leg-item { color: var(--t2); }
+  [data-theme="dark"] .leg-swatch[style*="dedad6"] { background: var(--b2) !important; }
+  [data-theme="dark"] .note { color: var(--t1); }
+  [data-theme="dark"] .note strong { color: var(--t1); }
+  [data-theme="dark"] .note-row { border-color: var(--b1); }
+
+  /* ── SITE NAV ───────────────────────────────────────────── */
+  .site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--b2);
+  }
+  .nav-pages { display: flex; gap: 4px; }
+  .nav-pill {
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 3px;
+    border: 1px solid var(--b2);
+    background: transparent;
+    color: var(--t3);
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+  .nav-pill:hover { background: var(--bg-alt); color: var(--t1); }
+  .nav-pill.active { background: var(--t1); color: var(--bg); border-color: var(--t1); }
+  .theme-btn {
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 3px;
+    border: 1px solid var(--b2);
+    background: transparent;
+    color: var(--t3);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .theme-btn:hover { background: var(--bg-alt); color: var(--t1); }
+</style>
+</head>
+<body>
+
+<div class="site-nav">
+  <div class="nav-pages">
+    <a href="points-of-connection.html" class="nav-pill">Connections</a>
+    <a href="mozilla_open_ai_stack.html" class="nav-pill">Stack</a>
+    <a href="mozilla_project_timeline.html" class="nav-pill active">Timeline</a>
+    <a href="mozilla_vertical_video.html" class="nav-pill">Video</a>
+  </div>
+  <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">☾ Dark</button>
+</div>
+
+<div class="doc-header">
+  <div class="eyebrow">Mozilla · open-source AI · 2026</div>
+  <h1>Do good work, and<br><span>be easy to work with.</span></h1>
+  <div class="subtitle">Social media &amp; content strategy — phased approach · May through December 2026</div>
+</div>
+
+<div class="tl-wrap">
+
+  <!-- Month headers -->
+  <div class="tl-row" style="border-bottom: 1px solid var(--b2);">
+    <div class="lbl group-lbl" style="border-right: 1px solid var(--b2);"></div>
+    <div class="month-header">
+      <div class="mth">May</div>
+      <div class="mth">Jun</div>
+      <div class="mth">Jul</div>
+      <div class="mth">Aug</div>
+      <div class="mth">Sep</div>
+      <div class="mth">Oct</div>
+      <div class="mth">Nov</div>
+      <div class="mth">Dec</div>
+    </div>
+  </div>
+
+  <!-- Phase banner -->
+  <div class="tl-row" style="border-bottom: 1px solid var(--b2); min-height: 0;">
+    <div class="phase-lbl"></div>
+    <div class="phase-wrap">
+      <div class="ph1">Phase 1 — Strategy &amp; Launch</div>
+      <div class="ph2">Phase 2 — Execution &amp; Cadence</div>
+    </div>
+  </div>
+
+  <!-- ── STRATEGY GROUP ─────────────────────────────── -->
+  <div class="tl-row">
+    <div class="lbl group-lbl">Strategy</div>
+    <div class="bar-area group-bg"></div>
+  </div>
+
+  <!-- Social Media Strategy: May–Jul -->
+  <div class="tl-row">
+    <div class="lbl">Social Media Strategy</div>
+    <div class="bar-area">
+      <!-- May–Jul: left=0.5%, width=36.5% -->
+      <div class="bar b-strat" style="left:0.5%;width:49.5%;">Define &amp; document</div>
+    </div>
+  </div>
+
+  <!-- Content Strategy: May–Jul -->
+  <div class="tl-row">
+    <div class="lbl">Content Strategy</div>
+    <div class="bar-area shaded">
+      <div class="bar b-strat" style="left:0.5%;width:49.5%;">Define &amp; document</div>
+    </div>
+  </div>
+
+  <!-- Community Strategy: May–Aug -->
+  <div class="tl-row">
+    <div class="lbl">Community Strategy</div>
+    <div class="bar-area">
+      <!-- May–Aug: left=0.5%, width=49% -->
+      <div class="bar b-strat" style="left:0.5%;width:49%;">Define &amp; document</div>
+    </div>
+  </div>
+
+  <!-- Raffi's Profile: May–Dec (ongoing) -->
+  <div class="tl-row">
+    <div class="lbl">Raffi's Personal Profile</div>
+    <div class="bar-area shaded">
+      <!-- May–Dec: left=0.5%, width=99% -->
+      <div class="bar b-support" style="left:0.5%;width:99%;">Ongoing throughout</div>
+    </div>
+  </div>
+
+  <!-- ── TENT-POLE GROUP ────────────────────────────── -->
+  <div class="tl-row">
+    <div class="lbl group-lbl">Tent-pole</div>
+    <div class="bar-area group-bg"></div>
+  </div>
+
+  <!-- State of Open-Source AI Report: May–Jul, milestone at end of Jun -->
+  <div class="tl-row">
+    <div class="lbl bold">State of Open-Source AI Report</div>
+    <div class="bar-area">
+      <div class="bar b-report" style="left:0.5%;width:36.5%;">Q2 Launch</div>
+      <!-- Milestone at end of June = 25% from left -->
+      <div class="milestone" style="left:25%;"></div>
+    </div>
+  </div>
+
+
+  <!-- MozFest Barcelona: Oct 28-30 -->
+  <div class="tl-row">
+    <div class="lbl bold">MozFest Barcelona</div>
+    <div class="bar-area">
+      <div class="bar b-report" style="left:62%;width:13%;">Oct 28–30</div>
+      <div class="milestone" style="left:74%;"></div>
+    </div>
+  </div>
+
+
+  <!-- Developer Community: Meetups, Hackathons, Surveys -->
+  <div class="tl-row">
+    <div class="lbl bold">Developer Community</div>
+    <div class="bar-area shaded" style="min-height:68px;">
+      <!-- Top tier: Meetups Jun–Aug, Hackathons Sep–Oct -->
+      <div class="bar b-dotted" style="left:13%;width:24.5%;top:8px;">Meetups</div>
+      <div class="bar b-dotted" style="left:50.5%;width:24%;top:8px;">Hackathons</div>
+      <!-- Bottom tier: Dev surveys at Jul, Oct, Dec -->
+      <div class="bar b-dotted" style="left:25.5%;width:11%;top:38px;">Dev Survey</div>
+      <div class="bar b-dotted" style="left:63%;width:11%;top:38px;">Dev Survey</div>
+      <div class="bar b-dotted" style="left:88%;width:11%;top:38px;">Dev Survey</div>
+    </div>
+  </div>
+
+  <!-- Potential Moments row -->
+  <div class="tl-row">
+    <div class="lbl" style="color:#3a3835;font-style:italic;">Potential Moments</div>
+    <div class="bar-area">
+      <!-- Open Source Summit NA: May 18-20 ~left=7%, width=4% -->
+      <div class="bar b-dotted" style="left:7%;width:13%;">OS Summit NA</div>
+      <!-- Open Source Summit India: Jun 16-17 ~left=20%, width=5% -->
+      <div class="bar b-dotted" style="left:21%;width:11%;">OS Summit India</div>
+      <!-- UN Open Source Week: Jun 22-26 ~left=25%, width=5% -->
+      <div class="bar b-dotted" style="left:33%;width:12%;">UN OS Week</div>
+    </div>
+  </div>
+
+  <!-- ── PROGRAM GROUP ──────────────────────────────── -->
+  <div class="tl-row">
+    <div class="lbl group-lbl">Program</div>
+    <div class="bar-area group-bg"></div>
+  </div>
+
+  <!-- Vertical Video: Jun–Dec -->
+  <div class="tl-row">
+    <div class="lbl">Vertical Video</div>
+    <div class="bar-area">
+      <!-- Jun–Dec: left=12.5%+0.5%=13%, width=86.5% -->
+      <div class="bar b-ongoing" style="left:0.5%;width:99%;">Build &amp; iterate</div>
+    </div>
+  </div>
+
+  <!-- Owners Not Renters Newsletter: May–Dec -->
+  <div class="tl-row">
+    <div class="lbl">Owners Not Renters Newsletter</div>
+    <div class="bar-area shaded">
+      <div class="bar b-ongoing" style="left:0.5%;width:99%;">Grow &amp; iterate</div>
+    </div>
+  </div>
+
+  <!-- Community Engagement: Jun–Dec -->
+  <div class="tl-row">
+    <div class="lbl">Community Engagement</div>
+    <div class="bar-area">
+      <div class="bar b-ongoing" style="left:13%;width:86.5%;">Engage &amp; build trust</div>
+    </div>
+  </div>
+
+  <!-- Influencer Relationships: Jul–Dec -->
+  <div class="tl-row">
+    <div class="lbl">Influencer Relationships</div>
+    <div class="bar-area shaded">
+      <div class="bar b-ongoing" style="left:25.5%;width:74%;">Identify &amp; cultivate</div>
+    </div>
+  </div>
+
+  <!-- Paid Media: Jul–Dec -->
+  <div class="tl-row">
+    <div class="lbl">Paid Media</div>
+    <div class="bar-area">
+      <div class="bar b-ongoing" style="left:25.5%;width:74%;">Propose &amp; implement</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="legend">
+  <div class="leg-item">
+    <div class="leg-swatch" style="background:#1a1917;"></div>
+    Strategy deliverable
+  </div>
+  <div class="leg-item">
+    <div class="leg-swatch" style="background:#00d230;"></div>
+    Tent-pole moment
+  </div>
+  <div class="leg-item">
+    <div class="leg-swatch" style="background:#dedad6;"></div>
+    Ongoing execution
+  </div>
+  <div class="leg-item">
+    <div class="leg-diamond"></div>
+    Milestone
+  </div>
+</div>
+
+<div class="note-row">
+  <div class="note"><strong>Phase 1 (May–Aug)</strong> · Strategy documents &amp; the Q2 Report launch are the core deliverables. Strategy work and report execution run in parallel from day one.</div>
+  <div class="note"><strong>Phase 2 (Sep–Dec)</strong> · Strategy from Phase 1 becomes the playbook. Execution, cadence, and community trust compound over time.</div>
+  <div class="note"><strong>Scope TBD</strong> · Final contract terms — hours per week, duration, and deliverables in vs. out — to be defined collaboratively before engagement begins.</div>
+</div>
+
+<script>
+  (function() {
+    const saved = localStorage.getItem('moz-theme');
+    if (saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.getElementById('theme-btn').textContent = '☀ Light';
+    }
+  })();
+  function toggleTheme() {
+    const html = document.documentElement;
+    const btn = document.getElementById('theme-btn');
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    btn.textContent = isDark ? '☾ Dark' : '☀ Light';
+    localStorage.setItem('moz-theme', isDark ? 'light' : 'dark');
+  }
+</script>
+
+</body>
+</html>
