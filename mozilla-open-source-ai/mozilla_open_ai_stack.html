@@ -218,7 +218,7 @@
 
   .moz-stack {
     display: grid;
-    grid-template-columns: 185px 1fr 1fr 1fr 1fr;
+    grid-template-columns: 185px 1fr 1fr 1fr 1fr 1.6fr;
     border: 0.5px solid var(--border);
     border-radius: 8px;
     overflow: hidden;
@@ -233,7 +233,7 @@
     transition: background 0.2s ease, border-color 0.2s ease;
   }
 
-  .cell:nth-child(5n) { border-right: none; }
+  .cell:nth-child(6n) { border-right: none; }
   .cell.last-row { border-bottom: none; }
 
   .cell.label-cell {
@@ -274,7 +274,7 @@
 
   .pill.moz { background: var(--bg-success); color: var(--text-success); border: 0.5px solid var(--border-success); }
   .pill.oss { background: var(--bg-info); color: var(--text-info); border: 0.5px solid var(--border-info); }
-  .pill.future { background: transparent; color: var(--text-warning); border: 0.5px dashed var(--border-warning); }
+  .pill.future { background: transparent; color: var(--text-warning); border: 0.5px dashed var(--border-warning); white-space: normal; }
   .pill.closed { background: var(--bg-error); color: var(--text-error); border: 0.5px solid var(--border-error); }
   .pill.purple { background: var(--bg-purple); color: var(--text-purple); border: 0.5px solid var(--border-purple); }
 
@@ -318,6 +318,28 @@
   }
 
   .leg-item { display: flex; align-items: center; gap: 7px; font-size: 14px; color: var(--text-primary); }
+
+  .vision-text p { margin: 0; }
+  .vision-text p + p { margin-top: 8px; }
+
+  .vision-rule { display: none; }
+
+  .vision-text {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text-primary);
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 400;
+  }
+
+  .cell.vision-cell {
+    background: color-mix(in srgb, var(--bg-purple) 25%, var(--bg));
+  }
+
+  .cell.col-header.vision-header {
+    background: color-mix(in srgb, var(--bg-purple) 50%, var(--bg-secondary));
+    color: var(--text-purple);
+  }
 </style>
 </head>
 <body>
@@ -363,6 +385,7 @@
     <div class="cell col-header">Mozilla-built</div>
     <div class="cell col-header">Open-source community</div>
     <div class="cell col-header">Still being built</div>
+    <div class="cell col-header vision-header">Open-Source Vision</div>
 
     <!-- User agent -->
     <div class="cell label-cell">
@@ -398,6 +421,10 @@
         <span class="pill future">Privacy-preserving AI user agents at scale</span>
         <span class="pill future">On-device inference standard</span>
       </div>
+    </div>
+    <div class="cell vision-cell">
+      <div class="vision-rule"></div>
+      <div class="vision-text"><p>The user agent is the AI interface you talk to — ChatGPT, Gemini, Copilot. It sits between you and the rest of the AI stack, which means it decides what you see, what gets filtered, and whose interests are served.</p><p>Open-source user agents would be genuinely on your side: interfaces you can inspect, configure, and trust — not tools quietly optimising for the platform that built them.</p></div>
     </div>
 
     <!-- Developer interfaces -->
@@ -451,6 +478,10 @@
         <span class="pill future">Mila Partnership — private memory architectures for AI agents</span>
       </div>
     </div>
+    <div class="cell vision-cell">
+      <div class="vision-rule"></div>
+      <div class="vision-text"><p>Developer interfaces are the tools that let programmers build AI-powered products. Today, a single line of code hands control to OpenAI or Anthropic — their rules, their pricing, their terms, with no recourse if anything changes.</p><p>Open-source developer interfaces would be plug-and-play: a standard where you could swap in any model, any memory provider, or any guardrail, the same way cloud developers already switch between AWS and Azure without being locked in.</p></div>
+    </div>
 
     <!-- Data -->
     <div class="cell label-cell">
@@ -489,6 +520,10 @@
         <span class="pill future">Portability protocols</span>
         <span class="pill future">Training data rights infrastructure</span>
       </div>
+    </div>
+    <div class="cell vision-cell">
+      <div class="vision-rule"></div>
+      <div class="vision-text"><p>Data is what AI models are trained on — text, audio, and images scraped from the web, much of it taken without consent or payment.</p><p>Open-source data would mean a marketplace where provenance is tracked, creators are compensated, and communities retain control over their own language and culture. For personal data, the goal would be architectural safety — not just a privacy policy, but a system built so your data physically cannot be extracted.</p></div>
     </div>
 
     <!-- Models -->
@@ -530,6 +565,10 @@
         <span class="pill future">Multilingual foundation models at scale</span>
       </div>
     </div>
+    <div class="cell vision-cell">
+      <div class="vision-rule"></div>
+      <div class="vision-text"><p>The model is the AI "brain" — trained on enormous datasets to answer questions and take actions. Most powerful models are black boxes: they give you an answer but won't tell you why.</p><p>Open-source models would go beyond open weights (sharing the model output, not the recipe) to full transparency — the training data, the fine-tuning decisions, and the values baked in — so communities and countries could build or adapt models that reflect their own context and ethics.</p></div>
+    </div>
 
     <!-- Compute -->
     <div class="cell label-cell last-row">
@@ -559,6 +598,10 @@
         <span class="pill future">Open ASICs</span>
         <span class="pill future">Abundant compute beyond hyperscalers</span>
       </div>
+    </div>
+    <div class="cell vision-cell last-row">
+      <div class="vision-rule"></div>
+      <div class="vision-text"><p>Compute is the physical hardware — chips and data centres — that trains and runs AI models. Right now it's the choke point: access to specialized hardware determines who can train and deploy at scale, with a handful of hyperscalers controlling the cloud.</p><p>Open-source compute would mean more doors opening — through distributed and federated approaches, sovereign clouds, and idle GPUs finding productive use.</p></div>
     </div>
 
   </div>
