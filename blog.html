@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="description" content="Articles from Safe Camp — research-backed writing on social media strategy, measurement, and marketing for professionals who want to make smarter decisions.">
+  <meta property="og:title" content="Blog — Safe Camp">
+  <meta property="og:description" content="Research-backed writing on social media strategy, measurement, and marketing.">
+  <meta property="og:image" content="https://jason-kingx.github.io/safe-camp/images/og-image.png">
+  <meta property="og:url" content="https://jason-kingx.github.io/safe-camp/blog.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Safe Camp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog — Safe Camp">
+  <meta name="twitter:description" content="Research-backed writing on social media strategy, measurement, and marketing.">
+  <meta name="twitter:image" content="https://jason-kingx.github.io/safe-camp/images/og-image.png">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+  <link rel="canonical" href="https://jason-kingx.github.io/safe-camp/blog.html">
+  <title>Blog — Safe Camp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="favicon-black.svg" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="favicon-white.svg" media="(prefers-color-scheme: dark)">
+
+  <!-- Prevent dark-mode flash -->
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); }
+      else if (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches) { document.documentElement.setAttribute('data-theme', 'dark'); }
+    })();
+  </script>
+
+  <style>
+    .page-intro {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 72px 24px 0;
+    }
+    .page-eyebrow {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.45;
+      margin-bottom: 18px;
+    }
+    .page-title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 400;
+      line-height: 1.18;
+      letter-spacing: -0.01em;
+      margin: 0 0 18px;
+    }
+    .page-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--ink);
+      opacity: 0.65;
+      margin: 0 0 48px;
+      max-width: 560px;
+    }
+    .page-divider {
+      border: none;
+      border-top: 1px solid var(--ink);
+      opacity: 0.12;
+      max-width: 720px;
+      margin: 0 auto 48px;
+    }
+    .articles-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+    .article-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--ink);
+      transition: opacity 0.15s ease;
+      position: relative;
+    }
+    .article-card:first-child {
+      border-top: 1px solid var(--ink);
+    }
+    .article-card:hover { opacity: 0.72; }
+    .article-card-tag {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.4;
+      margin-bottom: 10px;
+    }
+    .article-card-title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      line-height: 1.3;
+      margin: 0 0 10px;
+      letter-spacing: -0.01em;
+      padding-right: 28px;
+    }
+    .article-card-arrow {
+      position: absolute;
+      top: 32px;
+      right: 0;
+      font-size: 18px;
+      opacity: 0.3;
+      transition: transform 0.2s ease, opacity 0.15s ease;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .article-card:hover .article-card-arrow {
+      transform: translateX(3px);
+      opacity: 0.7;
+    }
+    .article-card-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--ink);
+      opacity: 0.6;
+      margin: 0 0 12px;
+      max-width: 580px;
+    }
+    .article-card-meta {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--ink);
+      opacity: 0.38;
+      letter-spacing: 0.03em;
+    }
+    @media (max-width: 600px) {
+      .page-intro { padding: 56px 16px 0; }
+      .articles-wrap { padding: 0 16px 64px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <noscript>
+    <p style="position:fixed;bottom:0;left:0;right:0;background:var(--nav-bg);color:var(--ink);text-align:center;padding:12px 24px;font-size:13px;letter-spacing:0.06em;z-index:999;margin:0;">
+      JavaScript is disabled in your browser. Some features on this site require JavaScript to function.
+    </p>
+  </noscript>
+
+  <div id="header-placeholder"></div>
+
+  <main>
+
+    <div class="page-intro">
+      <span class="page-eyebrow" aria-hidden="true">Blog</span>
+      <h1 class="page-title">Safe Camp Notes</h1>
+      <p class="page-desc">Research-backed articles on social media strategy, measurement, and marketing — for professionals who want to make smarter, more defensible decisions.</p>
+    </div>
+
+    <hr class="page-divider" aria-hidden="true">
+
+    <section class="articles-wrap" aria-label="Blog articles">
+
+      <a href="blog/social-vanity-metrics.html" class="article-card">
+        <span class="article-card-tag">Social Media · Measurement</span>
+        <h2 class="article-card-title">Meta's Own Research: Engagement Doesn't Correlate with Sales</h2>
+        <span class="article-card-arrow" aria-hidden="true">→</span>
+        <p class="article-card-desc">Research from Nielsen, Facebook, Datalogix, and comScore has said the same thing for over a decade: social engagement metrics don't correlate with brand growth or sales. Facebook's own VP of Marketing Science called the data "irrelevant."</p>
+        <span class="article-card-meta">Jason King &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; 15 min read</span>
+      </a>
+
+      <a href="blog/linkedin-lockout-toolkit.html" class="article-card">
+        <span class="article-card-tag">LinkedIn · Toolkit</span>
+        <h2 class="article-card-title">LinkedIn Lockout Toolkit</h2>
+        <span class="article-card-arrow" aria-hidden="true">→</span>
+        <p class="article-card-desc">LinkedIn's automated systems produce false positives, and the platform rarely explains why an account has been restricted. This toolkit covers the common and less common reasons profiles get locked, proactive steps to reduce your risk, and a clear path to regaining access.</p>
+        <span class="article-card-meta">Jason King &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; 6 min read</span>
+      </a>
+
+      <!-- Add future article cards here -->
+
+    </section>
+
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="include.js"></script>
+
+</body>
+</html>
