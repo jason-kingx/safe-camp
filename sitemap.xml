@@ -79,10 +79,15 @@
   </url>
 
   <url>
+    <loc>https://jason-kingx.github.io/safe-camp/little-answers.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://jason-kingx.github.io/safe-camp/privacy.html</loc>
-    <lastmod>2026-02-22</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <lastmod>2026-05-18</lastmod>
   </url>
 
 </urlset>

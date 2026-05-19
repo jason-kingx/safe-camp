@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="description" content="Little Answers — ask a social media question, get a real answer by email. $15 per question from Jason King at Safe Camp.">
+  <meta property="og:title" content="Little Answers — Safe Camp">
+  <meta property="og:description" content="Ask a social media question, get a real answer by email. $15 per question.">
+  <meta property="og:image" content="https://jason-kingx.github.io/safe-camp/images/og-image.png">
+  <meta property="og:url" content="https://jason-kingx.github.io/safe-camp/little-answers.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Safe Camp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Little Answers — Safe Camp">
+  <meta name="twitter:description" content="Ask a social media question, get a real answer by email. $15 per question.">
+  <meta name="twitter:image" content="https://jason-kingx.github.io/safe-camp/images/og-image.png">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://tally.so; connect-src 'self' https://tally.so; frame-src https://tally.so; img-src 'self' data:;">
+  <link rel="canonical" href="https://jason-kingx.github.io/safe-camp/little-answers.html">
+  <title>Little Answers — Safe Camp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="favicon-black.svg" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="favicon-white.svg" media="(prefers-color-scheme: dark)">
+
+  <!-- Prevent dark-mode flash -->
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); }
+      else if (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches) { document.documentElement.setAttribute('data-theme', 'dark'); }
+    })();
+  </script>
+
+  <style>
+  /* ── PAGE-SPECIFIC ── */
+  main { overflow: visible; }
+  body { overflow-x: hidden; }
+
+  .scene {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    min-height: calc(100vh - 56px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 64px 20px 40px;
+    overflow: visible;
+  }
+
+  /* ── TREES ── */
+  .trees-left, .trees-right {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 280px;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 1;
+  }
+  .trees-left  { left: 0; }
+  .trees-right { right: 0; transform: scaleX(-1); }
+
+  @media (max-width: 760px) {
+    .trees-left, .trees-right { width: 100px; opacity: 0.45; }
+  }
+
+  /* ── TICKER ── */
+  .ticker-wrap {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--line);
+    padding: 9px 0;
+    margin-bottom: 48px;
+    align-self: stretch;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    width: 100vw;
+    left: 0;
+    transform: none;
+  }
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    animation: ticker-scroll 40s linear infinite;
+  }
+  .ticker-track:hover {
+    animation-play-state: paused;
+  }
+  .ticker-segment {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    padding-right: 0;
+  }
+  .ticker-item {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--on-alt-mid);
+    padding: 0 20px;
+  }
+  .ticker-dot {
+    font-size: 10px;
+    color: var(--accent);
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+  @keyframes ticker-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── ACCORDION ── */
+  .page-blurb {
+    font-size: 15px;
+    color: var(--mid);
+    line-height: 1.75;
+    margin-top: 16px;
+    margin-bottom: 32px;
+  }
+  .faq-section {
+    padding: 40px 48px 96px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .faq-title {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 40px;
+  }
+  .faq-list {
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+  }
+  .faq-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 22px 0;
+    cursor: pointer;
+    text-align: left;
+    gap: 16px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .faq-trigger-text {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .faq-icon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+  .faq-icon svg {
+    display: block;
+    transition: transform 0.25s ease;
+  }
+  .faq-trigger[aria-expanded="true"] .faq-icon {
+    background: var(--accent-light);
+  }
+  .faq-trigger[aria-expanded="true"] .faq-icon svg {
+    transform: rotate(45deg);
+  }
+  .faq-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+  }
+  .faq-body.is-open {
+    grid-template-rows: 1fr;
+  }
+  .faq-body-inner {
+    overflow: hidden;
+  }
+  .faq-body-inner p {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.8;
+    padding-bottom: 22px;
+    max-width: 640px;
+  }
+  @media (max-width: 768px) {
+    .faq-section { padding: 56px 24px 72px; }
+  }
+
+  /* ── CENTER ── */
+  .center {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 620px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  header { text-align: center; }
+
+  h1 {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(2.8rem, 7vw, 4.2rem);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    line-height: 1;
+  }
+  </style>
+</head>
+<body>
+
+  <noscript>
+    <p style="position:fixed;bottom:0;left:0;right:0;background:var(--nav-bg);color:var(--ink);text-align:center;padding:12px 24px;font-size:13px;letter-spacing:0.06em;z-index:999;margin:0;">
+      JavaScript is disabled in your browser. Some features on this site require JavaScript to function.
+    </p>
+  </noscript>
+
+  <div id="header-placeholder"></div>
+
+  <main>
+
+<div class="scene">
+
+  <!-- LEFT TREES -->
+  <div class="trees-left" aria-hidden="true">
+    <svg viewBox="-22 0 282 920" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet" style="width:100%;height:100%;overflow:visible">
+      <!-- Background tree (faded) -->
+      <g opacity="0.28">
+        <path d="M40 920 L40 260" stroke="#3A2C1F" stroke-width="4" stroke-linecap="round"/>
+        <path d="M40 380 C40 380 8 340 2 310" stroke="#3A2C1F" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M40 340 C40 340 68 305 72 278" stroke="#3A2C1F" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M40 305 C40 305 10 272 6 250" stroke="#3A2C1F" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M40 280 C40 280 62 250 65 228" stroke="#3A2C1F" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <ellipse cx="0" cy="303" rx="15" ry="12" fill="#3D6B4F" opacity="0.6"/>
+        <ellipse cx="14" cy="292" rx="12" ry="10" fill="#4A7D5E" opacity="0.5"/>
+        <ellipse cx="70" cy="272" rx="14" ry="11" fill="#3D6B4F" opacity="0.55"/>
+        <ellipse cx="4" cy="244" rx="12" ry="10" fill="#3D6B4F" opacity="0.5"/>
+        <ellipse cx="64" cy="223" rx="11" ry="9" fill="#4A7D5E" opacity="0.45"/>
+      </g>
+      <!-- Mid-ground tree -->
+      <g opacity="0.55">
+        <path d="M170 920 L170 310" stroke="#3A2C1F" stroke-width="5.5" stroke-linecap="round"/>
+        <path d="M170 490 C170 490 128 448 118 420" stroke="#3A2C1F" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <path d="M170 450 C170 450 210 418 215 395" stroke="#3A2C1F" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <path d="M170 415 C170 415 132 382 126 358" stroke="#3A2C1F" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M170 382 C170 382 203 352 205 330" stroke="#3A2C1F" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        <path d="M170 355 C170 355 140 328 136 310" stroke="#3A2C1F" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M170 335 C170 335 195 308 196 291" stroke="#3A2C1F" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <!-- sub-branches -->
+        <path d="M118 420 C118 420 100 404 96 394" stroke="#3A2C1F" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M215 395 C215 395 232 380 234 370" stroke="#3A2C1F" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <path d="M126 358 C126 358 108 344 104 334" stroke="#3A2C1F" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <!-- leaves -->
+        <ellipse cx="107" cy="409" rx="20" ry="17" fill="#3D6B4F" opacity="0.5"/>
+        <ellipse cx="94" cy="394" rx="14" ry="12" fill="#4A7D5E" opacity="0.45"/>
+        <ellipse cx="232" cy="374" rx="17" ry="14" fill="#3D6B4F" opacity="0.45"/>
+        <ellipse cx="102" cy="332" rx="16" ry="13" fill="#3D6B4F" opacity="0.48"/>
+        <ellipse cx="203" cy="326" rx="18" ry="14" fill="#4A7D5E" opacity="0.42"/>
+        <ellipse cx="133" cy="307" rx="15" ry="12" fill="#3D6B4F" opacity="0.45"/>
+        <ellipse cx="194" cy="288" rx="14" ry="11" fill="#3D6B4F" opacity="0.4"/>
+      </g>
+      <!-- Foreground tree (strongest) -->
+      <g opacity="1">
+        <path d="M68 920 L68 400" stroke="#4A3728" stroke-width="9" stroke-linecap="round"/>
+        <!-- main branches -->
+        <path d="M68 610 C68 610 20 562 6 535" stroke="#4A3728" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+        <path d="M68 568 C68 568 118 528 128 505" stroke="#4A3728" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <path d="M68 528 C68 528 16 488 4 462" stroke="#4A3728" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+        <path d="M68 494 C68 494 110 458 116 436" stroke="#4A3728" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M68 462 C68 462 22 428 14 408" stroke="#4A3728" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <path d="M68 438 C68 438 100 408 104 390" stroke="#4A3728" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <path d="M68 416 C68 416 26 388 20 372" stroke="#4A3728" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M68 400 C68 400 92 375 95 358" stroke="#4A3728" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        <!-- sub-branches from main branches -->
+        <path d="M6 535 C6 535 -10 518 -14 506" stroke="#4A3728" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M6 535 C6 535 18 518 20 508" stroke="#4A3728" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M128 505 C128 505 148 490 152 480" stroke="#4A3728" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M4 462 C4 462 -12 448 -16 438" stroke="#4A3728" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M116 436 C116 436 132 422 134 413" stroke="#4A3728" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M14 408 C14 408 0 395 -3 386" stroke="#4A3728" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M104 390 C104 390 118 378 120 369" stroke="#4A3728" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <!-- leaf clusters -->
+        <ellipse cx="3" cy="519" rx="26" ry="21" fill="#3D6B4F" opacity="0.52"/>
+        <ellipse cx="-15" cy="506" rx="17" ry="14" fill="#4A7D5E" opacity="0.45"/>
+        <ellipse cx="19" cy="507" rx="20" ry="16" fill="#3D6B4F" opacity="0.48"/>
+        <ellipse cx="150" cy="481" rx="22" ry="17" fill="#3D6B4F" opacity="0.5"/>
+        <ellipse cx="130" cy="497" rx="16" ry="13" fill="#4A7D5E" opacity="0.42"/>
+        <ellipse cx="-18" cy="436" rx="20" ry="16" fill="#3D6B4F" opacity="0.48"/>
+        <ellipse cx="2" cy="450" rx="16" ry="13" fill="#4A7D5E" opacity="0.42"/>
+        <ellipse cx="133" cy="412" rx="19" ry="15" fill="#3D6B4F" opacity="0.50"/>
+        <ellipse cx="-4" cy="384" rx="17" ry="13" fill="#3D6B4F" opacity="0.45"/>
+        <ellipse cx="119" cy="368" rx="16" ry="12" fill="#4A7D5E" opacity="0.45"/>
+        <ellipse cx="68" cy="390" rx="22" ry="16" fill="#3D6B4F" opacity="0.30"/>
+        <ellipse cx="20" cy="370" rx="14" ry="11" fill="#3D6B4F" opacity="0.38"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- RIGHT TREES (CSS-mirrored) -->
+  <div class="trees-right" aria-hidden="true">
+    <svg viewBox="-22 0 282 920" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet" style="width:100%;height:100%;overflow:visible">
+      <g opacity="0.28">
+        <path d="M40 920 L40 260" stroke="#3A2C1F" stroke-width="4" stroke-linecap="round"/>
+        <path d="M40 380 C40 380 8 340 2 310" stroke="#3A2C1F" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M40 340 C40 340 68 305 72 278" stroke="#3A2C1F" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M40 305 C40 305 10 272 6 250" stroke="#3A2C1F" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M40 280 C40 280 62 250 65 228" stroke="#3A2C1F" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <ellipse cx="0" cy="303" rx="15" ry="12" fill="#3D6B4F" opacity="0.6"/>
+        <ellipse cx="14" cy="292" rx="12" ry="10" fill="#4A7D5E" opacity="0.5"/>
+        <ellipse cx="70" cy="272" rx="14" ry="11" fill="#3D6B4F" opacity="0.55"/>
+        <ellipse cx="4" cy="244" rx="12" ry="10" fill="#3D6B4F" opacity="0.5"/>
+        <ellipse cx="64" cy="223" rx="11" ry="9" fill="#4A7D5E" opacity="0.45"/>
+      </g>
+      <g opacity="0.55">
+        <path d="M170 920 L170 310" stroke="#3A2C1F" stroke-width="5.5" stroke-linecap="round"/>
+        <path d="M170 490 C170 490 128 448 118 420" stroke="#3A2C1F" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <path d="M170 450 C170 450 210 418 215 395" stroke="#3A2C1F" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <path d="M170 415 C170 415 132 382 126 358" stroke="#3A2C1F" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M170 382 C170 382 203 352 205 330" stroke="#3A2C1F" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        <path d="M170 355 C170 355 140 328 136 310" stroke="#3A2C1F" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M170 335 C170 335 195 308 196 291" stroke="#3A2C1F" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M118 420 C118 420 100 404 96 394" stroke="#3A2C1F" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M215 395 C215 395 232 380 234 370" stroke="#3A2C1F" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <path d="M126 358 C126 358 108 344 104 334" stroke="#3A2C1F" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <ellipse cx="107" cy="409" rx="20" ry="17" fill="#3D6B4F" opacity="0.5"/>
+        <ellipse cx="94" cy="394" rx="14" ry="12" fill="#4A7D5E" opacity="0.45"/>
+        <ellipse cx="232" cy="374" rx="17" ry="14" fill="#3D6B4F" opacity="0.45"/>
+        <ellipse cx="102" cy="332" rx="16" ry="13" fill="#3D6B4F" opacity="0.48"/>
+        <ellipse cx="203" cy="326" rx="18" ry="14" fill="#4A7D5E" opacity="0.42"/>
+        <ellipse cx="133" cy="307" rx="15" ry="12" fill="#3D6B4F" opacity="0.45"/>
+        <ellipse cx="194" cy="288" rx="14" ry="11" fill="#3D6B4F" opacity="0.4"/>
+      </g>
+      <g opacity="1">
+        <path d="M68 920 L68 400" stroke="#4A3728" stroke-width="9" stroke-linecap="round"/>
+        <path d="M68 610 C68 610 20 562 6 535" stroke="#4A3728" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+        <path d="M68 568 C68 568 118 528 128 505" stroke="#4A3728" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <path d="M68 528 C68 528 16 488 4 462" stroke="#4A3728" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+        <path d="M68 494 C68 494 110 458 116 436" stroke="#4A3728" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M68 462 C68 462 22 428 14 408" stroke="#4A3728" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <path d="M68 438 C68 438 100 408 104 390" stroke="#4A3728" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <path d="M68 416 C68 416 26 388 20 372" stroke="#4A3728" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M68 400 C68 400 92 375 95 358" stroke="#4A3728" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        <path d="M6 535 C6 535 -10 518 -14 506" stroke="#4A3728" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M6 535 C6 535 18 518 20 508" stroke="#4A3728" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M128 505 C128 505 148 490 152 480" stroke="#4A3728" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M4 462 C4 462 -12 448 -16 438" stroke="#4A3728" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M116 436 C116 436 132 422 134 413" stroke="#4A3728" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M14 408 C14 408 0 395 -3 386" stroke="#4A3728" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M104 390 C104 390 118 378 120 369" stroke="#4A3728" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <ellipse cx="3" cy="519" rx="26" ry="21" fill="#3D6B4F" opacity="0.52"/>
+        <ellipse cx="-15" cy="506" rx="17" ry="14" fill="#4A7D5E" opacity="0.45"/>
+        <ellipse cx="19" cy="507" rx="20" ry="16" fill="#3D6B4F" opacity="0.48"/>
+        <ellipse cx="150" cy="481" rx="22" ry="17" fill="#3D6B4F" opacity="0.5"/>
+        <ellipse cx="130" cy="497" rx="16" ry="13" fill="#4A7D5E" opacity="0.42"/>
+        <ellipse cx="-18" cy="436" rx="20" ry="16" fill="#3D6B4F" opacity="0.48"/>
+        <ellipse cx="2" cy="450" rx="16" ry="13" fill="#4A7D5E" opacity="0.42"/>
+        <ellipse cx="133" cy="412" rx="19" ry="15" fill="#3D6B4F" opacity="0.50"/>
+        <ellipse cx="-4" cy="384" rx="17" ry="13" fill="#3D6B4F" opacity="0.45"/>
+        <ellipse cx="119" cy="368" rx="16" ry="12" fill="#4A7D5E" opacity="0.45"/>
+        <ellipse cx="68" cy="390" rx="22" ry="16" fill="#3D6B4F" opacity="0.30"/>
+        <ellipse cx="20" cy="370" rx="14" ry="11" fill="#3D6B4F" opacity="0.38"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- CENTER CONTENT -->
+  <div class="center">
+
+    <div class="ticker-wrap" aria-hidden="true">
+      <div class="ticker-track" id="ticker-track"></div>
+    </div>
+
+    <header>
+      <h1>Little Answers</h1>
+      <p class="page-blurb">You don't always need a call, audit, or big project. A bit of guidance can set you on the right path. Sometimes all you need is a little help and a little answer. Fill out the brief form below with your question about social media, and I'll reply soon with a thoughtful answer.</p>
+    </header>
+
+    <!-- Tally embed -->
+    <div style="width:100%; background: var(--card-bg); border: 1px solid var(--line); border-radius: 8px; padding: 36px 32px;">
+      <iframe data-tally-src="https://tally.so/embed/A74a0k?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="284" frameborder="0" marginheight="0" marginwidth="0" title="Little Answers"></iframe>
+      <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+    </div>
+
+  </div>
+</div>
+
+  </main>
+
+  <section class="faq-section" aria-label="FAQ">
+    <h2 class="faq-title">A few more little answers</h2>
+    <ul class="faq-list" role="list">
+
+      <li class="faq-item">
+        <button class="faq-trigger" aria-expanded="false" aria-controls="faq-1">
+          <span class="faq-trigger-text">Who is this for?</span>
+          <span class="faq-icon" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="1" x2="5" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-body" id="faq-1" role="region">
+          <div class="faq-body-inner">
+            <p>Marketers and communications professionals. Big and small businesses. Anyone who uses social media to drive business results. And anyone who is curious about social media.</p>
+          </div>
+        </div>
+      </li>
+
+      <li class="faq-item">
+        <button class="faq-trigger" aria-expanded="false" aria-controls="faq-2">
+          <span class="faq-trigger-text">How many questions can I ask?</span>
+          <span class="faq-icon" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="1" x2="5" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-body" id="faq-2" role="region">
+          <div class="faq-body-inner">
+            <p>Please include one focused question per form submission. If you include multiple questions, I will have to make sense of your submission and answer only one question. If you ask a follow-up question, together we can arrange another form submission or determine what will best meet your needs.</p>
+          </div>
+        </div>
+      </li>
+
+      <li class="faq-item">
+        <button class="faq-trigger" aria-expanded="false" aria-controls="faq-3">
+          <span class="faq-trigger-text">What kinds of questions can I ask?</span>
+          <span class="faq-icon" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="1" x2="5" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-body" id="faq-3" role="region">
+          <div class="faq-body-inner">
+            <p>Anything related to social media, that will be helpful to you. For example, questions about strategy, platforms, content, tactics, etc. If you ask me who won the latest football game, I probably won't know!</p>
+          </div>
+        </div>
+      </li>
+
+      <li class="faq-item">
+        <button class="faq-trigger" aria-expanded="false" aria-controls="faq-4">
+          <span class="faq-trigger-text">When will my question be answered?</span>
+          <span class="faq-icon" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="1" x2="5" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-body" id="faq-4" role="region">
+          <div class="faq-body-inner">
+            <p>Questions are typically answered within 24 - 48 hours. I strive to give a thoughtful and thorough answer.</p>
+          </div>
+        </div>
+      </li>
+
+      <li class="faq-item">
+        <button class="faq-trigger" aria-expanded="false" aria-controls="faq-5">
+          <span class="faq-trigger-text">How are questions used?</span>
+          <span class="faq-icon" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="1" x2="5" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-body" id="faq-5" role="region">
+          <div class="faq-body-inner">
+            <p>I ask that you do not include sensitive data, customer information, or similar information. The Little Answers question form only collects an email address and a question. This information is not stored in any database or third-party system — it is sent directly to my inbox via a mailto link. The email address may be retained in that inbox to cross-reference against a Stripe payment record and to send a reply. It will not be used for marketing or added to any mailing list without explicit consent. Submitted questions also help me decide what to write or make content about.</p>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </section>
+
+  <script>
+    document.querySelectorAll('.faq-trigger').forEach(function(trigger) {
+      trigger.addEventListener('click', function() {
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        var bodyId = this.getAttribute('aria-controls');
+        var body = document.getElementById(bodyId);
+        this.setAttribute('aria-expanded', String(!expanded));
+        body.classList.toggle('is-open', !expanded);
+      });
+    });
+  </script>
+
+  <script>
+    (function() {
+      var now   = new Date();
+      var month = now.getMonth();  // 0-indexed
+      var date  = now.getDate();
+
+      var base = [
+        'ask me anything',
+        'here to help',
+        'share your social worries',
+        'how\'s my LinkedIn profile',
+        'the latest on social',
+        'what really matters',
+        'the social in social media',
+        'only MF DOOM scrolling',
+        'social media is a system',
+        'ask the question you\'ve been holding onto',
+        'someone needs to hear this'
+      ];
+
+      // January
+      if (month === 0)  { base.push('new year, new feed'); base.push('this is fine'); }
+      // February
+      if (month === 1)  { base.push('be my follower'); base.push('love at first scroll'); }
+      // March
+      if (month === 2)  { base.push('spring clean your strategy'); base.push('thnks fr th mmrs'); }
+      // April
+      if (month === 3)  { base.push('no fooling around'); base.push('chronically online'); }
+      // May — all month except May 4th gets its own
+      if (month === 4)  { base.push('peak content season'); }
+      if (month === 4 && date === 4) { base.push('may the fourth be with you'); }
+      // June
+      if (month === 5)  { base.push('peak content season'); base.push('touch grass and post about it'); }
+      // July
+      if (month === 6)  { base.push('posting from the pool'); base.push('sunscreen and scheduling'); }
+      // August
+      if (month === 7)  { base.push('out of office, still online'); base.push('no summer slump here'); base.push('back to school'); }
+      // September
+      if (month === 8)  { base.push('back to the timeline'); base.push('fall posting season'); }
+      // October
+      if (month === 9)  { base.push('trick or treat'); base.push('comments are content too'); }
+      if (month === 9 && date === 3) { base.push('on October 3rd, he asked me what day it was'); }
+      // November
+      if (month === 10) { base.push('giving thanks for engagement'); base.push('thankful for you'); }
+      // December
+      if (month === 11) { base.push('happy holidays'); base.push('logged off, briefly'); }
+
+      var track = document.getElementById('ticker-track');
+      var full = base.concat(base);
+      var html = '';
+      full.forEach(function(item) {
+        html += '<span class="ticker-segment">'
+              + '<span class="ticker-item">' + item + '</span>'
+              + '<span class="ticker-dot">•</span>'
+              + '</span>';
+      });
+      track.innerHTML = html;
+    })();
+  </script>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="include.js"></script>
+</body>
+</html>
