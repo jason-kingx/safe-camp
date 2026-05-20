@@ -77,6 +77,10 @@ function initHeader() {
 
 function initFooter() {
   patchLinks('#footer-placeholder');
+  // Resolve data-src on footer images using _base (img src isn't patched by patchLinks)
+  document.querySelectorAll('#footer-placeholder img[data-src]').forEach(function(img) {
+    img.src = _base + img.getAttribute('data-src');
+  });
 }
 
 loadComponent('#header-placeholder', 'components/header.html', initHeader);
