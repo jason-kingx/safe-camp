@@ -77,9 +77,21 @@ function initHeader() {
 
 function initFooter() {
   patchLinks('#footer-placeholder');
-  // Resolve data-src on footer images using _base (img src isn't patched by patchLinks)
-  document.querySelectorAll('#footer-placeholder img[data-src]').forEach(function(img) {
-    img.src = _base + img.getAttribute('data-src');
+
+  // Single logo img: set src based on theme, re-swap on theme toggle
+  var logoImg = document.querySelector('#footer-placeholder .footer-logo-img');
+  if (!logoImg) return;
+
+  function updateFooterLogo() {
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    logoImg.src = _base + (isDark ? 'images/contact-illustration.gif' : 'images/SafeCamp_black.gif');
+  }
+
+  updateFooterLogo();
+
+  new MutationObserver(updateFooterLogo).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme']
   });
 }
 
