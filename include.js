@@ -81,67 +81,11 @@ function initFooter() {
   var logoImg = document.querySelector('#footer-placeholder .footer-logo-img');
   if (!logoImg) return;
 
-  var freezeTimer = null;
-
-  // Sum all frame delays in a GIF binary to get one-loop duration in ms
-  function getGifDuration(url, cb) {
-    fetch(url).then(function(r) { return r.arrayBuffer(); }).then(function(buf) {
-      var d = new Uint8Array(buf);
-      var packed = d[10];
-      var gctBytes = ((packed >> 7) & 1) ? 3 * (2 << (packed & 7)) : 0;
-      var i = 13 + gctBytes;
-      var ms = 0;
-      while (i < d.length) {
-        if (d[i] === 0x3B) break;                          // trailer
-        if (d[i] === 0x21 && d[i + 1] === 0xF9) {         // Graphic Control Extension
-          ms += ((d[i + 4] | (d[i + 5] << 8)) || 10) * 10;
-          i += 8;
-        } else if (d[i] === 0x2C) {                        // image descriptor
-          var lctBytes = ((d[i + 9] >> 7) & 1) ? 3 * (2 << (d[i + 9] & 7)) : 0;
-          i += 10 + lctBytes + 1;
-          while (d[i]) i += d[i] + 1;
-          i++;
-        } else if (d[i] === 0x21) {                        // other extension
-          i += 2;
-          while (d[i]) i += d[i] + 1;
-          i++;
-        } else { i++; }
-      }
-      cb(ms > 0 ? ms : 3000);
-    }).catch(function() { cb(3000); });
-  }
-
-  // Capture current frame to canvas and replace src — stops the animation
-  function freezeGif(img) {
-    if (!img.complete || !img.naturalWidth) return;
-    try {
-      var c = document.createElement('canvas');
-      c.width  = img.naturalWidth;
-      c.height = img.naturalHeight;
-      c.getContext('2d').drawImage(img, 0, 0);
-      img.src = c.toDataURL('image/png');
-    } catch(e) { /* canvas taint guard */ }
-  }
-
   function updateFooterLogo() {
-    if (freezeTimer) { clearTimeout(freezeTimer); freezeTimer = null; }
-
     var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    var src = _base + (isDark
+    logoImg.src = _base + (isDark
       ? 'images/contact-illustration.gif'
       : 'images/SafeCamp_black.gif');
-
-    // Set crossOrigin before src so canvas won't be tainted
-    logoImg.crossOrigin = 'anonymous';
-    logoImg.src = src;
-
-    // Dark mode GIF has loop=1 baked in — no JS needed.
-    // Light mode GIF loops infinitely — freeze it after one play.
-    if (!isDark) {
-      getGifDuration(src, function(ms) {
-        freezeTimer = setTimeout(function() { freezeGif(logoImg); }, ms);
-      });
-    }
   }
 
   updateFooterLogo();
