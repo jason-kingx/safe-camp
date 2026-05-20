@@ -1,19 +1,14 @@
 <footer id="site-footer">
   <div class="footer-inner">
 
-    <!-- Left: Logo GIF -->
+    <!-- Left: Logo GIF (src set by initFooter in include.js) -->
     <div class="footer-logo">
-      <img data-src="images/contact-illustration.gif"
-           class="logo-theme logo-dark-mode"
-           width="100" height="100"
-           alt="Safe Camp logo" loading="lazy">
-      <img data-src="images/SafeCamp_black.gif"
-           class="logo-theme logo-light-mode"
-           width="100" height="100"
+      <img class="footer-logo-img"
+           width="140" height="140"
            alt="Safe Camp logo" loading="lazy">
     </div>
 
-    <!-- Middle: Links (div, not nav, to avoid global nav styles) -->
+    <!-- Middle: Links (div avoids global nav{} styles) -->
     <div role="navigation" aria-label="Footer navigation" class="footer-nav">
       <a href="little-answers.html" class="footer-nav-link">Little Answers</a>
       <button
@@ -49,7 +44,7 @@
 </footer>
 
 <style>
-/* ── Footer ────────────────────────────────────────────────────────── */
+/* ── Footer ─────────────────────────────────────────────────── */
 #site-footer {
   position: relative;
   z-index: 1;
@@ -68,21 +63,20 @@
   gap: 0 56px;
 }
 
-/* Left — logo, vertically centered relative to the footer height */
+/* Left — logo */
 .footer-logo {
   display: flex;
-  align-items: center;
-  align-self: center;
+  align-items: flex-start;
 }
 
-.footer-logo img {
+.footer-logo-img {
   display: block;
-  width: 100px;
-  height: 100px;
+  width: 140px;
+  height: 140px;
   object-fit: contain;
 }
 
-/* Middle & Right — shared type style */
+/* Middle & Right — shared base style */
 .footer-nav,
 .footer-meta {
   display: flex;
@@ -94,7 +88,6 @@
   justify-self: center;
 }
 
-/* Shared link / text style for both columns */
 .footer-nav-link {
   font-family: 'DM Sans', sans-serif;
   font-size: 11px;
@@ -142,7 +135,7 @@
   font-size: 11px;
 }
 
-/* ── Responsive ─────────────────────────────────────────────────────── */
+/* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
   #site-footer {
     padding: 40px 24px 32px;
@@ -153,10 +146,6 @@
     grid-template-columns: 1fr;
     justify-items: center;
     gap: 32px;
-  }
-
-  .footer-logo {
-    align-self: auto;
   }
 
   .footer-nav {
