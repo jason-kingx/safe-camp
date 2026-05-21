@@ -48,6 +48,75 @@
     .hero-trees-mid   { right: 10px; width: 180px; opacity: 0.45; }
     #hero .hero-title { white-space: normal; }
   }
+
+/* ── Narrative Module ── */
+#safe-camp-narrative,
+#safe-camp-narrative * {
+  cursor: url('images/custom-cursor.png') 32 32, auto !important;
+}
+#safe-camp-narrative {
+  background: var(--hero-bg);
+  border-radius: 16px;
+  height: 78vh;
+  min-height: 440px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  border: 1px solid var(--line);
+}
+.nc-phase {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 80px;
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  pointer-events: none;
+  text-align: center;
+}
+.nc-phase.is-active  { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.nc-phase.is-leaving { opacity: 0; transform: translateY(-14px); transition: opacity 0.38s ease, transform 0.38s ease; }
+.nc-welcome { font-family:'EB Garamond',serif; font-size:clamp(2rem,5vw,3.6rem); font-weight:400; color:var(--on-alt); line-height:1.15; margin-bottom:36px; }
+.nc-invite { display:flex; flex-direction:column; align-items:center; gap:8px; transition:opacity 0.5s ease; }
+.nc-invite.is-gone   { opacity:0; pointer-events:none; }
+.nc-invite-label     { font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--on-alt-mid); }
+.nc-invite-arrow     { width:20px; height:20px; color:var(--on-alt-mid); animation:nc-bob 1.8s ease-in-out infinite; }
+@keyframes nc-bob { 0%,100%{transform:translateY(0);opacity:.55} 50%{transform:translateY(6px);opacity:1} }
+.nc-large   { font-family:'EB Garamond',serif; font-size:clamp(1.8rem,4vw,3rem); font-weight:400; font-style:italic; color:var(--on-alt); line-height:1.2; }
+.nc-medium  { font-family:'EB Garamond',serif; font-size:clamp(1.4rem,3vw,2.2rem); font-weight:400; color:var(--on-alt); line-height:1.3; }
+.nc-small   { font-size:clamp(13px,1.5vw,15px); color:var(--on-alt-mid); margin-top:14px; line-height:1.75; }
+.nc-list    { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.nc-list li { font-size:clamp(13px,1.8vw,16px); color:var(--on-alt-mid); line-height:1.65; }
+.nc-analogy { font-family:'EB Garamond',serif; font-size:clamp(1.1rem,2.5vw,1.75rem); font-style:italic; color:var(--on-alt-mid); line-height:1.65; max-width:600px; }
+.nc-payoff-lead { font-size:clamp(11px,1.3vw,13px); letter-spacing:0.14em; text-transform:uppercase; color:var(--on-alt-mid); margin-bottom:20px; }
+.nc-payoff  { font-family:'EB Garamond',serif; font-size:clamp(2.4rem,6vw,4.5rem); font-weight:400; color:var(--on-alt); line-height:1.1; }
+.nc-bar     { position:absolute; bottom:0; left:0; right:0; height:3px; background:var(--phil-border); }
+.nc-bar-fill{ height:100%; background:var(--accent); width:0%; transition:width 0.5s ease; border-radius:0 2px 0 0; }
+/* Glitch */
+.glitch-word { display:inline-block; color:var(--accent); }
+@keyframes nc-glitch {
+  0%,100%{transform:none;text-shadow:none;filter:none}
+  10%{transform:skew(-2deg) translateX(3px);text-shadow:2px 0 #4A7C8E,-2px 0 #c0392b;filter:brightness(1.4)}
+  11%{transform:none;text-shadow:none;filter:none}
+  30%{transform:translateX(-3px) skew(1deg);text-shadow:-3px 0 #4A7C8E;filter:brightness(.8)}
+  31%{transform:none;text-shadow:none;filter:none}
+  50%{transform:skew(-1deg) translateX(2px);text-shadow:2px 0 #c0392b,-1px 0 #4A7C8E}
+  51%{transform:none;text-shadow:none}
+  70%{transform:translateX(2px) skew(2deg);text-shadow:-2px 0 #4A7C8E;filter:brightness(1.2)}
+  71%{transform:none;text-shadow:none;filter:none}
+}
+.glitch-word.is-glitching { animation:nc-glitch 0.9s steps(1) forwards; }
+@media(max-width:768px){
+  #safe-camp-narrative { height:72vh; border-radius:12px; cursor:auto; }
+  .nc-phase { padding:36px 28px; }
+}
 </style>
 </head><body><noscript><p style="position:fixed;bottom:0;left:0;right:0;background:var(--nav-bg);color:var(--ink);text-align:center;padding:12px 24px;font-size:13px;letter-spacing:0.06em;z-index:999;margin:0;">JavaScript is disabled in your browser. The booking and contact forms require JavaScript to function.</p></noscript><div id="header-placeholder"></div><main><section id="hero" aria-label="Introduction">
   <!-- RIGHT TREES (CSS-mirrored) -->
@@ -374,4 +443,137 @@
 
     </svg>
   </div>
-<div class="hero-inner"><div class="hero-text"><h1 class="hero-title">Strategy as shelter</h1><p class="hero-sub">Social media strategy is a system that drives business growth.</p></div><div class="hero-image"><img src="images/CamperLight.png" alt="Illustrated camper roasting marshmallows by a campfire" class="hero-camper-light"><img src="images/CamperDark.png" alt="Illustrated camper roasting marshmallows by a campfire" class="hero-camper-dark"></div></div><a class="hero-scroll" href="#about" aria-label="Explore the next section"><span class="explore-label">Explore</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></a></section><section id="about" aria-labelledby="about-heading"><div id="about-section"><div class="about-text"><p class="section-eyebrow" aria-hidden="true">About</p><h2 id="about-heading" class="section-title">Nice to meet you</h2><p>I'm <strong>Jason King</strong>, a social media strategist.</p><p>I help brands and individuals<br class="mobile-br"> solve hurdles to business growth.</p><p>I bring 15 years of experience from<br class="mobile-br"> partnering with more than 100 brands<br class="mobile-br"> through agency, internal, and startup roles.</p><p>Freelance, fractional, independent.<br class="mobile-br"> However you put it, I'm your partner.</p><p class="mobile-no-gap">Kind people are my kind of people.</p></div><div class="about-headshot"><img src="images/headshot.png" alt="Jason King, social media strategist" class="headshot-img"></div></div></section><div class="full-divider" aria-hidden="true"></div><section id="philosophy" aria-label="Strategy philosophy"><div class="philosophy-inner"><div class="phil-col"><p class="col-label" aria-hidden="true">About</p><h3>The social media wilderness</h3><ul><li>It's overwhelming.</li><li>A million search results.</li><li>Wondering channels and content.</li><li>Too many new things to keep up with.</li><li>And the word that always comes up: algorithms.</li></ul></div><div class="phil-col solution"><p class="col-label" style="visibility:hidden;" aria-hidden="true">placeholder</p><h3>Strategy as shelter</h3><ul><li>Strategy brings calm to social media.</li><li>It ties business objectives to every single action.</li><li>The processes, tactics, and integrations.</li><li>With evidence that they will drive growth, not 'likes.'</li><li>This focus creates a social media system.</li></ul></div></div></section><div class="full-divider" aria-hidden="true"></div><section id="services" aria-labelledby="services-heading"><div id="services-section"><p class="section-eyebrow" aria-hidden="true">Services</p><h2 id="services-heading" class="section-title">This system is called a Social Media Playbook</h2><p class="playbook-intro">Each component stands alone or combines into a complete system — every piece tied directly to your business objectives.</p><div class="playbook-bento" role="list" aria-label="Social Media Playbook components"><div class="playbook-card" role="listitem"><h4 class="playbook-card-title">Foundations</h4><ul><li>Role of Social Media</li><li>Business Priorities</li><li>Objectives, Measurement</li><li>Budget</li><li>Risk, Legal, Compliance</li><li>Social Audiences</li><li>Social Channel Roles</li></ul></div><div class="playbook-card" role="listitem"><h4 class="playbook-card-title">Customer Care</h4><ul><li>Operations, Processes</li><li>Team Structure</li><li>Community</li><li>Customer Servicing</li><li>Response Scenarios</li><li>Social Listening</li><li>Crisis Preparation</li></ul></div><div class="playbook-card" role="listitem"><h4 class="playbook-card-title">Content</h4><ul><li>Owned Assets</li><li>User-Generated</li><li>Influencers, Partners</li><li>Employer Brand</li><li>Executive Presence</li><li>Employee Advocacy</li><li>Social Selling</li></ul></div><div class="playbook-card" role="listitem"><h4 class="playbook-card-title">Social by Design</h4><ul><li>Accessibility</li><li>Brand Guidelines</li><li>Editorial Style Guide</li><li>Figma Dynamic Elements</li><li>Social Post Templates</li><li>Integrated Marketing</li><li>Media Optimization</li></ul></div><div class="playbook-card" role="listitem"><h4 class="playbook-card-title">Social Advertising</h4><ul><li>Audience Targeting</li><li>Retargeting</li><li>Budget Allocation</li><li>Social Media Pixels</li><li>A/B Testing</li><li>Brand, Conversion Lift</li><li>Conversion Optimization</li></ul></div><div class="playbook-card playbook-card--full" role="listitem"><span class="playbook-card-title playbook-card-title--full">AI, Automation, Security</span></div></div></section><div class="full-divider" aria-hidden="true"></div><section id="pricing" aria-labelledby="pricing-heading"><div class="pricing-inner"><p class="section-eyebrow" aria-hidden="true">Services</p><h2 id="pricing-heading" class="section-title">We can work together in flexible ways</h2><div class="pricing-grid"><div class="pricing-card"><span class="icon" aria-hidden="true">✉</span><h3>Little Answers</h3><p class="price">$15</p><p>One social media question, answered personally by email.</p><a href="little-answers.html" class="cta-link">Ask a question <span aria-hidden="true">→</span></a></div><div class="pricing-card"><span class="icon" aria-hidden="true">☏</span><h3>Consulting Call</h3><p class="price">$75 – $150</p><p>30 min – 1 hour. Efficient time for immediate answers.</p><button data-cal-link="safecamp" data-cal-namespace="booking" data-cal-config='{"layout":"month_view"}' class="cta-link">Book a call <span aria-hidden="true">→</span></button></div><div class="pricing-card"><span class="icon" aria-hidden="true">⛬</span><h3>Social Media Playbook</h3><p class="price">Begins at $8k</p><p>Individual components or a complete social media system of strategy and operations.</p><button data-tally-open="MebPkA" data-tally-layout="modal" data-tally-width="560" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" class="cta-link">Get in touch <span aria-hidden="true">→</span></button></div><div class="pricing-card"><span class="icon" aria-hidden="true">⛚</span><h3>Custom Project</h3><p class="price">Price to be determined</p><p>Let's chat about what strategy, advertising, or retainer will meet your needs.</p><button data-tally-open="MebPkA" data-tally-layout="modal" data-tally-width="560" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" class="cta-link">Let's talk <span aria-hidden="true">→</span></button></div></div></div></section><div class="full-divider" aria-hidden="true"></div><section id="partners" aria-labelledby="partners-heading"><div class="partners-inner"><p class="section-eyebrow" aria-hidden="true">Experience</p><h2 id="partners-heading" class="section-title">Some of my past partners</h2><div class="table-scroll"><table class="partners-table" aria-label="Past partner brands by industry"><thead><tr><th scope="col">Biotech</th><th scope="col">Pharma</th><th scope="col">CPG</th><th scope="col">Financial</th><th scope="col">Nonprofit</th></tr></thead><tbody><tr><td>Amicus Therapeutics</td><td>Bayer</td><td>Alcon</td><td>BMO Harris Bank</td><td>Comic Relief USA</td></tr><tr><td>ARS Pharmaceuticals</td><td>Boehringer Ingelheim</td><td>Glade</td><td>Braintree</td><td>Education For Employment</td></tr><tr><td>Editas Medicine</td><td>Daiichi Sankyo</td><td>Hanna Andersson</td><td>Huntington Bank</td><td>Kidsrights</td></tr><tr><td>Evofem Biosciences</td><td>Lundbeck US</td><td>Jack's Pizza</td><td>Jenius Bank</td><td>One Earth</td></tr><tr><td>Intarcia Therapeutics</td><td>Pfizer</td><td>P&G</td><td>Mission Lane</td><td>The ALS Association</td></tr><tr><td>Visby Medical</td><td>Sandoz</td><td>SC Johnson</td><td>Venmo</td><td>Theirworld</td></tr></tbody></table></div></div></section></main><div id="footer-placeholder"></div><script type="text/javascript"> (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js","init");Cal("init","booking",{origin:"https://app.cal.com"});Cal("ns:booking","init",{debug:false,calLink:"safecamp",config:{layout:"month_view"}});</script></body></html>
+<div class="hero-inner"><div class="hero-text"><h1 class="hero-title">Strategy as shelter</h1><p class="hero-sub">Social media strategy is a system that drives business growth.</p></div><div class="hero-image"><img src="images/CamperLight.png" alt="Illustrated camper roasting marshmallows by a campfire" class="hero-camper-light"><img src="images/CamperDark.png" alt="Illustrated camper roasting marshmallows by a campfire" class="hero-camper-dark"></div></div><a class="hero-scroll" href="#about" aria-label="Explore the next section"><span class="explore-label">Explore</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></a></section><section id="about" aria-labelledby="about-heading"><div id="about-section"><div class="about-text"><p class="section-eyebrow" aria-hidden="true">About</p><h2 id="about-heading" class="section-title">Nice to meet you</h2><p>I'm <strong>Jason King</strong>, a social media strategist.</p><p>I help brands and individuals<br class="mobile-br"> solve hurdles to business growth.</p><p>I bring 15 years of experience from<br class="mobile-br"> partnering with more than 100 brands<br class="mobile-br"> through agency, internal, and startup roles.</p><p>Freelance, fractional, independent.<br class="mobile-br"> However you put it, I'm your partner.</p><p class="mobile-no-gap">Kind people are my kind of people.</p></div><div class="about-headshot"><img src="images/headshot.png" alt="Jason King, social media strategist" class="headshot-img"></div></div></section><div class="full-divider" aria-hidden="true"></div><section id="narrative-section" aria-label="Strategy as shelter narrative">
+  <div id="safe-camp-narrative" role="region" aria-label="Interactive narrative — scroll while hovering to read" tabindex="0">
+    <div class="nc-phase is-active" data-phase="0">
+      <p class="nc-welcome">Welcome to Safe Camp.</p>
+      <div class="nc-invite" id="nc-invite">
+        <span class="nc-invite-label">Scroll to explore</span>
+        <svg class="nc-invite-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="nc-phase" data-phase="1">
+      <p class="nc-large">Social media is a dark<br>and noisy forest.</p>
+    </div>
+    <div class="nc-phase" data-phase="2">
+      <ul class="nc-list">
+        <li>So many channels and features.</li>
+        <li>Feeds with never-ending content.</li>
+        <li>A million search results, news articles, and opinions.</li>
+        <li>It's overwhelming to try and keep up with.</li>
+        <li>And the word that always comes up: <span class="glitch-word" id="glitch-alg">algorithms</span></li>
+      </ul>
+    </div>
+    <div class="nc-phase" data-phase="3">
+      <p class="nc-medium">So it's no wonder that brands get<br>distracted and lost in the wilderness.</p>
+    </div>
+    <div class="nc-phase" data-phase="4">
+      <p class="nc-medium">The good thing is that it<br>doesn't have to be this way.</p>
+    </div>
+    <div class="nc-phase" data-phase="5">
+      <p class="nc-large">Strategy is the light that brings<br><em>calm, clarity, and focus.</em></p>
+    </div>
+    <div class="nc-phase" data-phase="6">
+      <p class="nc-analogy">Like an instruction manual, sports play, blueprint, car parts, compass, north star…</p>
+    </div>
+    <div class="nc-phase" data-phase="7">
+      <p class="nc-medium">It is a finite system with specific components.</p>
+      <p class="nc-small">Those components determine whether the brand will be successful on social media.</p>
+    </div>
+    <div class="nc-phase" data-phase="8">
+      <p class="nc-medium">Strategy ties business objectives<br>to every single social action.</p>
+      <p class="nc-small">With evidence that they will drive growth, not vanity metrics.</p>
+    </div>
+    <div class="nc-phase" data-phase="9">
+      <p class="nc-medium">Strategy connects every decision,<br>workflow, and stakeholder.</p>
+      <p class="nc-small">Strategy ensures the team is aligned and heading in the right direction.</p>
+    </div>
+    <div class="nc-phase" data-phase="10">
+      <p class="nc-large">Social media strategy is a system<br>that drives business growth.</p>
+    </div>
+    <div class="nc-phase" data-phase="11">
+      <p class="nc-payoff-lead">In the dark and noisy forest, brands need</p>
+      <p class="nc-payoff">Strategy as shelter.</p>
+    </div>
+    <div class="nc-bar" aria-hidden="true"><div class="nc-bar-fill" id="nc-bar-fill"></div></div>
+  </div>
+</section>
+<div class="full-divider" aria-hidden="true"></div><section id="services" aria-labelledby="services-heading"><div id="services-section"><p class="section-eyebrow" aria-hidden="true">Services</p><h2 id="services-heading" class="section-title">Strategy is a Social Media Playbook</h2><p class="playbook-intro">Each component stands alone or combines into a complete system — every piece tied directly to your business objectives.</p><div class="playbook-bento" role="list" aria-label="Social Media Playbook components"><div class="playbook-card" role="listitem"><h4 class="playbook-card-title">Foundations</h4><ul><li>Role of Social Media</li><li>Business Priorities</li><li>Objectives, Measurement</li><li>Budget</li><li>Risk, Legal, Compliance</li><li>Social Audiences</li><li>Social Channel Roles</li></ul></div><div class="playbook-card" role="listitem"><h4 class="playbook-card-title">Customer Care</h4><ul><li>Operations, Processes</li><li>Team Structure</li><li>Community</li><li>Customer Servicing</li><li>Response Scenarios</li><li>Social Listening</li><li>Crisis Preparation</li></ul></div><div class="playbook-card" role="listitem"><h4 class="playbook-card-title">Content</h4><ul><li>Owned Assets</li><li>User-Generated</li><li>Influencers, Partners</li><li>Employer Brand</li><li>Executive Presence</li><li>Employee Advocacy</li><li>Social Selling</li></ul></div><div class="playbook-card" role="listitem"><h4 class="playbook-card-title">Social by Design</h4><ul><li>Accessibility</li><li>Brand Guidelines</li><li>Editorial Style Guide</li><li>Figma Dynamic Elements</li><li>Social Post Templates</li><li>Integrated Marketing</li><li>Media Optimization</li></ul></div><div class="playbook-card" role="listitem"><h4 class="playbook-card-title">Social Advertising</h4><ul><li>Audience Targeting</li><li>Retargeting</li><li>Budget Allocation</li><li>Social Media Pixels</li><li>A/B Testing</li><li>Brand, Conversion Lift</li><li>Conversion Optimization</li></ul></div><div class="playbook-card playbook-card--full" role="listitem"><span class="playbook-card-title playbook-card-title--full">AI, Automation, Security</span></div></div></section><div class="full-divider" aria-hidden="true"></div><section id="pricing" aria-labelledby="pricing-heading"><div class="pricing-inner"><p class="section-eyebrow" aria-hidden="true">Services</p><h2 id="pricing-heading" class="section-title">We can work together in flexible ways</h2><div class="pricing-grid"><div class="pricing-card"><span class="icon" aria-hidden="true">✉</span><h3>Little Answers</h3><p class="price">$15</p><p>One social media question, answered personally by email.</p><a href="little-answers.html" class="cta-link">Ask a question <span aria-hidden="true">→</span></a></div><div class="pricing-card"><span class="icon" aria-hidden="true">☏</span><h3>Consulting Call</h3><p class="price">$75 – $150</p><p>30 min – 1 hour. Efficient time for immediate answers.</p><button data-cal-link="safecamp" data-cal-namespace="booking" data-cal-config='{"layout":"month_view"}' class="cta-link">Book a call <span aria-hidden="true">→</span></button></div><div class="pricing-card"><span class="icon" aria-hidden="true">⛬</span><h3>Social Media Playbook</h3><p class="price">Begins at $8k</p><p>Individual components or a complete social media system of strategy and operations.</p><button data-tally-open="MebPkA" data-tally-layout="modal" data-tally-width="560" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" class="cta-link">Get in touch <span aria-hidden="true">→</span></button></div><div class="pricing-card"><span class="icon" aria-hidden="true">⛚</span><h3>Custom Project</h3><p class="price">Price to be determined</p><p>Let's chat about what strategy, advertising, or retainer will meet your needs.</p><button data-tally-open="MebPkA" data-tally-layout="modal" data-tally-width="560" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" class="cta-link">Let's talk <span aria-hidden="true">→</span></button></div></div></div></section><div class="full-divider" aria-hidden="true"></div><section id="partners" aria-labelledby="partners-heading"><div class="partners-inner"><p class="section-eyebrow" aria-hidden="true">Experience</p><h2 id="partners-heading" class="section-title">Some of my past partners</h2><div class="table-scroll"><table class="partners-table" aria-label="Past partner brands by industry"><thead><tr><th scope="col">Biotech</th><th scope="col">Pharma</th><th scope="col">CPG</th><th scope="col">Financial</th><th scope="col">Nonprofit</th></tr></thead><tbody><tr><td>Amicus Therapeutics</td><td>Bayer</td><td>Alcon</td><td>BMO Harris Bank</td><td>Comic Relief USA</td></tr><tr><td>ARS Pharmaceuticals</td><td>Boehringer Ingelheim</td><td>Glade</td><td>Braintree</td><td>Education For Employment</td></tr><tr><td>Editas Medicine</td><td>Daiichi Sankyo</td><td>Hanna Andersson</td><td>Huntington Bank</td><td>Kidsrights</td></tr><tr><td>Evofem Biosciences</td><td>Lundbeck US</td><td>Jack's Pizza</td><td>Jenius Bank</td><td>One Earth</td></tr><tr><td>Intarcia Therapeutics</td><td>Pfizer</td><td>P&G</td><td>Mission Lane</td><td>The ALS Association</td></tr><tr><td>Visby Medical</td><td>Sandoz</td><td>SC Johnson</td><td>Venmo</td><td>Theirworld</td></tr></tbody></table></div></div></section></main><div id="footer-placeholder"></div><script type="text/javascript"> (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js","init");Cal("init","booking",{origin:"https://app.cal.com"});Cal("ns:booking","init",{debug:false,calLink:"safecamp",config:{layout:"month_view"}});</script><script>
+(function(){
+  var module   = document.getElementById('safe-camp-narrative');
+  if(!module) return;
+  var phases   = Array.from(module.querySelectorAll('.nc-phase'));
+  var invite   = document.getElementById('nc-invite');
+  var barFill  = document.getElementById('nc-bar-fill');
+  var glitchEl = document.getElementById('glitch-alg');
+  var TOTAL    = phases.length - 1; // 0 = entry, 1-11 = narrative
+  var current  = 0;
+  var hovering = false;
+  var inviteDone = false;
+  var cooldown = false;
+
+  function goTo(idx){
+    if(idx < 0 || idx > TOTAL) return;
+    if(idx === current) return;
+    var prev = phases[current];
+    var next = idx;
+    prev.classList.remove('is-active');
+    prev.classList.add('is-leaving');
+    setTimeout(function(){ prev.classList.remove('is-leaving'); }, 500);
+
+    current = next;
+
+    // Wait for old phase to fade out before revealing new one
+    setTimeout(function(){
+      phases[current].classList.add('is-active');
+
+      // Hide invite when leaving phase 0, restore if returning to it
+      if(current === 0 && invite){
+        invite.classList.remove('is-gone');
+        inviteDone = false;
+      } else if(!inviteDone && current > 0 && invite){
+        inviteDone = true;
+        invite.classList.add('is-gone');
+      }
+
+      // Progress bar: 0 on entry, fills across phases 1-11
+      var pct = current === 0 ? 0 : Math.round((current / TOTAL) * 100);
+      barFill.style.width = pct + '%';
+
+      // Glitch effect when phase 2 becomes active
+      if(current === 2 && glitchEl){
+        glitchEl.classList.remove('is-glitching');
+        void glitchEl.offsetWidth;
+        setTimeout(function(){ glitchEl.classList.add('is-glitching'); }, 300);
+      }
+    }, 320);
+  }
+
+  module.addEventListener('mouseenter', function(){ hovering = true; });
+  module.addEventListener('mouseleave', function(){ hovering = false; });
+
+  window.addEventListener('wheel', function(e){
+    if(!hovering) return;
+    e.preventDefault();
+    if(cooldown) return;
+    cooldown = true;
+    setTimeout(function(){ cooldown = false; }, 900);
+    if(e.deltaY > 0){ goTo(current + 1); }
+    else            { goTo(current - 1); }
+  }, { passive: false });
+
+  // Click to advance
+  module.addEventListener('click', function(){
+    if(cooldown) return;
+    cooldown = true;
+    setTimeout(function(){ cooldown = false; }, 900);
+    goTo(current + 1);
+  });
+
+  // Keyboard support
+  module.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowDown' || e.key === 'ArrowRight'){ e.preventDefault(); goTo(current+1); }
+    if(e.key === 'ArrowUp'   || e.key === 'ArrowLeft') { e.preventDefault(); goTo(current-1); }
+  });
+})();
+</script></body></html>
