@@ -761,6 +761,31 @@ While living on an island, I remain virtually close with partners and clients th
 
     const stickerData = [];
 
+    // Returns true if a candidate position overlaps too much with placed stickers
+    // or lands in the center dead zone
+    function isBadPosition(cx, cy, pxSize, W, H) {
+      // Centre dead zone: avoid middle 28% of canvas in each axis
+      const deadX = 0.28, deadY = 0.28;
+      const centerX = cx + pxSize / 2;
+      const centerY = cy + pxSize / 2;
+      if (
+        centerX > W * (0.5 - deadX / 2) && centerX < W * (0.5 + deadX / 2) &&
+        centerY > H * (0.5 - deadY / 2) && centerY < H * (0.5 + deadY / 2)
+      ) return true;
+
+      // Overlap check: reject if this sticker overlaps an existing one by more than 30%
+      for (const d of stickerData) {
+        const ox = (d.pctX / 100) * W;
+        const oy = (d.pctY / 100) * H;
+        const overlapX = Math.max(0, Math.min(cx + pxSize, ox + d.size) - Math.max(cx, ox));
+        const overlapY = Math.max(0, Math.min(cy + pxSize, oy + d.size) - Math.max(cy, oy));
+        const overlapArea = overlapX * overlapY;
+        const minArea = Math.min(pxSize * pxSize, d.size * d.size);
+        if (overlapArea > minArea * 0.30) return true;
+      }
+      return false;
+    }
+
     function placeStickers(urls) {
       const shuffled = shuffle(urls);
       const W = stage.offsetWidth;
@@ -771,13 +796,21 @@ While living on an island, I remain virtually close with partners and clients th
         const pxSize = Math.round(size * W);
         const rot    = rand(-STICKER_ROT_MAX, STICKER_ROT_MAX);
 
-        const minX = MARGIN_X * 100;
-        const maxX = (1 - MARGIN_X) * 100 - size * 100;
-        const minY = MARGIN_Y * 100;
-        const maxY = (1 - MARGIN_Y) * 100 - (pxSize / H) * 100;
+        const minX = MARGIN_X * W;
+        const maxX = (1 - MARGIN_X) * W - pxSize;
+        const minY = MARGIN_Y * H;
+        const maxY = (1 - MARGIN_Y) * H - pxSize;
 
-        const pctX = rand(Math.max(0, minX), Math.max(0, maxX));
-        const pctY = rand(Math.max(0, minY), Math.max(0, maxY));
+        // Try up to 30 times to find a non-overlapping, non-central position
+        let cx, cy, attempts = 0;
+        do {
+          cx = rand(Math.max(0, minX), Math.max(0, maxX));
+          cy = rand(Math.max(0, minY), Math.max(0, maxY));
+          attempts++;
+        } while (isBadPosition(cx, cy, pxSize, W, H) && attempts < 30);
+
+        const pctX = (cx / W) * 100;
+        const pctY = (cy / H) * 100;
 
         const el = document.createElement('div');
         el.className = 'sticker';
