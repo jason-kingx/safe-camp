@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manual of Me — a personal guide to who I am, where I've been, and how I work.">
+  <link rel="canonical" href="https://jason-kingx.github.io/safe-camp/manual-of-me.html">
+  <title>Manual of Me — Safe Camp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="icon" href="favicon-black.svg" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="favicon-white.svg" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>(function(){var html=document.documentElement;var saved=localStorage.getItem('theme');if(saved==='dark'){html.setAttribute('data-theme','dark');}else if(saved==='light'){html.removeAttribute('data-theme');}else if(window.matchMedia('(prefers-color-scheme: dark)').matches){html.setAttribute('data-theme','dark');}})();</script>
+
+  <style>
+    .mom-outer { width:100%; padding:96px 48px 120px; }
+    .mom-inner { max-width:1100px; margin:0 auto; }
+    .mom-header { margin-bottom:64px; }
+    .mom-header h1 { font-family:'EB Garamond',serif; font-size:clamp(2.8rem,7vw,5rem); font-weight:400; line-height:1.05; color:var(--ink); margin-bottom:16px; }
+    .mom-header p { font-size:15px; color:var(--mid); max-width:480px; line-height:1.7; }
+
+    .module { margin-bottom:80px; }
+    .module-label { font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent); margin-bottom:12px; }
+    .module-title { font-family:'EB Garamond',serif; font-size:clamp(1.4rem,3vw,2rem); font-weight:400; color:var(--ink); margin-bottom:32px; }
+
+    /* ── Globe layout ── */
+    .globe-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 32px;
+      align-items: stretch; /* both columns same height */
+      position: relative;   /* popup positions relative to this */
+    }
+
+    /* ── Location nav panel ── */
+    .location-nav-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      /* Fill the full height of the grid row */
+      align-self: stretch;
+      height: 100%;
+      box-sizing: border-box;
+    }
+    .location-nav-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      background: none;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--mid);
+      text-align: left;
+      transition: background 0.18s, border-color 0.18s, color 0.18s;
+      width: 100%;
+    }
+    .location-nav-item:hover { background: var(--accent-light); color: var(--ink); }
+    .location-nav-item.is-active { background: var(--accent-light); border-color: var(--accent); color: var(--ink); }
+    .location-nav-marker { flex-shrink:0; width:11px; height:11px; margin-top:3px; }
+    .location-nav-text { display:flex; flex-direction:column; gap:2px; min-width:0; }
+    .location-nav-name { font-size:13px; font-weight:400; line-height:1.3; white-space:normal; }
+    .location-nav-badge { font-size:10px; letter-spacing:0.06em; color:var(--accent); opacity:0.8; display:block; }
+
+    /* ── Globe ── */
+    .globe-right { display:flex; flex-direction:column; align-items:center; justify-content:center; }
+    #globe-canvas {
+      display: block;
+      cursor: grab;
+      border-radius: 50%;
+      box-shadow: 0 0 0 1px var(--line), 0 20px 60px rgba(0,0,0,0.16);
+      touch-action: none;
+      max-width: 400px;
+      width: 100%;
+    }
+    #globe-canvas:active { cursor: grabbing; }
+    .globe-hint { font-size:11px; color:var(--mid); margin-top:14px; letter-spacing:0.07em; opacity:0.65; text-align:center; }
+
+    /* ── Popup — positioned inside .globe-layout ── */
+    .globe-popup {
+      position: absolute; z-index:500; width:300px;
+      background:var(--card-bg); border:1px solid var(--line);
+      border-radius:20px; box-shadow:0 16px 56px rgba(0,0,0,0.18);
+      overflow:hidden; opacity:0; pointer-events:none;
+      transform:translateY(8px) scale(0.97);
+      transition:opacity 0.22s ease, transform 0.22s ease;
+      display:flex; flex-direction:column;
+      max-height: 480px;
+    }
+    .globe-popup.is-visible { opacity:1; pointer-events:auto; transform:translateY(0) scale(1); }
+    .popup-img-wrap { width:100%; height:150px; overflow:hidden; background:var(--hero-bg); flex-shrink:0; }
+    .popup-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
+    .popup-img-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--mid); opacity:0.5; }
+    .popup-body { padding:18px 20px 22px; overflow-y:auto; }
+    .popup-name { font-family:'EB Garamond',serif; font-size:1.3rem; font-weight:400; color:var(--ink); margin-bottom:2px; }
+    .popup-type-badge { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); font-family:'DM Sans',sans-serif; font-weight:400; opacity:0.85; display:block; margin-bottom:10px; }
+    .popup-desc { font-size:15px; color:var(--mid); line-height:1.7; white-space:pre-line; }
+
+    .popup-close { position:absolute; top:10px; right:10px; width:28px; height:28px; border-radius:50%; background:rgba(0,0,0,0.35); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; line-height:1; transition:background 0.15s; z-index:10; flex-shrink:0; }
+    .popup-close:hover { background:rgba(0,0,0,0.55); }
+
+    /* ── Laptop Stickers Module ── */
+    .laptop-stage {
+      position: relative;
+      width: 100%;
+      max-width: 740px;
+      margin: 0 auto;
+      user-select: none;
+      -webkit-user-select: none;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .laptop-bg {
+      display: block;
+      width: 100%;
+      height: auto;
+      pointer-events: none;
+    }
+    .sticker-layer {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .sticker {
+      position: absolute;
+      cursor: grab;
+      touch-action: none;
+      transition: filter 0.15s;
+      will-change: transform;
+    }
+    .sticker:hover {
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.28));
+      z-index: 500 !important;
+    }
+    .sticker.is-dragging {
+      cursor: grabbing;
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,0.38));
+      z-index: 9999 !important;
+      transition: filter 0.1s;
+    }
+    .sticker img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      -webkit-user-drag: none;
+    }
+    .laptop-hint {
+      font-size: 11px;
+      color: var(--mid);
+      margin-top: 14px;
+      letter-spacing: 0.07em;
+      opacity: 0.65;
+      text-align: center;
+    }
+
+    @media (max-width:768px) {
+      .mom-outer { padding:64px 24px 80px; }
+      .mom-header { margin-bottom:48px; }
+      .globe-layout { grid-template-columns:1fr; }
+      .location-nav-panel { flex-direction:row; flex-wrap:wrap; gap:6px; padding:10px; border-radius:12px; margin-bottom:4px; height:auto; }
+      .location-nav-item { width:auto; padding:8px 12px; }
+      .location-nav-badge { display:none; }
+      .globe-popup { position:fixed; max-height:70vh; }
+    }
+  </style>
+</head>
+<body>
+  <noscript><p style="position:fixed;bottom:0;left:0;right:0;background:var(--nav-bg);color:var(--ink);text-align:center;padding:12px 24px;font-size:13px;letter-spacing:0.06em;z-index:999;margin:0;">JavaScript is disabled in your browser. Some features require JavaScript.</p></noscript>
+
+  <div id="header-placeholder"></div>
+
+  <main>
+    <div class="mom-outer">
+      <div class="mom-inner">
+
+        <header class="mom-header">
+          <p class="section-eyebrow">About</p>
+          <h1>Manual of Me</h1>
+          <p>A personal guide to who I am, where I've been, and how I work best.</p>
+        </header>
+
+        <div class="module">
+          <p class="module-label">Module 01</p>
+          <h2 class="module-title">Places I've called home</h2>
+
+          <div class="globe-layout">
+            <nav class="location-nav-panel" id="location-nav" aria-label="Location list"></nav>
+            <div class="globe-right">
+              <canvas id="globe-canvas" width="400" height="400"></canvas>
+              <p class="globe-hint">Drag to rotate &nbsp;·&nbsp; Click a marker to learn more</p>
+            </div>
+            <!-- Popup lives inside globe-layout so absolute positioning is constrained -->
+            <div class="globe-popup" id="globe-popup" role="dialog" aria-modal="true" aria-label="Location details">
+              <button class="popup-close" id="popup-close" aria-label="Close">✕</button>
+              <div class="popup-img-wrap" id="popup-img-wrap">
+                <div class="popup-img-placeholder" id="popup-img-placeholder">Image coming soon</div>
+              </div>
+              <div class="popup-body">
+                <div class="popup-name" id="popup-name"></div>
+                <span class="popup-type-badge" id="popup-badge"></span>
+                <p class="popup-desc" id="popup-desc"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module" id="module-laptop-stickers">
+          <p class="module-label">Module 02</p>
+          <h2 class="module-title">Mementos</h2>
+
+          <div class="laptop-stage" id="laptop-stage" aria-label="Draggable sticker board">
+            <img
+              id="laptop-bg-img"
+              class="laptop-bg"
+              src="images/laptop.png"
+              alt="Laptop cover"
+              draggable="false"
+            />
+            <div class="sticker-layer" id="sticker-layer"></div>
+          </div>
+
+          <p class="laptop-hint" id="laptop-hint">Drag stickers to rearrange them</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script defer src="include.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+
+  <script>
+  (() => {
+
+    /* ─── Location data ─── */
+    // navOnly:false  → appears in sidebar nav
+    // navOnly:true   → globe marker only (easter egg)
+    const LOCATIONS = [
+      {
+        id: 'long-island',
+        label: 'Long Island, NY',
+        lat: 40.92, lng: -72.89,
+        type: 'pin',
+        navOnly: false,
+        badge: 'Grew up here',
+        image: 'images/manual-of-me/long-island.jpg',
+        desc: `Where it all began. Rocky Point, just a short walk from the Long Island Sound, and a little over 50 miles from New York City. I grew up in poverty and an unsafe space, but the challenging environment helped shape my intrinsic drive to survive and succeed.
+
+Student life was full of extracurricular involvement and sports: tennis, cross country running, winter and summer track running.
+
+I grew up as technology and the internet evolved. From the transparent purple Game Boy Color and many video games, Dial-up Internet access, and the Apple iBook G3, to learning GUI customization, "coding" with Myspace, and chatting through AIM.`
+      },
+      {
+        id: 'ithaca',
+        label: 'Ithaca, NY',
+        lat: 42.44, lng: -76.50,
+        type: 'pin',
+        navOnly: false,
+        badge: 'College years',
+        image: 'images/manual-of-me/ithaca.jpg',
+        desc: `I attended Ithaca College as a student in the School of Business, thanks to a variety of scholarships, student loans, and work study. Although I majored in Marketing and Organizational Behavior, I was exposed to so much more through projects, student organizations, and retreats.
+
+As a student in Ithaca, I was fortunate to experience so much more than I did growing up. Community. Diverse cuisines from around the world. A love of bubble tea. Farmers markets and fall leaves. Running a loop around the campus. Ithaca is Gorges.
+
+Campus roles included serving as a Resident Assistant, Student Leadership Consultant, and Diversity Peer Educator. I attended 80+ hours of student leadership development sessions and presented many as well.
+
+This is where I met my wife and made friends for a lifetime.`
+      },
+      {
+        id: 'london',
+        label: 'London, UK',
+        lat: 51.50, lng: -0.13,
+        type: 'pin',
+        navOnly: false,
+        badge: 'Study abroad',
+        image: 'images/manual-of-me/london.jpg',
+        desc: `During my junior year of college, I spent a semester studying abroad at the Ithaca College London Center. Each day I would walk from my flat in Clapham South to the bus, then to the tube, and one more walk to the satellite campus in Kensington for classes or work study.`
+      },
+      {
+        id: 'chicago',
+        label: 'Chicago, IL',
+        lat: 41.88, lng: -87.63,
+        type: 'pin',
+        navOnly: false,
+        badge: '12 years',
+        image: 'images/manual-of-me/chicago.jpg',
+        desc: `While at Ithaca College, I earned a placement with Ogilvy's Associates Program — which brought my wife and I to Chicago.
+
+We lived in Chicago for 12 years, and even that wasn't enough time to see and do everything in town. But we sure tried: experiencing even colder winters than at Ithaca, many restaurants, travel, adopting our dog Emerson, clarifying cocktails, and getting into K-dramas, K-pop, and Formula One. We got engaged and married on Oahu, where my wife grew up.
+
+This chapter closed when a job opportunity for my wife brought us to Kauai.`
+      },
+      {
+        id: 'kauai',
+        label: 'Kauai, HI',
+        lat: 22.05, lng: -159.50,
+        type: 'star',
+        navOnly: false,
+        badge: 'Current home',
+        image: 'images/manual-of-me/kauai.jpg',
+        desc: `Our move from Chicago after 12 years was sparked by a job opportunity for my wife. It was a long-held dream to live in Hawaii, as my wife grew up on Oahu, and we were engaged and married there.
+
+Aloha brings change. Living here resulted in new dreams being formed and reached. Obtaining my driver's license. Becoming a marathon runner. Traveling to new destinations, including Japan and South Korea.
+
+While living on an island, I remain virtually close with partners and clients through my freelance consulting.`
+      },
+      /* ── Easter eggs ── */
+      {
+        id: 'wally',
+        label: 'Kent, England',
+        lat: 51.45, lng: 2.80,
+        type: 'easter',
+        navOnly: true,
+        badge: '',
+        image: 'images/manual-of-me/easter-wally.jpg',
+        desc: `"Where's Wally? Oh, there he is."`
+      },
+      {
+        id: 'carmen',
+        label: 'San Diego, CA',
+        lat: 32.72, lng: -117.15,
+        type: 'easter',
+        navOnly: true,
+        badge: '',
+        image: 'images/manual-of-me/easter-carmen.jpg',
+        desc: `"Catch me if you can…oh wait, you did." — Carmen Sandiego`
+      }
+    ];
+
+    /* ─── Canvas setup ─── */
+    const canvas = document.getElementById('globe-canvas');
+    const ctx    = canvas.getContext('2d');
+
+    function canvasSize() {
+      const w = Math.min(400, canvas.parentElement.offsetWidth);
+      canvas.width  = w;
+      canvas.height = w;
+    }
+    canvasSize();
+
+    const projection = d3.geoOrthographic()
+      .scale(canvas.width / 2 - 2)
+      .translate([canvas.width / 2, canvas.height / 2])
+      .clipAngle(90)
+      .rotate([96, -20]);
+
+    const pathGen = d3.geoPath(projection, ctx);
+
+    let autoRotate  = true;
+    let velLon      = -0.1;
+    let isDragging  = false;
+    let lastPos     = null;
+    let resumeTimer;
+    let activeLocId = null;
+    let landFeatures = null;
+
+    fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+      .then(r => r.json())
+      .then(topo => {
+        landFeatures = topojson.feature(topo, topo.objects.land);
+        draw();
+      });
+
+    function cssVar(name) {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+    function isDark() {
+      return document.documentElement.getAttribute('data-theme') === 'dark';
+    }
+
+    function draw() {
+      const w    = canvas.width;
+      const r    = w / 2;
+      ctx.clearRect(0, 0, w, w);
+      const dark = isDark();
+      const accentColor = cssVar('--accent');
+
+      const grad = ctx.createRadialGradient(r*0.7, r*0.6, r*0.05, r, r, r);
+      grad.addColorStop(0, dark ? '#2a4a5c' : '#daeef5');
+      grad.addColorStop(1, dark ? '#0f1e28' : '#a8cdd9');
+      ctx.beginPath(); pathGen({type:'Sphere'});
+      ctx.fillStyle = grad; ctx.fill();
+
+      ctx.save();
+      ctx.beginPath(); pathGen({type:'Sphere'}); ctx.clip();
+
+      const graticule = d3.geoGraticule()();
+      ctx.beginPath(); pathGen(graticule);
+      ctx.strokeStyle = dark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.07)';
+      ctx.lineWidth = 0.5; ctx.stroke();
+
+      if (landFeatures) {
+        ctx.beginPath(); pathGen(landFeatures);
+        ctx.fillStyle   = dark ? '#2e5060' : '#c5d9c0';
+        ctx.fill();
+        ctx.strokeStyle = dark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.09)';
+        ctx.lineWidth = 0.7; ctx.stroke();
+      }
+
+      const hl = ctx.createRadialGradient(r*0.55, r*0.42, 0, r*0.6, r*0.45, r*0.52);
+      hl.addColorStop(0, 'rgba(255,255,255,0.13)');
+      hl.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.beginPath(); pathGen({type:'Sphere'});
+      ctx.fillStyle = hl; ctx.fill();
+
+      ctx.restore();
+
+      const ring = ctx.createRadialGradient(r, r, r*0.7, r, r, r);
+      ring.addColorStop(0, 'rgba(0,0,0,0)');
+      ring.addColorStop(1, 'rgba(0,0,0,0.20)');
+      ctx.beginPath(); pathGen({type:'Sphere'});
+      ctx.fillStyle = ring; ctx.fill();
+
+      ctx.beginPath(); pathGen({type:'Sphere'});
+      ctx.strokeStyle = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.10)';
+      ctx.lineWidth = 1; ctx.stroke();
+
+      const rot = projection.rotate();
+      for (const loc of LOCATIONS) {
+        if (!isVisible(loc.lat, loc.lng, rot)) continue;
+        const c = projection([loc.lng, loc.lat]);
+        if (!c) continue;
+        drawMarker(c[0], c[1], loc.type, accentColor, loc.id === activeLocId);
+      }
+    }
+
+    function isVisible(lat, lng, rot) {
+      const cx = -rot[0], cy = -rot[1];
+      const dlng = (lng - cx) * Math.PI / 180;
+      const lat1 = lat * Math.PI / 180;
+      const lat2 = cy  * Math.PI / 180;
+      return Math.sin(lat1)*Math.sin(lat2) + Math.cos(lat1)*Math.cos(lat2)*Math.cos(dlng) > 0;
+    }
+
+    function drawMarker(x, y, type, accentColor, isActive) {
+      ctx.save();
+      ctx.shadowColor = 'rgba(0,0,0,0.45)';
+      ctx.shadowBlur  = 7;
+      ctx.shadowOffsetY = 2;
+      if (type === 'star') {
+        drawStar(x, y, isActive ? 11 : 9, '#E8A838');
+      } else if (type === 'easter') {
+        const r = isActive ? 10 : 8;
+        ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2);
+        ctx.fillStyle = '#9B6BB5'; ctx.fill();
+        ctx.shadowColor = 'transparent';
+        ctx.beginPath(); ctx.arc(x, y, r*0.38, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(255,255,255,0.8)'; ctx.fill();
+        if (isActive) {
+          ctx.beginPath(); ctx.arc(x, y, r+4, 0, Math.PI*2);
+          ctx.strokeStyle = '#9B6BB5'; ctx.lineWidth = 1.5;
+          ctx.globalAlpha = 0.4; ctx.stroke(); ctx.globalAlpha = 1;
+        }
+      } else {
+        const r = isActive ? 10 : 8;
+        ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2);
+        ctx.fillStyle = accentColor; ctx.fill();
+        ctx.shadowColor = 'transparent';
+        ctx.beginPath(); ctx.arc(x, y, r*0.38, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(255,255,255,0.8)'; ctx.fill();
+        if (isActive) {
+          ctx.beginPath(); ctx.arc(x, y, r+4, 0, Math.PI*2);
+          ctx.strokeStyle = accentColor; ctx.lineWidth = 1.5;
+          ctx.globalAlpha = 0.4; ctx.stroke(); ctx.globalAlpha = 1;
+        }
+      }
+      ctx.restore();
+    }
+
+    function drawStar(cx, cy, outerR, color) {
+      ctx.beginPath();
+      for (let i = 0; i < 5; i++) {
+        const a  = (i*4*Math.PI/5) - Math.PI/2;
+        const ia = a + 2*Math.PI/5;
+        const ir = outerR * 0.42;
+        i === 0 ? ctx.moveTo(cx+outerR*Math.cos(a), cy+outerR*Math.sin(a))
+                : ctx.lineTo(cx+outerR*Math.cos(a), cy+outerR*Math.sin(a));
+        ctx.lineTo(cx+ir*Math.cos(ia), cy+ir*Math.sin(ia));
+      }
+      ctx.closePath();
+      ctx.fillStyle = color; ctx.fill();
+    }
+
+    function loop() {
+      if (autoRotate && !isDragging) {
+        const rot = projection.rotate();
+        projection.rotate([rot[0] + velLon, rot[1]]);
+      }
+      draw();
+      requestAnimationFrame(loop);
+    }
+    loop();
+
+    canvas.addEventListener('mousedown',  e => startDrag(e.clientX, e.clientY));
+    canvas.addEventListener('touchstart', e => startDrag(e.touches[0].clientX, e.touches[0].clientY), {passive:false});
+    window.addEventListener('mousemove',  e => moveDrag(e.clientX, e.clientY));
+    window.addEventListener('touchmove',  e => { e.preventDefault(); moveDrag(e.touches[0].clientX, e.touches[0].clientY); }, {passive:false});
+    window.addEventListener('mouseup',    endDrag);
+    window.addEventListener('touchend',   endDrag);
+
+    function startDrag(x, y) {
+      isDragging = true; autoRotate = false; lastPos = [x,y];
+      clearTimeout(resumeTimer);
+    }
+    function moveDrag(x, y) {
+      if (!isDragging || !lastPos) return;
+      const dx = x - lastPos[0], dy = y - lastPos[1];
+      const rot = projection.rotate();
+      projection.rotate([rot[0]+dx*0.4, Math.max(-60, Math.min(60, rot[1]-dy*0.4))]);
+      velLon = dx*0.4; lastPos = [x,y];
+    }
+    function endDrag() {
+      if (!isDragging) return;
+      isDragging = false;
+      resumeTimer = setTimeout(() => { autoRotate = true; velLon = -0.1; }, 3000);
+    }
+
+    function hitTest(mx, my) {
+      const rect = canvas.getBoundingClientRect();
+      const sx = (mx-rect.left)*(canvas.width/rect.width);
+      const sy = (my-rect.top)*(canvas.height/rect.height);
+      const rot = projection.rotate();
+      for (const loc of LOCATIONS) {
+        if (!isVisible(loc.lat, loc.lng, rot)) continue;
+        const c = projection([loc.lng, loc.lat]);
+        if (!c) continue;
+        const dx = sx-c[0], dy = sy-c[1];
+        if (Math.sqrt(dx*dx+dy*dy) < 18) return loc;
+      }
+      return null;
+    }
+
+    canvas.addEventListener('mousemove', e => {
+      canvas.style.cursor = hitTest(e.clientX, e.clientY) ? 'pointer' : (isDragging ? 'grabbing' : 'grab');
+    });
+    canvas.addEventListener('click', e => {
+      const loc = hitTest(e.clientX, e.clientY);
+      if (loc) selectLocation(loc, e.clientX, e.clientY);
+      else closePopup();
+    });
+    canvas.addEventListener('touchend', e => {
+      const t = e.changedTouches[0];
+      const loc = hitTest(t.clientX, t.clientY);
+      if (loc) selectLocation(loc, t.clientX, t.clientY);
+    }, {passive:true});
+
+    function rotateTo(loc, onDone) {
+      autoRotate = false; clearTimeout(resumeTimer);
+      const targetLon = -loc.lng;
+      const targetLat = Math.max(-50, Math.min(50, -loc.lat * 0.55));
+      const startRot  = projection.rotate().slice();
+      let dLon = targetLon - startRot[0];
+      if (dLon >  180) dLon -= 360;
+      if (dLon < -180) dLon += 360;
+      const dLat = targetLat - startRot[1];
+      const dur = 900, t0 = performance.now();
+      (function step(now) {
+        const t    = Math.min(1, (now-t0)/dur);
+        const ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+        projection.rotate([startRot[0]+dLon*ease, Math.max(-60,Math.min(60,startRot[1]+dLat*ease))]);
+        draw();
+        t < 1 ? requestAnimationFrame(step) : onDone && onDone();
+      })(t0);
+    }
+
+    function selectLocation(loc, screenX, screenY) {
+      activeLocId = loc.id;
+      updateNavActive();
+      rotateTo(loc, () => {
+        const c = projection([loc.lng, loc.lat]);
+        if (c) {
+          const rect = canvas.getBoundingClientRect();
+          screenX = rect.left + c[0]*(rect.width/canvas.width);
+          screenY = rect.top  + c[1]*(rect.height/canvas.height);
+        }
+        openPopup(loc, screenX ?? window.innerWidth/2, screenY ?? window.innerHeight/2);
+      });
+    }
+
+    /* ─── Popup ─── */
+    const popup      = document.getElementById('globe-popup');
+    const popupClose = document.getElementById('popup-close');
+
+    // The popup is absolutely positioned inside .globe-layout
+    const globeLayout = document.querySelector('.globe-layout');
+
+    function openPopup(loc, markerScreenX, markerScreenY) {
+      document.getElementById('popup-name').textContent  = loc.label;
+      document.getElementById('popup-badge').textContent = loc.badge;
+      document.getElementById('popup-desc').textContent  = loc.desc;
+
+      const imgWrap = document.getElementById('popup-img-wrap');
+      const placeholder = document.getElementById('popup-img-placeholder');
+      const oldImg = imgWrap.querySelector('img');
+      if (oldImg) oldImg.remove();
+
+      const img = new Image();
+      img.alt = loc.label;
+      img.onload  = () => { placeholder.style.display='none'; imgWrap.appendChild(img); };
+      img.onerror = () => { placeholder.style.display='flex'; placeholder.textContent='Add image to images/manual-of-me/'; };
+      img.src = loc.image;
+      placeholder.style.display='flex'; placeholder.textContent='Image coming soon';
+
+      // Convert screen coords to coords relative to .globe-layout
+      const containerRect = globeLayout.getBoundingClientRect();
+      const pw = 300, ph = 480;
+      const containerW = containerRect.width;
+      const containerH = containerRect.height;
+
+      // Marker position relative to container
+      let left = (markerScreenX - containerRect.left) + 20;
+      let top  = (markerScreenY - containerRect.top)  - 80;
+
+      // Keep within container bounds
+      if (left + pw > containerW - 8) left = (markerScreenX - containerRect.left) - pw - 20;
+      if (top  + ph > containerH - 8) top  = containerH - ph - 8;
+      if (top < 8)  top  = 8;
+      if (left < 8) left = 8;
+
+      popup.style.left = left + 'px';
+      popup.style.top  = top  + 'px';
+      popup.classList.add('is-visible');
+    }
+
+    function closePopup() {
+      popup.classList.remove('is-visible');
+      activeLocId = null;
+      updateNavActive();
+    }
+
+    popupClose.addEventListener('click', closePopup);
+    document.addEventListener('keydown', e => e.key==='Escape' && closePopup());
+
+    /* ─── Build nav ─── */
+    const nav = document.getElementById('location-nav');
+
+    function svgPin(color) {
+      return `<svg width="11" height="11" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="5" cy="5" r="5" fill="${color}"/><circle cx="5" cy="5" r="2" fill="rgba(255,255,255,0.75)"/></svg>`;
+    }
+    function svgStar() {
+      return `<svg width="12" height="12" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="5.5,0.5 6.8,4.0 10.5,4.0 7.6,6.4 8.7,10.0 5.5,7.8 2.3,10.0 3.4,6.4 0.5,4.0 4.2,4.0" fill="#E8A838"/></svg>`;
+    }
+
+    LOCATIONS.forEach(loc => {
+      if (loc.navOnly) return; // easter eggs — globe only, not in nav
+      const btn = document.createElement('button');
+      btn.className = 'location-nav-item';
+      btn.dataset.id = loc.id;
+      btn.setAttribute('aria-label', `Go to ${loc.label}`);
+
+      const markerEl = document.createElement('span');
+      markerEl.className = 'location-nav-marker';
+      markerEl.innerHTML = loc.type === 'star' ? svgStar() : svgPin('var(--accent)');
+
+      const textEl = document.createElement('span');
+      textEl.className = 'location-nav-text';
+      textEl.innerHTML = `<span class="location-nav-name">${loc.label}</span><span class="location-nav-badge">${loc.badge}</span>`;
+
+      btn.appendChild(markerEl);
+      btn.appendChild(textEl);
+      btn.addEventListener('click', () => selectLocation(loc));
+      nav.appendChild(btn);
+    });
+
+    function updateNavActive() {
+      nav.querySelectorAll('.location-nav-item').forEach(btn => {
+        btn.classList.toggle('is-active', btn.dataset.id === activeLocId);
+      });
+    }
+
+    window.addEventListener('resize', () => {
+      canvasSize();
+      projection.scale(canvas.width/2-2).translate([canvas.width/2, canvas.height/2]);
+      draw();
+    });
+
+    new MutationObserver(draw).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
+
+  })();
+  </script>
+  <script>
+  (() => {
+
+    const GITHUB_USER   = 'jason-kingx';
+    const GITHUB_REPO   = 'safe-camp';
+    const GITHUB_BRANCH = 'main';
+    const STICKERS_PATH = 'images/laptop-stickers';
+
+    const STICKER_SIZE_MIN = 60;
+    const STICKER_SIZE_MAX = 110;
+    const STICKER_ROT_MAX  = 18;
+    const MARGIN_X = 0.06;
+    const MARGIN_Y = 0.10;
+
+    const stage     = document.getElementById('laptop-stage');
+    const layer     = document.getElementById('sticker-layer');
+    const bgImg     = document.getElementById('laptop-bg-img');
+
+    const API_URL =
+      `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${STICKERS_PATH}?ref=${GITHUB_BRANCH}`;
+
+    async function loadStickers() {
+      let files = [];
+      try {
+        const res  = await fetch(API_URL, { headers: { Accept: 'application/vnd.github+json' } });
+        if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+        const data = await res.json();
+        files = data
+          .filter(f => f.type === 'file' && /\.(png|jpg|jpeg|gif|webp|svg)$/i.test(f.name))
+          .map(f => f.download_url);
+      } catch (err) {
+        console.warn('Sticker API fetch failed:', err.message);
+        try {
+          const fallback = await fetch(`${STICKERS_PATH}/manifest.json`);
+          if (fallback.ok) {
+            const names = await fallback.json();
+            files = names.map(n => `${STICKERS_PATH}/${n}`);
+          }
+        } catch (_) { /* silent */ }
+      }
+
+      if (!files.length) {
+        return;
+      }
+
+      if (!bgImg.complete) {
+        await new Promise(resolve => { bgImg.onload = resolve; bgImg.onerror = resolve; });
+      }
+
+      // Wait one frame so the browser lays out the now-visible stage
+      // before we read offsetWidth / offsetHeight for sticker placement
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      placeStickers(files);
+    }
+
+    function rand(min, max) { return min + Math.random() * (max - min); }
+    function randInt(min, max) { return Math.floor(rand(min, max + 1)); }
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    const stickerData = [];
+
+    function placeStickers(urls) {
+      const shuffled = shuffle(urls);
+      const W = stage.offsetWidth;
+      const H = bgImg.offsetHeight || stage.offsetHeight;
+
+      shuffled.forEach(url => {
+        const size = randInt(STICKER_SIZE_MIN, STICKER_SIZE_MAX);
+        const rot  = rand(-STICKER_ROT_MAX, STICKER_ROT_MAX);
+
+        const minX = MARGIN_X * 100;
+        const maxX = (1 - MARGIN_X) * 100 - (size / W) * 100;
+        const minY = MARGIN_Y * 100;
+        const maxY = (1 - MARGIN_Y) * 100 - (size / H) * 100;
+
+        const pctX = rand(Math.max(0, minX), Math.min(maxX, 94));
+        const pctY = rand(Math.max(0, minY), Math.min(maxY, 88));
+
+        const el = document.createElement('div');
+        el.className = 'sticker';
+        el.style.cssText = `
+          left: ${pctX}%;
+          top: ${pctY}%;
+          width: ${size}px;
+          height: ${size}px;
+          transform: rotate(${rot}deg);
+          z-index: ${randInt(1, 20)};
+        `;
+
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = url.split('/').pop().replace(/\.[^.]+$/, '');
+        img.loading = 'lazy';
+        el.appendChild(img);
+        layer.appendChild(el);
+
+        const record = { el, pctX, pctY, size, rot };
+        stickerData.push(record);
+        attachDrag(el, record);
+      });
+    }
+
+    function attachDrag(el, record) {
+      let startX, startY, startLeft, startTop;
+      let isDragging = false;
+
+      el.addEventListener('pointerdown', e => {
+        e.preventDefault();
+        el.setPointerCapture(e.pointerId);
+        const layerRect = layer.getBoundingClientRect();
+        startX    = e.clientX;
+        startY    = e.clientY;
+        startLeft = (record.pctX / 100) * layerRect.width;
+        startTop  = (record.pctY / 100) * layerRect.height;
+        isDragging = true;
+        el.classList.add('is-dragging');
+      });
+
+      el.addEventListener('pointermove', e => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const layerRect = layer.getBoundingClientRect();
+        const newL = Math.max(0, Math.min(layerRect.width  - record.size, startLeft + (e.clientX - startX)));
+        const newT = Math.max(0, Math.min(layerRect.height - record.size, startTop  + (e.clientY - startY)));
+        record.pctX = (newL / layerRect.width)  * 100;
+        record.pctY = (newT / layerRect.height) * 100;
+        el.style.left = `${record.pctX}%`;
+        el.style.top  = `${record.pctY}%`;
+      });
+
+      el.addEventListener('pointerup',     () => { isDragging = false; el.classList.remove('is-dragging'); });
+      el.addEventListener('pointercancel', () => { isDragging = false; el.classList.remove('is-dragging'); });
+    }
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const scale = stage.offsetWidth / 740;
+        stickerData.forEach(({ el, size }) => {
+          const s = Math.round(size * scale);
+          el.style.width  = `${s}px`;
+          el.style.height = `${s}px`;
+        });
+      }, 120);
+    });
+
+    loadStickers();
+
+  })();
+  </script>
+
+</body>
+</html>
