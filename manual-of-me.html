@@ -702,8 +702,8 @@ While living on an island, I remain virtually close with partners and clients th
     const STICKER_SIZE_MIN = 60;
     const STICKER_SIZE_MAX = 110;
     const STICKER_ROT_MAX  = 18;
-    const MARGIN_X = 0.06;
-    const MARGIN_Y = 0.10;
+    const MARGIN_X = 0.01;
+    const MARGIN_Y = 0.01;
 
     const stage     = document.getElementById('laptop-stage');
     const layer     = document.getElementById('sticker-layer');
@@ -774,8 +774,8 @@ While living on an island, I remain virtually close with partners and clients th
         const minY = MARGIN_Y * 100;
         const maxY = (1 - MARGIN_Y) * 100 - (size / H) * 100;
 
-        const pctX = rand(Math.max(0, minX), Math.min(maxX, 94));
-        const pctY = rand(Math.max(0, minY), Math.min(maxY, 88));
+        const pctX = rand(Math.max(0, minX), Math.max(0, maxX));
+        const pctY = rand(Math.max(0, minY), Math.max(0, maxY));
 
         const el = document.createElement('div');
         el.className = 'sticker';
