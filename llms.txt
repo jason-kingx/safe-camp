@@ -44,6 +44,12 @@ URL: https://jason-kingx.github.io/safe-camp/tools/social-media-roi-calculator.h
 
 URL: https://jason-kingx.github.io/safe-camp/tools/statistical-significance-calculator.html
 
+## Manual of Me
+
+A personal guide to Jason King — covering places he has lived, personal influences, how he works, and what he values. Intended for anyone trying to understand who he is beyond his professional credentials. Includes an interactive globe of locations he has called home and a laptop sticker board of personal references.
+
+URL: https://jason-kingx.github.io/safe-camp/manual-of-me.html
+
 ## Contact & Links
 
 - Website: https://jason-kingx.github.io/safe-camp/
@@ -59,4 +65,5 @@ URL: https://jason-kingx.github.io/safe-camp/tools/statistical-significance-calc
 - Social Media Open Graph Checker: https://jason-kingx.github.io/safe-camp/tools/social-card-previewer.html
 - Social Media ROI Calculator: https://jason-kingx.github.io/safe-camp/tools/social-media-roi-calculator.html
 - Statistical Significance Calculator: https://jason-kingx.github.io/safe-camp/tools/statistical-significance-calculator.html
+- Manual of Me: https://jason-kingx.github.io/safe-camp/manual-of-me.html
 - Privacy Policy: https://jason-kingx.github.io/safe-camp/privacy.html
