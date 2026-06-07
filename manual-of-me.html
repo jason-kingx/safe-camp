@@ -136,6 +136,7 @@
       touch-action: none;
       transition: filter 0.15s;
       will-change: transform;
+      aspect-ratio: 1;
     }
     .sticker:hover {
       filter: drop-shadow(0 6px 14px rgba(0,0,0,0.28));
@@ -699,8 +700,8 @@ While living on an island, I remain virtually close with partners and clients th
     const GITHUB_BRANCH = 'main';
     const STICKERS_PATH = 'images/laptop-stickers';
 
-    const STICKER_SIZE_MIN = 44;
-    const STICKER_SIZE_MAX = 72;
+    const STICKER_SIZE_MIN = 0.06;  // as fraction of stage width
+    const STICKER_SIZE_MAX = 0.10;
     const STICKER_ROT_MAX  = 18;
     const MARGIN_X = 0.01;
     const MARGIN_Y = 0.01;
@@ -766,13 +767,14 @@ While living on an island, I remain virtually close with partners and clients th
       const H = bgImg.offsetHeight || stage.offsetHeight;
 
       shuffled.forEach(url => {
-        const size = randInt(STICKER_SIZE_MIN, STICKER_SIZE_MAX);
-        const rot  = rand(-STICKER_ROT_MAX, STICKER_ROT_MAX);
+        const size   = rand(STICKER_SIZE_MIN, STICKER_SIZE_MAX); // fraction of W
+        const pxSize = Math.round(size * W);
+        const rot    = rand(-STICKER_ROT_MAX, STICKER_ROT_MAX);
 
         const minX = MARGIN_X * 100;
-        const maxX = (1 - MARGIN_X) * 100 - (size / W) * 100;
+        const maxX = (1 - MARGIN_X) * 100 - size * 100;
         const minY = MARGIN_Y * 100;
-        const maxY = (1 - MARGIN_Y) * 100 - (size / H) * 100;
+        const maxY = (1 - MARGIN_Y) * 100 - (pxSize / H) * 100;
 
         const pctX = rand(Math.max(0, minX), Math.max(0, maxX));
         const pctY = rand(Math.max(0, minY), Math.max(0, maxY));
@@ -782,8 +784,8 @@ While living on an island, I remain virtually close with partners and clients th
         el.style.cssText = `
           left: ${pctX}%;
           top: ${pctY}%;
-          width: ${size}px;
-          height: ${size}px;
+          width: ${size * 100}%;
+          height: ${pxSize}px;
           transform: rotate(${rot}deg);
           z-index: ${randInt(1, 20)};
         `;
@@ -795,7 +797,7 @@ While living on an island, I remain virtually close with partners and clients th
         el.appendChild(img);
         layer.appendChild(el);
 
-        const record = { el, pctX, pctY, size, rot };
+        const record = { el, pctX, pctY, size: pxSize, rot };
         stickerData.push(record);
         attachDrag(el, record);
       });
@@ -837,11 +839,11 @@ While living on an island, I remain virtually close with partners and clients th
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        const scale = stage.offsetWidth / 740;
+        const W = stage.offsetWidth;
         stickerData.forEach(({ el, size }) => {
-          const s = Math.round(size * scale);
-          el.style.width  = `${s}px`;
-          el.style.height = `${s}px`;
+          // width is %; height stays square in px relative to current stage width
+          const pxSize = Math.round((size / W) * W); // already stored as px at placement W
+          el.style.height = `${Math.round(stage.offsetWidth * (size / W))}px`;
         });
       }, 120);
     });
