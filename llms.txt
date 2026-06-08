@@ -12,19 +12,45 @@ Past clients include: Pfizer, Bayer, Boehringer Ingelheim, Daiichi Sankyo, Lundb
 
 ## Services
 
-**Social Media Playbook** — A complete social media system covering:
-- Foundations: role of social, business priorities, objectives and measurement, budget, risk/legal/compliance, audience definition, channel strategy
-- Customer Care: operations, team structure, community management, customer servicing, social listening, crisis preparation and response scenarios
+Services are grouped into three categories. Scope, timing, and fee can be adjusted for all. Safe Camp does not offer content creation or influencer management.
+
+### Get Started
+
+**Little Answers** — One social media question, answered personally by email. $15.
+
+**Consulting Call** — 30-minute or 1-hour session for immediate answers. $75–$150.
+
+**Custom Project** — A scoped engagement built around specific needs. Pricing determined by scope.
+
+**Retainer** — Dedicated and ad hoc consultation on a longer engagement, typically 6 months. Includes deep embedding as a strategist and operator, ongoing meeting participation, and optionally onsite travel. Typically $8,000+ monthly.
+
+### Audits
+
+**Social Media Audit** — Reviews current public-facing social media channels and internal documentation to identify business opportunities. Scope can focus on one or multiple channels, or include a review of backend nuances. Begins at $2,000.
+
+**LinkedIn Profile Audit** — Documents recommendations for every aspect of a LinkedIn profile, plus additional resources and considerations. Often batched for employee groups such as functional teams or select executives. Recommendations tailored to individual goals. $500 per profile; batch pricing available.
+
+### Strategy
+
+**Executive Thought Leadership Strategy** — Also known as an "Executive Purpose Playbook" or "Personal Brand Strategy." Built for brand executives, spokespeople, consultants, small business owners, or anyone seeking to optimize their digital presence. Covers personal and professional purpose statements, personal brand elements, content and thought leadership pillars, publishing cadence, key digital channels, and integrations with PR and comms plans. Begins at $5,000.
+
+**Social Media Playbook** — Safe Camp's signature service. A complete social media system covering every component of a brand's strategy and operations, tied directly to business, marketing, and social media objectives. Components include:
+- Foundations: business/marketing/social priorities, role of social media, objectives and measurement, budget, social audiences, channel strategy, automation
+- Governance: risk, legal, compliance, AI governance policy, platform policy compliance, account security protocols, employee access controls
+- Customer Care: operations and processes, team structure, community management, customer servicing, response scenarios, social listening, crisis preparation
 - Content: owned assets, UGC, influencer and partner strategy, employer brand, executive presence, employee advocacy, social selling
 - Social by Design: accessibility, brand guidelines, editorial style guide, Figma dynamic elements, social post templates, integrated marketing, media optimization
 - Social Advertising: audience targeting, retargeting, budget allocation, pixel strategy, A/B testing, brand and conversion lift, conversion optimization
-- AI, Automation, and Security
 
-Available as individual components or as a complete system. Starts at $8,000.
+Begins at $8,000.
 
-**Consulting Call** — 30-minute or 1-hour sessions for immediate answers. $75–$150.
+**Conference or Event Strategy** — Outlines social media recommendations for all touchpoints before, during, and after an event. Covers content creation (including on-site production), social media advertising, staff/speaker/attendee involvement, social monitoring and listening, and additional creative ideas. Begins at $5,000.
 
-**Custom Projects** — Strategy, advertising, or retainer engagements. Pricing determined by scope.
+**Social Media Advertising Strategy** — Also known as "Paid Social." Scales depending on scope and timing — from a one-off targeting parameters document to a comprehensive plan or event-specific campaign. Typical deliverable sequence: Strategy Foundation, Pre-Launch Activities, Initial Setup and Promotion, Continued Promotion and Testing. Begins at $5,000.
+
+**Digital Reviews Strategy** — For brands whose reputation is rooted in digital review platforms. Covers industry and competitor research, platform prioritization, review management workflow, response messaging, OKR/KPI alignment, content recommendations, and proactive review generation. Begins at $2,000.
+
+**Digital Crisis Playbook** — A framework and protocols based on anticipated scenarios. Covers a Listen/Analyze/Act framework, media response protocol, workflows for coordination with PR and crisis comms, and legal/risk/compliance considerations. Begins at $4,000.
 
 ## Free Tools
 
@@ -60,6 +86,7 @@ URL: https://jason-kingx.github.io/safe-camp/manual-of-me.html
 ## Site Pages
 
 - Homepage: https://jason-kingx.github.io/safe-camp/
+- Services: https://jason-kingx.github.io/safe-camp/services.html
 - Tools: https://jason-kingx.github.io/safe-camp/tools.html
 - Content Story Framer: https://jason-kingx.github.io/safe-camp/tools/content-story-framer.html
 - Social Media Open Graph Checker: https://jason-kingx.github.io/safe-camp/tools/social-card-previewer.html
