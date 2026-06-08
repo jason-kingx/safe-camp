@@ -10,6 +10,7 @@
 
     <!-- Middle: Links (div avoids global nav{} styles) -->
     <div role="navigation" aria-label="Footer navigation" class="footer-nav">
+      <span class="footer-section-heading">Next Steps</span>
       <a href="little-answers.html" class="footer-nav-link">Little Answers</a>
       <button
         data-cal-link="safecamp"
@@ -27,6 +28,7 @@
 
     <!-- Right: Legal & social -->
     <div class="footer-meta">
+      <span class="footer-section-heading footer-section-heading--right">About</span>
       <span class="footer-line">&copy; 2026 Safe Camp. All rights reserved.</span>
       <span class="footer-line">Jason King &mdash; Social Media Strategy</span>
       <div class="footer-links">
@@ -44,6 +46,28 @@
 </footer>
 
 <style>
+.footer-section-heading {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--on-alt-faint);
+  opacity: 0.5;
+  margin-bottom: 2px;
+  display: block;
+}
+
+.footer-section-heading--right {
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .footer-section-heading--right {
+    text-align: center;
+  }
+}
+
 /* ── Footer ─────────────────────────────────────────────────── */
 #site-footer {
   position: relative;
