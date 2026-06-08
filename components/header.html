@@ -9,9 +9,12 @@
 	<use id="Layer 1" href="#img3" x="731" y="46"/>
 </svg></a><ul class="nav-links" id="navLinks"><li><a href="#about">About</a></li><li><a href="services.html">Services</a></li><li class="nav-dropdown"><button class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Contact <span aria-hidden="true">&#9660;</span></button><ul class="nav-dropdown-menu" role="menu"><li role="none"><button data-cal-link="safecamp" data-cal-namespace="booking" data-cal-config='{"layout":"month_view"}' role="menuitem" class="nav-dropdown-action-btn">Book a Call</button></li><li role="none"><button data-tally-open="MebPkA" data-tally-layout="modal" data-tally-width="560" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" role="menuitem" class="nav-dropdown-action-btn">Contact Me</button></li></ul></li><li class="nav-dropdown"><button class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Resources <span aria-hidden="true">&#9660;</span></button><ul class="nav-dropdown-menu" role="menu"><li role="none"><a href="blog.html" role="menuitem">Blog</a></li><li role="none"><a href="tools.html" role="menuitem">Tools</a></li></ul></li><li><button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode"><span class="toggle-label">Light</span></button></li></ul><button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button></nav>
 <style>
+/* Make action buttons in the Contact dropdown look identical to anchor items */
+.nav-dropdown-menu a,
 .nav-dropdown-action-btn {
   display: block;
   width: 100%;
+  box-sizing: border-box;
   text-align: left;
   background: none;
   border: none;
@@ -21,5 +24,6 @@
   color: inherit;
   letter-spacing: inherit;
   text-transform: inherit;
+  text-decoration: none;
 }
 </style>
