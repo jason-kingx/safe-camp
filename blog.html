@@ -38,8 +38,29 @@
     .page-intro {
       max-width: 720px;
       margin: 0 auto;
-      padding: 72px 24px 0;
+      padding: 36px 24px 0;
     }
+    .page-intro-inner {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+    .page-intro-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .page-intro-img {
+      flex-shrink: 0;
+      width: 160px;
+    }
+    .page-intro-img img {
+      width: 100%;
+      height: auto;
+    }
+    .blog-camper-dark { display: none; }
+    .blog-camper-light { display: block; }
+    [data-theme="dark"] .blog-camper-light { display: none; }
+    [data-theme="dark"] .blog-camper-dark  { display: block; }
     .page-eyebrow {
       display: block;
       font-family: 'DM Sans', sans-serif;
@@ -165,9 +186,17 @@
   <main>
 
     <div class="page-intro">
-      <span class="page-eyebrow" aria-hidden="true">Blog</span>
-      <h1 class="page-title">Safe Camp Notes</h1>
-      <p class="page-desc">Research-backed articles on social media strategy, measurement, and marketing — for professionals who want to make smarter, more defensible decisions.</p>
+      <div class="page-intro-inner">
+        <div class="page-intro-text">
+          <span class="page-eyebrow" aria-hidden="true">Blog</span>
+          <h1 class="page-title">Safe Camp Notes</h1>
+          <p class="page-desc">Research-backed articles on social media topics.</p>
+        </div>
+        <div class="page-intro-img">
+          <img src="images/Camper book light.png" alt="Safe Camp camper character" class="blog-camper-light">
+          <img src="images/Camper book dark.png" alt="Safe Camp camper character" class="blog-camper-dark">
+        </div>
+      </div>
     </div>
 
     <hr class="page-divider" aria-hidden="true">

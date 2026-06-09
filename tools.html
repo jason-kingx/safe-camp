@@ -17,13 +17,39 @@
 
 .tools-outer {
   width: 100%;
-  padding: 96px 48px;
+  padding: 36px 48px 96px;
 }
 
 .tools-inner {
   max-width: 680px;
   margin: 0 auto;
 }
+
+.tools-intro-inner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.tools-intro-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.tools-intro-img {
+  flex-shrink: 0;
+  width: 160px;
+}
+
+.tools-intro-img img {
+  width: 100%;
+  height: auto;
+}
+
+.tools-camper-dark { display: none; }
+.tools-camper-light { display: block; }
+[data-theme="dark"] .tools-camper-light { display: none; }
+[data-theme="dark"] .tools-camper-dark  { display: block; }
 
 .tools-inner h1 {
   font-family: 'EB Garamond', serif;
@@ -115,9 +141,17 @@
   <div class="tools-outer">
     <div class="tools-inner">
 
-      <p class="section-eyebrow" aria-hidden="true">Tools</p>
-      <h1>Tools for Marketing Leaders</h1>
-      <p class="tools-intro">Practical resources built to help you make smarter, more defensible decisions — without needing a data science background.</p>
+      <div class="tools-intro-inner">
+        <div class="tools-intro-text">
+          <p class="section-eyebrow" aria-hidden="true">Tools</p>
+          <h1>Tools</h1>
+          <p class="tools-intro">Practical resources built to help you make smarter, more defensible decisions — without needing a data science background.</p>
+        </div>
+        <div class="tools-intro-img">
+          <img src="images/Camper tools light.png" alt="Safe Camp camper character" class="tools-camper-light">
+          <img src="images/Camper tools dark.png" alt="Safe Camp camper character" class="tools-camper-dark">
+        </div>
+      </div>
 
       <hr class="tools-divider">
 
@@ -144,7 +178,7 @@
         <a href="tools/social-media-roi-calculator.html" class="tool-item">
           <p class="tool-item-tag">Calculator</p>
           <p class="tool-item-title">Social Media ROI Calculator <span class="tool-item-arrow">→</span></p>
-          <p class="tool-item-desc">Calculate what your social media investment is actually worth — by category. Enter your organic content, paid ads, and influencer numbers separately and get a Total System Yield figure powered by 43 research-backed principles. Includes attribution correction, a 3-year brand equity projection, and a plain-English result you can take into a boardroom.</p>
+          <p class="tool-item-desc">Calculate what your social media investment is actually worth — by category. Enter your organic content, paid ads, and influencer numbers separately and get a Total System Yield figure powered by 43 research-backed principles. Includes attribution correction, a 3-year brand equity projection, and a plain language result you can take into a boardroom.</p>
         </a>
 
       </div>
