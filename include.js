@@ -64,8 +64,7 @@ function initHeader() {
     var toggle = dropdown.querySelector('.nav-dropdown-toggle');
     var menu = dropdown.querySelector('.nav-dropdown-menu');
 
-    toggle.addEventListener('click', function (e) {
-      e.stopPropagation();
+    toggle.addEventListener('click', function () {
       // Close all other open dropdowns first
       dropdowns.forEach(function (other) {
         if (other !== dropdown) {
@@ -87,10 +86,12 @@ function initHeader() {
   });
 
   // Close all dropdowns on outside click
-  document.addEventListener('click', function () {
+  document.addEventListener('click', function (e) {
     dropdowns.forEach(function (dropdown) {
-      dropdown.querySelector('.nav-dropdown-menu').classList.remove('is-open');
-      dropdown.querySelector('.nav-dropdown-toggle').setAttribute('aria-expanded', 'false');
+      if (!dropdown.contains(e.target)) {
+        dropdown.querySelector('.nav-dropdown-menu').classList.remove('is-open');
+        dropdown.querySelector('.nav-dropdown-toggle').setAttribute('aria-expanded', 'false');
+      }
     });
   });
 
@@ -113,8 +114,8 @@ function initHeader() {
       closeAllDropdowns();
     }
   });
-  navLinks.querySelectorAll('a').forEach(function (a) {
-    a.addEventListener('click', function () {
+  navLinks.querySelectorAll('a, button:not(.nav-dropdown-toggle):not(#themeToggle):not(#hamburger)').forEach(function (el) {
+    el.addEventListener('click', function () {
       navLinks.classList.remove('nav-open');
       hamburger.classList.remove('is-open');
       hamburger.setAttribute('aria-expanded', 'false');
