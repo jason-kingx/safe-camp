@@ -675,6 +675,8 @@
       startX = clientX;
       animOffset = getCurrentTranslate();
       track.classList.add('is-dragging');
+      // Freeze animation at its current visual position
+      track.style.animationPlayState = 'paused';
       track.style.transform = 'translateX(' + animOffset + 'px)';
     }
 
@@ -688,6 +690,18 @@
       if (!isDragging) return;
       isDragging = false;
       track.classList.remove('is-dragging');
+      // Compute what fraction of the track we're at now, translate that
+      // into a negative animation-delay so the CSS animation resumes
+      // from the dragged position rather than jumping back to where it paused.
+      var currentX = getCurrentTranslate();
+      var halfWidth = track.scrollWidth / 2;
+      // Clamp into one half-cycle (the animation scrolls exactly -halfWidth)
+      var clamped = ((currentX % halfWidth) + halfWidth) % halfWidth; // 0..halfWidth, positive
+      var fraction = clamped / halfWidth; // 0..1
+      var DURATION = 180; // seconds, must match animation duration above
+      var delay = -(fraction * DURATION);
+      track.style.animationDelay = delay + 's';
+      track.style.animationPlayState = 'running';
       track.style.transform = '';
     }
 
