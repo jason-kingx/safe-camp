@@ -100,7 +100,7 @@
     .services-wrap {
       max-width: 960px;
       margin: 0 auto;
-      padding: 0 24px 24px;
+      padding: 0 24px;
     }
 
     /* ── Accordion ── */
@@ -108,7 +108,7 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      margin-bottom: 16px;
+      margin-bottom: 0;
     }
     .acc-card {
       border: 1px solid var(--line);
@@ -327,7 +327,7 @@
     .services-divider {
       border: none;
       border-top: 1px solid var(--line);
-      margin: 0 0 16px;
+      margin: 0;
     }
     .next-steps-title {
       font-family: 'EB Garamond', Georgia, serif;
@@ -365,14 +365,26 @@
       text-decoration: none;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
+      flex: 1 1 0;
+      min-width: 130px;
+      max-width: 200px;
     }
     .next-btn:hover { border-color: var(--ink); }
+    @media (max-width: 480px) {
+      .next-steps-btns {
+        flex-direction: column;
+      }
+      .next-btn {
+        width: 100%;
+      }
+    }
 
     @media (max-width: 640px) {
       .page-intro { padding: 28px 16px 0; }
-      .page-intro-img { display: none; }
-      .services-wrap { padding: 0 16px 24px; }
+      .page-intro-img { width: 120px; }
+      .services-wrap { padding: 0 16px; }
       .playbook-bento { grid-template-columns: repeat(2, 1fr); }
       .acc-header { padding: 12px 16px; gap: 12px; }
       .acc-body { padding: 0 16px 16px; }
@@ -478,7 +490,27 @@
               <div class="acc-body" id="acc-body-3" role="region" aria-labelledby="acc-3">
                 <div class="acc-body-inner">
                   <p class="acc-desc">We can scope a custom project that meets your needs.</p>
-                  <button data-tally-open="MebPkA" data-tally-layout="modal" data-tally-width="560" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" class="cta-link">Let's talk <span aria-hidden="true">→</span></button>
+                  <button data-tally-open="MebPkA" data-tally-layout="modal" data-tally-width="560" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" class="cta-link">Get in touch <span aria-hidden="true">→</span></button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sprint -->
+            <div class="acc-card" id="acc-sprint">
+              <button class="acc-header" onclick="toggleAccById('acc-sprint')" aria-expanded="false" aria-controls="acc-body-sprint">
+                <div class="acc-img" style="background:#FFF7ED;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <div class="acc-meta">
+                  <h3 class="acc-title">Sprint</h3>
+                  <p class="acc-price">Price to be determined</p>
+                </div>
+                <span class="acc-chevron" aria-hidden="true">&#8964;</span>
+              </button>
+              <div class="acc-body" id="acc-body-sprint" role="region" aria-labelledby="acc-sprint">
+                <div class="acc-body-inner">
+                  <p class="acc-desc">A great strategy doesn't always require a long runway. A Sprint is a focused, time-boxed engagement designed to move quickly on a specific problem or opportunity — without the extended scope of a full custom project. Whether you need a rapid audit, a targeted recommendation, or a fast-turnaround deliverable, a Sprint can be scoped to fit your timeline and goals.</p>
+                  <button data-tally-open="MebPkA" data-tally-layout="modal" data-tally-width="560" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" class="cta-link">Get in touch <span aria-hidden="true">→</span></button>
                 </div>
               </div>
             </div>
@@ -795,10 +827,11 @@
         </div>
       </section>
 
+      <div style="padding-bottom: 32px;"></div>
       <hr class="services-divider" aria-hidden="true">
 
       <!-- Next steps -->
-      <section aria-labelledby="next-steps-heading">
+      <section aria-labelledby="next-steps-heading" style="padding-top: 32px;">
         <h2 id="next-steps-heading" class="next-steps-title">Ready to take the next step?</h2>
         <p class="next-steps-desc">Three ways to move forward — pick what fits where you are right now.</p>
         <div class="next-steps-btns">

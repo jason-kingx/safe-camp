@@ -76,6 +76,22 @@ A personal guide to Jason King — covering places he has lived, personal influe
 
 URL: https://jason-kingx.github.io/safe-camp/manual-of-me.html
 
+## Partners
+
+A curated network of trusted communicators for needs beyond social media. Safe Camp does not subcontract work; these are independent referrals for clients who need capabilities outside Jason's scope.
+
+Partners include:
+- **Alyssa Towns** — Freelance writer and contract communications specialist with a background in internal communications and change management. wordswithalyssa.com
+- **Say Sorbet** — The consulting practice of Christina Teves. Advises C-level executives across healthcare, nonprofit, and consumer companies on communications strategy. saysorbet.com
+- **Lauren Helm PR** — The consulting practice of Lauren Helm. Helps organizations with branding, communications, marketing, and events. laurenhelmpr.com
+- **GCYM Group** — The consulting practice of Matt Kelly. Deep experience in high-profile crisis management, corporate communications, and storytelling. gcymgroup.com
+- **Jamie Pugliese** — Art director and animator. Created the animated Safe Camp logo. linkedin.com/in/jamie-pugliese-artdirector
+- **The Specialists** — Independent Chicago-based agency led by Dan Consiglio. Senior team producing work from national brand commercials to local social campaigns. bespecialist.com
+- **CommsConsultants** — A vetted network of 600+ consultants in communications, marketing, and creative, founded by Ashley Dennison. commsconsultants.com
+- **Wikipedia Editor (anonymous)** — One of the world's relatively few Wikipedia Editors at the highest tier. Name shared upon request. Engages with Wikipedia ethically and openly.
+
+URL: https://jason-kingx.github.io/safe-camp/partners.html
+
 ## Contact & Links
 
 - Website: https://jason-kingx.github.io/safe-camp/
@@ -93,4 +109,5 @@ URL: https://jason-kingx.github.io/safe-camp/manual-of-me.html
 - Social Media ROI Calculator: https://jason-kingx.github.io/safe-camp/tools/social-media-roi-calculator.html
 - Statistical Significance Calculator: https://jason-kingx.github.io/safe-camp/tools/statistical-significance-calculator.html
 - Manual of Me: https://jason-kingx.github.io/safe-camp/manual-of-me.html
+- Partners: https://jason-kingx.github.io/safe-camp/partners.html
 - Privacy Policy: https://jason-kingx.github.io/safe-camp/privacy.html

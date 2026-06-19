@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="description" content="Safe Camp trusted partners — a network of kind, experienced communicators for needs beyond social media.">
+  <meta property="og:title" content="Partners — Safe Camp">
+  <meta property="og:description" content="Trusted partners for a range of comms needs beyond social media.">
+  <meta property="og:image" content="https://jason-kingx.github.io/safe-camp/images/og-image.png">
+  <meta property="og:url" content="https://jason-kingx.github.io/safe-camp/partners.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Safe Camp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Partners — Safe Camp">
+  <meta name="twitter:description" content="Trusted partners for a range of comms needs beyond social media.">
+  <meta name="twitter:image" content="https://jason-kingx.github.io/safe-camp/images/og-image.png">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+  <link rel="canonical" href="https://jason-kingx.github.io/safe-camp/partners.html">
+  <title>Partners — Safe Camp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="favicon-black.svg" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="favicon-white.svg" media="(prefers-color-scheme: dark)">
+
+  <!-- Prevent dark-mode flash -->
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); }
+      else if (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches) { document.documentElement.setAttribute('data-theme', 'dark'); }
+    })();
+  </script>
+
+  <style>
+    /* ── Page intro ── */
+    .page-intro {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 36px 24px 0;
+    }
+    .page-intro-inner {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+    .page-intro-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .page-intro-img {
+      flex-shrink: 0;
+      width: 160px;
+    }
+    .page-intro-img img {
+      width: 100%;
+      height: auto;
+    }
+    .partners-camper-dark  { display: none; }
+    .partners-camper-light { display: block; }
+    [data-theme="dark"] .partners-camper-light { display: none; }
+    [data-theme="dark"] .partners-camper-dark  { display: block; }
+
+    .page-eyebrow {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 18px;
+    }
+    .page-title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 400;
+      line-height: 1.18;
+      letter-spacing: -0.01em;
+      margin: 0 0 18px;
+    }
+    .page-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--mid);
+      margin: 0 0 16px;
+    }
+    .page-divider {
+      border: none;
+      border-top: 1px solid var(--line);
+      max-width: 960px;
+      margin: 0 auto 8px;
+    }
+
+    /* ── Partners content wrap ── */
+    .partners-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px 64px;
+    }
+
+    /* ── Partner cards ── */
+    .partners-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 32px;
+    }
+
+    .partner-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 0 40px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: start;
+    }
+    .partner-row:first-child {
+      border-top: 1px solid var(--line);
+    }
+
+    .partner-name-col {
+      padding-top: 2px;
+    }
+
+    .partner-name-link {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--ink);
+      text-decoration: none;
+      line-height: 1.25;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 1px;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline;
+    }
+    .partner-name-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .partner-name-plain {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.25;
+      display: inline;
+    }
+
+    .partner-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    .partner-desc a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 1px;
+      transition: border-color 0.2s;
+    }
+    .partner-desc a:hover {
+      border-color: var(--accent);
+    }
+
+    /* Wikipedia row — italic name treatment */
+    .partner-name-plain.is-anonymous {
+      font-style: italic;
+      color: var(--mid);
+    }
+
+    @media (max-width: 768px) {
+      .page-intro-img {
+        width: 120px;
+      }
+      .partner-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 24px 0;
+      }
+    }
+  </style>
+
+  <script defer src="include.js"></script>
+</head>
+
+<body>
+  <div id="header-placeholder"></div>
+
+  <main>
+
+    <!-- Page intro -->
+    <div class="page-intro">
+      <div class="page-intro-inner">
+        <div class="page-intro-text">
+          <span class="page-eyebrow">Network</span>
+          <h1 class="page-title">Partners</h1>
+          <p class="page-desc">These fine folks are trusted partners for a range of comms needs beyond social media.<br class="mobile-br"> Kind people are my kind of people.</p>
+        </div>
+        <div class="page-intro-img" aria-hidden="true">
+          <img src="images/Partners-light.png" alt="" class="partners-camper-light">
+          <img src="images/Partners-dark.png"  alt="" class="partners-camper-dark">
+        </div>
+      </div>
+    </div>
+
+    <hr class="page-divider" aria-hidden="true">
+
+    <!-- Partners list -->
+    <div class="partners-wrap">
+      <div class="partners-list" role="list">
+
+        <!-- Alyssa Towns -->
+        <div class="partner-row" role="listitem">
+          <div class="partner-name-col">
+            <a href="https://www.wordswithalyssa.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">Alyssa Towns</a>
+          </div>
+          <p class="partner-desc">Alyssa is a freelance writer and contract communications specialist with a background in internal communications &amp; change management.</p>
+        </div>
+
+        <!-- Say Sorbet -->
+        <div class="partner-row" role="listitem">
+          <div class="partner-name-col">
+            <a href="https://www.saysorbet.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">Say Sorbet</a>
+          </div>
+          <p class="partner-desc">The consulting practice of Christina Teves. Christina advises C-level executives across healthcare, nonprofit, and consumer companies to provide thoughtful communications strategies.</p>
+        </div>
+
+        <!-- Lauren Helm PR -->
+        <div class="partner-row" role="listitem">
+          <div class="partner-name-col">
+            <a href="https://laurenhelmpr.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">Lauren Helm PR</a>
+          </div>
+          <p class="partner-desc">The consulting practice of Lauren Helm. Like a compass, Lauren helps organizations chart a clear, strategic course for their branding, communications, marketing, and events.</p>
+        </div>
+
+        <!-- GCYM Group -->
+        <div class="partner-row" role="listitem">
+          <div class="partner-name-col">
+            <a href="https://www.gcymgroup.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">GCYM Group</a>
+          </div>
+          <p class="partner-desc">The consulting practice of <a href="https://www.linkedin.com/in/somattkelly" target="_blank" rel="noopener noreferrer">Matt Kelly</a>. Matt brings deep experience working in high-profile crisis management, corporate communications, and storytelling.</p>
+        </div>
+
+        <!-- Jamie Pugliese -->
+        <div class="partner-row" role="listitem">
+          <div class="partner-name-col">
+            <a href="https://www.linkedin.com/in/jamie-pugliese-artdirector" class="partner-name-link" target="_blank" rel="noopener noreferrer">Jamie Pugliese</a>
+          </div>
+          <p class="partner-desc">Jamie created the animated version of the Safe Camp logo. We worked (and sat next to each other) at Porter Novelli.</p>
+        </div>
+
+        <!-- The Specialists -->
+        <div class="partner-row" role="listitem">
+          <div class="partner-name-col">
+            <a href="https://www.bespecialist.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">The Specialists</a>
+          </div>
+          <p class="partner-desc">An independent Chicago-based agency led by industry veteran Dan Consiglio. This small team of senior, award-winning specialists produces amazing work for clients, from national brand commercials to local social media campaigns and so much more.</p>
+        </div>
+
+        <!-- CommsConsultants -->
+        <div class="partner-row" role="listitem">
+          <div class="partner-name-col">
+            <a href="https://www.commsconsultants.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">CommsConsultants</a>
+          </div>
+          <p class="partner-desc">I'm a community champion within a group of 600+ trusted consultants in communications, marketing, and creative. Every single one was personally vetted by Ashley Dennison, the founder and a longtime comms consultant.</p>
+        </div>
+
+        <!-- Wikipedia Editor -->
+        <div class="partner-row" role="listitem">
+          <div class="partner-name-col">
+            <span class="partner-name-plain is-anonymous">Wikipedia Editor</span>
+          </div>
+          <p class="partner-desc">Due to the sensitive nature of Wikipedia projects, this partner's name will be shared upon request. They are one of the world's relatively few Wikipedia Editors in the highest tier, able to submit new articles for publication — if they meet Wikipedia's Notability Guidelines. They engage with Wikipedia ethically and openly.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+</body>
+</html>

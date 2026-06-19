@@ -79,6 +79,7 @@
   transition: opacity 0.55s ease, transform 0.55s ease;
   pointer-events: none;
   text-align: center;
+  z-index: 1;
 }
 .nc-phase.is-active  { opacity: 1; transform: translateY(0); pointer-events: auto; }
 .nc-phase.is-leaving { opacity: 0; transform: translateY(-14px); transition: opacity 0.38s ease, transform 0.38s ease; }
@@ -87,16 +88,30 @@
 .nc-invite.is-gone   { opacity:0; pointer-events:none; }
 .nc-invite-label     { font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--on-alt-mid); }
 .nc-invite-arrow     { width:20px; height:20px; color:var(--on-alt-mid); animation:nc-bob 1.8s ease-in-out infinite; }
-@keyframes nc-bob { 0%,100%{transform:translateY(0);opacity:.55} 50%{transform:translateY(6px);opacity:1} }
-.nc-large   { font-family:'EB Garamond',serif; font-size:clamp(1.8rem,4vw,3rem); font-weight:400; font-style:italic; color:var(--on-alt); line-height:1.2; }
+@keyframes nc-bob { 0%,100%{transform:translateX(0);opacity:.55} 50%{transform:translateX(6px);opacity:1} }
+.nc-large   { font-family:'EB Garamond',serif; font-size:clamp(1.8rem,4vw,3rem); font-weight:400; font-style:normal; color:var(--on-alt); line-height:1.2; }
 .nc-medium  { font-family:'EB Garamond',serif; font-size:clamp(1.4rem,3vw,2.2rem); font-weight:400; color:var(--on-alt); line-height:1.3; }
 .nc-small   { font-size:clamp(13px,1.5vw,15px); color:var(--on-alt-mid); margin-top:14px; line-height:1.75; }
 .nc-list    { list-style:none; display:flex; flex-direction:column; gap:10px; }
 .nc-list li { font-size:clamp(13px,1.8vw,16px); color:var(--on-alt-mid); line-height:1.65; }
-.nc-analogy { font-family:'EB Garamond',serif; font-size:clamp(1.1rem,2.5vw,1.75rem); font-style:italic; color:var(--on-alt-mid); line-height:1.65; max-width:600px; }
 .nc-payoff-lead { font-size:clamp(11px,1.3vw,13px); letter-spacing:0.14em; text-transform:uppercase; color:var(--on-alt-mid); margin-bottom:20px; }
 .nc-payoff  { font-family:'EB Garamond',serif; font-size:clamp(2.4rem,6vw,4.5rem); font-weight:400; color:var(--on-alt); line-height:1.1; }
-.nc-bar     { position:absolute; bottom:0; left:0; right:0; height:3px; background:var(--phil-border); }
+.nc-bar     { position:absolute; bottom:0; left:0; right:0; height:6px; background:var(--phil-border); z-index:2; }
+/* ── Narrative background illustration ── */
+.nc-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  opacity: 1;
+  transition: opacity 0.55s ease;
+}
+.nc-bg-img.is-swapping { opacity: 0; }
 .nc-bar-fill{ height:100%; background:var(--accent); width:0%; transition:width 0.5s ease; border-radius:0 2px 0 0; }
 /* Glitch */
 .glitch-word { display:inline-block; color:var(--accent); }
@@ -113,8 +128,9 @@
 }
 .glitch-word.is-glitching { animation:nc-glitch 0.9s steps(1) forwards; }
 @media(max-width:768px){
-  #safe-camp-narrative { height:72vh; border-radius:12px; cursor:auto; }
-  .nc-phase { padding:36px 28px; }
+  #narrative-section { padding-left: 12px; padding-right: 12px; }
+  #safe-camp-narrative { height:60vh; min-height:360px; border-radius:12px; cursor:auto; max-width: calc(100vw - 48px); margin: 0 auto; }
+  .nc-phase { padding:32px 24px; }
   .desktop-hint { display: none; }
 }
 @media(min-width:769px){
@@ -448,11 +464,12 @@
   </div>
 <div class="hero-inner"><div class="hero-text"><h1 class="hero-title">Strategy as shelter</h1><p class="hero-sub">Social media strategy is a system that drives business growth.</p></div><div class="hero-image"><img src="images/CamperLight.png" alt="Illustrated camper roasting marshmallows by a campfire" class="hero-camper-light"><img src="images/CamperDark.png" alt="Illustrated camper roasting marshmallows by a campfire" class="hero-camper-dark"></div></div><a class="hero-scroll" href="#narrative-section" aria-label="Explore the next section"><span class="explore-label">Explore</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></a></section><section id="narrative-section" aria-label="Strategy as shelter narrative">
   <div id="safe-camp-narrative" role="region" aria-label="Interactive narrative — scroll while hovering to read" tabindex="0">
+    <img id="nc-bg-img" class="nc-bg-img" src="images/narrative/narrative-00-light.png" alt="" aria-hidden="true">
     <div class="nc-phase is-active" data-phase="0">
       <p class="nc-welcome">Welcome to Safe Camp.</p>
       <div class="nc-invite" id="nc-invite">
-        <span class="nc-invite-label desktop-hint">Scroll to explore</span><span class="nc-invite-label mobile-hint">Swipe to explore</span>
-        <svg class="nc-invite-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        <span class="nc-invite-label desktop-hint">Scroll, click, or arrow keys to explore</span><span class="nc-invite-label mobile-hint">Swipe to explore</span>
+        <svg class="nc-invite-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
     </div>
     <div class="nc-phase" data-phase="1">
@@ -468,28 +485,22 @@
       <p class="nc-medium">The good thing is that it<br>doesn't have to be this way.</p>
     </div>
     <div class="nc-phase" data-phase="5">
-      <p class="nc-large">Strategy is the light that brings<br><em>calm, clarity, and focus.</em></p>
+      <p class="nc-large">Strategy is what clears<br>a path through the darkness.</p>
     </div>
     <div class="nc-phase" data-phase="6">
-      <p class="nc-analogy">Like an instruction manual, sports play, blueprint, car parts, compass, north star…</p>
+      <p class="nc-medium">Strategy is a finite system<br>with specific components.</p>
+      <p class="nc-small">These include the operations and outcomes of content, community management, advertising, and more.</p>
     </div>
     <div class="nc-phase" data-phase="7">
-      <p class="nc-medium">It is a finite system with specific components.</p>
-      <p class="nc-small">Those components determine whether the brand will be successful on social media.</p>
+      <p class="nc-medium">Strategy must connect each component to business,<br>marketing, and social media objectives.</p>
+      <p class="nc-small">With evidence that they will drive business growth, not vanity metrics.</p>
     </div>
     <div class="nc-phase" data-phase="8">
-      <p class="nc-medium">Strategy ties business objectives<br>to every single social action.</p>
-      <p class="nc-small">With evidence that they will drive growth, not vanity metrics.</p>
+      <p class="nc-medium">Strategy connects every decision,<br>workflow, and stakeholder.</p>
+      <p class="nc-small">This ensures the team is aligned and heading in the same direction.</p>
     </div>
     <div class="nc-phase" data-phase="9">
-      <p class="nc-medium">Strategy connects every decision,<br>workflow, and stakeholder.</p>
-      <p class="nc-small">Strategy ensures the team is aligned and heading in the right direction.</p>
-    </div>
-    <div class="nc-phase" data-phase="10">
-      <p class="nc-large">Social media strategy is a system<br>that drives business growth.</p>
-    </div>
-    <div class="nc-phase" data-phase="11">
-      <p class="nc-payoff-lead">In the dark and noisy forest, brands need</p>
+      <p class="nc-payoff-lead">In the dark and noisy forest, a system is</p>
       <p class="nc-payoff">Strategy as shelter.</p>
     </div>
     <div class="nc-bar" aria-hidden="true"><div class="nc-bar-fill" id="nc-bar-fill"></div></div>
@@ -635,7 +646,9 @@
     'Theirworld.svg',
     'Venmo.svg',
     'Vidalia_Onion.svg',
-    'Visby_Medical.png'
+    'Visby_Medical.png',
+    'pied-piper.png',
+    'hooli.png'
   ];
   buildTicker(files);
 
@@ -697,11 +710,32 @@
   var invite   = document.getElementById('nc-invite');
   var barFill  = document.getElementById('nc-bar-fill');
   var glitchEl = document.getElementById('glitch-alg');
-  var TOTAL    = phases.length - 1; // 0 = entry, 1-11 = narrative
+  var bgImg    = document.getElementById('nc-bg-img');
+  var TOTAL    = phases.length - 1; // 0 = entry, 1-9 = narrative
   var current  = 0;
   var hovering = false;
   var inviteDone = false;
   var cooldown = false;
+
+  function ncBgSrc(idx) {
+    var pad    = idx < 10 ? '0' + idx : '' + idx;
+    var theme  = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    return 'images/narrative/narrative-' + pad + '-' + theme + '.png';
+  }
+
+  function swapBg(idx) {
+    if (!bgImg) return;
+    bgImg.classList.add('is-swapping');
+    setTimeout(function () {
+      bgImg.src = ncBgSrc(idx);
+      bgImg.classList.remove('is-swapping');
+    }, 275); // halfway through the phase fade (550ms / 2)
+  }
+
+  // Re-swap bg if theme changes while narrative is open
+  new MutationObserver(function () {
+    if (bgImg) bgImg.src = ncBgSrc(current);
+  }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
   function goTo(idx){
     if(idx < 0 || idx > TOTAL) return;
@@ -713,6 +747,7 @@
     setTimeout(function(){ prev.classList.remove('is-leaving'); }, 500);
 
     current = next;
+    swapBg(current);
 
     // Wait for old phase to fade out before revealing new one
     setTimeout(function(){
