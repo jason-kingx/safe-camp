@@ -617,6 +617,7 @@
     'Grounded.png',
     'GSK.svg',
     'Hanna_Andersson.svg',
+    'hooli.png',
     'Hornitos.png',
     'Huntington_Bank.svg',
     'Intarcia_Therapeutics.png',
@@ -635,6 +636,7 @@
     'One_Earth.avif',
     'Pfizer.svg',
     'Pinnacle_Vodka.svg',
+    'pied-piper.png',
     'Poise.png',
     'Procter_and_Gamble.svg',
     'Red_Wing_Shoes.svg',
@@ -647,8 +649,6 @@
     'Venmo.svg',
     'Vidalia_Onion.svg',
     'Visby_Medical.png',
-    'pied-piper.png',
-    'hooli.png'
   ];
   buildTicker(files);
 
@@ -670,28 +670,45 @@
       return parseFloat(values[4]) || 0;
     }
 
-    outer.addEventListener('mousedown', function (e) {
+    function startDrag(clientX) {
       isDragging = true;
-      startX = e.pageX;
+      startX = clientX;
       animOffset = getCurrentTranslate();
       track.classList.add('is-dragging');
-      // Freeze animation at current visual position
       track.style.transform = 'translateX(' + animOffset + 'px)';
-    });
+    }
 
-    window.addEventListener('mousemove', function (e) {
+    function moveDrag(clientX) {
       if (!isDragging) return;
-      var dx = e.pageX - startX;
+      var dx = clientX - startX;
       track.style.transform = 'translateX(' + (animOffset + dx) + 'px)';
-    });
+    }
 
-    window.addEventListener('mouseup', function () {
+    function endDrag() {
       if (!isDragging) return;
       isDragging = false;
       track.classList.remove('is-dragging');
-      // Resume CSS animation from current position by resetting transform
       track.style.transform = '';
-    });
+    }
+
+    // Mouse events
+    outer.addEventListener('mousedown', function (e) { startDrag(e.pageX); });
+    window.addEventListener('mousemove', function (e) { moveDrag(e.pageX); });
+    window.addEventListener('mouseup', endDrag);
+
+    // Touch events — single finger only so pinch-zoom still works
+    outer.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) return;
+      startDrag(e.touches[0].clientX);
+    }, { passive: true });
+
+    outer.addEventListener('touchmove', function (e) {
+      if (!isDragging || e.touches.length !== 1) return;
+      moveDrag(e.touches[0].clientX);
+    }, { passive: true });
+
+    outer.addEventListener('touchend', endDrag, { passive: true });
+    outer.addEventListener('touchcancel', endDrag, { passive: true });
 
     // Prevent image drag
     outer.addEventListener('dragstart', function (e) { e.preventDefault(); });
@@ -781,9 +798,11 @@
   // Touch swipe: left/up = forward, right/down = back
   var touchStartX = 0;
   var touchStartY = 0;
+  var swipeHandled = false;
   module.addEventListener('touchstart', function(e){
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
+    swipeHandled = false;
   }, { passive: true });
   module.addEventListener('touchend', function(e){
     var dx = e.changedTouches[0].clientX - touchStartX;
@@ -793,6 +812,7 @@
     if(Math.max(absDx, absDy) < 30) return;
     if(cooldown) return;
     cooldown = true;
+    swipeHandled = true;
     setTimeout(function(){ cooldown = false; }, 900);
     // Swipe left or up → forward; swipe right or down → back
     if(absDx >= absDy){
@@ -816,8 +836,9 @@
     }
   }, { passive: false });
 
-  // Click to advance
+  // Click to advance (but not if a swipe just fired on this same touch)
   module.addEventListener('click', function(){
+    if(swipeHandled){ swipeHandled = false; return; }
     if(cooldown) return;
     cooldown = true;
     setTimeout(function(){ cooldown = false; }, 900);
