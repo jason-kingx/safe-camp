@@ -528,20 +528,11 @@
     display: flex;
     gap: 64px;
     width: max-content;
-    animation: ticker-scroll 180s linear infinite;
     will-change: transform;
     cursor: grab;
     user-select: none;
   }
-  .ticker-track.is-dragging {
-    animation-play-state: paused;
-    cursor: grabbing;
-  }
-  .ticker-track:not(.is-dragging):hover { animation-play-state: running; }
-  @keyframes ticker-scroll {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
+  .ticker-track.is-dragging { cursor: grabbing; }
   .ticker-logo {
     height: 36px;
     width: 120px;
@@ -652,79 +643,74 @@
   ];
   buildTicker(files);
 
-  // ── Drag-scroll ──────────────────────────────────────────────
+  // ── rAF auto-scroll + drag ────────────────────────────────────
   (function () {
-    var outer   = track.parentElement; // .ticker-outer
+    var outer = track.parentElement;
+    var halfWidth = 0;   // half of scrollWidth; set after images load
+    var posX = 0;        // current translateX in px, always <= 0
+    var SPEED = 0.4;     // px per frame (~24 px/s at 60 fps)
+
     var isDragging = false;
-    var startX  = 0;
-    var scrollLeft = 0;
-    var animOffset = 0; // tracks how far drag has moved
+    var dragStartX = 0;
+    var dragStartPos = 0;
 
-    function getCurrentTranslate() {
-      var style = window.getComputedStyle(track);
-      var matrix = style.transform || style.webkitTransform;
-      if (!matrix || matrix === 'none') return 0;
-      var match = matrix.match(/matrix.*\((.+)\)/);
-      if (!match) return 0;
-      var values = match[1].split(', ');
-      return parseFloat(values[4]) || 0;
+    function wrap(x) {
+      if (!halfWidth) return x;
+      x = x % halfWidth;
+      if (x > 0) x -= halfWidth;
+      return x;
     }
 
-    function startDrag(clientX) {
+    function tick() {
+      if (!isDragging) posX = wrap(posX - SPEED);
+      track.style.transform = 'translateX(' + posX + 'px)';
+      requestAnimationFrame(tick);
+    }
+
+    // Wait for images so scrollWidth is accurate
+    window.addEventListener('load', function () {
+      halfWidth = track.scrollWidth / 2;
+      requestAnimationFrame(tick);
+    });
+
+    // ── Mouse ──
+    outer.addEventListener('mousedown', function (e) {
       isDragging = true;
-      startX = clientX;
-      animOffset = getCurrentTranslate();
+      dragStartX = e.clientX;
+      dragStartPos = posX;
       track.classList.add('is-dragging');
-      // Freeze animation at its current visual position
-      track.style.animationPlayState = 'paused';
-      track.style.transform = 'translateX(' + animOffset + 'px)';
-    }
-
-    function moveDrag(clientX) {
+    });
+    window.addEventListener('mousemove', function (e) {
       if (!isDragging) return;
-      var dx = clientX - startX;
-      track.style.transform = 'translateX(' + (animOffset + dx) + 'px)';
-    }
-
-    function endDrag() {
+      posX = wrap(dragStartPos + (e.clientX - dragStartX));
+    });
+    window.addEventListener('mouseup', function () {
       if (!isDragging) return;
       isDragging = false;
       track.classList.remove('is-dragging');
-      // Compute what fraction of the track we're at now, translate that
-      // into a negative animation-delay so the CSS animation resumes
-      // from the dragged position rather than jumping back to where it paused.
-      var currentX = getCurrentTranslate();
-      var halfWidth = track.scrollWidth / 2;
-      // Clamp into one half-cycle (the animation scrolls exactly -halfWidth)
-      var clamped = ((currentX % halfWidth) + halfWidth) % halfWidth; // 0..halfWidth, positive
-      var fraction = clamped / halfWidth; // 0..1
-      var DURATION = 180; // seconds, must match animation duration above
-      var delay = -(fraction * DURATION);
-      track.style.animationDelay = delay + 's';
-      track.style.animationPlayState = 'running';
-      track.style.transform = '';
-    }
+    });
 
-    // Mouse events
-    outer.addEventListener('mousedown', function (e) { startDrag(e.pageX); });
-    window.addEventListener('mousemove', function (e) { moveDrag(e.pageX); });
-    window.addEventListener('mouseup', endDrag);
-
-    // Touch events — single finger only so pinch-zoom still works
+    // ── Touch ──
     outer.addEventListener('touchstart', function (e) {
       if (e.touches.length !== 1) return;
-      startDrag(e.touches[0].clientX);
+      isDragging = true;
+      dragStartX = e.touches[0].clientX;
+      dragStartPos = posX;
+      track.classList.add('is-dragging');
     }, { passive: true });
-
     outer.addEventListener('touchmove', function (e) {
       if (!isDragging || e.touches.length !== 1) return;
-      moveDrag(e.touches[0].clientX);
+      posX = wrap(dragStartPos + (e.touches[0].clientX - dragStartX));
+    }, { passive: true });
+    outer.addEventListener('touchend', function () {
+      isDragging = false;
+      track.classList.remove('is-dragging');
+    }, { passive: true });
+    outer.addEventListener('touchcancel', function () {
+      isDragging = false;
+      track.classList.remove('is-dragging');
     }, { passive: true });
 
-    outer.addEventListener('touchend', endDrag, { passive: true });
-    outer.addEventListener('touchcancel', endDrag, { passive: true });
-
-    // Prevent image drag
     outer.addEventListener('dragstart', function (e) { e.preventDefault(); });
   })();
 
