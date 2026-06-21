@@ -4,7 +4,7 @@
     "url": "https://alembic.space/editor",
     "main_category": "Writing",
     "sub_category": "Content Design",
-    "description": "Write text and export it as beautifully styled images \u2014 combines a writing editor with 120+ visual shaders. No AI, no login required.",
+    "description": "Write text and export it as beautifully styled images — combines a writing editor with 120+ visual shaders. No AI, no login required.",
     "pricing": "Free (Beta)",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -14,7 +14,7 @@
     "url": "https://alsoasked.com",
     "main_category": "Marketing",
     "sub_category": "SEO Research",
-    "description": "Visualize the questions people ask around any keyword using Google's 'People Also Ask' data \u2014 great for content structure, FAQ planning, and topic mapping.",
+    "description": "Visualize the questions people ask around any keyword using Google's 'People Also Ask' data — great for content structure, FAQ planning, and topic mapping.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -24,7 +24,7 @@
     "url": "https://answersocrates.com",
     "main_category": "Marketing",
     "sub_category": "SEO Research",
-    "description": "Discover the questions people are actually searching for around any topic \u2014 useful for content ideation, SEO planning, and understanding audience intent.",
+    "description": "Discover the questions people are actually searching for around any topic — useful for content ideation, SEO planning, and understanding audience intent.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -34,7 +34,7 @@
     "url": "https://www.mozilla.ai/open-tools/choice-first-stack/any-agent",
     "main_category": "Development",
     "sub_category": "AI Agents",
-    "description": "A universal interface for building and evaluating AI agents across multiple frameworks \u2014 switch frameworks with a config change, no code rewrites required.",
+    "description": "A universal interface for building and evaluating AI agents across multiple frameworks — switch frameworks with a config change, no code rewrites required.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -44,7 +44,7 @@
     "url": "https://www.mozilla.ai/open-tools/choice-first-stack/any-guardrail",
     "main_category": "Development",
     "sub_category": "AI Safety",
-    "description": "A unified interface for guardrail models that lets you switch between them with a single name change \u2014 streamlines safety experimentation for AI applications.",
+    "description": "A unified interface for guardrail models that lets you switch between them with a single name change — streamlines safety experimentation for AI applications.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -54,7 +54,7 @@
     "url": "https://www.mozilla.ai/open-tools/choice-first-stack/any-llm",
     "main_category": "Development",
     "sub_category": "AI Infrastructure",
-    "description": "A single interface to call any LLM provider \u2014 OpenAI, Anthropic, Mistral, and more \u2014 without rewriting your code when you switch.",
+    "description": "A single interface to call any LLM provider — OpenAI, Anthropic, Mistral, and more — without rewriting your code when you switch.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -64,7 +64,7 @@
     "url": "https://blueprints.mozilla.ai",
     "main_category": "Development",
     "sub_category": "AI Workflows",
-    "description": "A developer-first hub of open-source AI workflow recipes covering agents, evaluation, fine-tuning, local AI, and more \u2014 browse or submit your own.",
+    "description": "A developer-first hub of open-source AI workflow recipes covering agents, evaluation, fine-tuning, local AI, and more — browse or submit your own.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -74,7 +74,7 @@
     "url": "https://cal.com",
     "main_category": "Productivity",
     "sub_category": "Scheduling",
-    "description": "An open-source scheduling platform that connects with your calendar and lets anyone book time with you \u2014 fully customizable, privacy-respecting, and self-hostable.",
+    "description": "An open-source scheduling platform that connects with your calendar and lets anyone book time with you — fully customizable, privacy-respecting, and self-hostable.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -84,7 +84,7 @@
     "url": "https://www.canva.com",
     "main_category": "Design",
     "sub_category": "Graphic Design",
-    "description": "A versatile, beginner-friendly design platform for creating social posts, presentations, videos, and more \u2014 with thousands of templates and AI-assisted tools.",
+    "description": "A versatile, beginner-friendly design platform for creating social posts, presentations, videos, and more — with thousands of templates and AI-assisted tools.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -94,7 +94,7 @@
     "url": "https://www.capcut.com",
     "main_category": "Content Creation",
     "sub_category": "Video Editing",
-    "description": "A fast, feature-rich video editor popular for social media content \u2014 templates, auto-captions, effects, and AI tools built in.",
+    "description": "A fast, feature-rich video editor popular for social media content — templates, auto-captions, effects, and AI tools built in.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -104,7 +104,7 @@
     "url": "https://chroniclehq.com",
     "main_category": "Design",
     "sub_category": "Presentations",
-    "description": "An AI-powered presentation tool built for professional, on-brand slides \u2014 generate polished decks from raw notes, outlines, or existing docs.",
+    "description": "An AI-powered presentation tool built for professional, on-brand slides — generate polished decks from raw notes, outlines, or existing docs.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -124,7 +124,7 @@
     "url": "https://www.clay.com",
     "main_category": "Sales",
     "sub_category": "Contact Enrichment",
-    "description": "A data enrichment and outreach automation platform \u2014 pull from 100+ data sources to build highly targeted prospect lists and personalize outreach at scale.",
+    "description": "A data enrichment and outreach automation platform — pull from 100+ data sources to build highly targeted prospect lists and personalize outreach at scale.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -134,7 +134,7 @@
     "url": "https://www.useclear.com",
     "main_category": "Productivity",
     "sub_category": "Task Management",
-    "description": "A beautifully minimal iOS and Mac to-do list app \u2014 gesture-driven, visually satisfying, and stripped of all unnecessary complexity.",
+    "description": "A beautifully minimal iOS and Mac to-do list app — gesture-driven, visually satisfying, and stripped of all unnecessary complexity.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -144,7 +144,7 @@
     "url": "https://jason-kingx.github.io/safe-camp/tools/content-story-framer.html",
     "main_category": "Marketing",
     "sub_category": "Content Strategy",
-    "description": "Pick a proven story structure and write directly inside the scaffold \u2014 works for social captions, video scripts, newsletters, and more.",
+    "description": "Pick a proven story structure and write directly inside the scaffold — works for social captions, video scripts, newsletters, and more.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": true
@@ -174,7 +174,7 @@
     "url": "https://cursor.com",
     "main_category": "Development",
     "sub_category": "AI Code Editor",
-    "description": "An AI-first code editor built for pair-programming with AI \u2014 write, edit, and debug code in natural language with deep codebase understanding.",
+    "description": "An AI-first code editor built for pair-programming with AI — write, edit, and debug code in natural language with deep codebase understanding.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -184,7 +184,7 @@
     "url": "https://deckofbrilliance.com",
     "main_category": "Marketing",
     "sub_category": "Ideation",
-    "description": "A collection of 200+ structured ideation tools for creative professionals \u2014 organized into toolkits covering strategy, story, insight-mining, and more. 21 tools are free.",
+    "description": "A collection of 200+ structured ideation tools for creative professionals — organized into toolkits covering strategy, story, insight-mining, and more. 21 tools are free.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -204,7 +204,7 @@
     "url": "https://www.descript.com",
     "main_category": "Content Creation",
     "sub_category": "Video & Audio Editing",
-    "description": "Edit video and audio like a document \u2014 delete words from the transcript to cut footage, with AI tools for transcription, overdubbing, and screen recording.",
+    "description": "Edit video and audio like a document — delete words from the transcript to cut footage, with AI tools for transcription, overdubbing, and screen recording.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -214,7 +214,7 @@
     "url": "https://draculatheme.com",
     "main_category": "Development",
     "sub_category": "Themes",
-    "description": "A popular dark color theme for code editors, terminals, and developer tools \u2014 available for 300+ apps with a consistent, easy-on-the-eyes palette.",
+    "description": "A popular dark color theme for code editors, terminals, and developer tools — available for 300+ apps with a consistent, easy-on-the-eyes palette.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -224,7 +224,7 @@
     "url": "https://duckduckgo.com",
     "main_category": "Utilities",
     "sub_category": "Search",
-    "description": "A privacy-first search engine that doesn't track you or personalize results \u2014 clean, fast, and ad-light.",
+    "description": "A privacy-first search engine that doesn't track you or personalize results — clean, fast, and ad-light.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -234,7 +234,7 @@
     "url": "https://elevenlabs.io",
     "main_category": "AI",
     "sub_category": "Voice & Audio",
-    "description": "Generate natural, expressive AI voices from text \u2014 clone any voice, create characters, and produce narration or dialogue in dozens of languages.",
+    "description": "Generate natural, expressive AI voices from text — clone any voice, create characters, and produce narration or dialogue in dozens of languages.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -244,7 +244,7 @@
     "url": "https://emastered.com",
     "main_category": "Content Creation",
     "sub_category": "Audio Mastering",
-    "description": "AI-powered audio mastering in seconds \u2014 upload your track and get a professionally mastered version ready for streaming platforms.",
+    "description": "AI-powered audio mastering in seconds — upload your track and get a professionally mastered version ready for streaming platforms.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -254,7 +254,7 @@
     "url": "https://www.mozilla.ai/open-tools/encoderfile",
     "main_category": "Development",
     "sub_category": "Local AI",
-    "description": "Package transformer-based encoder models into a single, dependency-free binary \u2014 no Python, no runtime overhead, ideal for constrained environments.",
+    "description": "Package transformer-based encoder models into a single, dependency-free binary — no Python, no runtime overhead, ideal for constrained environments.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -264,7 +264,7 @@
     "url": "https://endel.io",
     "main_category": "Productivity",
     "sub_category": "Focus Music",
-    "description": "Generates personalized soundscapes in real time to help you focus, relax, or sleep \u2014 adapts to your time of day, heart rate, and activity.",
+    "description": "Generates personalized soundscapes in real time to help you focus, relax, or sleep — adapts to your time of day, heart rate, and activity.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -274,7 +274,7 @@
     "url": "https://explodingtopics.com",
     "main_category": "Marketing",
     "sub_category": "Trend Research",
-    "description": "Spot emerging trends before they peak \u2014 uses data analysis to surface fast-growing topics in business, technology, and culture months ahead of mainstream awareness.",
+    "description": "Spot emerging trends before they peak — uses data analysis to surface fast-growing topics in business, technology, and culture months ahead of mainstream awareness.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -284,7 +284,7 @@
     "url": "https://justgetflux.com",
     "main_category": "Utilities",
     "sub_category": "System Tools",
-    "description": "Adjusts your screen's color temperature to match the time of day \u2014 warmer at night to reduce eye strain and improve sleep.",
+    "description": "Adjusts your screen's color temperature to match the time of day — warmer at night to reduce eye strain and improve sleep.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -294,7 +294,7 @@
     "url": "https://www.facebook.com/ads/library/",
     "main_category": "Marketing",
     "sub_category": "Ad Research",
-    "description": "Search all active ads running across Facebook, Instagram, and Meta's network \u2014 filter by country, platform, and advertiser for competitive research.",
+    "description": "Search all active ads running across Facebook, Instagram, and Meta's network — filter by country, platform, and advertiser for competitive research.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -304,7 +304,7 @@
     "url": "https://www.figma.com",
     "main_category": "Design",
     "sub_category": "UI Design",
-    "description": "The collaborative interface design tool used by most product teams \u2014 prototype, design systems, and hand off to developers all in one place.",
+    "description": "The collaborative interface design tool used by most product teams — prototype, design systems, and hand off to developers all in one place.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -314,7 +314,7 @@
     "url": "https://www.figma.com/buzz/",
     "main_category": "Design",
     "sub_category": "Social Media Design",
-    "description": "Figma's dedicated tool for creating on-brand social media content at scale \u2014 templates, brand kits, and bulk export built for marketing teams.",
+    "description": "Figma's dedicated tool for creating on-brand social media content at scale — templates, brand kits, and bulk export built for marketing teams.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -324,7 +324,7 @@
     "url": "https://flora.ai",
     "main_category": "AI",
     "sub_category": "Creative Canvas",
-    "description": "A unified creative environment with 50+ AI models for image, video, and text \u2014 explore ideas, iterate in real time, and scale generative workflows across a collaborative canvas.",
+    "description": "A unified creative environment with 50+ AI models for image, video, and text — explore ideas, iterate in real time, and scale generative workflows across a collaborative canvas.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -334,7 +334,7 @@
     "url": "https://frame.io",
     "main_category": "Content Creation",
     "sub_category": "Video Review",
-    "description": "A professional video review and collaboration platform \u2014 share video with frame-accurate comments, version control, and approvals for creative teams.",
+    "description": "A professional video review and collaboration platform — share video with frame-accurate comments, version control, and approvals for creative teams.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -344,7 +344,7 @@
     "url": "https://www.framer.com",
     "main_category": "Design",
     "sub_category": "Website Builder",
-    "description": "A no-code website builder with powerful design controls and AI-assisted page generation \u2014 go from prototype to published site without writing code.",
+    "description": "A no-code website builder with powerful design controls and AI-assisted page generation — go from prototype to published site without writing code.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -364,7 +364,7 @@
     "url": "https://godly.website",
     "main_category": "Design",
     "sub_category": "Inspiration",
-    "description": "A hand-curated gallery of the best web design on the internet \u2014 high-resolution screenshots of standout sites, updated daily.",
+    "description": "A hand-curated gallery of the best web design on the internet — high-resolution screenshots of standout sites, updated daily.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -374,7 +374,7 @@
     "url": "https://adstransparency.google.com/?region=US",
     "main_category": "Marketing",
     "sub_category": "Ad Research",
-    "description": "Search any advertiser's active and recent Google ads across Search, Display, and YouTube \u2014 useful for competitive research and understanding market messaging.",
+    "description": "Search any advertiser's active and recent Google ads across Search, Display, and YouTube — useful for competitive research and understanding market messaging.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -404,7 +404,7 @@
     "url": "https://illuminate.google.com",
     "main_category": "AI",
     "sub_category": "Research",
-    "description": "Transform research papers and documents into engaging AI-hosted audio conversations \u2014 a Google Labs experiment for making dense content more accessible.",
+    "description": "Transform research papers and documents into engaging AI-hosted audio conversations — a Google Labs experiment for making dense content more accessible.",
     "pricing": "Free (Beta)",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -424,7 +424,7 @@
     "url": "https://gemini.google.com",
     "main_category": "AI",
     "sub_category": "Image Generation",
-    "description": "Google's AI image generation and editing model, accessed via Gemini \u2014 create, edit, and iterate on visuals using natural language.",
+    "description": "Google's AI image generation and editing model, accessed via Gemini — create, edit, and iterate on visuals using natural language.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -444,7 +444,7 @@
     "url": "https://opal.google/landing/",
     "main_category": "AI",
     "sub_category": "No-Code App Builder",
-    "description": "A Google Labs experiment for building and sharing AI mini-apps using plain-language descriptions and a visual workflow editor \u2014 no coding needed.",
+    "description": "A Google Labs experiment for building and sharing AI mini-apps using plain-language descriptions and a visual workflow editor — no coding needed.",
     "pricing": "Free (Beta)",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -474,7 +474,7 @@
     "url": "https://www.heygen.com",
     "main_category": "AI",
     "sub_category": "Video Avatars",
-    "description": "Create AI-generated talking avatar videos from a script \u2014 build a digital twin, translate content into 40+ languages, and produce studio-quality videos without a camera.",
+    "description": "Create AI-generated talking avatar videos from a script — build a digital twin, translate content into 40+ languages, and produce studio-quality videos without a camera.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -484,7 +484,7 @@
     "url": "https://higgsfield.ai/soul",
     "main_category": "AI",
     "sub_category": "Video Avatars",
-    "description": "Create a personalized AI video avatar trained on your likeness \u2014 generate lifelike video content of yourself without ever filming.",
+    "description": "Create a personalized AI video avatar trained on your likeness — generate lifelike video content of yourself without ever filming.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -494,19 +494,29 @@
     "url": "https://hypem.com",
     "main_category": "Entertainment",
     "sub_category": "Music Discovery",
-    "description": "Aggregates music posts from thousands of blogs daily and surfaces the most loved tracks \u2014 a human-curated alternative to algorithmic playlists.",
+    "description": "Aggregates music posts from thousands of blogs daily and surfaces the most loved tracks — a human-curated alternative to algorithmic playlists.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
   },
   {
-    "name": "Ic\u00f4nes",
+    "name": "Icônes",
     "url": "https://icones.js.org",
     "main_category": "Design",
     "sub_category": "Icons",
-    "description": "Browse and search over 150,000 open-source icons across every major icon set \u2014 copy as SVG, component code, or download in seconds.",
+    "description": "Browse and search over 150,000 open-source icons across every major icon set — copy as SVG, component code, or download in seconds.",
     "pricing": "Free",
     "date_added": "2026-05-05",
+    "made_by_safe_camp": false
+  },
+  {
+    "name": "Idiot Proofed",
+    "url": "https://idiotproofed.com/#",
+    "main_category": "Design",
+    "sub_category": "Typography",
+    "description": "A font proofing tool for previewing and testing typefaces across customisable type scales, sizes, and line heights — with PDF export.",
+    "pricing": "Free",
+    "date_added": "2026-06-20",
     "made_by_safe_camp": false
   },
   {
@@ -514,7 +524,7 @@
     "url": "https://image-upscaling.net/upscaling/en.html",
     "main_category": "Design",
     "sub_category": "Image Enhancement",
-    "description": "A donation-funded AI image upscaler with no sign-up and no watermarks \u2014 scales images up to 4x with daily free quota.",
+    "description": "A donation-funded AI image upscaler with no sign-up and no watermarks — scales images up to 4x with daily free quota.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -524,7 +534,7 @@
     "url": "https://www.linkedin.com/ad-library/home",
     "main_category": "Marketing",
     "sub_category": "Ad Research",
-    "description": "Browse ads running on LinkedIn \u2014 search by company or keyword to research how B2B brands are positioning themselves and structuring their campaigns.",
+    "description": "Browse ads running on LinkedIn — search by company or keyword to research how B2B brands are positioning themselves and structuring their campaigns.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -534,7 +544,7 @@
     "url": "https://www.mozilla.ai/open-tools/llamafile",
     "main_category": "Development",
     "sub_category": "Local AI",
-    "description": "Bundle an open-source LLM into a single executable that runs anywhere \u2014 no install, no cloud, full privacy. Download once, run on any OS.",
+    "description": "Bundle an open-source LLM into a single executable that runs anywhere — no install, no cloud, full privacy. Download once, run on any OS.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -544,7 +554,7 @@
     "url": "https://lovable.dev",
     "main_category": "Development",
     "sub_category": "AI App Builder",
-    "description": "Build full-stack web apps from a text prompt \u2014 describe what you want and Lovable generates working React code, connects to a database, and deploys it.",
+    "description": "Build full-stack web apps from a text prompt — describe what you want and Lovable generates working React code, connects to a database, and deploys it.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -554,7 +564,7 @@
     "url": "https://luma.com",
     "main_category": "Productivity",
     "sub_category": "Events",
-    "description": "A clean, modern event platform for creating and hosting online and in-person events \u2014 beautiful event pages, ticketing, and guest management in one place.",
+    "description": "A clean, modern event platform for creating and hosting online and in-person events — beautiful event pages, ticketing, and guest management in one place.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -564,7 +574,7 @@
     "url": "https://www.mozilla.ai/open-tools/lumigator",
     "main_category": "Development",
     "sub_category": "AI Evaluation",
-    "description": "Evaluate and compare language models for your specific use case \u2014 supports summarization, translation, and other tasks with guided, transparent evaluation.",
+    "description": "Evaluate and compare language models for your specific use case — supports summarization, translation, and other tasks with guided, transparent evaluation.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -574,7 +584,7 @@
     "url": "https://www.magnific.com",
     "main_category": "Design",
     "sub_category": "Image Enhancement",
-    "description": "AI-powered image upscaler and creative platform \u2014 enhance and upscale images up to 16x resolution, with controls for detail, texture, and relighting.",
+    "description": "AI-powered image upscaler and creative platform — enhance and upscale images up to 16x resolution, with controls for detail, texture, and relighting.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -584,9 +594,19 @@
     "url": "https://www.markpollard.net/strategy-resources/",
     "main_category": "Marketing",
     "sub_category": "Strategy",
-    "description": "A curated collection of strategy tools, frameworks, and resources from strategist Mark Pollard \u2014 practical guides for planners, creatives, and marketers.",
+    "description": "A curated collection of strategy tools, frameworks, and resources from strategist Mark Pollard — practical guides for planners, creatives, and marketers.",
     "pricing": "Free",
     "date_added": "2026-05-05",
+    "made_by_safe_camp": false
+  },
+  {
+    "name": "Mass-Driver Workshop",
+    "url": "https://workshop.mass-driver.com/overview",
+    "main_category": "Design",
+    "sub_category": "Typography",
+    "description": "A browser-based collection of font tools from Mass-Driver — inspect font metrics and metadata, preview type at different sizes, and generate colour gradients.",
+    "pricing": "Free",
+    "date_added": "2026-06-20",
     "made_by_safe_camp": false
   },
   {
@@ -594,7 +614,7 @@
     "url": "https://www.mozilla.ai/open-tools/choice-first-stack/mcpd",
     "main_category": "Development",
     "sub_category": "AI Infrastructure",
-    "description": "Manage and launch MCP servers across environments with isolated, secure, and auditable tool resources \u2014 no hardcoded infrastructure required.",
+    "description": "Manage and launch MCP servers across environments with isolated, secure, and auditable tool resources — no hardcoded infrastructure required.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -604,7 +624,7 @@
     "url": "https://mindmapwizard.com",
     "main_category": "Productivity",
     "sub_category": "Mind Mapping",
-    "description": "An AI-powered mind mapping tool \u2014 generate visual maps from a topic or prompt, then expand and organize your thinking in a connected, interactive canvas.",
+    "description": "An AI-powered mind mapping tool — generate visual maps from a topic or prompt, then expand and organize your thinking in a connected, interactive canvas.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -614,9 +634,19 @@
     "url": "https://www.mozilla.org/firefox",
     "main_category": "Utilities",
     "sub_category": "Browser",
-    "description": "An open-source, privacy-respecting web browser from Mozilla \u2014 fast, extensible, and not owned by an ad company.",
+    "description": "An open-source, privacy-respecting web browser from Mozilla — fast, extensible, and not owned by an ad company.",
     "pricing": "Free",
     "date_added": "2026-05-05",
+    "made_by_safe_camp": false
+  },
+  {
+    "name": "Museo",
+    "url": "https://museo.app/",
+    "main_category": "Design",
+    "sub_category": "Stock Media",
+    "description": "A visual search engine for discovering free-to-use images across major museum collections, including the Art Institute of Chicago, Rijksmuseum, and Harvard Art Museums.",
+    "pricing": "Free",
+    "date_added": "2026-06-20",
     "made_by_safe_camp": false
   },
   {
@@ -624,7 +654,7 @@
     "url": "https://mymind.com",
     "main_category": "Productivity",
     "sub_category": "Bookmarking",
-    "description": "A private, visual bookmarking and second brain app \u2014 save anything from the web and let AI automatically tag and surface it when you need it.",
+    "description": "A private, visual bookmarking and second brain app — save anything from the web and let AI automatically tag and surface it when you need it.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -634,9 +664,19 @@
     "url": "https://www.nectarsocial.com",
     "main_category": "Marketing",
     "sub_category": "Community Management",
-    "description": "An AI-powered social OS for managing communities, listening in real time, and tracking influencers \u2014 built to turn social engagement into measurable revenue.",
+    "description": "An AI-powered social OS for managing communities, listening in real time, and tracking influencers — built to turn social engagement into measurable revenue.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
+    "made_by_safe_camp": false
+  },
+  {
+    "name": "NetNewsWire",
+    "url": "https://netnewswire.com/",
+    "main_category": "Productivity",
+    "sub_category": "Reading & RSS",
+    "description": "A free, open-source RSS reader for Mac, iPhone, and iPad — aggregates articles from blogs and news sites, syncs across services, and keeps you in control of your reading.",
+    "pricing": "Free",
+    "date_added": "2026-06-20",
     "made_by_safe_camp": false
   },
   {
@@ -654,7 +694,7 @@
     "url": "https://www.mozilla.ai/product/octonous",
     "main_category": "AI",
     "sub_category": "Agents",
-    "description": "Describe a task in plain language and Octonous builds and runs an AI agent across your apps \u2014 with full transparency, approval steps, and reviewable logs.",
+    "description": "Describe a task in plain language and Octonous builds and runs an AI agent across your apps — with full transparency, approval steps, and reviewable logs.",
     "pricing": "Free (Beta)",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -664,7 +704,7 @@
     "url": "https://apps.apple.com/us/app/onigiri-pomodoro-timer/id1639917298?mt=12",
     "main_category": "Productivity",
     "sub_category": "Focus Timer",
-    "description": "A charming, minimal Pomodoro timer for Mac \u2014 lives in your menu bar and helps you work in focused intervals with clean, unobtrusive design.",
+    "description": "A charming, minimal Pomodoro timer for Mac — lives in your menu bar and helps you work in focused intervals with clean, unobtrusive design.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -674,7 +714,7 @@
     "url": "https://opalapp.com",
     "main_category": "Utilities",
     "sub_category": "Screen Time",
-    "description": "A screen time management app for iOS and Mac \u2014 block distracting apps on a schedule, track usage, and build healthier digital habits.",
+    "description": "A screen time management app for iOS and Mac — block distracting apps on a schedule, track usage, and build healthier digital habits.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -684,7 +724,7 @@
     "url": "https://www.opus.pro",
     "main_category": "Content Creation",
     "sub_category": "Video Repurposing",
-    "description": "Upload a long video and get AI-generated short clips optimized for social media \u2014 auto-captions, speaker detection, and viral score predictions included.",
+    "description": "Upload a long video and get AI-generated short clips optimized for social media — auto-captions, speaker detection, and viral score predictions included.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -694,7 +734,7 @@
     "url": "https://www.mozilla.ai/product/otari",
     "main_category": "Development",
     "sub_category": "LLM Operations",
-    "description": "A centralized control plane for LLM operations \u2014 cost tracking, usage insights, API key management, and access to open-weight models in one gateway.",
+    "description": "A centralized control plane for LLM operations — cost tracking, usage insights, API key management, and access to open-weight models in one gateway.",
     "pricing": "Free (Beta)",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -704,7 +744,7 @@
     "url": "https://www.pexels.com",
     "main_category": "Design",
     "sub_category": "Stock Media",
-    "description": "A free library of high-quality photos and videos contributed by creators worldwide \u2014 no attribution required, fully free to use.",
+    "description": "A free library of high-quality photos and videos contributed by creators worldwide — no attribution required, fully free to use.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -714,7 +754,7 @@
     "url": "https://photogradient.com",
     "main_category": "Design",
     "sub_category": "Utilities",
-    "description": "Generate beautiful mesh gradients from colors or photos \u2014 create smooth, organic gradient backgrounds for design and branding work.",
+    "description": "Generate beautiful mesh gradients from colors or photos — create smooth, organic gradient backgrounds for design and branding work.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -724,7 +764,7 @@
     "url": "https://www.photopea.com",
     "main_category": "Design",
     "sub_category": "Image Editing",
-    "description": "A free, browser-based image editor with a Photoshop-like interface \u2014 no install required.",
+    "description": "A free, browser-based image editor with a Photoshop-like interface — no install required.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -734,7 +774,7 @@
     "url": "https://ads.pinterest.com/ads-repository/",
     "main_category": "Marketing",
     "sub_category": "Ad Research",
-    "description": "Search Pinterest's public ad library to see what brands are promoting \u2014 filter by keyword, advertiser, or country for visual ad inspiration.",
+    "description": "Search Pinterest's public ad library to see what brands are promoting — filter by keyword, advertiser, or country for visual ad inspiration.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -744,7 +784,7 @@
     "url": "https://poolsuite.net",
     "main_category": "Entertainment",
     "sub_category": "Internet Radio",
-    "description": "An ultra-summer internet radio station playing an endless stream of poolside sounds 24/7 \u2014 beautifully designed, no algorithm, pure vibe.",
+    "description": "An ultra-summer internet radio station playing an endless stream of poolside sounds 24/7 — beautifully designed, no algorithm, pure vibe.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -754,7 +794,7 @@
     "url": "https://apps.apple.com/us/app/pop-out-timer-stopwatch-clock/id1352722326",
     "main_category": "Productivity",
     "sub_category": "Focus Timer",
-    "description": "A floating, always-on-top timer and stopwatch for Mac \u2014 stays visible over any app so you never lose track of time during focused work or cooking.",
+    "description": "A floating, always-on-top timer and stopwatch for Mac — stays visible over any app so you never lose track of time during focused work or cooking.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -764,7 +804,7 @@
     "url": "https://prodextension.com",
     "main_category": "Utilities",
     "sub_category": "Focus",
-    "description": "A lightweight browser extension for Chrome and Firefox that blocks distracting websites \u2014 simple to toggle, no complicated setup.",
+    "description": "A lightweight browser extension for Chrome and Firefox that blocks distracting websites — simple to toggle, no complicated setup.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -774,7 +814,7 @@
     "url": "https://quiver.ai",
     "main_category": "Design",
     "sub_category": "Vector Graphics",
-    "description": "Generate and vectorize production-ready SVGs from text or images \u2014 an AI lab building next-generation models for precise, editable vector design.",
+    "description": "Generate and vectorize production-ready SVGs from text or images — an AI lab building next-generation models for precise, editable vector design.",
     "pricing": "Free (Beta)",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -784,7 +824,7 @@
     "url": "https://ads.reddit.com/inspiration",
     "main_category": "Marketing",
     "sub_category": "Ad Research",
-    "description": "Browse Reddit's curated collection of high-performing ads \u2014 discover creative formats, community-native approaches, and strategies that resonate on the platform.",
+    "description": "Browse Reddit's curated collection of high-performing ads — discover creative formats, community-native approaches, and strategies that resonate on the platform.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -794,7 +834,7 @@
     "url": "https://app.reve.com",
     "main_category": "AI",
     "sub_category": "Image Generation",
-    "description": "Create, edit, and remix images with natural-language prompts combined with a drag-and-drop visual editor \u2014 precise control over AI-generated visuals.",
+    "description": "Create, edit, and remix images with natural-language prompts combined with a drag-and-drop visual editor — precise control over AI-generated visuals.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -804,7 +844,7 @@
     "url": "https://riverside.fm",
     "main_category": "Content Creation",
     "sub_category": "Podcast Recording",
-    "description": "Record high-quality podcast and video interviews remotely \u2014 each participant records locally so audio and video quality stays studio-grade regardless of connection.",
+    "description": "Record high-quality podcast and video interviews remotely — each participant records locally so audio and video quality stays studio-grade regardless of connection.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -814,7 +854,7 @@
     "url": "https://runwayml.com",
     "main_category": "AI",
     "sub_category": "Video Generation",
-    "description": "A leading AI video generation and editing platform \u2014 create cinematic videos from text or images, and apply generative effects to existing footage.",
+    "description": "A leading AI video generation and editing platform — create cinematic videos from text or images, and apply generative effects to existing footage.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -824,7 +864,7 @@
     "url": "https://screen.studio",
     "main_category": "Content Creation",
     "sub_category": "Screen Recording",
-    "description": "A Mac screen recorder that automatically adds cinematic zoom, smooth cursor movement, and polished backgrounds \u2014 turn raw screen recordings into professional demos.",
+    "description": "A Mac screen recorder that automatically adds cinematic zoom, smooth cursor movement, and polished backgrounds — turn raw screen recordings into professional demos.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -834,9 +874,19 @@
     "url": "https://selfcontrolapp.com",
     "main_category": "Utilities",
     "sub_category": "Focus",
-    "description": "A free Mac app that blocks access to distracting websites for a set period \u2014 once started, the block can't be undone even by restarting your computer.",
+    "description": "A free Mac app that blocks access to distracting websites for a set period — once started, the block can't be undone even by restarting your computer.",
     "pricing": "Free",
     "date_added": "2026-05-05",
+    "made_by_safe_camp": false
+  },
+  {
+    "name": "Sim Daltonism",
+    "url": "https://michelf.ca/projects/sim-daltonism/",
+    "main_category": "Design",
+    "sub_category": "Accessibility",
+    "description": "A colour blindness simulator for Mac and iOS — filters a region of your screen or camera to show how it appears to people with various types of colour vision deficiency.",
+    "pricing": "Free",
+    "date_added": "2026-06-20",
     "made_by_safe_camp": false
   },
   {
@@ -864,7 +914,7 @@
     "url": "https://spacehey.com",
     "main_category": "Social",
     "sub_category": "Community",
-    "description": "A retro social network inspired by early MySpace \u2014 no tracking, no algorithms, fully customizable profiles with HTML and CSS.",
+    "description": "A retro social network inspired by early MySpace — no tracking, no algorithms, fully customizable profiles with HTML and CSS.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -874,7 +924,7 @@
     "url": "https://writewithspiral.com",
     "main_category": "Writing",
     "sub_category": "AI Writing",
-    "description": "An AI writing partner with taste \u2014 asks clarifying questions before drafting, generates multiple versions simultaneously, and maintains your authentic voice across all content.",
+    "description": "An AI writing partner with taste — asks clarifying questions before drafting, generates multiple versions simultaneously, and maintains your authentic voice across all content.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -884,7 +934,7 @@
     "url": "https://squoosh.app",
     "main_category": "Design",
     "sub_category": "Image Compression",
-    "description": "A Google-built browser tool for compressing and converting images \u2014 side-by-side comparison of quality vs. file size, no upload required.",
+    "description": "A Google-built browser tool for compressing and converting images — side-by-side comparison of quality vs. file size, no upload required.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -894,9 +944,19 @@
     "url": "https://stableaudio.com",
     "main_category": "AI",
     "sub_category": "Music Generation",
-    "description": "Generate high-quality, full-length music tracks and sound effects from text prompts \u2014 from Stability AI, with precise control over style, mood, and structure.",
+    "description": "Generate high-quality, full-length music tracks and sound effects from text prompts — from Stability AI, with precise control over style, mood, and structure.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
+    "made_by_safe_camp": false
+  },
+  {
+    "name": "Stack & Justify",
+    "url": "https://max-esnee.com/stack-and-justify/",
+    "main_category": "Design",
+    "sub_category": "Typography",
+    "description": "A type specimen tool that finds words or phrases of equal optical width — makes it easy to create clean, stacked, justified layouts for type proofing.",
+    "pricing": "Free",
+    "date_added": "2026-06-20",
     "made_by_safe_camp": false
   },
   {
@@ -914,7 +974,7 @@
     "url": "https://stirlingpdf.io",
     "main_category": "Productivity",
     "sub_category": "PDF Tools",
-    "description": "A self-hostable, all-in-one PDF manipulation tool \u2014 merge, split, compress, convert, and more, all locally.",
+    "description": "A self-hostable, all-in-one PDF manipulation tool — merge, split, compress, convert, and more, all locally.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -924,7 +984,7 @@
     "url": "https://stripe.com",
     "main_category": "Development",
     "sub_category": "Payments",
-    "description": "The developer-first payments infrastructure for the internet \u2014 accept payments, manage subscriptions, and build financial products with a clean API.",
+    "description": "The developer-first payments infrastructure for the internet — accept payments, manage subscriptions, and build financial products with a clean API.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -934,7 +994,7 @@
     "url": "https://suno.com",
     "main_category": "AI",
     "sub_category": "Music Generation",
-    "description": "Generate original songs from a text prompt \u2014 full tracks with vocals, instrumentation, and lyrics in seconds.",
+    "description": "Generate original songs from a text prompt — full tracks with vocals, instrumentation, and lyrics in seconds.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -944,7 +1004,7 @@
     "url": "https://supercut.ai",
     "main_category": "Content Creation",
     "sub_category": "Screen Recording",
-    "description": "An AI-enhanced screen and camera recorder with instant sharing, auto-chapters, captions, and branded layouts \u2014 a polished alternative to Loom for async video.",
+    "description": "An AI-enhanced screen and camera recorder with instant sharing, auto-chapters, captions, and branded layouts — a polished alternative to Loom for async video.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -954,7 +1014,7 @@
     "url": "https://www.thelifecalendar.com",
     "main_category": "Productivity",
     "sub_category": "Life Planning",
-    "description": "A visual grid representing every week of a 90-year life \u2014 a sobering and motivating perspective tool for long-term thinking and intentional living.",
+    "description": "A visual grid representing every week of a 90-year life — a sobering and motivating perspective tool for long-term thinking and intentional living.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -964,7 +1024,7 @@
     "url": "https://theunarchiver.com",
     "main_category": "Utilities",
     "sub_category": "File Management",
-    "description": "A free Mac app that opens virtually any archive format \u2014 ZIP, RAR, 7-zip, TAR, and many more \u2014 cleanly and without fuss.",
+    "description": "A free Mac app that opens virtually any archive format — ZIP, RAR, 7-zip, TAR, and many more — cleanly and without fuss.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -974,7 +1034,7 @@
     "url": "https://www.thiings.co/things",
     "main_category": "Design",
     "sub_category": "3D Assets",
-    "description": "A free library of beautifully rendered 3D icons and objects \u2014 download as PNGs for use in design, presentations, and marketing materials.",
+    "description": "A free library of beautifully rendered 3D icons and objects — download as PNGs for use in design, presentations, and marketing materials.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -984,7 +1044,7 @@
     "url": "https://library.tiktok.com/ads",
     "main_category": "Marketing",
     "sub_category": "Ad Research",
-    "description": "Search and browse TikTok ads for transparency \u2014 see what brands are running, filter by region, and study creative approaches across industries.",
+    "description": "Search and browse TikTok ads for transparency — see what brands are running, filter by region, and study creative approaches across industries.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -994,7 +1054,7 @@
     "url": "https://ads.tiktok.com/business/creativecenter/pc/en",
     "main_category": "Marketing",
     "sub_category": "Ad Research",
-    "description": "TikTok's official hub for ad inspiration \u2014 browse top-performing ads, trending sounds, hashtags, and creative insights to inform your TikTok strategy.",
+    "description": "TikTok's official hub for ad inspiration — browse top-performing ads, trending sounds, hashtags, and creative insights to inform your TikTok strategy.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -1004,7 +1064,7 @@
     "url": "https://www.todoist.com",
     "main_category": "Productivity",
     "sub_category": "Task Management",
-    "description": "A clean, powerful task manager for capturing, organizing, and prioritizing your work \u2014 available across every platform with natural-language input and smart scheduling.",
+    "description": "A clean, powerful task manager for capturing, organizing, and prioritizing your work — available across every platform with natural-language input and smart scheduling.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -1014,7 +1074,7 @@
     "url": "https://turnoffthelights.com",
     "main_category": "Utilities",
     "sub_category": "Browser Extension",
-    "description": "A browser extension that dims the page around video players for a cinema-like experience \u2014 works across YouTube, Vimeo, Netflix, and thousands of other sites.",
+    "description": "A browser extension that dims the page around video players for a cinema-like experience — works across YouTube, Vimeo, Netflix, and thousands of other sites.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -1024,7 +1084,7 @@
     "url": "https://typegrow.com/tools/linkedin-text-formatter",
     "main_category": "Marketing",
     "sub_category": "Social Media",
-    "description": "Format LinkedIn posts with bold, italic, and special Unicode text styles \u2014 make your content stand out in the feed without any design tools.",
+    "description": "Format LinkedIn posts with bold, italic, and special Unicode text styles — make your content stand out in the feed without any design tools.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -1034,7 +1094,7 @@
     "url": "https://unsplash.com",
     "main_category": "Design",
     "sub_category": "Stock Media",
-    "description": "A curated library of freely usable, high-resolution photography \u2014 searchable by subject, mood, and color.",
+    "description": "A curated library of freely usable, high-resolution photography — searchable by subject, mood, and color.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -1044,9 +1104,19 @@
     "url": "https://www.videolan.org/vlc/",
     "main_category": "Utilities",
     "sub_category": "Media Player",
-    "description": "A free, open-source media player that plays virtually any audio or video format \u2014 no codecs needed, no nonsense.",
+    "description": "A free, open-source media player that plays virtually any audio or video format — no codecs needed, no nonsense.",
     "pricing": "Free",
     "date_added": "2026-05-05",
+    "made_by_safe_camp": false
+  },
+  {
+    "name": "White Rabbit",
+    "url": "https://kadomaru.app/white-rabbit/",
+    "main_category": "Design",
+    "sub_category": "Utilities",
+    "description": "A macOS app for bulk-optimising SVG files and optionally wrapping them in HTML — fast and straightforward for cleaning up SVG exports.",
+    "pricing": "Free",
+    "date_added": "2026-06-20",
     "made_by_safe_camp": false
   },
   {
@@ -1054,7 +1124,7 @@
     "url": "https://ads.twitter.com/ads-repository",
     "main_category": "Marketing",
     "sub_category": "Ad Research",
-    "description": "Browse active and past ads on X/Twitter \u2014 search by advertiser or keyword to research competitive creative and messaging strategies.",
+    "description": "Browse active and past ads on X/Twitter — search by advertiser or keyword to research competitive creative and messaging strategies.",
     "pricing": "Free",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
@@ -1064,7 +1134,7 @@
     "url": "https://zoom.us",
     "main_category": "Productivity",
     "sub_category": "Video Conferencing",
-    "description": "The ubiquitous video conferencing platform for meetings, webinars, and team calls \u2014 reliable, widely supported, and deeply integrated with the modern work stack.",
+    "description": "The ubiquitous video conferencing platform for meetings, webinars, and team calls — reliable, widely supported, and deeply integrated with the modern work stack.",
     "pricing": "Freemium",
     "date_added": "2026-05-05",
     "made_by_safe_camp": false
