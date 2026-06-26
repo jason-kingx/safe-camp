@@ -225,20 +225,32 @@
     .myspace-btn.is-active img {
       filter: brightness(0) invert(1);
     }
+    /* Dark mode: white SVG and white border so the button is visible */
+    [data-theme="dark"] .myspace-btn {
+      border-color: #fff;
+    }
+    [data-theme="dark"] .myspace-btn img {
+      filter: brightness(0) invert(1);
+    }
+    [data-theme="dark"] .myspace-btn:hover {
+      border-color: #fff;
+    }
 
     /* ── MySpace Mode: title row wrapper ── */
     .page-title-row {
       position: relative;
       /* Make room on the right for the pill button */
       padding-right: 8rem;
+      /* Reserve space so the orange bar never pushes content up */
+      padding-top: 0.45em;
     }
 
     /* The orange bar sits behind the h1 text only — covers .page-title-row */
     .myspace-header-bar {
       display: none;
       position: absolute;
-      /* Generous vertical padding so headline is fully enclosed in bar */
-      top: -0.45em;
+      /* Align to the reserved padding, expand down to mirror it */
+      top: 0;
       bottom: -0.45em;
       left: -0.5em;
       right: -0.5em;
@@ -260,6 +272,8 @@
       z-index: 1;
       color: #e07624;
       font-weight: 600;
+      /* Keep the same line-height as normal weight to avoid reflow */
+      line-height: 1.18;
     }
     /* Dark mode: keep the orange readable but don't fight the bg */
     html[data-theme="dark"] body.myspace-mode .page-title {
@@ -267,13 +281,21 @@
     }
 
     body.myspace-mode .page-desc-original {
-      display: none;
+      visibility: hidden;
+    }
+    /* Grid-stack: both children sit in the same cell so the container
+       always matches the tallest one — no layout shift on toggle */
+    .page-desc-swap {
+      display: grid;
+    }
+    .page-desc-swap > * {
+      grid-area: 1 / 1;
     }
     body.myspace-mode .myspace-friend-count {
-      display: block;
+      visibility: visible;
     }
     .myspace-friend-count {
-      display: none;
+      visibility: hidden;
       font-family: 'DM Sans', sans-serif;
       font-size: 15px;
       font-weight: 700;
@@ -296,7 +318,7 @@
       border-color: #5b9bd5 !important;
     }
     .online-now-gif {
-      display: none;
+      visibility: hidden;
       margin-top: 6px;
     }
     .online-now-gif img {
@@ -304,7 +326,7 @@
       width: auto;
     }
     body.myspace-mode .online-now-gif {
-      display: block;
+      visibility: visible;
     }
   </style>
 
@@ -326,8 +348,10 @@
             <h1 class="page-title"><span id="page-title-text">Partners</span></h1>
             <button class="myspace-btn" id="myspace-toggle" aria-label="Toggle MySpace mode" title="MySpace mode" aria-pressed="false"><img src="images/MyspaceMode.svg" alt=""></button>
           </div>
-          <p class="page-desc page-desc-original">These fine folks are trusted partners for a range of comms needs beyond social media.<br class="mobile-br"> Kind people are my kind of people.</p>
-          <p class="myspace-friend-count">Safe Camp has <span class="myspace-count-num" id="myspace-partner-count">8</span> Friends.</p>
+          <div class="page-desc-swap">
+            <p class="page-desc page-desc-original">Kind people are my kind of people.<br>Below are trusted partners for a range of comms needs beyond social media.</p>
+            <p class="myspace-friend-count">Safe Camp has <span class="myspace-count-num" id="myspace-partner-count">8</span> Friends.</p>
+          </div>
         </div>
         <div class="page-intro-img" aria-hidden="true">
           <img src="images/Partners-light.png" alt="" class="partners-camper-light">
