@@ -164,6 +164,485 @@
       text-align: center;
     }
 
+    /* ── Module Selector Bento ── */
+    .module-selector-bento {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 0;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 48px;
+      min-height: 200px;
+    }
+
+    /* Left: text nav */
+    .bento-nav {
+      background: var(--card-bg);
+      border-right: 1px solid var(--line);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      justify-content: center;
+    }
+    .bento-nav-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mid);
+      opacity: 0.6;
+      padding: 0 10px 8px;
+    }
+    .bento-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      background: none;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--mid);
+      text-align: left;
+      transition: background 0.18s, border-color 0.18s, color 0.18s;
+      width: 100%;
+    }
+    .bento-nav-item:hover { background: var(--accent-light); color: var(--ink); }
+    .bento-nav-item.is-active { background: var(--accent-light); border-color: var(--accent); color: var(--ink); }
+    .bento-nav-item-icon { flex-shrink: 0; width: 28px; height: 28px; border-radius: 7px; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .bento-nav-item-text { display: flex; flex-direction: column; gap: 1px; }
+    .bento-nav-item-name { font-size: 13px; font-weight: 500; line-height: 1.2; color: inherit; }
+    .bento-nav-item-sub { font-size: 10px; letter-spacing: 0.05em; color: var(--accent); opacity: 0.8; }
+
+    /* Right: pegboard — pegboard.png fills the area, CSS dots layer on top */
+    .bento-pegboard {
+      position: relative;
+      background-color: var(--card-bg);
+      background-image:
+        radial-gradient(circle, rgba(10,10,10,0.85) 1.5px, transparent 1.5px),
+        url('images/manual-of-me/pegboard.png');
+      background-size: 22px 22px, cover;
+      background-repeat: repeat, no-repeat;
+      background-position: center center, center center;
+      /* dots tile only within the padded content box — keeps them
+         away from all four borders and naturally centered */
+      background-origin: content-box, border-box;
+      background-clip: content-box, border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* Pegboard image items */
+    .pegboard-card {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      cursor: pointer;
+      flex-shrink: 0;
+      opacity: 1;
+      transition: opacity 0.25s ease;
+    }
+    .pegboard-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      pointer-events: none;
+      -webkit-user-drag: none;
+    }
+    /* Dim all siblings when any one is hovered */
+    .bento-pegboard:has(.pegboard-card:hover) .pegboard-card {
+      opacity: 0.35;
+    }
+    .bento-pegboard:has(.pegboard-card:hover) .pegboard-card:hover {
+      opacity: 1;
+    }
+
+    /* ── Accordion ── */
+    .module-accordion {
+      margin-bottom: 32px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .module-accordion[open] {
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+    .module-accordion summary {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 24px;
+      cursor: pointer;
+      list-style: none;
+      background: var(--card-bg);
+      border-radius: 16px;
+      transition: background 0.16s;
+      user-select: none;
+    }
+    .module-accordion[open] summary {
+      border-radius: 16px 16px 0 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .module-accordion summary::-webkit-details-marker { display: none; }
+    .module-accordion summary:hover { background: var(--accent-light); }
+    .accordion-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .accordion-text { flex: 1; min-width: 0; }
+    .accordion-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 2px;
+    }
+    .accordion-title {
+      font-family: 'EB Garamond', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .accordion-chevron {
+      width: 20px;
+      height: 20px;
+      color: var(--mid);
+      opacity: 0.5;
+      transition: transform 0.28s cubic-bezier(0.4,0,0.2,1), opacity 0.18s;
+      flex-shrink: 0;
+    }
+    .module-accordion[open] .accordion-chevron {
+      transform: rotate(180deg);
+      opacity: 0.8;
+    }
+    .accordion-body {
+      padding: 32px 28px 36px;
+      background: var(--bg);
+    }
+    /* Remove old module margin since accordions handle spacing */
+    .module {
+      margin-bottom: 0;
+    }
+
+    /* ── Values pills ── */
+    .values-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .value-pill {
+      display: inline-block;
+      padding: 7px 18px;
+      border-radius: 999px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      line-height: 1;
+    }
+    .value-pill-0  { background:#E8F4EC; color:#2A6B40; }
+    .value-pill-1  { background:#FDE8E8; color:#8B2E2E; }
+    .value-pill-2  { background:#E8EEF8; color:#2B4A8A; }
+    .value-pill-3  { background:#FEF3E2; color:#7A4F10; }
+    .value-pill-4  { background:#F0E8F8; color:#5A2E8A; }
+    .value-pill-5  { background:#E8F6F8; color:#1A6070; }
+    .value-pill-6  { background:#FDE8F4; color:#8A2E68; }
+    .value-pill-7  { background:#EEF8E8; color:#3A6A20; }
+    .value-pill-8  { background:#F8F0E8; color:#7A4A20; }
+
+    /* ── Two-column card layout (best/worst, count-on/need) ── */
+    .two-col-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .split-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 24px;
+      background: var(--card-bg);
+    }
+    .split-card-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: block;
+    }
+    .split-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .split-card ul li {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.55;
+      padding-left: 16px;
+      position: relative;
+    }
+    .split-card ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+    .split-card--best  { border-top: 3px solid #4A9B6F; }
+    .split-card--worst { border-top: 3px solid #C0574A; }
+    .split-card--best  .split-card-label { color: #4A9B6F; }
+    .split-card--worst .split-card-label { color: #C0574A; }
+    .split-card--best  ul li::before { background: #4A9B6F; opacity: 0.7; }
+    .split-card--worst ul li::before { background: #C0574A; opacity: 0.7; }
+    .split-card--counton { border-top: 3px solid var(--accent); }
+    .split-card--need   { border-top: 3px solid #8A6BBF; }
+    .split-card--need   .split-card-label { color: #8A6BBF; }
+    .split-card--need   ul li::before { background: #8A6BBF; opacity: 0.7; }
+
+    /* ── How I work cards ── */
+    .how-i-work-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .work-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 22px;
+      background: var(--card-bg);
+    }
+    .work-card-icon {
+      font-size: 22px;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .work-card-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .work-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .work-card ul li {
+      font-size: 13.5px;
+      color: var(--mid);
+      line-height: 1.5;
+      padding-left: 14px;
+      position: relative;
+    }
+    .work-card ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.45;
+    }
+
+    /* ── Communication style ── */
+    .comm-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .comm-prose {
+      font-size: 15px;
+      color: var(--mid);
+      line-height: 1.75;
+      max-width: 680px;
+    }
+    .comm-feedback-block {
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 12px 12px 0;
+      padding: 20px 24px;
+      background: var(--card-bg);
+      max-width: 680px;
+    }
+    .comm-feedback-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .comm-feedback-text {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.7;
+    }
+    .comm-misread-block {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px 24px;
+      background: var(--card-bg);
+      max-width: 680px;
+    }
+    .comm-misread-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mid);
+      opacity: 0.7;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .comm-misread-block ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .comm-misread-block ul li {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.6;
+      padding-left: 16px;
+      position: relative;
+    }
+    .comm-misread-block ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--mid);
+      opacity: 0.35;
+    }
+
+    /* ── Strengths badges ── */
+    .strengths-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .strength-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--card-bg);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink);
+    }
+    .strength-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Interests grid ── */
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 12px;
+    }
+    .interest-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px 14px;
+      background: var(--card-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      text-align: center;
+    }
+    .interest-emoji {
+      font-size: 26px;
+      line-height: 1;
+    }
+    .interest-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    /* ── Fun facts ── */
+    .fun-facts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      max-width: 680px;
+    }
+    .fun-fact-row {
+      display: flex;
+      align-items: baseline;
+      gap: 18px;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--line);
+      background: var(--card-bg);
+      transition: background 0.14s;
+    }
+    .fun-fact-row:last-child { border-bottom: none; }
+    .fun-fact-row:hover { background: var(--accent-light); }
+    .fun-fact-num {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--accent);
+      opacity: 0.6;
+      flex-shrink: 0;
+      width: 20px;
+    }
+    .fun-fact-text {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
     @media (max-width:768px) {
       .mom-outer { padding:64px 24px 80px; }
       .mom-header { margin-bottom:48px; }
@@ -172,6 +651,12 @@
       .location-nav-item { width:auto; padding:8px 12px; }
       .location-nav-badge { display:none; }
       .globe-popup { position:fixed; max-height:70vh; }
+      .module-selector-bento { grid-template-columns: 1fr; min-height: auto; }
+      .bento-nav { border-right: none; border-bottom: 1px solid var(--line); }
+      .bento-pegboard { min-height: 180px; }
+      .two-col-cards { grid-template-columns: 1fr; }
+      .how-i-work-grid { grid-template-columns: 1fr; }
+      .interests-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
     }
   </style>
 </head>
@@ -190,55 +675,527 @@
           <p>A personal guide to who I am, where I've been, and how I work best.</p>
         </header>
 
-        <div class="module">
-          <p class="module-label">Module 01</p>
-          <h2 class="module-title">Places I've called home</h2>
+        <!-- ── Module Selector Bento ── -->
+        <div class="module-selector-bento" id="module-selector-bento" aria-label="Module selector">
 
-          <div class="globe-layout">
-            <nav class="location-nav-panel" id="location-nav" aria-label="Location list"></nav>
-            <div class="globe-right">
-              <canvas id="globe-canvas" width="400" height="400"></canvas>
-              <p class="globe-hint">Drag to rotate &nbsp;·&nbsp; Click a marker to learn more</p>
+          <!-- Left: text nav -->
+          <div class="bento-nav" role="navigation" aria-label="Module list">
+            <div class="bento-nav-label">Modules</div>
+            <button class="bento-nav-item" data-target="accordion-places" aria-label="Go to Places I've called home">
+              <span class="bento-nav-item-icon">🌍</span>
+              <span class="bento-nav-item-text">
+                <span class="bento-nav-item-name">Places I've called home</span>
+                <span class="bento-nav-item-sub">Module 01</span>
+              </span>
+            </button>
+            <button class="bento-nav-item" data-target="accordion-mementos" aria-label="Go to Mementos">
+              <span class="bento-nav-item-icon">💻</span>
+              <span class="bento-nav-item-text">
+                <span class="bento-nav-item-name">Mementos</span>
+                <span class="bento-nav-item-sub">Module 02</span>
+              </span>
+            </button>
+            <button class="bento-nav-item" data-target="accordion-values" aria-label="Go to Values">
+              <span class="bento-nav-item-icon">💡</span>
+              <span class="bento-nav-item-text">
+                <span class="bento-nav-item-name">Values</span>
+                <span class="bento-nav-item-sub">Module 03</span>
+              </span>
+            </button>
+            <button class="bento-nav-item" data-target="accordion-how-i-work" aria-label="Go to How I work">
+              <span class="bento-nav-item-icon">⚙️</span>
+              <span class="bento-nav-item-text">
+                <span class="bento-nav-item-name">How I work</span>
+                <span class="bento-nav-item-sub">Module 04</span>
+              </span>
+            </button>
+            <button class="bento-nav-item" data-target="accordion-communication" aria-label="Go to Communication style">
+              <span class="bento-nav-item-icon">💬</span>
+              <span class="bento-nav-item-text">
+                <span class="bento-nav-item-name">Communication style</span>
+                <span class="bento-nav-item-sub">Module 05</span>
+              </span>
+            </button>
+            <button class="bento-nav-item" data-target="accordion-best-worst" aria-label="Go to What supercharges me and what drains me">
+              <span class="bento-nav-item-icon">⚡</span>
+              <span class="bento-nav-item-text">
+                <span class="bento-nav-item-name">What supercharges me &amp; drains me</span>
+                <span class="bento-nav-item-sub">Module 06</span>
+              </span>
+            </button>
+            <button class="bento-nav-item" data-target="accordion-counton" aria-label="Go to What you can count on me for">
+              <span class="bento-nav-item-icon">🤝</span>
+              <span class="bento-nav-item-text">
+                <span class="bento-nav-item-name">Count on me &amp; what I need</span>
+                <span class="bento-nav-item-sub">Module 07</span>
+              </span>
+            </button>
+            <button class="bento-nav-item" data-target="accordion-strengths" aria-label="Go to Strengths">
+              <span class="bento-nav-item-icon">🌟</span>
+              <span class="bento-nav-item-text">
+                <span class="bento-nav-item-name">Strengths</span>
+                <span class="bento-nav-item-sub">Module 08</span>
+              </span>
+            </button>
+            <button class="bento-nav-item" data-target="accordion-interests" aria-label="Go to Interests and obsessions">
+              <span class="bento-nav-item-icon">🎯</span>
+              <span class="bento-nav-item-text">
+                <span class="bento-nav-item-name">Interests &amp; obsessions</span>
+                <span class="bento-nav-item-sub">Module 09</span>
+              </span>
+            </button>
+            <button class="bento-nav-item" data-target="accordion-funfacts" aria-label="Go to Fun facts">
+              <span class="bento-nav-item-icon">✨</span>
+              <span class="bento-nav-item-text">
+                <span class="bento-nav-item-name">Fun facts</span>
+                <span class="bento-nav-item-sub">Module 10</span>
+              </span>
+            </button>
+          </div>
+
+          <!-- Right: pegboard with module images -->
+          <div class="bento-pegboard" role="navigation" aria-label="Visual module selector">
+            <div class="pegboard-card" data-target="accordion-places" role="button" tabindex="0" aria-label="Open Places I've called home">
+              <img src="images/manual-of-me/Module01.png" alt="Places I've called home">
             </div>
-            <!-- Popup lives inside globe-layout so absolute positioning is constrained -->
-            <div class="globe-popup" id="globe-popup" role="dialog" aria-modal="true" aria-label="Location details">
-              <button class="popup-close" id="popup-close" aria-label="Close">✕</button>
-              <div class="popup-img-wrap" id="popup-img-wrap">
-                <div class="popup-img-placeholder" id="popup-img-placeholder">Image coming soon</div>
-              </div>
-              <div class="popup-body">
-                <div class="popup-name" id="popup-name"></div>
-                <span class="popup-type-badge" id="popup-badge"></span>
-                <p class="popup-desc" id="popup-desc"></p>
-              </div>
+            <div class="pegboard-card" data-target="accordion-mementos" role="button" tabindex="0" aria-label="Open Mementos">
+              <img src="images/manual-of-me/Module02.png" alt="Mementos">
+            </div>
+            <div class="pegboard-card" data-target="accordion-values" role="button" tabindex="0" aria-label="Open Values">
+              <img src="images/manual-of-me/Module03.png" alt="Values">
+            </div>
+            <div class="pegboard-card" data-target="accordion-how-i-work" role="button" tabindex="0" aria-label="Open How I work">
+              <img src="images/manual-of-me/Module04.png" alt="How I work">
+            </div>
+            <div class="pegboard-card" data-target="accordion-communication" role="button" tabindex="0" aria-label="Open Communication style">
+              <img src="images/manual-of-me/Module05.png" alt="Communication style">
+            </div>
+            <div class="pegboard-card" data-target="accordion-best-worst" role="button" tabindex="0" aria-label="Open What supercharges me and what drains me">
+              <img src="images/manual-of-me/Module06.png" alt="What supercharges me and what drains me">
+            </div>
+            <div class="pegboard-card" data-target="accordion-counton" role="button" tabindex="0" aria-label="Open Count on me and what I need">
+              <img src="images/manual-of-me/Module07.png" alt="Count on me and what I need">
+            </div>
+            <div class="pegboard-card" data-target="accordion-strengths" role="button" tabindex="0" aria-label="Open Strengths">
+              <img src="images/manual-of-me/Module08.png" alt="Strengths">
+            </div>
+            <div class="pegboard-card" data-target="accordion-interests" role="button" tabindex="0" aria-label="Open Interests and obsessions">
+              <img src="images/manual-of-me/Module09.png" alt="Interests and obsessions">
+            </div>
+            <div class="pegboard-card" data-target="accordion-funfacts" role="button" tabindex="0" aria-label="Open Fun facts">
+              <img src="images/manual-of-me/Module10.png" alt="Fun facts">
             </div>
           </div>
         </div>
 
-        <div class="module" id="module-laptop-stickers">
-          <p class="module-label">Module 02</p>
-          <h2 class="module-title">Mementos</h2>
-
-          <div class="laptop-stage" id="laptop-stage" aria-label="Draggable sticker board">
-            <img
-              id="laptop-bg-img"
-              class="laptop-bg"
-              src="images/laptop.png"
-              alt="Laptop cover"
-              draggable="false"
-            />
-            <div class="sticker-layer" id="sticker-layer"></div>
+        <!-- ── Module 01 Accordion ── -->
+        <details class="module-accordion" id="accordion-places">
+          <summary>
+            <span class="accordion-icon">🌍</span>
+            <span class="accordion-text">
+              <span class="accordion-eyebrow">Module 01</span>
+              <span class="accordion-title">Places I've called home</span>
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="5 8 10 13 15 8"/>
+            </svg>
+          </summary>
+          <div class="accordion-body">
+            <div class="module">
+              <div class="globe-layout">
+                <nav class="location-nav-panel" id="location-nav" aria-label="Location list"></nav>
+                <div class="globe-right">
+                  <canvas id="globe-canvas" width="400" height="400"></canvas>
+                  <p class="globe-hint">Drag to rotate &nbsp;·&nbsp; Click a marker to learn more</p>
+                </div>
+                <!-- Popup lives inside globe-layout so absolute positioning is constrained -->
+                <div class="globe-popup" id="globe-popup" role="dialog" aria-modal="true" aria-label="Location details">
+                  <button class="popup-close" id="popup-close" aria-label="Close">✕</button>
+                  <div class="popup-img-wrap" id="popup-img-wrap">
+                    <div class="popup-img-placeholder" id="popup-img-placeholder">Image coming soon</div>
+                  </div>
+                  <div class="popup-body">
+                    <div class="popup-name" id="popup-name"></div>
+                    <span class="popup-type-badge" id="popup-badge"></span>
+                    <p class="popup-desc" id="popup-desc"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+        </details>
 
-          <p class="laptop-hint" id="laptop-hint">Drag stickers to rearrange them</p>
-        </div>
+        <!-- ── Module 02 Accordion ── -->
+        <details class="module-accordion" id="accordion-mementos">
+          <summary>
+            <span class="accordion-icon">💻</span>
+            <span class="accordion-text">
+              <span class="accordion-eyebrow">Module 02</span>
+              <span class="accordion-title">Mementos</span>
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="5 8 10 13 15 8"/>
+            </svg>
+          </summary>
+          <div class="accordion-body">
+            <div class="module" id="module-laptop-stickers">
+              <div class="laptop-stage" id="laptop-stage" aria-label="Draggable sticker board">
+                <img
+                  id="laptop-bg-img"
+                  class="laptop-bg"
+                  src="images/laptop.png"
+                  alt="Laptop cover"
+                  draggable="false"
+                />
+                <div class="sticker-layer" id="sticker-layer"></div>
+              </div>
+              <p class="laptop-hint" id="laptop-hint">Drag stickers to rearrange them</p>
+            </div>
+          </div>
+        </details>
 
-      </div>
-    </div>
-  </main>
+        <!-- ── Module 03 Accordion: Values ── -->
+        <details class="module-accordion" id="accordion-values">
+          <summary>
+            <span class="accordion-icon">💡</span>
+            <span class="accordion-text">
+              <span class="accordion-eyebrow">Module 03</span>
+              <span class="accordion-title">Values</span>
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 8 10 13 15 8"/></svg>
+          </summary>
+          <div class="accordion-body">
+            <div class="module">
+              <div class="values-cloud">
+                <span class="value-pill value-pill-0">People-first</span>
+                <span class="value-pill value-pill-1">Kindness</span>
+                <span class="value-pill value-pill-2">Collaboration</span>
+                <span class="value-pill value-pill-3">Curiosity</span>
+                <span class="value-pill value-pill-4">Empathy</span>
+                <span class="value-pill value-pill-5">Diversity</span>
+                <span class="value-pill value-pill-6">Inclusivity</span>
+                <span class="value-pill value-pill-7">Learning</span>
+                <span class="value-pill value-pill-8">Practicality</span>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- ── Module 04 Accordion: How I work ── -->
+        <details class="module-accordion" id="accordion-how-i-work">
+          <summary>
+            <span class="accordion-icon">⚙️</span>
+            <span class="accordion-text">
+              <span class="accordion-eyebrow">Module 04</span>
+              <span class="accordion-title">How I work</span>
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 8 10 13 15 8"/></svg>
+          </summary>
+          <div class="accordion-body">
+            <div class="module">
+              <div class="how-i-work-grid">
+                <div class="work-card">
+                  <span class="work-card-icon">🕐</span>
+                  <span class="work-card-title">Time &amp; rhythm</span>
+                  <ul>
+                    <li>Standard hours, with flexibility built in</li>
+                    <li>Creative and deep work vary by time of day</li>
+                    <li>Protected focus time is important</li>
+                    <li>I batch meetings to guard uninterrupted stretches</li>
+                    <li>I disconnect after hours, on weekends, and holidays</li>
+                  </ul>
+                </div>
+                <div class="work-card">
+                  <span class="work-card-icon">🪴</span>
+                  <span class="work-card-title">Environment</span>
+                  <ul>
+                    <li>Clean, minimal workspace — low stimulus</li>
+                    <li>Darker, quiet room helps me focus</li>
+                    <li>Lofi music with noise-cancelling headphones</li>
+                    <li>Remote work is where I do my best work</li>
+                  </ul>
+                </div>
+                <div class="work-card">
+                  <span class="work-card-icon">📋</span>
+                  <span class="work-card-title">Tools &amp; habits</span>
+                  <ul>
+                    <li>Calendar planning — I think in weeks</li>
+                    <li>To-do lists keep me grounded</li>
+                    <li>I write processes to create shared clarity and prevent mismatched expectations</li>
+                    <li>Autonomy + thought-partnership over either alone</li>
+                  </ul>
+                </div>
+                <div class="work-card">
+                  <span class="work-card-icon">🔁</span>
+                  <span class="work-card-title">How I approach projects</span>
+                  <ul>
+                    <li>I work best when we align on an MVP and timeline first — it keeps the scope from becoming open-ended</li>
+                    <li>I go deep, then share for a gut check, feedback, and revision</li>
+                    <li>I cover bases thoroughly, but I'm actively working against the pull to perfect everything before shipping</li>
+                    <li>Asking me a question — big or small — can spark an idea or get me unstuck</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- ── Module 05 Accordion: Communication style ── -->
+        <details class="module-accordion" id="accordion-communication">
+          <summary>
+            <span class="accordion-icon">💬</span>
+            <span class="accordion-text">
+              <span class="accordion-eyebrow">Module 05</span>
+              <span class="accordion-title">Communication style</span>
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 8 10 13 15 8"/></svg>
+          </summary>
+          <div class="accordion-body">
+            <div class="module">
+              <div class="comm-layout">
+                <p class="comm-prose">I keep Slack and email open during the day — Slack is where I respond fastest. My core hours are roughly 9am–5pm, and I snooze work notifications from 7pm to 7am. Async is my default, but I'm genuinely happy to jump on a call anytime — please don't hesitate.</p>
+                <div class="comm-feedback-block">
+                  <span class="comm-feedback-label">On feedback</span>
+                  <p class="comm-feedback-text">In the moment, directly, and 1:1 whenever possible — not relayed through someone else, especially if it's critical. I'd rather hear it straight from you. Pair it with specific context so I understand not just what, but why.</p>
+                </div>
+                <div class="comm-misread-block">
+                  <span class="comm-misread-label">Things people sometimes get wrong</span>
+                  <ul>
+                    <li>My thoughtfulness can look like hesitation or indecisiveness — sometimes I just need a minute, an hour, or a day to think it through.</li>
+                    <li>Being calm and quiet can read as aloof, disinterested, or opinionless. The reality is simpler: I'm calmly observing, processing, thinking.</li>
+                    <li>If I go quiet or slow to respond, I'm likely overwhelmed — not disengaged. A gentle check-in helps more than you'd expect.</li>
+                    <li>Once you know me, I'm funnier and sillier than my professional or strategy-focused presence might suggest.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- ── Module 06 Accordion: What supercharges me & what drains me ── -->
+        <details class="module-accordion" id="accordion-best-worst">
+          <summary>
+            <span class="accordion-icon">⚡</span>
+            <span class="accordion-text">
+              <span class="accordion-eyebrow">Module 06</span>
+              <span class="accordion-title">What supercharges me &amp; what drains me</span>
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 8 10 13 15 8"/></svg>
+          </summary>
+          <div class="accordion-body">
+            <div class="module">
+              <div class="two-col-cards">
+                <div class="split-card split-card--best">
+                  <span class="split-card-label">What supercharges me</span>
+                  <ul>
+                    <li>Clear context and goals, with freedom in how to get there</li>
+                    <li>A balance of autonomy and thought-partnership</li>
+                    <li>Working remotely</li>
+                    <li>Solving problems that genuinely matter</li>
+                    <li>Collaborating with people who are as invested as I am</li>
+                    <li>When someone tells me we're on track — I have a hard time giving myself permission to slow down, and that nudge matters</li>
+                  </ul>
+                </div>
+                <div class="split-card split-card--worst">
+                  <span class="split-card-label">What drains me</span>
+                  <ul>
+                    <li>Micromanagement</li>
+                    <li>Meetings without clear purpose or outcomes</li>
+                    <li>Being excluded from decisions that affect my work</li>
+                    <li>Feeling like my input isn't heard or valued</li>
+                    <li>Environments with negativity or gossip</li>
+                    <li>When I'm overwhelmed, my stress response is to freeze — I go quiet and slow down, not act out. If that happens, a gentle check-in is the most helpful thing you can do</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- ── Module 07 Accordion: Count on me & what I need ── -->
+        <details class="module-accordion" id="accordion-counton">
+          <summary>
+            <span class="accordion-icon">🤝</span>
+            <span class="accordion-text">
+              <span class="accordion-eyebrow">Module 07</span>
+              <span class="accordion-title">What you can count on me for &amp; what I need</span>
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 8 10 13 15 8"/></svg>
+          </summary>
+          <div class="accordion-body">
+            <div class="module">
+              <div class="two-col-cards">
+                <div class="split-card split-card--counton">
+                  <span class="split-card-label">You can count on me for</span>
+                  <ul>
+                    <li>Showing up prepared and on time</li>
+                    <li>Bringing a thoughtful, human perspective</li>
+                    <li>Following through on what I commit to</li>
+                    <li>Intrinsic motivation — I don't need to be pushed</li>
+                    <li>Distilling complexity into strategy, systems, and operations</li>
+                    <li>Listening actively and creating safe space for others</li>
+                  </ul>
+                </div>
+                <div class="split-card split-card--need">
+                  <span class="split-card-label">What I need from you</span>
+                  <ul>
+                    <li>Clear communication and follow-through</li>
+                    <li>Loop me in early, not at the last minute</li>
+                    <li>Space to think before responding</li>
+                    <li>Trust and autonomy once context is set</li>
+                    <li>Honest, direct feedback</li>
+                    <li>Collaborative energy, not just task delegation</li>
+                    <li>Tell me when we're on track — I tend to push through without stopping, and knowing things are good gives me permission to actually rest</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- ── Module 08 Accordion: Strengths ── -->
+        <details class="module-accordion" id="accordion-strengths">
+          <summary>
+            <span class="accordion-icon">🌟</span>
+            <span class="accordion-text">
+              <span class="accordion-eyebrow">Module 08</span>
+              <span class="accordion-title">Strengths</span>
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 8 10 13 15 8"/></svg>
+          </summary>
+          <div class="accordion-body">
+            <div class="module">
+              <div class="strengths-row">
+                <div class="strength-badge"><span class="strength-badge-dot" style="background:#4A9B6F;"></span>Calm</div>
+                <div class="strength-badge"><span class="strength-badge-dot" style="background:#5A7BBF;"></span>Thoughtful</div>
+                <div class="strength-badge"><span class="strength-badge-dot" style="background:#8A6BBF;"></span>Strategic</div>
+                <div class="strength-badge"><span class="strength-badge-dot" style="background:#BF8A3A;"></span>A good listener</div>
+                <div class="strength-badge"><span class="strength-badge-dot" style="background:#6AAFBF;"></span>Quiet</div>
+                <div class="strength-badge"><span class="strength-badge-dot" style="background:#BF5A7A;"></span>Empathetic</div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- ── Module 09 Accordion: Interests & obsessions ── -->
+        <details class="module-accordion" id="accordion-interests">
+          <summary>
+            <span class="accordion-icon">🎯</span>
+            <span class="accordion-text">
+              <span class="accordion-eyebrow">Module 09</span>
+              <span class="accordion-title">Interests &amp; obsessions</span>
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 8 10 13 15 8"/></svg>
+          </summary>
+          <div class="accordion-body">
+            <div class="module">
+              <div class="interests-grid">
+                <div class="interest-card"><span class="interest-emoji">📺</span><span class="interest-label">K-dramas</span></div>
+                <div class="interest-card"><span class="interest-emoji">🎵</span><span class="interest-label">K-pop</span></div>
+                <div class="interest-card"><span class="interest-emoji">🏃</span><span class="interest-label">Running</span></div>
+                <div class="interest-card"><span class="interest-emoji">🧋</span><span class="interest-label">Bubble tea</span></div>
+                <div class="interest-card"><span class="interest-emoji">✈️</span><span class="interest-label">Slow travel</span></div>
+                <div class="interest-card"><span class="interest-emoji">🍜</span><span class="interest-label">Trying new foods</span></div>
+                <div class="interest-card"><span class="interest-emoji">☕</span><span class="interest-label">Iced lattes</span></div>
+                <div class="interest-card"><span class="interest-emoji">📚</span><span class="interest-label">Manga</span></div>
+                <div class="interest-card"><span class="interest-emoji">🐶</span><span class="interest-label">Emerson, our dog</span></div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- ── Module 10 Accordion: Fun facts ── -->
+        <details class="module-accordion" id="accordion-funfacts">
+          <summary>
+            <span class="accordion-icon">✨</span>
+            <span class="accordion-text">
+              <span class="accordion-eyebrow">Module 10</span>
+              <span class="accordion-title">Fun facts</span>
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 8 10 13 15 8"/></svg>
+          </summary>
+          <div class="accordion-body">
+            <div class="module">
+              <div class="fun-facts-list">
+                <div class="fun-fact-row"><span class="fun-fact-num">01</span><span class="fun-fact-text">I got my driver's license in my 30s.</span></div>
+                <div class="fun-fact-row"><span class="fun-fact-num">02</span><span class="fun-fact-text">I can vibrate my eyes.</span></div>
+                <div class="fun-fact-row"><span class="fun-fact-num">03</span><span class="fun-fact-text">I can imagine anything.</span></div>
+                <div class="fun-fact-row"><span class="fun-fact-num">04</span><span class="fun-fact-text">I'm introverted — but I can also be genuinely silly once you know me.</span></div>
+                <div class="fun-fact-row"><span class="fun-fact-num">05</span><span class="fun-fact-text">I'm not aloof or disinterested. I'm just thinking.</span></div>
+              </div>
+            </div>
+          </div>
+        </details>
 
   <div id="footer-placeholder"></div>
   <script defer src="include.js"></script>
+
+  <script>
+  /* ── Module Selector & Accordion Interaction ── */
+  (() => {
+    // Scroll to an accordion and open it
+    function openAccordion(targetId) {
+      const accordion = document.getElementById(targetId);
+      if (!accordion) return;
+
+      // Open it if not already open
+      accordion.open = true;
+
+      // Smooth scroll into view with a little offset for the sticky header
+      const headerH = (document.querySelector('nav') || document.getElementById('header-placeholder'))?.offsetHeight || 0;
+      const top = accordion.getBoundingClientRect().top + window.scrollY - headerH - 20;
+
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
+
+    // Wire up all bento buttons and pegboard cards
+    document.querySelectorAll('[data-target]').forEach(el => {
+      const activate = () => openAccordion(el.dataset.target);
+      el.addEventListener('click', activate);
+      // Keyboard support for pegboard cards (role=button)
+      if (el.getAttribute('role') === 'button') {
+        el.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
+        });
+      }
+    });
+
+    // Keep bento nav items visually active based on which accordion is open
+    const accordions = document.querySelectorAll('.module-accordion');
+    const navItems = document.querySelectorAll('.bento-nav-item');
+
+    function syncNav() {
+      accordions.forEach(acc => {
+        const id = acc.id;
+        const isOpen = acc.open;
+        navItems.forEach(btn => {
+          if (btn.dataset.target === id) {
+            btn.classList.toggle('is-active', isOpen);
+          }
+        });
+      });
+    }
+
+    accordions.forEach(acc => {
+      acc.addEventListener('toggle', syncNav);
+    });
+
+    // Lazy-init the globe canvas when the first accordion opens
+    // (The globe script self-executes so it'll find the canvas even inside details)
+    // We just ensure the canvas resizes correctly on open
+    const placesAccordion = document.getElementById('accordion-places');
+    if (placesAccordion) {
+      placesAccordion.addEventListener('toggle', () => {
+        if (placesAccordion.open) {
+          // Allow layout to settle, then fire a resize so D3 recalculates
+          requestAnimationFrame(() => {
+            window.dispatchEvent(new Event('resize'));
+          });
+        }
+      });
+    }
+  })();
+  </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
