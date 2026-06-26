@@ -189,6 +189,123 @@
         padding: 24px 0;
       }
     }
+
+    /* ── MySpace Mode button ── */
+    .myspace-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 5px 12px;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s, background 0.2s, border-color 0.2s;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+    .myspace-btn:hover {
+      opacity: 1;
+      border-color: var(--mid);
+    }
+    .myspace-btn.is-active {
+      opacity: 1;
+      background: #01329c;
+      border-color: #01329c;
+    }
+    .myspace-btn img {
+      height: 16px;
+      width: auto;
+      display: block;
+    }
+    .myspace-btn.is-active img {
+      filter: brightness(0) invert(1);
+    }
+
+    /* ── MySpace Mode: title row wrapper ── */
+    .page-title-row {
+      position: relative;
+      /* Make room on the right for the pill button */
+      padding-right: 8rem;
+    }
+
+    /* The orange bar sits behind the h1 text only — covers .page-title-row */
+    .myspace-header-bar {
+      display: none;
+      position: absolute;
+      /* Generous vertical padding so headline is fully enclosed in bar */
+      top: -0.45em;
+      bottom: -0.45em;
+      left: -0.5em;
+      right: -0.5em;
+      background: #fccc99;
+      border-radius: 4px;
+      z-index: 0;
+      pointer-events: none;
+    }
+    /* Dark mode: soften the bar so it doesn't clash with the teal bg */
+    html[data-theme="dark"] .myspace-header-bar {
+      background: rgba(252, 204, 153, 0.18);
+    }
+
+    body.myspace-mode .myspace-header-bar {
+      display: block;
+    }
+    body.myspace-mode .page-title {
+      position: relative;
+      z-index: 1;
+      color: #e07624;
+      font-weight: 600;
+    }
+    /* Dark mode: keep the orange readable but don't fight the bg */
+    html[data-theme="dark"] body.myspace-mode .page-title {
+      color: #f4a44e;
+    }
+
+    body.myspace-mode .page-desc-original {
+      display: none;
+    }
+    body.myspace-mode .myspace-friend-count {
+      display: block;
+    }
+    .myspace-friend-count {
+      display: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.7;
+      color: var(--ink);
+      margin: 0 0 16px;
+    }
+    .myspace-friend-count .myspace-count-num {
+      color: #e07624;
+    }
+    html[data-theme="dark"] .myspace-friend-count .myspace-count-num {
+      color: #f4a44e;
+    }
+    body.myspace-mode .partner-name-link:hover {
+      color: #01329c !important;
+      border-color: #01329c !important;
+    }
+    html[data-theme="dark"] body.myspace-mode .partner-name-link:hover {
+      color: #5b9bd5 !important;
+      border-color: #5b9bd5 !important;
+    }
+    .online-now-gif {
+      display: none;
+      margin-top: 6px;
+    }
+    .online-now-gif img {
+      height: 18px;
+      width: auto;
+    }
+    body.myspace-mode .online-now-gif {
+      display: block;
+    }
   </style>
 
   <script defer src="include.js"></script>
@@ -204,8 +321,13 @@
       <div class="page-intro-inner">
         <div class="page-intro-text">
           <span class="page-eyebrow">Network</span>
-          <h1 class="page-title">Partners</h1>
-          <p class="page-desc">These fine folks are trusted partners for a range of comms needs beyond social media.<br class="mobile-br"> Kind people are my kind of people.</p>
+          <div class="page-title-row">
+            <div class="myspace-header-bar" aria-hidden="true"></div>
+            <h1 class="page-title"><span id="page-title-text">Partners</span></h1>
+            <button class="myspace-btn" id="myspace-toggle" aria-label="Toggle MySpace mode" title="MySpace mode" aria-pressed="false"><img src="images/MyspaceMode.svg" alt=""></button>
+          </div>
+          <p class="page-desc page-desc-original">These fine folks are trusted partners for a range of comms needs beyond social media.<br class="mobile-br"> Kind people are my kind of people.</p>
+          <p class="myspace-friend-count">Safe Camp has <span class="myspace-count-num" id="myspace-partner-count">8</span> Friends.</p>
         </div>
         <div class="page-intro-img" aria-hidden="true">
           <img src="images/Partners-light.png" alt="" class="partners-camper-light">
@@ -224,6 +346,7 @@
         <div class="partner-row" role="listitem">
           <div class="partner-name-col">
             <a href="https://www.wordswithalyssa.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">Alyssa Towns</a>
+            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
           </div>
           <p class="partner-desc">Alyssa is a freelance writer and contract communications specialist with a background in internal communications &amp; change management.</p>
         </div>
@@ -232,6 +355,7 @@
         <div class="partner-row" role="listitem">
           <div class="partner-name-col">
             <a href="https://www.saysorbet.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">Say Sorbet</a>
+            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
           </div>
           <p class="partner-desc">The consulting practice of Christina Teves. Christina advises C-level executives across healthcare, nonprofit, and consumer companies to provide thoughtful communications strategies.</p>
         </div>
@@ -240,14 +364,16 @@
         <div class="partner-row" role="listitem">
           <div class="partner-name-col">
             <a href="https://laurenhelmpr.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">Lauren Helm PR</a>
+            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
           </div>
-          <p class="partner-desc">The consulting practice of Lauren Helm. Like a compass, Lauren helps organizations chart a clear, strategic course for their branding, communications, marketing, and events.</p>
+          <p class="partner-desc">The consulting practice of Lauren Helm. Lauren helps leaders build clarity, consistency, and momentum by connecting brand, teams, and business objectives. Drawing experience across healthcare, nonprofits, associations, and professional services, she develops communication and event strategies that strengthen visibility, engagement, retention, and growth.</p>
         </div>
 
         <!-- GCYM Group -->
         <div class="partner-row" role="listitem">
           <div class="partner-name-col">
             <a href="https://www.gcymgroup.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">GCYM Group</a>
+            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
           </div>
           <p class="partner-desc">The consulting practice of <a href="https://www.linkedin.com/in/somattkelly" target="_blank" rel="noopener noreferrer">Matt Kelly</a>. Matt brings deep experience working in high-profile crisis management, corporate communications, and storytelling.</p>
         </div>
@@ -256,14 +382,25 @@
         <div class="partner-row" role="listitem">
           <div class="partner-name-col">
             <a href="https://www.linkedin.com/in/jamie-pugliese-artdirector" class="partner-name-link" target="_blank" rel="noopener noreferrer">Jamie Pugliese</a>
+            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
           </div>
           <p class="partner-desc">Jamie created the animated version of the Safe Camp logo. We worked (and sat next to each other) at Porter Novelli.</p>
+        </div>
+
+        <!-- Sarah Peduzzi -->
+        <div class="partner-row" role="listitem">
+          <div class="partner-name-col">
+            <a href="https://www.sarahpeduzzi.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">Sarah Peduzzi</a>
+            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+          </div>
+          <p class="partner-desc">Sarah is a senior growth and product marketing leader with 15+ years of experience in fintech, financial services, and B2B SaaS. She specializes in customer acquisition, performance marketing, and go-to-market strategy. She builds marketing systems designed to outlast her engagement.</p>
         </div>
 
         <!-- The Specialists -->
         <div class="partner-row" role="listitem">
           <div class="partner-name-col">
             <a href="https://www.bespecialist.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">The Specialists</a>
+            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
           </div>
           <p class="partner-desc">An independent Chicago-based agency led by industry veteran Dan Consiglio. This small team of senior, award-winning specialists produces amazing work for clients, from national brand commercials to local social media campaigns and so much more.</p>
         </div>
@@ -272,6 +409,7 @@
         <div class="partner-row" role="listitem">
           <div class="partner-name-col">
             <a href="https://www.commsconsultants.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">CommsConsultants</a>
+            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
           </div>
           <p class="partner-desc">I'm a community champion within a group of 600+ trusted consultants in communications, marketing, and creative. Every single one was personally vetted by Ashley Dennison, the founder and a longtime comms consultant.</p>
         </div>
@@ -280,6 +418,7 @@
         <div class="partner-row" role="listitem">
           <div class="partner-name-col">
             <span class="partner-name-plain is-anonymous">Wikipedia Editor</span>
+            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
           </div>
           <p class="partner-desc">Due to the sensitive nature of Wikipedia projects, this partner's name will be shared upon request. They are one of the world's relatively few Wikipedia Editors in the highest tier, able to submit new articles for publication — if they meet Wikipedia's Notability Guidelines. They engage with Wikipedia ethically and openly.</p>
         </div>
@@ -288,6 +427,28 @@
     </div>
 
   </main>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('myspace-toggle');
+      var body = document.body;
+      var titleTextEl = document.getElementById('page-title-text');
+      var originalTitle = 'Partners';
+      var myspaceTitle = 'Safe Camp\u2019s Friend Space';
+      var countEl = document.getElementById('myspace-partner-count');
+
+      // Count partners dynamically
+      var partnerRows = document.querySelectorAll('.partners-list [role="listitem"]');
+      if (countEl) countEl.textContent = partnerRows.length;
+
+      btn.addEventListener('click', function () {
+        var isActive = body.classList.toggle('myspace-mode');
+        btn.classList.toggle('is-active', isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        titleTextEl.textContent = isActive ? myspaceTitle : originalTitle;
+      });
+    })();
+  </script>
 
   <div id="footer-placeholder"></div>
 
