@@ -125,6 +125,27 @@
 
     .partner-name-col {
       padding-top: 2px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .partner-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .partner-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .partner-name-text {
+      min-width: 0;
     }
 
     .partner-name-link {
@@ -188,6 +209,11 @@
         gap: 10px;
         padding: 24px 0;
       }
+    }
+
+    @media (max-width: 420px) {
+      .partner-icon { width: 36px; height: 36px; }
+      .partner-icon svg { width: 16px; height: 16px; }
     }
 
     /* ── MySpace Mode button ── */
@@ -369,8 +395,13 @@
         <!-- Alyssa Towns -->
         <div class="partner-row" role="listitem">
           <div class="partner-name-col">
-            <a href="https://www.wordswithalyssa.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">Alyssa Towns</a>
-            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            <div class="partner-icon" style="background:#E6F1FB;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+            </div>
+            <div class="partner-name-text">
+              <a href="https://www.wordswithalyssa.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">Alyssa Towns</a>
+              <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            </div>
           </div>
           <p class="partner-desc">Alyssa is a freelance writer and contract communications specialist with a background in internal communications &amp; change management.</p>
         </div>
@@ -378,8 +409,13 @@
         <!-- Say Sorbet -->
         <div class="partner-row" role="listitem">
           <div class="partner-name-col">
-            <a href="https://www.saysorbet.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">Say Sorbet</a>
-            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            <div class="partner-icon" style="background:#FDF2F8;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#9D174D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            </div>
+            <div class="partner-name-text">
+              <a href="https://www.saysorbet.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">Say Sorbet</a>
+              <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            </div>
           </div>
           <p class="partner-desc">The consulting practice of Christina Teves. Christina advises C-level executives across healthcare, nonprofit, and consumer companies to provide thoughtful communications strategies.</p>
         </div>
@@ -387,8 +423,13 @@
         <!-- Lauren Helm PR -->
         <div class="partner-row" role="listitem">
           <div class="partner-name-col">
-            <a href="https://laurenhelmpr.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">Lauren Helm PR</a>
-            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            <div class="partner-icon" style="background:#FFF7ED;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </div>
+            <div class="partner-name-text">
+              <a href="https://laurenhelmpr.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">Lauren Helm PR</a>
+              <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            </div>
           </div>
           <p class="partner-desc">The consulting practice of Lauren Helm. Lauren helps leaders build clarity, consistency, and momentum by connecting brand, teams, and business objectives. Drawing experience across healthcare, nonprofits, associations, and professional services, she develops communication and event strategies that strengthen visibility, engagement, retention, and growth.</p>
         </div>
@@ -396,8 +437,13 @@
         <!-- GCYM Group -->
         <div class="partner-row" role="listitem">
           <div class="partner-name-col">
-            <a href="https://www.gcymgroup.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">GCYM Group</a>
-            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            <div class="partner-icon" style="background:#FEF2F2;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/></svg>
+            </div>
+            <div class="partner-name-text">
+              <a href="https://www.gcymgroup.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">GCYM Group</a>
+              <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            </div>
           </div>
           <p class="partner-desc">The consulting practice of <a href="https://www.linkedin.com/in/somattkelly" target="_blank" rel="noopener noreferrer">Matt Kelly</a>. Matt brings deep experience working in high-profile crisis management, corporate communications, and storytelling.</p>
         </div>
@@ -405,17 +451,41 @@
         <!-- Jamie Pugliese -->
         <div class="partner-row" role="listitem">
           <div class="partner-name-col">
-            <a href="https://www.linkedin.com/in/jamie-pugliese-artdirector" class="partner-name-link" target="_blank" rel="noopener noreferrer">Jamie Pugliese</a>
-            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            <div class="partner-icon" style="background:#F3EEF9;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+            </div>
+            <div class="partner-name-text">
+              <a href="https://www.linkedin.com/in/jamie-pugliese-artdirector" class="partner-name-link" target="_blank" rel="noopener noreferrer">Jamie Pugliese</a>
+              <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            </div>
           </div>
           <p class="partner-desc">Jamie created the animated version of the Safe Camp logo. We worked (and sat next to each other) at Porter Novelli.</p>
+        </div>
+
+        <!-- Karen Amicarelli -->
+        <div class="partner-row" role="listitem">
+          <div class="partner-name-col">
+            <div class="partner-icon" style="background:#F3EEF9;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+            </div>
+            <div class="partner-name-text">
+              <a href="https://karenamicarelligraphicdesign.com" class="partner-name-link" target="_blank" rel="noopener noreferrer">Karen Amicarelli</a>
+              <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            </div>
+          </div>
+          <p class="partner-desc">Karen Amicarelli is a freelance graphic designer who helps organizations transform complex content into clear, engaging communications. With more than 20 years of experience, she specializes in publication design, annual reports, and marketing materials that make information easy to read, visually compelling, and aligned with each client's brand.</p>
         </div>
 
         <!-- Sarah Peduzzi -->
         <div class="partner-row" role="listitem">
           <div class="partner-name-col">
-            <a href="https://www.sarahpeduzzi.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">Sarah Peduzzi</a>
-            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            <div class="partner-icon" style="background:#F0FDF4;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+            </div>
+            <div class="partner-name-text">
+              <a href="https://www.sarahpeduzzi.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">Sarah Peduzzi</a>
+              <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            </div>
           </div>
           <p class="partner-desc">Sarah is a senior growth and product marketing leader with 15+ years of experience in fintech, financial services, and B2B SaaS. She specializes in customer acquisition, performance marketing, and go-to-market strategy. She builds marketing systems designed to outlast her engagement.</p>
         </div>
@@ -423,8 +493,13 @@
         <!-- The Specialists -->
         <div class="partner-row" role="listitem">
           <div class="partner-name-col">
-            <a href="https://www.bespecialist.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">The Specialists</a>
-            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            <div class="partner-icon" style="background:#FEF3E2;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            </div>
+            <div class="partner-name-text">
+              <a href="https://www.bespecialist.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">The Specialists</a>
+              <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            </div>
           </div>
           <p class="partner-desc">An independent Chicago-based agency led by industry veteran Dan Consiglio. This small team of senior, award-winning specialists produces amazing work for clients, from national brand commercials to local social media campaigns and so much more.</p>
         </div>
@@ -432,8 +507,13 @@
         <!-- CommsConsultants -->
         <div class="partner-row" role="listitem">
           <div class="partner-name-col">
-            <a href="https://www.commsconsultants.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">CommsConsultants</a>
-            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            <div class="partner-icon" style="background:#EAF3DE;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#3B6D11" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="partner-name-text">
+              <a href="https://www.commsconsultants.com/" class="partner-name-link" target="_blank" rel="noopener noreferrer">CommsConsultants</a>
+              <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            </div>
           </div>
           <p class="partner-desc">I'm a community champion within a group of 600+ trusted consultants in communications, marketing, and creative. Every single one was personally vetted by Ashley Dennison, the founder and a longtime comms consultant.</p>
         </div>
@@ -441,8 +521,13 @@
         <!-- Wikipedia Editor -->
         <div class="partner-row" role="listitem">
           <div class="partner-name-col">
-            <span class="partner-name-plain is-anonymous">Wikipedia Editor</span>
-            <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            <div class="partner-icon" style="background:#EEEDFE;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#534AB7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </div>
+            <div class="partner-name-text">
+              <span class="partner-name-plain is-anonymous">Wikipedia Editor</span>
+              <div class="online-now-gif" aria-hidden="true"><img src="images/onlinenow.gif" alt=""></div>
+            </div>
           </div>
           <p class="partner-desc">Due to the sensitive nature of Wikipedia projects, this partner's name will be shared upon request. They are one of the world's relatively few Wikipedia Editors in the highest tier, able to submit new articles for publication — if they meet Wikipedia's Notability Guidelines. They engage with Wikipedia ethically and openly.</p>
         </div>
