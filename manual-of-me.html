@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="icon" href="favicon-black.svg" media="(prefers-color-scheme: light)">
   <link rel="icon" href="favicon-white.svg" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="css/styles.css">
@@ -167,7 +168,7 @@
     /* ── Module Selector Bento ── */
     .module-selector-bento {
       display: grid;
-      grid-template-columns: 220px 1fr;
+      grid-template-columns: 280px 1fr;
       gap: 0;
       border: 1px solid var(--line);
       border-radius: 20px;
@@ -230,19 +231,21 @@
          away from all four borders and naturally centered */
       background-origin: content-box, border-box;
       background-clip: content-box, border-box;
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(2, 1fr);
       align-items: center;
-      justify-content: center;
-      padding: 24px;
-      gap: 20px;
-      flex-wrap: wrap;
+      justify-items: center;
+      padding: 20px;
+      gap: 16px;
     }
 
     /* Pegboard image items */
     .pegboard-card {
       position: relative;
-      width: 120px;
-      height: 120px;
+      width: 100%;
+      max-width: 100px;
+      aspect-ratio: 1;
       cursor: pointer;
       flex-shrink: 0;
       opacity: 1;
@@ -342,9 +345,26 @@
 
     /* ── Values pills ── */
     .values-cloud {
+      display: grid;
+      grid-template-columns: repeat(6, auto);
+      justify-content: start;
+      gap: 10px 12px;
+      align-items: start;
+    }
+    .values-col {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       gap: 10px;
+    }
+    @media (max-width: 700px) {
+      .values-cloud {
+        grid-template-columns: repeat(3, auto);
+      }
+    }
+    @media (max-width: 420px) {
+      .values-cloud {
+        grid-template-columns: repeat(2, auto);
+      }
     }
     .value-pill {
       display: inline-block;
@@ -365,6 +385,44 @@
     .value-pill-6  { background:#FDE8F4; color:#8A2E68; }
     .value-pill-7  { background:#EEF8E8; color:#3A6A20; }
     .value-pill-8  { background:#F8F0E8; color:#7A4A20; }
+    .value-pill-9  { background:#E8F4EC; color:#1A5C38; }
+    .value-pill-10 { background:#FDE8E8; color:#7A2828; }
+    .value-pill-11 { background:#E8EEF8; color:#243E7A; }
+    .value-pill-12 { background:#FEF3E2; color:#6A4008; }
+    .value-pill-13 { background:#F0E8F8; color:#4A2278; }
+    .value-pill-14 { background:#E8F6F8; color:#145060; }
+    .value-pill-15 { background:#FDE8F4; color:#7A2258; }
+    .value-pill-16 { background:#EEF8E8; color:#2A5A10; }
+    .value-pill-17 { background:#F8F0E8; color:#6A3A10; }
+    .value-pill-18 { background:#E8F4EC; color:#2A6B40; }
+    .value-pill-19 { background:#FDE8E8; color:#8B2E2E; }
+    .value-pill-20 { background:#E8EEF8; color:#2B4A8A; }
+    .value-pill-21 { background:#FEF3E2; color:#7A4F10; }
+    .value-pill-22 { background:#F0E8F8; color:#5A2E8A; }
+    .value-pill-23 { background:#E8F6F8; color:#1A6070; }
+    .value-pill-24 { background:#FDE8F4; color:#8A2E68; }
+    .value-pill-25 { background:#EEF8E8; color:#3A6A20; }
+    .value-pill-26 { background:#F8F0E8; color:#7A4A20; }
+    .value-pill-27 { background:#E8F4EC; color:#1A5C38; }
+    .value-pill-28 { background:#FDE8E8; color:#7A2828; }
+    .value-pill-29 { background:#E8EEF8; color:#243E7A; }
+    .value-pill-30 { background:#FEF3E2; color:#6A4008; }
+    .value-pill-31 { background:#F0E8F8; color:#4A2278; }
+    .value-pill-32 { background:#E8F6F8; color:#145060; }
+    .value-pill-33 { background:#FDE8F4; color:#7A2258; }
+    .value-pill-34 { background:#EEF8E8; color:#2A5A10; }
+    .value-pill-35 { background:#F8F0E8; color:#6A3A10; }
+    .value-pill-36 { background:#E8F4EC; color:#2A6B40; }
+    .value-pill-37 { background:#FDE8E8; color:#8B2E2E; }
+    .value-pill-38 { background:#E8EEF8; color:#2B4A8A; }
+    .value-pill-39 { background:#FEF3E2; color:#7A4F10; }
+    .value-pill-40 { background:#F0E8F8; color:#5A2E8A; }
+    .value-pill-41 { background:#E8F6F8; color:#1A6070; }
+    .value-pill-42 { background:#FDE8F4; color:#8A2E68; }
+    .value-pill-43 { background:#EEF8E8; color:#3A6A20; }
+    .value-pill-44 { background:#F8F0E8; color:#7A4A20; }
+    .value-pill-45 { background:#E8F4EC; color:#1A5C38; }
+    .value-pill-46 { background:#FDE8E8; color:#7A2828; }
 
     /* ── Two-column card layout (best/worst, count-on/need) ── */
     .two-col-cards {
@@ -642,6 +700,12 @@
       color: var(--mid);
       line-height: 1.6;
     }
+    .fun-fact-text a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .fun-fact-text a:hover { opacity: 0.75; }
 
     @media (max-width:768px) {
       .mom-outer { padding:64px 24px 80px; }
@@ -658,7 +722,240 @@
       .how-i-work-grid { grid-template-columns: 1fr; }
       .interests-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
     }
-  </style>
+  
+    /* ── DiSC Module ── */
+    .disc-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .disc-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .disc-archetype-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4A9B6F 0%, #3A7A58 100%);
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .disc-archetype-badge .disc-style-label {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+    .disc-archetype-badge .disc-style-sub {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      opacity: 0.85;
+      margin-top: 3px;
+    }
+    .disc-archetype-text h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 4px;
+    }
+    .disc-archetype-text p {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.55;
+      max-width: 420px;
+    }
+    .disc-bar-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .disc-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .disc-bar-label {
+      width: 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      flex-shrink: 0;
+    }
+    .disc-bar-track {
+      flex: 1;
+      height: 28px;
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .disc-bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      transition: width 0.6s ease;
+    }
+    .disc-bar-fill.d { background: #D95F5F; }
+    .disc-bar-fill.i { background: #E8A23A; }
+    .disc-bar-fill.s { background: #4A9B6F; }
+    .disc-bar-fill.c { background: #5A7BBF; }
+    .disc-traits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .disc-trait-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px 18px;
+      background: var(--card-bg);
+    }
+    .disc-trait-card-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .disc-trait-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .disc-trait-card ul li {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.45;
+      padding-left: 14px;
+      position: relative;
+    }
+    .disc-trait-card ul li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+    }
+    .pegboard-disc-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+    @media (max-width: 540px) {
+      .disc-traits-grid { grid-template-columns: 1fr; }
+      .disc-header { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* ── Module 12: Pokémon Team ── */
+    /* Full-bleed tan: override the shared accordion-body padding/background
+       (32px 28px 36px + var(--bg)) just for this module, so #cdcdae reaches
+       every edge of the expanded panel instead of leaving a gutter. */
+    #accordion-pokemon .accordion-body {
+      padding: 0;
+      background: #cdcdae;
+    }
+    #accordion-pokemon .module {
+      margin-bottom: 0;
+    }
+    /* Vector frame instead of a raster border-image: an SVG has no fixed pixel
+       grid, so it can stretch to fill the module at any screen size with no
+       seams, no scale-mismatched corners, and no repeat artifacts. */
+    .pokemon-bg-wrap {
+      box-sizing: border-box;
+      width: 100%;
+      background-color: #cdcdae;
+      background-image: url('images/manual-of-me/pokemon-team-bg.svg');
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      background-size: 100% 100%;
+      padding: 32px;
+    }
+    .pokemon-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .pokemon-card {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      aspect-ratio: 1 / 1.2;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+    .pokemon-card-img-wrap {
+      flex: 1;
+      background: var(--hero-bg);
+      overflow: hidden;
+    }
+    .pokemon-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      image-rendering: pixelated;
+    }
+    .pokemon-card-name {
+      padding: 10px 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: 'Press Start 2P', 'DM Sans', monospace;
+      font-size: 9px;
+      line-height: 1.8;
+      color: var(--ink);
+      border-top: 1px solid var(--line);
+      background: var(--card-bg);
+    }
+    .pokemon-card-name .pokemon-arrow {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #000;
+      clip-path: polygon(
+        0% 0%, 20% 0%, 20% 20%, 40% 20%, 40% 40%, 60% 40%,
+        60% 60%, 40% 60%, 40% 80%, 20% 80%, 20% 100%, 0% 100%
+      );
+      flex-shrink: 0;
+    }
+    .pokemon-card-name .pokemon-species {
+      display: block;
+      margin-top: 4px;
+      color: var(--mid);
+      font-size: 8px;
+    }
+    @media (max-width: 640px) {
+      .pokemon-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 400px) {
+      .pokemon-grid { grid-template-columns: 1fr; }
+    }
+
+    </style>
 </head>
 <body>
   <noscript><p style="position:fixed;bottom:0;left:0;right:0;background:var(--nav-bg);color:var(--ink);text-align:center;padding:12px 24px;font-size:13px;letter-spacing:0.06em;z-index:999;margin:0;">JavaScript is disabled in your browser. Some features require JavaScript.</p></noscript>
@@ -696,7 +993,7 @@
               </span>
             </button>
             <button class="bento-nav-item" data-target="accordion-values" aria-label="Go to Values">
-              <span class="bento-nav-item-icon">💡</span>
+              <span class="bento-nav-item-icon">🧭</span>
               <span class="bento-nav-item-text">
                 <span class="bento-nav-item-name">Values</span>
                 <span class="bento-nav-item-sub">Module 03</span>
@@ -740,7 +1037,7 @@
             <button class="bento-nav-item" data-target="accordion-interests" aria-label="Go to Interests and obsessions">
               <span class="bento-nav-item-icon">🎯</span>
               <span class="bento-nav-item-text">
-                <span class="bento-nav-item-name">Interests &amp; obsessions</span>
+                <span class="bento-nav-item-name">Interests</span>
                 <span class="bento-nav-item-sub">Module 09</span>
               </span>
             </button>
@@ -749,6 +1046,20 @@
               <span class="bento-nav-item-text">
                 <span class="bento-nav-item-name">Fun facts</span>
                 <span class="bento-nav-item-sub">Module 10</span>
+              </span>
+            </button>
+            <button class="bento-nav-item" data-target="accordion-disc" aria-label="Go to DiSC Assessment">
+              <span class="bento-nav-item-icon">🟢</span>
+              <span class="bento-nav-item-text">
+                <span class="bento-nav-item-name">DiSC Assessment</span>
+                <span class="bento-nav-item-sub">Module 11</span>
+              </span>
+            </button>
+            <button class="bento-nav-item" data-target="accordion-pokemon" aria-label="Go to Pokémon Team">
+              <span class="bento-nav-item-icon">🔴</span>
+              <span class="bento-nav-item-text">
+                <span class="bento-nav-item-name">Pokémon Team</span>
+                <span class="bento-nav-item-sub">Module 12</span>
               </span>
             </button>
           </div>
@@ -784,6 +1095,12 @@
             </div>
             <div class="pegboard-card" data-target="accordion-funfacts" role="button" tabindex="0" aria-label="Open Fun facts">
               <img src="images/manual-of-me/Module10.png" alt="Fun facts">
+            </div>
+            <div class="pegboard-card" data-target="accordion-disc" role="button" tabindex="0" aria-label="Open DiSC Assessment">
+              <img src="images/manual-of-me/Module11.png" alt="DiSC Assessment">
+            </div>
+            <div class="pegboard-card" data-target="accordion-pokemon" role="button" tabindex="0" aria-label="Open Pokémon Team">
+              <img src="images/manual-of-me/Module12.png" alt="Pokémon Team">
             </div>
           </div>
         </div>
@@ -857,7 +1174,7 @@
         <!-- ── Module 03 Accordion: Values ── -->
         <details class="module-accordion" id="accordion-values">
           <summary>
-            <span class="accordion-icon">💡</span>
+            <span class="accordion-icon">🧭</span>
             <span class="accordion-text">
               <span class="accordion-eyebrow">Module 03</span>
               <span class="accordion-title">Values</span>
@@ -867,15 +1184,50 @@
           <div class="accordion-body">
             <div class="module">
               <div class="values-cloud">
-                <span class="value-pill value-pill-0">People-first</span>
-                <span class="value-pill value-pill-1">Kindness</span>
-                <span class="value-pill value-pill-2">Collaboration</span>
-                <span class="value-pill value-pill-3">Curiosity</span>
-                <span class="value-pill value-pill-4">Empathy</span>
-                <span class="value-pill value-pill-5">Diversity</span>
-                <span class="value-pill value-pill-6">Inclusivity</span>
-                <span class="value-pill value-pill-7">Learning</span>
-                <span class="value-pill value-pill-8">Practicality</span>
+                <div class="values-col">
+                  <span class="value-pill value-pill-0">People-first</span>
+                  <span class="value-pill value-pill-0">Kindness</span>
+                  <span class="value-pill value-pill-0">Empathy</span>
+                  <span class="value-pill value-pill-0">Compassion</span>
+                  <span class="value-pill value-pill-0">Care</span>
+                  <span class="value-pill value-pill-0">Warmth</span>
+                </div>
+                <div class="values-col">
+                  <span class="value-pill value-pill-1">Autonomy</span>
+                  <span class="value-pill value-pill-1">Dependability</span>
+                  <span class="value-pill value-pill-1">Proactivity</span>
+                  <span class="value-pill value-pill-1">Safety</span>
+                </div>
+                <div class="values-col">
+                  <span class="value-pill value-pill-2">Collaboration</span>
+                  <span class="value-pill value-pill-2">Diversity</span>
+                  <span class="value-pill value-pill-2">Inclusivity</span>
+                  <span class="value-pill value-pill-2">Community</span>
+                  <span class="value-pill value-pill-2">Service</span>
+                </div>
+                <div class="values-col">
+                  <span class="value-pill value-pill-3">Curiosity</span>
+                  <span class="value-pill value-pill-3">Learning</span>
+                  <span class="value-pill value-pill-3">Flexibility</span>
+                  <span class="value-pill value-pill-3">Creativity</span>
+                  <span class="value-pill value-pill-3">Innovation</span>
+                  <span class="value-pill value-pill-3">Openness</span>
+                </div>
+                <div class="values-col">
+                  <span class="value-pill value-pill-4">Fairness</span>
+                  <span class="value-pill value-pill-4">Humility</span>
+                  <span class="value-pill value-pill-4">Ethics</span>
+                  <span class="value-pill value-pill-4">Honesty</span>
+                  <span class="value-pill value-pill-4">Responsibility</span>
+                </div>
+                <div class="values-col">
+                  <span class="value-pill value-pill-5">Practicality</span>
+                  <span class="value-pill value-pill-5">Encouragement</span>
+                  <span class="value-pill value-pill-5">Calmness</span>
+                  <span class="value-pill value-pill-5">Quality</span>
+                  <span class="value-pill value-pill-5">Thoughtfulness</span>
+                  <span class="value-pill value-pill-5">Purpose</span>
+                </div>
               </div>
             </div>
           </div>
@@ -1083,7 +1435,7 @@
             <span class="accordion-icon">🎯</span>
             <span class="accordion-text">
               <span class="accordion-eyebrow">Module 09</span>
-              <span class="accordion-title">Interests &amp; obsessions</span>
+              <span class="accordion-title">Interests</span>
             </span>
             <svg class="accordion-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 8 10 13 15 8"/></svg>
           </summary>
@@ -1099,6 +1451,7 @@
                 <div class="interest-card"><span class="interest-emoji">☕</span><span class="interest-label">Iced lattes</span></div>
                 <div class="interest-card"><span class="interest-emoji">📚</span><span class="interest-label">Manga</span></div>
                 <div class="interest-card"><span class="interest-emoji">🐶</span><span class="interest-label">Emerson, our dog</span></div>
+                <div class="interest-card"><span class="interest-emoji">🍣</span><span class="interest-label">Sushi</span></div>
               </div>
             </div>
           </div>
@@ -1122,6 +1475,179 @@
                 <div class="fun-fact-row"><span class="fun-fact-num">03</span><span class="fun-fact-text">I can imagine anything.</span></div>
                 <div class="fun-fact-row"><span class="fun-fact-num">04</span><span class="fun-fact-text">I'm introverted — but I can also be genuinely silly once you know me.</span></div>
                 <div class="fun-fact-row"><span class="fun-fact-num">05</span><span class="fun-fact-text">I'm not aloof or disinterested. I'm just thinking.</span></div>
+                <div class="fun-fact-row"><span class="fun-fact-num">06</span><span class="fun-fact-text">Favorite food — sushi.</span></div>
+                <div class="fun-fact-row"><span class="fun-fact-num">07</span><span class="fun-fact-text">Favorite song — <a href="https://www.youtube.com/watch?v=eHuebHTD-lY" target="_blank" rel="noopener">Black and Gold by Sam Sparro</a>.</span></div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- ── Module 11 Accordion: DiSC Assessment ── -->
+        <details class="module-accordion" id="accordion-disc">
+          <summary>
+            <span class="accordion-icon">🟢</span>
+            <span class="accordion-text">
+              <span class="accordion-eyebrow">Module 11</span>
+              <span class="accordion-title">DiSC Assessment</span>
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 8 10 13 15 8"/></svg>
+          </summary>
+          <div class="accordion-body">
+            <div class="module">
+              <div class="disc-layout">
+
+                <!-- Archetype header -->
+                <div class="disc-header">
+                  <div class="disc-archetype-badge">
+                    <span class="disc-style-label">SC</span>
+                    <span class="disc-style-sub">style</span>
+                  </div>
+                  <div class="disc-archetype-text">
+                    <h3>The Stabilizer</h3>
+                    <p>Calm, patient, deeply loyal, and dependable. I maintain team harmony, provide practical support, and create consistent, predictable environments where people can do their best work.</p>
+                  </div>
+                </div>
+
+                <!-- Bar chart -->
+                <div class="disc-bar-chart">
+                  <div class="disc-bar-row">
+                    <span class="disc-bar-label">D</span>
+                    <div class="disc-bar-track">
+                      <div class="disc-bar-fill d" style="width:8%;">8%</div>
+                    </div>
+                  </div>
+                  <div class="disc-bar-row">
+                    <span class="disc-bar-label">I</span>
+                    <div class="disc-bar-track">
+                      <div class="disc-bar-fill i" style="width:4%;">4%</div>
+                    </div>
+                  </div>
+                  <div class="disc-bar-row">
+                    <span class="disc-bar-label">S</span>
+                    <div class="disc-bar-track">
+                      <div class="disc-bar-fill s" style="width:63%;">63%</div>
+                    </div>
+                  </div>
+                  <div class="disc-bar-row">
+                    <span class="disc-bar-label">C</span>
+                    <div class="disc-bar-track">
+                      <div class="disc-bar-fill c" style="width:25%;">25%</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Trait cards -->
+                <div class="disc-traits-grid">
+                  <div class="disc-trait-card">
+                    <span class="disc-trait-card-label">Pacing &amp; priorities</span>
+                    <ul>
+                      <li>Prefer a moderate, steady pace</li>
+                      <li>High value on collaboration and sincerity</li>
+                      <li>Motivated to avoid conflict and maintain harmony</li>
+                    </ul>
+                  </div>
+                  <div class="disc-trait-card">
+                    <span class="disc-trait-card-label">Strengths</span>
+                    <ul>
+                      <li>Excellent active listener</li>
+                      <li>Reliable, consistent support</li>
+                      <li>Step-by-step guidance and follow-through</li>
+                      <li>Strong organizational skills</li>
+                    </ul>
+                  </div>
+                  <div class="disc-trait-card">
+                    <span class="disc-trait-card-label">Blind spots</span>
+                    <ul>
+                      <li>May hesitate to try untested solutions</li>
+                      <li>Can delay decisions to avoid confrontation</li>
+                      <li>Risk-aversion under turbulent conditions</li>
+                    </ul>
+                  </div>
+                  <div class="disc-trait-card">
+                    <span class="disc-trait-card-label">Motivators</span>
+                    <ul>
+                      <li>Stable daily routines and predictability</li>
+                      <li>One-on-one coaching and connection</li>
+                      <li>Conflict-free, supportive workplace</li>
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- ── Module 12 Accordion: Pokémon Team ── -->
+        <details class="module-accordion" id="accordion-pokemon">
+          <summary>
+            <span class="accordion-icon">🔴</span>
+            <span class="accordion-text">
+              <span class="accordion-eyebrow">Module 12</span>
+              <span class="accordion-title">Pokémon Team</span>
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 8 10 13 15 8"/></svg>
+          </summary>
+          <div class="accordion-body">
+            <div class="module">
+              <div class="pokemon-bg-wrap">
+                <div class="pokemon-grid">
+
+                  <div class="pokemon-card">
+                    <div class="pokemon-card-img-wrap">
+                      <img src="images/manual-of-me/pokemon-chu.png" alt="Chu the Gorochu">
+                    </div>
+                    <div class="pokemon-card-name">
+                      <span class="pokemon-arrow" aria-hidden="true"></span>Chu (Gorochu)
+                    </div>
+                  </div>
+
+                  <div class="pokemon-card">
+                    <div class="pokemon-card-img-wrap">
+                      <img src="images/manual-of-me/pokemon-platy.png" alt="Platy the Psyduck">
+                    </div>
+                    <div class="pokemon-card-name">
+                      <span class="pokemon-arrow" aria-hidden="true"></span>Platy (Psyduck)
+                    </div>
+                  </div>
+
+                  <div class="pokemon-card">
+                    <div class="pokemon-card-img-wrap">
+                      <img src="images/manual-of-me/pokemon-cynder.png" alt="Cynder the Typhlosion">
+                    </div>
+                    <div class="pokemon-card-name">
+                      <span class="pokemon-arrow" aria-hidden="true"></span>Cynder (Typhlosion)
+                    </div>
+                  </div>
+
+                  <div class="pokemon-card">
+                    <div class="pokemon-card-img-wrap">
+                      <img src="images/manual-of-me/pokemon-azuma.png" alt="Azuma the Azumarill">
+                    </div>
+                    <div class="pokemon-card-name">
+                      <span class="pokemon-arrow" aria-hidden="true"></span>Azuma (Azumarill)
+                    </div>
+                  </div>
+
+                  <div class="pokemon-card">
+                    <div class="pokemon-card-img-wrap">
+                      <img src="images/manual-of-me/pokemon-pory.png" alt="Pory the Porygon2">
+                    </div>
+                    <div class="pokemon-card-name">
+                      <span class="pokemon-arrow" aria-hidden="true"></span>Pory (Porygon2)
+                    </div>
+                  </div>
+
+                  <div class="pokemon-card">
+                    <div class="pokemon-card-img-wrap">
+                      <img src="images/manual-of-me/pokemon-safe.png" alt="Safe the Unown">
+                    </div>
+                    <div class="pokemon-card-name">
+                      <span class="pokemon-arrow" aria-hidden="true"></span>Safe (Unown)
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
