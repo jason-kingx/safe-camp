@@ -103,7 +103,6 @@ URL: https://jason-kingx.github.io/safe-camp/partners.html
 
 - Homepage: https://jason-kingx.github.io/safe-camp/
 - Services: https://jason-kingx.github.io/safe-camp/services.html
-- Tools: https://jason-kingx.github.io/safe-camp/tools.html
 - Content Story Framer: https://jason-kingx.github.io/safe-camp/tools/content-story-framer.html
 - Social Media Open Graph Checker: https://jason-kingx.github.io/safe-camp/tools/social-card-previewer.html
 - Social Media ROI Calculator: https://jason-kingx.github.io/safe-camp/tools/social-media-roi-calculator.html
