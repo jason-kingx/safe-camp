@@ -262,6 +262,18 @@
       border-color: #fff;
     }
 
+    /* On narrow screens the button sits under the headline instead of over it */
+    @media (max-width: 768px) {
+      .page-title-row { padding-right: 0; }
+      .myspace-btn {
+        position: static;
+        transform: none;
+        margin-top: 12px;
+      }
+      /* Keep the MySpace highlight behind the headline, not the button (28px tall + 12px gap) */
+      .page-title-row .myspace-header-bar { bottom: calc(40px - 0.45em); }
+    }
+
     /* ── MySpace Mode: title row wrapper ── */
     .page-title-row {
       position: relative;
