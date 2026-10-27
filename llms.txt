@@ -1,6 +1,6 @@
 # Safe Camp
 
-> Social media strategy consultancy founded by Jason King. 15 years of experience partnering with 100+ brands across biotech, pharma, CPG, financial services, and nonprofit sectors.
+> Social media strategy consultancy founded by Jason King. Strategy as shelter. More than 15 years of experience partnering with 100+ brands across biotech, pharma, CPG, financial services, and nonprofit sectors.
 
 Safe Camp helps brands and marketing leaders build structured social media systems — called Social Media Playbooks — that tie business objectives to every social action. The work spans strategy, content, advertising, community management, crisis preparation, and AI integration.
 
@@ -12,63 +12,47 @@ Past clients include: Pfizer, Bayer, Boehringer Ingelheim, Daiichi Sankyo, Lundb
 
 ## Services
 
-Services are grouped into three categories. Scope, timing, and fee can be adjusted for all. Safe Camp does not offer content creation or influencer management.
+Services are grouped into three trails. Scope, timing, and fee can flex on everything. Safe Camp does not offer content creation or influencer management, just the strategy and the system behind it.
 
-### Get Started
+### Trailhead (get started)
 
 **Little Answers** — One social media question, answered personally by email. $15.
 
-**Consulting Call** — 30-minute or 1-hour session for immediate answers. $75–$150.
+**Consulting Call** — A focused 30-minute ($150) or 1-hour ($250) session for immediate answers. $150–$250.
 
-**Custom Project** — A scoped engagement built around specific needs. Pricing determined by scope.
+**Custom Project** — A scoped engagement built around your needs, from a fast, time-boxed Sprint to an ongoing retainer. Priced by scope; retainers typically $8k+/month.
+- Sprint: a focused, time-boxed engagement to move fast on one problem or opportunity, like a rapid audit or a quick-turn recommendation.
+- Retainer: reserved monthly time with Jason as an embedded strategist and operator, typically for six months or around a big campaign or event. May include deep embedding, a dedicated email address, laptop, file access or software, ongoing meetings, and onsite or offsite travel (expenses billed).
 
-**Retainer** — Dedicated and ad hoc consultation on a longer engagement, typically 6 months. Includes deep embedding as a strategist and operator, ongoing meeting participation, and optionally onsite travel. Typically $8,000+ monthly.
+### Survey (audits)
 
-### Audits
+**Social Media Audit** — A review of your public channels and internal documentation to surface business opportunities, for one channel or many. The scope can include a review of backend nuances. From $2k.
 
-**Social Media Audit** — Reviews current public-facing social media channels and internal documentation to identify business opportunities. Scope can focus on one or multiple channels, or include a review of backend nuances. Begins at $2,000.
+**LinkedIn Profile Audit** — Recommendations for every part of a LinkedIn profile, tailored to each person's goals. Often batched for executives or teams, or to support employee advocacy and training. From $750 per profile; batch pricing available.
 
-**LinkedIn Profile Audit** — Documents recommendations for every aspect of a LinkedIn profile, plus additional resources and considerations. Often batched for employee groups such as functional teams or select executives. Recommendations tailored to individual goals. $500 per profile; batch pricing available.
+### Expedition (strategy)
 
-### Strategy
+**Social Media Playbook** — Safe Camp's signature service. A complete system covering every part of your social strategy and operations, each tied to business, marketing, and social objectives. From $8k. Strategy is a finite system of six parts:
+- Foundation: business, marketing, social priorities; role of social media; objectives, measurement; budget; social audiences; social channel roles; automation
+- Governance: risk; legal; compliance; AI governance policy; platform policy compliance; account security protocols; employee access controls
+- Customer Care: operations, processes; team structure; community; customer servicing; response scenarios; social listening; crisis preparation
+- Content: owned assets; user-generated; influencers, partners; employer brand; executive presence; employee advocacy; social selling
+- Social by Design: accessibility; brand guidelines; editorial style guide; dynamic elements; social post templates; integrated marketing; media optimization
+- Social Advertising: audience targeting; retargeting; budget allocation; social media pixels; A/B testing; brand, conversion lift; conversion optimization
 
-**Executive Thought Leadership Strategy** — Also known as an "Executive Purpose Playbook" or "Personal Brand Strategy." Built for brand executives, spokespeople, consultants, small business owners, or anyone seeking to optimize their digital presence. Covers personal and professional purpose statements, personal brand elements, content and thought leadership pillars, publishing cadence, key digital channels, and integrations with PR and comms plans. Begins at $5,000.
+**Executive Thought Leadership** — A personal playbook for one leader, spokesperson or founder, covering purpose, personal brand, content pillars, cadence, and channels. Also known as an Executive Purpose Playbook or Personal Brand Strategy. From $5k.
 
-**Social Media Playbook** — Safe Camp's signature service. A complete social media system covering every component of a brand's strategy and operations, tied directly to business, marketing, and social media objectives. Components include:
-- Foundations: business/marketing/social priorities, role of social media, objectives and measurement, budget, social audiences, channel strategy, automation
-- Governance: risk, legal, compliance, AI governance policy, platform policy compliance, account security protocols, employee access controls
-- Customer Care: operations and processes, team structure, community management, customer servicing, response scenarios, social listening, crisis preparation
-- Content: owned assets, UGC, influencer and partner strategy, employer brand, executive presence, employee advocacy, social selling
-- Social by Design: accessibility, brand guidelines, editorial style guide, Figma dynamic elements, social post templates, integrated marketing, media optimization
-- Social Advertising: audience targeting, retargeting, budget allocation, pixel strategy, A/B testing, brand and conversion lift, conversion optimization
+**Social Advertising Strategy** — Paid social, scoped to fit: a targeting brief, a full plan for your Playbook, campaign, event, or other scenario. Typical sequence: strategy foundation, pre-launch activities, initial setup and promotion, continued promotion and testing. From $5k.
 
-Begins at $8,000.
+**Digital Crisis Playbook** — A Listen, Analyze, Act framework with response protocols for the scenarios you're most likely to face, including media response and coordination with PR and crisis comms. From $6k.
 
-**Conference or Event Strategy** — Outlines social media recommendations for all touchpoints before, during, and after an event. Covers content creation (including on-site production), social media advertising, staff/speaker/attendee involvement, social monitoring and listening, and additional creative ideas. Begins at $5,000.
+**Social Media Strategy for Events and Conferences** — Social recommendations for every touchpoint before, during, and after an event, including content creation and on-site production, advertising, staff, speaker and attendee involvement, and social listening. From $5k.
 
-**Social Media Advertising Strategy** — Also known as "Paid Social." Scales depending on scope and timing — from a one-off targeting parameters document to a comprehensive plan or event-specific campaign. Typical deliverable sequence: Strategy Foundation, Pre-Launch Activities, Initial Setup and Promotion, Continued Promotion and Testing. Begins at $5,000.
+**Digital Reviews Strategy** — For brands whose reputation lives on review platforms: which platforms to prioritize, response workflows, and proactive review generation. From $5k.
 
-**Digital Reviews Strategy** — For brands whose reputation is rooted in digital review platforms. Covers industry and competitor research, platform prioritization, review management workflow, response messaging, OKR/KPI alignment, content recommendations, and proactive review generation. Begins at $2,000.
+## Client Tools
 
-**Digital Crisis Playbook** — A framework and protocols based on anticipated scenarios. Covers a Listen/Analyze/Act framework, media response protocol, workflows for coordination with PR and crisis comms, and legal/risk/compliance considerations. Begins at $4,000.
-
-## Free Tools
-
-**Content Story Framer** — A browser-based tool for building story skeletons for social media content. Choose a proven structure (such as PAS, Before-After-Bridge, or Three-Act), select components for each slot, and fill in the scaffold with your own voice. Works for social media captions, video scripts, newsletters, blog posts, podcast intros, and more.
-
-URL: https://jason-kingx.github.io/safe-camp/tools/content-story-framer.html
-
-**Social Media Open Graph Checker** — A browser-based tool for previewing how any URL appears as a link card on X, LinkedIn, Facebook, Slack, Discord, iMessage, Pinterest, and Reddit. Includes a full tag-by-tag audit with plain-language fix guidance, fallback chain display, a recommended HTML snippet to hand to a developer, and platform-specific cache-busting instructions.
-
-URL: https://jason-kingx.github.io/safe-camp/tools/social-card-previewer.html
-
-**Social Media ROI Calculator** — A browser-based calculator for estimating the business value of organic content, paid social advertising, and influencer marketing. Powered by 43 research-backed principles. Outputs a total ROI figure with a confidence rating and plain-English interpretation.
-
-URL: https://jason-kingx.github.io/safe-camp/tools/social-media-roi-calculator.html
-
-**Statistical Significance Calculator** — A browser-based tool for testing whether A/B test results, ad experiments, or campaign comparisons are statistically meaningful or just noise. Uses a two-proportion z-test. Includes a sample size estimator.
-
-URL: https://jason-kingx.github.io/safe-camp/tools/statistical-significance-calculator.html
+Safe Camp has built tools that are available to clients only, as part of client engagements: Content Story Framer, Open Graph Checker, Social Media ROI Calculator, and Significance Calculator. They are not publicly accessible.
 
 ## Manual of Me
 
@@ -96,17 +80,14 @@ URL: https://jason-kingx.github.io/safe-camp/partners.html
 
 - Website: https://jason-kingx.github.io/safe-camp/
 - LinkedIn: https://www.linkedin.com/in/jasonkingx/
-- Book a call: https://cal.com/safecamp
-- Contact form: available on the website homepage
+- Contact (book a call, send a message, or ask a Little Answers question): https://jason-kingx.github.io/safe-camp/contact.html
 
 ## Site Pages
 
 - Homepage: https://jason-kingx.github.io/safe-camp/
-- Services: https://jason-kingx.github.io/safe-camp/services.html
-- Content Story Framer: https://jason-kingx.github.io/safe-camp/tools/content-story-framer.html
-- Social Media Open Graph Checker: https://jason-kingx.github.io/safe-camp/tools/social-card-previewer.html
-- Social Media ROI Calculator: https://jason-kingx.github.io/safe-camp/tools/social-media-roi-calculator.html
-- Statistical Significance Calculator: https://jason-kingx.github.io/safe-camp/tools/statistical-significance-calculator.html
+- Services: https://jason-kingx.github.io/safe-camp/#trails
+- Contact: https://jason-kingx.github.io/safe-camp/contact.html
+- Blog: https://jason-kingx.github.io/safe-camp/blog.html
 - Manual of Me: https://jason-kingx.github.io/safe-camp/manual-of-me.html
 - Partners: https://jason-kingx.github.io/safe-camp/partners.html
 - Privacy Policy: https://jason-kingx.github.io/safe-camp/privacy.html

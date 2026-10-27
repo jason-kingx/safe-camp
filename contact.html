@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="description" content="Contact Safe Camp: book a call, send a message, or ask one social media question for $15 with Little Answers.">
+  <meta property="og:title" content="Contact — Safe Camp">
+  <meta property="og:description" content="Book a call, send a message, or ask one social media question for $15.">
+  <meta property="og:image" content="https://jason-kingx.github.io/safe-camp/images/og-image.png">
+  <meta property="og:url" content="https://jason-kingx.github.io/safe-camp/contact.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Safe Camp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact — Safe Camp">
+  <meta name="twitter:description" content="Book a call, send a message, or ask one social media question for $15.">
+  <meta name="twitter:image" content="https://jason-kingx.github.io/safe-camp/images/og-image.png">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://app.cal.com https://tally.so; connect-src 'self' https://app.cal.com https://cal.com https://tally.so; frame-src https://app.cal.com https://cal.com https://tally.so; img-src 'self' data: https://app.cal.com https://cal.com;">
+  <link rel="canonical" href="https://jason-kingx.github.io/safe-camp/contact.html">
+  <title>Contact — Safe Camp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Hedvig+Letters+Sans&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="icon" href="favicon-black.svg" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="favicon-white.svg" media="(prefers-color-scheme: dark)">
+
+  <!-- Prevent dark-mode flash -->
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); }
+      else if (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches) { document.documentElement.setAttribute('data-theme', 'dark'); }
+    })();
+  </script>
+</head>
+<body class="home">
+  <noscript><p style="position:fixed;bottom:0;left:0;right:0;background:var(--sc-band);color:var(--sc-ink);text-align:center;padding:12px 24px;font-size:13px;z-index:999;margin:0;">JavaScript is disabled in your browser. The booking and contact forms require JavaScript to function.</p></noscript>
+  <div id="header-placeholder"></div>
+
+  <main id="main">
+
+<!-- ═════════════════════ INTRO ═════════════════════ -->
+<section class="band contact-intro" aria-labelledby="contact-title">
+  <div class="phrase-ticker" aria-hidden="true">
+    <div class="phrase-track" id="ticker-track"></div>
+  </div>
+  <div class="wrap">
+    <p class="eyebrow">Contact</p>
+    <h1 id="contact-title" class="h2">Pull up a log.</h1>
+    <p class="lede">Book a call, send a message, or ask one question.</p>
+  </div>
+</section>
+
+<!-- ═════════════════════ CONTACT OPTIONS ═════════════════════ -->
+<section class="band contact-options" aria-label="Ways to get in touch">
+  <div class="wrap contact-grid">
+    <div class="contact-tabs" role="tablist" aria-label="Contact options" aria-orientation="vertical">
+      <button type="button" class="contact-tab" role="tab" id="tab-call" aria-controls="pane-call" data-pane="call">
+        <span class="mark mark--circle" aria-hidden="true"></span>
+        <span class="names"><b>Book a call</b><small>Pick a time that works</small></span>
+      </button>
+      <button type="button" class="contact-tab" role="tab" id="tab-message" aria-controls="pane-message" data-pane="message">
+        <span class="mark mark--square" aria-hidden="true"></span>
+        <span class="names"><b>Send a message</b><small>I'll reply by email</small></span>
+      </button>
+      <button type="button" class="contact-tab" role="tab" id="tab-little-answers" aria-controls="pane-little-answers" data-pane="little-answers">
+        <span class="mark mark--diamond" aria-hidden="true"></span>
+        <span class="names"><b>Little Answers</b><small>One question · $15</small></span>
+      </button>
+    </div>
+
+    <div class="contact-view">
+      <div class="contact-pane" role="tabpanel" id="pane-call" aria-labelledby="tab-call" hidden>
+        <h2>Book a call</h2>
+        <p class="pane-lede">A focused 30-minute or 1-hour session to talk through where you are and where the business needs to go.</p>
+        <div class="embed-card embed-card--cal" id="cal-inline"></div>
+      </div>
+      <div class="contact-pane" role="tabpanel" id="pane-message" aria-labelledby="tab-message" hidden>
+        <h2>Send a message</h2>
+        <p class="pane-lede">Tell me where you're stuck or what you're planning, and I'll get back to you by email.</p>
+        <div class="embed-card">
+          <iframe data-tally-src="https://tally.so/embed/MebPkA?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="420" frameborder="0" marginheight="0" marginwidth="0" title="Send a message"></iframe>
+        </div>
+      </div>
+      <div class="contact-pane" role="tabpanel" id="pane-little-answers" aria-labelledby="tab-little-answers" hidden>
+        <h2>Little Answers</h2>
+        <p class="pane-lede">You don't always need a call, audit, or big project. A bit of guidance can set you on the right path. Sometimes all you need is a little help and a little answer. Fill out the brief form below with your question about social media, and I'll reply soon with a thoughtful answer. <a class="pane-faq-link" href="#little-answers-faq">Have a question first? See the FAQ below the form.</a></p>
+        <div class="embed-card">
+          <iframe data-tally-src="https://tally.so/embed/A74a0k?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="284" frameborder="0" marginheight="0" marginwidth="0" title="Little Answers"></iframe>
+        </div>
+        <aside class="la-faq" id="little-answers-faq" aria-labelledby="la-faq-title">
+          <div class="la-faq-head"><span class="la-faq-badge" aria-hidden="true">?</span><h3 id="la-faq-title">Little Answers FAQ</h3></div>
+          <div class="faq-list">
+          <details>
+            <summary>Who is this for?<span class="plus" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span></summary>
+            <p class="answer">Marketers and communications professionals. Big and small businesses. Anyone who uses social media to drive business results. And anyone who is curious about social media.</p>
+          </details>
+          <details>
+            <summary>How many questions can I ask?<span class="plus" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span></summary>
+            <p class="answer">Please include one focused question per form submission. If you include multiple questions, I will have to make sense of your submission and answer only one question. If you ask a follow-up question, together we can arrange another form submission or determine what will best meet your needs.</p>
+          </details>
+          <details>
+            <summary>What kinds of questions can I ask?<span class="plus" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span></summary>
+            <p class="answer">Anything related to social media, that will be helpful to you. For example, questions about strategy, platforms, content, tactics, etc. If you ask me who won the latest football game, I probably won't know!</p>
+          </details>
+          <details>
+            <summary>When will my question be answered?<span class="plus" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span></summary>
+            <p class="answer">Questions are typically answered within 24 - 48 hours. I strive to give a thoughtful and thorough answer.</p>
+          </details>
+          <details>
+            <summary>How are questions used?<span class="plus" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span></summary>
+            <p class="answer">I ask that you do not include sensitive data, customer information, or similar information. The Little Answers question form only collects an email address and a question. This information is not stored in any database or third-party system — it is sent directly to my inbox via a mailto link. The email address may be retained in that inbox to cross-reference against a Stripe payment record and to send a reply. It will not be used for marketing or added to any mailing list without explicit consent. Submitted questions also help me decide what to write or make content about.</p>
+          </details>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script>
+    (function() {
+      var now   = new Date();
+      var month = now.getMonth();  // 0-indexed
+      var date  = now.getDate();
+
+      var base = [
+        'ask me anything',
+        'here to help',
+        'share your social worries',
+        'how\'s my LinkedIn profile',
+        'the latest on social',
+        'what really matters',
+        'the social in social media',
+        'only MF DOOM scrolling',
+        'social media is a system',
+        'ask the question you\'ve been holding onto',
+        'someone needs to hear this'
+      ];
+
+      // January
+      if (month === 0)  { base.push('new year, new feed'); base.push('this is fine'); }
+      // February
+      if (month === 1)  { base.push('be my follower'); base.push('love at first scroll'); }
+      // March
+      if (month === 2)  { base.push('spring clean your strategy'); base.push('thnks fr th mmrs'); }
+      // April
+      if (month === 3)  { base.push('no fooling around'); base.push('chronically online'); }
+      // May — all month except May 4th gets its own
+      if (month === 4)  { base.push('peak content season'); }
+      if (month === 4 && date === 4) { base.push('may the fourth be with you'); }
+      // June
+      if (month === 5)  { base.push('peak content season'); base.push('touch grass and post about it'); }
+      // July
+      if (month === 6)  { base.push('posting from the pool'); base.push('sunscreen and scheduling'); }
+      // August
+      if (month === 7)  { base.push('out of office, still online'); base.push('no summer slump here'); base.push('back to school'); }
+      // September
+      if (month === 8)  { base.push('back to the timeline'); base.push('fall posting season'); }
+      // October
+      if (month === 9)  { base.push('trick or treat'); base.push('comments are content too'); }
+      if (month === 9 && date === 3) { base.push('on October 3rd, he asked me what day it was'); }
+      // November
+      if (month === 10) { base.push('giving thanks for engagement'); base.push('thankful for you'); }
+      // December
+      if (month === 11) { base.push('happy holidays'); base.push('logged off, briefly'); }
+
+      var track = document.getElementById('ticker-track');
+      var full = base.concat(base);
+      var html = '';
+      full.forEach(function(item) {
+        html += '<span class="ticker-segment">'
+              + '<span class="ticker-item">' + item + '</span>'
+              + '<span class="ticker-dot">•</span>'
+              + '</span>';
+      });
+      track.innerHTML = html;
+    })();
+  </script>
+
+  <script src="js/contact.js"></script>
+  <script src="include.js"></script>
+</body>
+</html>

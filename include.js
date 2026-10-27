@@ -41,9 +41,9 @@ function initHeader() {
 
   // Theme toggle button
   var btn = document.getElementById('themeToggle');
-  var label = btn.querySelector('.toggle-label');
   function updateLabel() {
-    label.textContent = html.getAttribute('data-theme') === 'dark' ? 'Dark' : 'Light';
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    btn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
   }
   updateLabel();
   btn.addEventListener('click', function () {
@@ -56,71 +56,6 @@ function initHeader() {
       localStorage.setItem('theme', 'dark');
     }
     updateLabel();
-  });
-
-  // Dropdown menus — wire up every dropdown independently
-  var dropdowns = document.querySelectorAll('.nav-dropdown');
-  dropdowns.forEach(function (dropdown) {
-    var toggle = dropdown.querySelector('.nav-dropdown-toggle');
-    var menu = dropdown.querySelector('.nav-dropdown-menu');
-
-    toggle.addEventListener('click', function () {
-      // Close all other open dropdowns first
-      dropdowns.forEach(function (other) {
-        if (other !== dropdown) {
-          other.querySelector('.nav-dropdown-menu').classList.remove('is-open');
-          other.querySelector('.nav-dropdown-toggle').setAttribute('aria-expanded', 'false');
-        }
-      });
-      var open = menu.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', String(open));
-    });
-
-    // Close when a link or action button inside the menu is clicked
-    menu.querySelectorAll('a, button').forEach(function (item) {
-      item.addEventListener('click', function () {
-        menu.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-  });
-
-  // Close all dropdowns on outside click
-  document.addEventListener('click', function (e) {
-    dropdowns.forEach(function (dropdown) {
-      if (!dropdown.contains(e.target)) {
-        dropdown.querySelector('.nav-dropdown-menu').classList.remove('is-open');
-        dropdown.querySelector('.nav-dropdown-toggle').setAttribute('aria-expanded', 'false');
-      }
-    });
-  });
-
-  function closeAllDropdowns() {
-    dropdowns.forEach(function (dropdown) {
-      dropdown.querySelector('.nav-dropdown-menu').classList.remove('is-open');
-      dropdown.querySelector('.nav-dropdown-toggle').setAttribute('aria-expanded', 'false');
-    });
-  }
-
-  // Hamburger menu
-  var hamburger = document.getElementById('hamburger');
-  var navLinks = document.getElementById('navLinks');
-  hamburger.addEventListener('click', function () {
-    var open = navLinks.classList.toggle('nav-open');
-    hamburger.classList.toggle('is-open', open);
-    hamburger.setAttribute('aria-expanded', String(open));
-    // Close all dropdowns when mobile nav closes
-    if (!open) {
-      closeAllDropdowns();
-    }
-  });
-  navLinks.querySelectorAll('a, button:not(.nav-dropdown-toggle):not(#themeToggle):not(#hamburger)').forEach(function (el) {
-    el.addEventListener('click', function () {
-      navLinks.classList.remove('nav-open');
-      hamburger.classList.remove('is-open');
-      hamburger.setAttribute('aria-expanded', 'false');
-      closeAllDropdowns();
-    });
   });
 }
 
