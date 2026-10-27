@@ -142,8 +142,7 @@ html[data-theme="dark"] .ticker-logo{filter:brightness(0) invert(1);}
 .trail-tab .mark{flex:none;border:2px solid #0E1012;}
 .trail-tab .mark--circle{width:18px;height:18px;border-radius:50%;background:#3E9A5E;}
 .trail-tab .mark--square{width:18px;height:18px;border-radius:3px;background:#3B6FF5;}
-.trail-tab .mark--diamond{width:15px;height:15px;background:#0E1012;transform:rotate(45deg);margin:0 2px;border:0;}
-html[data-theme="dark"] .trail-tab:not([aria-selected="true"]) .mark--diamond{background:var(--sc-ink);}
+.trail-tab .mark--diamond{width:15px;height:15px;background:#F2843A;transform:rotate(45deg);margin:0 2px;}
 .trail-tab .names{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;}
 .trail-tab b{font-family:var(--sc-serif);font-weight:600;font-size:22px;line-height:1.1;letter-spacing:-.01em;}
 .trail-tab small{font-family:var(--sc-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.75;}
@@ -261,10 +260,8 @@ body.home main > section[id]{scroll-margin-top:64px;}
 .contact-tab{display:flex;align-items:center;gap:14px;min-height:72px;padding:12px 20px 12px 18px;border:2.5px solid var(--sc-edge);border-radius:18px;background:var(--sc-surface);color:var(--sc-ink);font:inherit;text-align:left;transition:transform .15s ease,box-shadow .15s ease;}
 .contact-tab:hover{transform:translate(-1px,-1px);}
 .contact-tab[aria-selected="true"]{background:var(--sc-lantern);color:#0E1012;border-color:#0E1012;box-shadow:4px 4px 0 var(--sc-shadow);}
-.contact-tab .mark{flex:none;border:2px solid #0E1012;}
-.contact-tab .mark--circle{width:18px;height:18px;border-radius:50%;background:#3E9A5E;}
-.contact-tab .mark--square{width:18px;height:18px;border-radius:3px;background:#3B6FF5;}
-.contact-tab .mark--diamond{width:15px;height:15px;background:#F2843A;transform:rotate(45deg);margin:0 2px;}
+.contact-tab .icon{flex:none;width:22px;height:22px;color:var(--sc-ink);}
+.contact-tab[aria-selected="true"] .icon{color:#0E1012;}
 .contact-tab .names{display:flex;flex-direction:column;gap:3px;}
 .contact-tab b{font-family:var(--sc-serif);font-weight:600;font-size:22px;line-height:1.1;letter-spacing:-.01em;}
 .contact-tab small{font-family:var(--sc-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.75;}
