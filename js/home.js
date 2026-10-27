@@ -10,7 +10,7 @@
   // Each item can carry "more": a short note and/or bullet list for its "What's included" expander.
   var trails = [
     {
-      id: 'trailhead', name: 'Trailhead', level: 'Get started', mark: 'circle',
+      id: 'trailhead', name: 'Trailhead', level: 'Get started', mark: 'triangle',
       blurb: 'Quick, low-commitment ways in. Get a straight answer, a working session, or a partner embedded for the long haul.',
       items: [
         { name: 'Little Answers', desc: 'One social media question, answered personally by email.', price: '$15' },
@@ -28,7 +28,7 @@
       ]
     },
     {
-      id: 'survey', name: 'Survey', level: 'Audits', mark: 'square',
+      id: 'survey', name: 'Survey', level: 'Audits', mark: 'circle',
       blurb: 'Find out where you really stand before deciding where to go next.',
       items: [
         { name: 'Social Media Audit', desc: 'A review of your public channels and internal documentation to surface business opportunities, for one channel or many.', price: 'From $2k',
@@ -38,7 +38,7 @@
       ]
     },
     {
-      id: 'expedition', name: 'Expedition', level: 'Strategy', mark: 'diamond',
+      id: 'expedition', name: 'Expedition', level: 'Strategy', mark: 'square',
       blurb: 'Full systems for brands, executives and moments that matter, each tied directly to business, marketing and social objectives.',
       items: [
         { name: 'Social Media Playbook', desc: 'A complete system covering every part of your social strategy and operations, each tied to business, marketing and social objectives.', price: 'From $8k', signature: true,
@@ -100,6 +100,13 @@
     return text.replace(/ (\S+)$/, '\u00a0$1');
   }
 
+  // Trail markers match the shapes the camper is carrying (colours sampled from his illustration)
+  var MARKS = {
+    triangle: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.2 21 19.2H3Z" fill="#709858" stroke="#0E1012" stroke-width="2.4" stroke-linejoin="round"/></svg>',
+    circle: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.4" fill="#F0585C" stroke="#0E1012" stroke-width="2.2"/></svg>',
+    square: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4.5" fill="#FCD040" stroke="#0E1012" stroke-width="2.2"/></svg>'
+  };
+
   function el(tag, cls, text) {
     var n = document.createElement(tag);
     if (cls) n.className = cls;
@@ -113,7 +120,9 @@
     b.id = 'trail-tab-' + t.id;
     b.setAttribute('role', 'tab');
     b.setAttribute('aria-controls', 'trailPanel');
-    b.appendChild(el('span', 'mark mark--' + t.mark));
+    var mark = el('span', 'mark');
+    mark.innerHTML = MARKS[t.mark];
+    b.appendChild(mark);
     var names = el('span', 'names');
     names.appendChild(el('b', '', t.name));
     names.appendChild(el('small', '', t.level));

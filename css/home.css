@@ -138,10 +138,8 @@ html[data-theme="dark"] .ticker-logo{filter:brightness(0) invert(1);}
 .trail-tab{display:flex;align-items:center;gap:14px;min-height:64px;padding:10px 22px 10px 18px;border:2.5px solid var(--sc-edge);border-radius:18px;background:var(--sc-paper);color:var(--sc-ink);font:inherit;transition:transform .15s ease,box-shadow .15s ease;}
 .trail-tab:hover{transform:translate(-1px,-1px);}
 .trail-tab[aria-selected="true"]{background:var(--sc-lantern);color:#0E1012;border-color:#0E1012;box-shadow:4px 4px 0 var(--sc-shadow);}
-.trail-tab .mark{flex:none;border:2px solid #0E1012;}
-.trail-tab .mark--circle{width:18px;height:18px;border-radius:50%;background:#3E9A5E;}
-.trail-tab .mark--square{width:18px;height:18px;border-radius:3px;background:#3B6FF5;}
-.trail-tab .mark--diamond{width:15px;height:15px;background:#F2843A;transform:rotate(45deg);margin:0 2px;}
+.trail-tab .mark{flex:none;display:flex;width:24px;height:24px;}
+.trail-tab .mark svg{width:100%;height:100%;}
 .trail-tab .names{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;}
 .trail-tab b{font-family:var(--sc-serif);font-weight:600;font-size:22px;line-height:1.1;letter-spacing:-.01em;}
 .trail-tab small{font-family:var(--sc-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.75;}
