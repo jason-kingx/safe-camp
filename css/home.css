@@ -45,7 +45,6 @@ html[data-theme="dark"] .duo .is-dark{opacity:1;}
 .hero h1{font-size:clamp(60px,8.4vw,128px);line-height:.9;letter-spacing:-.045em;}
 .hero h1 em{font-style:normal;color:var(--sc-accent);}
 .hero .lede{margin-top:30px;max-width:31em;}
-.hero-ctas{margin-top:40px;display:flex;flex-wrap:wrap;gap:14px;}
 .hero-art{position:relative;justify-self:center;width:100%;max-width:640px;aspect-ratio:6/5;}
 .hero-forest{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);}
 .hero-art .duo{position:absolute;left:50%;bottom:-7.5%;width:76%;transform:translateX(-50%);}
@@ -225,20 +224,9 @@ html[data-theme="dark"] .ticker-logo{filter:brightness(0) invert(1);}
 .faq-list .answer{padding:0 56px 24px 4px;font-size:17px;line-height:1.6;color:var(--sc-muted);}
 @media (max-width:860px){.faq .wrap{grid-template-columns:1fr;}}
 
-/* ── Pull up a log ── */
-.camp{overflow:hidden;}
-.camp .wrap{position:relative;padding-top:clamp(80px,10vw,140px);padding-bottom:clamp(64px,8vw,104px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:48px 64px;align-items:center;}
-.camp .eyebrow{color:var(--sc-accent);}
-
-.camp .lede{margin-top:28px;max-width:460px;}
-.camp-ctas{margin-top:36px;display:flex;flex-wrap:wrap;gap:14px;}
-.camp-note{margin-top:22px;font-size:15px;color:var(--sc-muted);}
-.camp-note a{color:var(--sc-ink);text-underline-offset:4px;}
-.camp-art{position:relative;justify-self:center;width:min(320px,100%);}
-.camp-art::before{content:"";position:absolute;left:50%;top:55%;width:120%;aspect-ratio:1.6;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(246,188,62,.28),rgba(246,188,62,0));}
-.camp-art .duo{position:relative;}
-.camp-art img{width:100%;height:auto;}
-
+/* Partners illustration under the FAQ intro */
+.faq-art{margin-top:32px;width:min(300px,100%);}
+.faq-art img{width:100%;height:auto;}
 @media (prefers-reduced-motion:reduce){.bob,.eyes g{animation:none;}.duo > img{transition:none;}}
 body.home main > section[id]{scroll-margin-top:64px;}
 .trail-card.is-signature .included,.trail-card.is-signature .included summary,.trail-card.is-signature .included b{color:#2C2A26;}
