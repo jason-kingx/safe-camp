@@ -147,14 +147,10 @@ html[data-theme="dark"] .ticker-logo{filter:brightness(0) invert(1);}
 .trail-cards{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:20px;}
 .trail-card{position:relative;overflow:hidden;height:360px;display:flex;flex-direction:column;gap:12px;padding:26px;border:2.5px solid var(--sc-edge);border-radius:22px;background:var(--sc-surface);box-shadow:4px 4px 0 var(--sc-shadow);transition:transform .18s ease,box-shadow .18s ease;}
 .trail-card:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--sc-shadow);}
-.trail-card.is-signature{background:#FFF3CF;color:#0E1012;}
-.trail-card.is-signature h3,.trail-card.is-signature .price{color:#0E1012;}
-.trail-card.is-signature .desc{color:#4A4640;}
 .trail-card .badge{align-self:flex-start;font-family:var(--sc-mono);font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;background:#0E1012;color:var(--sc-lantern);padding:6px 10px;border-radius:999px;}
 .trail-card h3{font-size:26px;font-weight:600;line-height:1.1;letter-spacing:-.015em;}
 .trail-card .desc{flex:1 1 auto;font-size:15.5px;line-height:1.55;color:var(--sc-muted);}
 .trail-card .price{padding-top:16px;border-top:2px dashed var(--sc-line);font-family:var(--sc-mono);font-weight:500;font-size:15px;color:var(--sc-ink);}
-.trail-card.is-signature .price{border-top-color:#E2CF9A;}
 
 /* ── 04 Your guide ── */
 .guide .wrap{padding-top:clamp(56px,6vw,88px);padding-bottom:clamp(56px,6vw,88px);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:40px 64px;align-items:center;}
@@ -227,7 +223,6 @@ html[data-theme="dark"] .ticker-logo{filter:brightness(0) invert(1);}
 .faq-art img{width:100%;height:auto;}
 @media (prefers-reduced-motion:reduce){.bob,.eyes g{animation:none;}.duo > img{transition:none;}}
 body.home main > section[id]{scroll-margin-top:64px;}
-.trail-card.is-signature .included,.trail-card.is-signature .included summary,.trail-card.is-signature .included b{color:#2C2A26;}
 
 /* ══ Contact page ══ */
 .contact-intro .wrap{padding-top:clamp(56px,7vw,96px);padding-bottom:36px;}
@@ -272,7 +267,6 @@ html[data-theme="dark"] .embed-card--cal{background:#101010;}
 .trail-card .price{margin-top:auto;}
 .more-btn + .price,.more-slot + .price{margin-top:0;}
 .more-panel{position:absolute;inset:0;padding:22px 24px 24px;overflow-y:auto;background:var(--sc-surface);color:var(--sc-ink);font-size:14.5px;line-height:1.5;transform:translateY(100%);transition:transform .25s ease;}
-.trail-card.is-signature .more-panel{background:#FFF3CF;color:#0E1012;}
 .trail-card.is-open .more-panel{transform:translateY(0);}
 .more-panel p{margin:0 0 10px;color:inherit;}
 .more-panel b{display:block;font-weight:600;}
