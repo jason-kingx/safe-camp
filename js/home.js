@@ -223,7 +223,7 @@
 
   // Alphabetical. Categories drive the filter; logos with none only show under "all".
   var logos = [
-    ['ACT.png', 'nonprofit'],
+    ['ACT.png', ''],
     ['Alcon.svg', 'biotech'],
     ['Almond_Board.png', 'cpg'],
     ['ALS_Association.svg', 'nonprofit'],
